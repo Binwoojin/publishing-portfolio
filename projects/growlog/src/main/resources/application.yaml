@@ -9,10 +9,9 @@ spring:
 
 
   datasource:
-    # 기본값은 지금 쓰는 RDS 주소 그대로다 — DB_URL을 안 넣어도 기존 env.sh/env.bat
-    # 설정 그대로 동작한다. 다른 환경(예: 테스트용 별도 인스턴스)을 쓸 때만
-    # DB_URL을 오버라이드하면 된다.
-    url: ${DB_URL:jdbc:mysql://growlog-db.cx46sswa4e8c.ap-northeast-2.rds.amazonaws.com:3306/growlog?serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false}
+    # 실제 DB 주소는 저장소에 남기지 않는다 — env.sh/env.bat에서 DB_URL을
+    # 반드시 설정해야 한다. (값이 없으면 앱이 시작 시점에 바로 실패한다)
+    url: ${DB_URL}
     username: ${DB_USERNAME:}
     password: ${DB_PASSWORD:}
     driver-class-name: com.mysql.cj.jdbc.Driver
