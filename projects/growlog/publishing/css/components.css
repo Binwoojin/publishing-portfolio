@@ -174,7 +174,8 @@
 }
 .form-alert:focus { outline: 2px solid var(--c-danger); outline-offset: 2px; }
 .form-alert ul { margin-top: var(--sp-1); padding-left: var(--sp-4); list-style: disc; }
-.form-alert a { text-decoration: underline; }
+/* 오류 요약 링크: 클릭 영역 24px 이상 (WCAG 2.2 Target Size) */
+.form-alert a { display: inline-flex; align-items: center; min-height: 28px; text-decoration: underline; }
 
 /* 선택 카드형 라디오 (분류 · 난이도) */
 .choice-group { display: grid; gap: var(--sp-2); border: 0; padding: 0; margin: 0; min-width: 0; }
@@ -287,23 +288,27 @@
 .progress__head { display: flex; justify-content: space-between; font-size: var(--fs-sm); }
 .progress__label { color: var(--c-ink-2); }
 .progress__value { font-variant-numeric: tabular-nums; }
+/* 네이티브 <progress> — 브라우저 기본 모양을 지우고 막대만 그린다 */
 .progress__track {
+  display: block;
+  width: 100%;
   height: 8px;
+  border: 0;
   border-radius: var(--radius-pill);
   background: var(--c-surface-2);
+  color: var(--c-amber);
   overflow: hidden;
+  appearance: none;
+  -webkit-appearance: none;
 }
-.progress__bar {
-  display: block;
-  width: var(--value);
-  height: 100%;
-  border-radius: inherit;
-  background: var(--c-amber);
-  transform-origin: left;
-  animation: grow-x var(--dur-slow) var(--ease-out) both;
-}
-.progress__bar.is-done { background: var(--c-green); }
-@keyframes grow-x { from { transform: scaleX(0); } }
+.progress__track::-webkit-progress-bar { border-radius: inherit; background: var(--c-surface-2); }
+.progress__track::-webkit-progress-value { border-radius: inherit; background: var(--c-amber); }
+.progress__track::-moz-progress-bar { border-radius: inherit; background: var(--c-amber); }
+.progress__track.is-done { color: var(--c-green); }
+.progress__track.is-done::-webkit-progress-value { background: var(--c-green); }
+.progress__track.is-done::-moz-progress-bar { background: var(--c-green); }
+.progress__track { animation: grow-x var(--dur-slow) var(--ease-out) both; }
+@keyframes grow-x { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
 
 /* ---------- Segmented (필터 · 상태 전환) ---------- */
 .segmented {

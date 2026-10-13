@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>기록하기 | GrowLog</title>
+  <meta name="description" content="오늘 배운 점 · 어려웠던 점 · 회고를 나눠 남기는 GrowLog 기록 작성 화면">
   <meta name="theme-color" content="#fbf7ef">
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
@@ -62,7 +63,7 @@
         </div>
 
         <form class="card form-card" id="recordForm" novalidate>
-          <div class="form-alert" id="recordAlert" role="alert" tabindex="-1" hidden style="margin-bottom:24px">
+          <div class="form-alert" id="recordAlert" role="alert" tabindex="-1" hidden>
             <svg class="icon" aria-hidden="true"><use href="#i-alert"></use></svg>
             <div><strong>입력 내용을 확인해 주세요.</strong><ul id="recordAlertList"></ul></div>
           </div>
@@ -84,7 +85,7 @@
               </div>
             </fieldset>
 
-            <div class="field" id="goalField" style="margin-top:20px">
+            <div class="field" id="goalField">
               <label class="field__label" for="goalSelect">연결할 목표<span class="req" aria-hidden="true">*</span></label>
               <select class="select" id="goalSelect" name="goalNum" aria-describedby="goalSelectMsg">
                 <option value="">목표를 선택하세요</option>
@@ -116,14 +117,14 @@
 
             <fieldset class="choice-group">
               <legend class="field__label" id="difficultyLegend">체감 난이도</legend>
-              <div class="choice-list" style="grid-template-columns:repeat(3,1fr)">
+              <div class="choice-list choice-list--3">
                 <label class="choice"><input type="radio" name="difficulty" value="EASY"><span class="choice__box" data-label="EASY">쉬움</span></label>
                 <label class="choice"><input type="radio" name="difficulty" value="NORMAL" checked><span class="choice__box" data-label="NORMAL">보통</span></label>
                 <label class="choice"><input type="radio" name="difficulty" value="HARD"><span class="choice__box" data-label="HARD">어려움</span></label>
               </div>
             </fieldset>
 
-            <div class="field" style="margin-top:20px">
+            <div class="field">
               <label class="field__label" for="todayLearning">오늘 배운 점</label>
               <textarea class="textarea" id="todayLearning" name="todayLearning" rows="3"></textarea>
             </div>
@@ -149,7 +150,7 @@
                 <input type="file" id="imageInput" accept="image/*" multiple aria-labelledby="imageLabel" aria-describedby="imageMsg">
               </label>
               <p class="field__help" id="imageMsg" hidden></p>
-              <ul class="previews" id="previews" aria-label="첨부한 이미지"></ul>
+              <ul class="previews" id="previews" aria-labelledby="imageLabel"></ul>
             </div>
 
             <div class="field">

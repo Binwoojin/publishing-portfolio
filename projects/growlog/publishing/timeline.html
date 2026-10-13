@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>타임라인 | GrowLog</title>
+  <meta name="description" content="목표 등록과 기록 작성을 날짜순으로 이어 보는 GrowLog 월별 타임라인">
   <meta name="theme-color" content="#fbf7ef">
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
@@ -86,12 +87,12 @@
         <div class="view" id="timelineView" aria-busy="true">
           <div data-state="loading">
             <p class="blind">타임라인을 불러오는 중입니다.</p>
-            <div aria-hidden="true" style="display:grid;gap:12px">
-              <span class="skeleton skeleton--title" style="width:30%"></span>
-              <span class="skeleton skeleton--block" style="height:92px"></span>
-              <span class="skeleton skeleton--block" style="height:92px"></span>
-              <span class="skeleton skeleton--title" style="width:30%;margin-top:16px"></span>
-              <span class="skeleton skeleton--block" style="height:92px"></span>
+            <div class="skeleton-stack skeleton-stack--timeline" aria-hidden="true">
+              <span class="skeleton skeleton--title"></span>
+              <span class="skeleton skeleton--block"></span>
+              <span class="skeleton skeleton--block"></span>
+              <span class="skeleton skeleton--title"></span>
+              <span class="skeleton skeleton--block"></span>
             </div>
           </div>
 
@@ -114,7 +115,7 @@
           </div>
 
           <div data-state="success" hidden>
-            <ul class="month-summary" id="monthSummary" aria-label="이 달 요약"></ul>
+            <ul class="month-summary" id="monthSummary" aria-labelledby="monthTitle"></ul>
             <div id="timelineList"></div>
           </div>
         </div>

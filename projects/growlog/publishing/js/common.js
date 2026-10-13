@@ -70,8 +70,8 @@ window.GL = (function () {
     return '<div class="progress">' +
       '<div class="progress__head"><span class="progress__label">' + esc(label || '진행률') + '</span>' +
       '<strong class="progress__value">' + value + '%</strong></div>' +
-      '<div class="progress__track" role="progressbar" aria-label="' + esc(ariaLabel || label || '진행률') + '" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + value + '">' +
-      '<span class="progress__bar' + (value === 100 ? ' is-done' : '') + '" style="--value:' + value + '%"></span></div></div>';
+      /* 네이티브 <progress>: 값 · 최댓값을 스크린리더가 그대로 읽는다 */
+      '<progress class="progress__track' + (value === 100 ? ' is-done' : '') + '" max="100" value="' + value + '" aria-label="' + esc(ariaLabel || label || '진행률') + '">' + value + '%</progress></div>';
   }
 
   function icon(name) {
@@ -198,8 +198,9 @@ window.GL = (function () {
     });
 
     var initial = param('state');
+    /* 처음 열 때는 바로 그린다. 로딩 화면은 데모 도구 · 재시도 · 조건 변경 때 보여 준다 (첫 화면 표시 속도 우선) */
     if (initial && root.querySelector('[data-state="' + initial + '"]')) set(initial, true);
-    else load();
+    else set(options.resolve ? options.resolve() : 'success', true);
 
     return { set: set, load: load };
   }

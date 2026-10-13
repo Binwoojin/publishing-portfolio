@@ -10,7 +10,9 @@
   <script>try{if(JSON.parse(localStorage.getItem('waylog:auth'))===true)document.documentElement.className='is-member';}catch(e){}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+  <!-- 웹폰트 CSS 가 첫 화면 표시를 막지 않도록 비동기로 불러온다 -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap" onload="this.onload=null;this.removeAttribute('as');this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap"></noscript>
   <link rel="stylesheet" href="../../../common/css/reset.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
@@ -53,8 +55,9 @@
     </div>
   </header>
 
-  <dialog class="drawer" id="drawer" aria-label="전체 메뉴">
+  <dialog class="drawer" id="drawer" aria-labelledby="drawerTitle">
     <div class="drawer__inner">
+      <h2 class="blind" id="drawerTitle">전체 메뉴</h2>
       <div class="drawer__head">
         <a class="logo" href="index.html" aria-label="WayLog 홈"><svg class="logo__mark" viewBox="0 0 32 32" aria-hidden="true"><path class="route" d="M5 27c6-1 7-7 12-8s8-3 9-9"/><circle class="dot" cx="5" cy="27" r="2.6"/><path class="pin" d="M26 2.5a5.5 5.5 0 0 0-5.5 5.5c0 4.2 5.5 9 5.5 9s5.5-4.8 5.5-9A5.5 5.5 0 0 0 26 2.5Zm0 7.6a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2Z"/></svg><span aria-hidden="true">WayLog</span></a>
         <button class="icon-btn" type="button" data-dialog-close aria-label="메뉴 닫기"><svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg></button>
@@ -90,7 +93,7 @@
       <div id="postView" aria-busy="true">
         <div data-state="loading">
           <p class="blind">게시물을 불러오는 중입니다.</p>
-          <div class="post-skeleton" aria-hidden="true"><span class="skeleton" style="height:40px;width:40%"></span><span class="skeleton" style="aspect-ratio:4/3"></span><span class="skeleton" style="height:60px"></span></div>
+          <div class="post-skeleton" aria-hidden="true"><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton"></span></div>
         </div>
         <div data-state="error" hidden>
           <div class="state-box state-box--error">
@@ -130,7 +133,7 @@
 
     <dialog class="dialog" id="confirmDialog" aria-labelledby="confirmTitle" aria-describedby="confirmDesc">
       <div class="dialog__inner">
-        <h2 class="dialog__title" id="confirmTitle"></h2>
+        <h2 class="dialog__title" id="confirmTitle">삭제할까요?</h2>
         <p class="dialog__desc" id="confirmDesc"></p>
         <div class="dialog__actions">
           <button class="btn btn--outline" type="button" data-dialog-close>취소</button>

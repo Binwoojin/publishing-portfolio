@@ -15,7 +15,7 @@
   function render() {
     var all = posts();
     var filterBar = tag ? '<p class="feed-filter"><span>#' + WL.esc(tag) + ' 이야기 ' + all.length + '개</span><button class="btn btn--ghost btn--sm" type="button" data-clear-tag>' + WL.icon('x') + '필터 해제</button></p>' : '';
-    list.innerHTML = filterBar + all.slice(0, shown).map(WL.postCard).join('');
+    list.innerHTML = filterBar + all.slice(0, shown).map(function (post, i) { return WL.postCard(post, { eager: i === 0 }); }).join('');
     var done = shown >= all.length;
     moreBtn.hidden = done;
     document.getElementById('feedEnd').hidden = !done || all.length === 0;

@@ -155,7 +155,8 @@
 .page-head__desc { max-width: 60ch; margin-top: var(--sp-2); color: var(--c-ink-2); }
 .page-head__row { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--sp-4); }
 
-.main { min-height: 60vh; padding-bottom: var(--sp-16); }
+/* JS 가 본문을 그리기 전에 푸터가 첫 화면에 보였다가 밀려나지 않도록(CLS) 본문 높이를 화면 높이만큼 잡아 둔다 */
+.main { min-height: calc(100vh - var(--header-h)); min-height: calc(100svh - var(--header-h)); padding-bottom: var(--sp-16); }
 
 /* ---------- Footer ---------- */
 .site-footer {

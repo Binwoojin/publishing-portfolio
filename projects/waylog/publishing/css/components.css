@@ -90,6 +90,7 @@
   transition: background-color var(--dur-fast), color var(--dur-fast);
 }
 .toggle:hover { background: var(--c-surface-2); color: var(--c-ink); }
+.toggle--end { margin-left: auto; }
 .toggle .icon { width: 20px; height: 20px; }
 .toggle[aria-pressed="true"] { color: var(--c-coral-text); }
 .toggle[aria-pressed="true"] .icon { fill: var(--c-coral); stroke: var(--c-coral-text); }
@@ -178,7 +179,8 @@
 }
 .form-alert:focus { outline: 2px solid var(--c-danger); outline-offset: 2px; }
 .form-alert ul { margin-top: var(--sp-1); padding-left: var(--sp-4); list-style: disc; }
-.form-alert a { text-decoration: underline; }
+/* 오류 요약 링크: 클릭 영역 24px 이상 (WCAG 2.2 Target Size) */
+.form-alert a { display: inline-flex; align-items: center; min-height: 28px; text-decoration: underline; }
 
 .check {
   display: flex;

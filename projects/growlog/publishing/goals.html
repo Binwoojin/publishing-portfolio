@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>목표 | GrowLog</title>
+  <meta name="description" content="진행률과 상태(진행중 · 완료 · 중단)를 직접 갱신하며 관리하는 GrowLog 목표 목록">
   <meta name="theme-color" content="#fbf7ef">
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
@@ -94,9 +95,9 @@
           <div data-state="loading">
             <p class="blind">목표 목록을 불러오는 중입니다.</p>
             <div class="goal-grid" aria-hidden="true">
-              <span class="skeleton skeleton--block" style="height:250px"></span>
-              <span class="skeleton skeleton--block" style="height:250px"></span>
-              <span class="skeleton skeleton--block" style="height:250px"></span>
+              <span class="skeleton skeleton--card"></span>
+              <span class="skeleton skeleton--card"></span>
+              <span class="skeleton skeleton--card"></span>
             </div>
           </div>
 
@@ -143,7 +144,7 @@
               <input class="range" type="range" id="progressRange" min="0" max="100" step="5" value="0">
               <div class="range-field__scale" aria-hidden="true"><span>0%</span><span>50%</span><span>100%</span></div>
             </div>
-            <fieldset class="choice-group" style="margin-top:24px">
+            <fieldset class="choice-group">
               <legend class="field__label">상태</legend>
               <div class="choice-list status-choices">
                 <label class="choice"><input type="radio" name="status" value="진행중"><span class="choice__box">진행중</span></label>
@@ -151,7 +152,7 @@
                 <label class="choice"><input type="radio" name="status" value="중단"><span class="choice__box">중단</span></label>
               </div>
             </fieldset>
-            <p class="field__help" id="editHint" style="margin-top:12px" hidden></p>
+            <p class="field__help dialog__hint" id="editHint" hidden></p>
           </div>
           <div class="dialog__actions">
             <button class="btn btn--outline" type="button" data-dialog-close>취소</button>

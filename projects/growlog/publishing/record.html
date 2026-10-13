@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>기록 상세 | GrowLog</title>
+  <meta name="description" content="목표와 연결된 하루 기록과 첨부 사진을 보는 GrowLog 기록 상세 화면">
   <meta name="theme-color" content="#fbf7ef">
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
@@ -67,12 +68,12 @@
         <div class="view" id="recordView" aria-busy="true">
           <div data-state="loading">
             <p class="blind">기록을 불러오는 중입니다.</p>
-            <div class="card record" aria-hidden="true" style="display:grid;gap:14px">
-              <span class="skeleton skeleton--text" style="width:120px"></span>
+            <div class="card record skeleton-stack skeleton-stack--record" aria-hidden="true">
+              <span class="skeleton skeleton--text"></span>
               <span class="skeleton skeleton--title"></span>
-              <span class="skeleton skeleton--text" style="width:40%"></span>
-              <span class="skeleton skeleton--block" style="margin-top:16px"></span>
-              <span class="skeleton skeleton--block" style="height:80px"></span>
+              <span class="skeleton skeleton--text"></span>
+              <span class="skeleton skeleton--block"></span>
+              <span class="skeleton skeleton--block"></span>
             </div>
           </div>
 

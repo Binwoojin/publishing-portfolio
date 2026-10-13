@@ -181,6 +181,9 @@ button:disabled { cursor: not-allowed; }
 
 [hidden] { display: none !important; }
 
+/* SVG 아이콘 스프라이트: 화면에는 그리지 않고 <use> 로만 참조 */
+.icon-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
 /* ---------- Utilities ---------- */
 .container {
   width: 100%;

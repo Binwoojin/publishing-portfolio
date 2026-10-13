@@ -115,8 +115,9 @@
 .heatmap-summary strong { color: var(--c-ink); }
 
 /* 진행 중 목표 미니 리스트 */
-.mini-goals { display: grid; gap: var(--sp-4); }
-.mini-goal { display: grid; gap: var(--sp-2); }
+/* 1열 그리드의 기본 열 너비(auto)는 줄바꿈 없는 제목 길이만큼 늘어나므로 0까지 줄어들게 한다 */
+.mini-goals { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-4); }
+.mini-goal { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-2); }
 .mini-goal + .mini-goal { padding-top: var(--sp-4); border-top: 1px solid var(--c-line); }
 .mini-goal__head { display: flex; align-items: center; gap: var(--sp-2); }
 .mini-goal__title { flex: 1; min-width: 0; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -557,3 +558,35 @@ a.tl-item__card:hover { border-color: var(--c-line-strong); box-shadow: var(--sh
 .pager__next small { justify-content: flex-end; }
 .pager small .icon { width: 14px; height: 14px; }
 .pager strong { overflow: hidden; font-size: var(--fs-sm); text-overflow: ellipsis; white-space: nowrap; }
+
+/* ==========================================================================
+   인라인 스타일 대신 쓰는 보조 클래스
+   ========================================================================== */
+/* 히트맵 범례 */
+.heatmap-legend i[data-level="0"] { background: var(--c-heat-0); }
+.heatmap-legend i[data-level="1"] { background: var(--c-heat-1); }
+.heatmap-legend i[data-level="2"] { background: var(--c-heat-2); }
+.heatmap-legend i[data-level="3"] { background: var(--c-heat-3); }
+
+/* 로딩 스켈레톤 배치 */
+.skeleton--card { height: 250px; border-radius: var(--radius-md); }
+.skeleton-stack { display: grid; gap: var(--sp-3); }
+.skeleton-stack--timeline .skeleton--title { width: 30%; }
+.skeleton-stack--timeline .skeleton--block { height: 92px; }
+.skeleton-stack--timeline .skeleton:nth-child(4) { margin-top: var(--sp-4); }
+.skeleton-stack--record { gap: 14px; }
+.skeleton-stack--record .skeleton:nth-child(1) { width: 120px; }
+.skeleton-stack--record .skeleton:nth-child(3) { width: 40%; }
+.skeleton-stack--record .skeleton:nth-child(4) { margin-top: var(--sp-4); }
+.skeleton-stack--record .skeleton:nth-child(5) { height: 80px; }
+
+/* 폼 간격 */
+.form-card .form-alert { margin-bottom: var(--sp-6); }
+.form-card .choice-group + .field { margin-top: var(--sp-5); }
+.form-card .field + .field-grid { margin-top: var(--sp-5); }
+#goalForm .choice-group + .field { margin-top: var(--sp-6); }
+.choice-list--3 { grid-template-columns: repeat(3, 1fr); }
+
+/* 진행 상황 수정 다이얼로그 */
+.dialog__body .choice-group { margin-top: var(--sp-6); }
+.dialog__hint { margin-top: var(--sp-3); }

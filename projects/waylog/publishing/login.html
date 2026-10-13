@@ -10,7 +10,9 @@
   <script>try{if(JSON.parse(localStorage.getItem('waylog:auth'))===true)document.documentElement.className='is-member';}catch(e){}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+  <!-- 웹폰트 CSS 가 첫 화면 표시를 막지 않도록 비동기로 불러온다 -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap" onload="this.onload=null;this.removeAttribute('as');this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap"></noscript>
   <link rel="stylesheet" href="../../../common/css/reset.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
@@ -21,7 +23,7 @@
   <a class="skip-link" href="#main">본문 바로가기</a>
   <div class="auth">
     <div class="auth__visual" aria-hidden="true">
-      <img src="images/login-background.webp" srcset="images/login-background.webp 800w, images/login-background@2x.webp 1600w" sizes="50vw" alt="" width="800" height="1067">
+      <img src="images/login-background.webp" srcset="images/login-background-400.webp 400w, images/login-background.webp 800w, images/login-background@2x.webp 1600w" sizes="50vw" alt="" width="800" height="1067" loading="lazy">
       <div class="auth__quote">
         <p class="mono">37.6587°N 126.9779°E · 북한산 백운대</p>
         <p class="auth__quote-text">당신의 모든 여행 기록이<br>새로운 이야기로 이어집니다.</p>
