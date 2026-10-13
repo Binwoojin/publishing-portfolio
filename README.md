@@ -7,29 +7,51 @@ HTML · CSS · JavaScript 기반의 마크업, 반응형 레이아웃, 웹 접�
 
 ```
 publishing-portfolio/
-├── index.html            # 전체 작업물 목록 (포트폴리오 메인)
-├── common/               # 여러 프로젝트에서 공유하는 리소스
-│   └── css/reset.css
-└── projects/
-    ├── _template/        # 새 프로젝트 시작용 템플릿 (복사해서 사용)
-    │   ├── index.html
-    │   ├── css/style.css
-    │   ├── js/script.js
-    │   └── images/
-    └── <project-name>/   # 개별 작업물
+├── index.html              # 포트폴리오 사이트 (About · Skills · Projects · Contact)
+├── assets/
+│   ├── css/style.css       # 사이트 스타일 (라이트/다크 모드, 반응형)
+│   ├── js/main.js          # 모바일 메뉴, 작업물 목록 렌더링 · 필터
+│   └── images/             # 작업물 썸네일 이미지
+├── data/projects.js        # ★ 작업물 목록 데이터
+├── common/css/reset.css    # 공통 리셋 CSS
+├── projects/
+│   ├── _template/          # 새 작업물 시작용 템플릿 (복사해서 사용)
+│   └── <project-name>/     # 개별 작업물 결과물
+└── .github/workflows/pages.yml  # GitHub Pages 자동 배포
 ```
+
+## 사이트 정보 수정하기
+
+`index.html` 에서 `OOO`(이름), `your@email.com`(이메일), 소개 문구, Skills 항목을 본인 정보로 바꿔 주세요.
 
 ## 새 작업물 추가하기
 
-1. `projects/_template` 폴더를 복사해 `projects/<project-name>` 으로 이름을 바꿉니다. (영문 소문자, 하이픈 사용)
-2. 작업물을 완성한 뒤 루트 `index.html` 의 목록에 카드를 추가합니다.
-3. 아래 작업물 목록 표에도 한 줄 추가합니다.
+1. `projects/_template` 폴더를 복사해 `projects/<project-name>` 으로 만들고 작업합니다. (영문 소문자, 하이픈 사용)
+2. 썸네일 이미지(권장 비율 16:10)를 `assets/images/` 에 넣습니다.
+3. `data/projects.js` 의 배열에 작업물 정보를 추가합니다. 사이트에 카드가 자동으로 생기고, `category` 값으로 필터 버튼도 자동 생성됩니다.
 
-## 작업물 목록
+```js
+window.PROJECTS = [
+  {
+    title: '프로젝트 이름',
+    desc: '한 줄 설명',
+    category: '반응형',
+    tags: ['HTML', 'CSS', 'JavaScript'],
+    thumbnail: 'assets/images/project-name.jpg',
+    period: '2026.09',
+    contribution: '퍼블리싱 100%',
+    demo: 'projects/project-name/',
+    code: 'https://github.com/Binwoojin/publishing-portfolio/tree/main/projects/project-name'
+  }
+];
+```
 
-| 프로젝트 | 설명 | 주요 기술 | 작업 범위 |
-| --- | --- | --- | --- |
-| _(준비 중)_ | | | |
+## 배포 (GitHub Pages)
+
+`main` 브랜치에 push 하면 `.github/workflows/pages.yml` 이 사이트를 자동 배포합니다.
+
+1. 저장소 **Settings → Pages → Build and deployment → Source** 를 **GitHub Actions** 로 설정합니다. (최초 1회)
+2. `main` 브랜치에 push 하면 `https://binwoojin.github.io/publishing-portfolio/` 에 배포됩니다.
 
 ## 작업 원칙
 
@@ -40,7 +62,7 @@ publishing-portfolio/
 
 ## 로컬에서 보기
 
-별도 빌드 없이 `index.html` 을 브라우저로 열거나, 간단한 로컬 서버를 띄웁니다.
+별도 빌드 과정은 없습니다. 로컬 서버를 띄워 확인합니다.
 
 ```bash
 npx serve .
