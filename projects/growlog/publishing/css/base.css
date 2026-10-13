@@ -1,39 +1,47 @@
 /* ==========================================================================
    GrowLog — Base
    디자인 토큰 · 기본 타이포그래피 · 공통 유틸리티
-   컨셉: "Warm Journal" — 크림색 종이 위에 쌓이는 기록.
-   앰버(연속 기록 · 강조) + 그린(성장 · 완료) 두 가지 포인트 컬러만 쓴다.
+   색상은 원본 GrowLog 디자인 토큰(frontend/src/styles/tokens.css)을 기준으로 잡았다.
+   - 주색: 원본 Primary Green #3F7D63 (흰 글자 대비 4.9:1)
+   - 배경 · 면 · 테두리: 원본 Warm Neutral #F7F8F5 · #FFFFFF · #E5E9E1
+   - 글자: 원본 #222824, 보조 글자는 원본 #727872 를 4.5:1 이 되도록 조금 진하게
+   - 보조색: 원본 Accent #C9D7A8 (히트맵 · 장식)
+   - 상태색: 원본처럼 브랜드와 분리 — 완료(success) 초록, 진행 중(warning) 주황
    ========================================================================== */
 
 :root {
   /* Color — Surface */
-  --c-bg: #fbf7ef;
+  --c-bg: #f7f8f5;
   --c-surface: #ffffff;
-  --c-surface-2: #f5eee2;
-  --c-line: #ebe2d3;
-  --c-line-strong: #d8ccb8;
+  --c-surface-2: #eef1eb;
+  --c-line: #e5e9e1;
+  --c-line-strong: #cfd6cb;
 
   /* Color — Text (모두 --c-bg 위에서 4.5:1 이상) */
-  --c-ink: #1c1917;
-  --c-ink-2: #57534e;
-  --c-ink-3: #6b645d;
+  --c-ink: #222824;
+  --c-ink-2: #4d554f;
+  --c-ink-3: #667068;
 
   /* Color — Brand */
-  --c-amber: #f59e0b;            /* 버튼 · 강조 면 (위 글자는 --c-on-amber) */
-  --c-amber-hover: #e08a00;
-  --c-amber-soft: #fdf0cf;
-  --c-amber-text: #a1490a;       /* 흰 배경 위 앰버 글자 5.6:1 */
-  --c-on-amber: #1c1917;
-  --c-green: #047857;
-  --c-green-soft: #dcf3e8;
-  --c-green-text: #065f46;
+  --c-primary: #3f7d63;          /* 버튼 · 활성 · 성장 강조 (위 글자는 --c-on-primary) */
+  --c-primary-hover: #35694f;
+  --c-primary-soft: #ddebe3;
+  --c-primary-text: #35694f;     /* 밝은 면 위 초록 글자 6.0:1 */
+  --c-on-primary: #ffffff;
+  --c-accent: #c9d7a8;
+  --c-deep: #142c22;             /* 원본 랜딩의 짙은 초록 — 어두운 패널 */
 
-  /* Color — Semantic */
+  /* Color — Semantic (브랜드와 분리) */
+  --c-success: #16a34a;
+  --c-success-soft: #e9f7f0;
+  --c-success-text: #15803d;
+  --c-warning-soft: #fef3e2;
+  --c-warning-text: #b45309;
   --c-danger: #b91c1c;
   --c-danger-hover: #991b1b;
-  --c-danger-soft: #fdeaea;
-  --c-muted-soft: #eeeae4;
-  --c-muted-text: #4a4540;
+  --c-danger-soft: #fdecea;
+  --c-muted-soft: #eceee9;
+  --c-muted-text: #474e49;
 
   /* Color — Category */
   --c-rose-soft: #fde8ea;
@@ -41,14 +49,15 @@
   --c-sky-soft: #e2f0fb;
   --c-sky-text: #1e5a8a;
 
-  /* Heatmap (기록 수 0 → 3+) */
-  --c-heat-0: #efe8dc;
-  --c-heat-1: #fde2a4;
-  --c-heat-2: #f8b84a;
-  --c-heat-3: #d97706;
+  /* Heatmap (기록 수 0 → 3+) — 원본 성장 단계 primary-bg → accent → primary → primary-hover */
+  --c-heat-0: #e6eae2;
+  --c-heat-1: #c9d7a8;
+  --c-heat-2: #7ba788;
+  --c-heat-3: #35694f;
 
   --c-focus: #2563eb;
-  --c-overlay: rgb(28 25 23 / 0.45);
+  --c-overlay: rgb(20 28 24 / 0.45);
+  --c-scrim: rgb(20 44 34 / 0.75);
 
   /* Typography */
   --font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
@@ -79,9 +88,9 @@
   --radius-md: 12px;
   --radius-lg: 20px;
   --radius-pill: 999px;
-  --shadow-sm: 0 1px 2px rgb(28 25 23 / 0.06);
-  --shadow-md: 0 1px 2px rgb(28 25 23 / 0.05), 0 6px 20px -4px rgb(28 25 23 / 0.08);
-  --shadow-lg: 0 2px 4px rgb(28 25 23 / 0.04), 0 18px 48px -12px rgb(28 25 23 / 0.18);
+  --shadow-sm: 0 1px 2px rgb(34 40 36 / 0.06);
+  --shadow-md: 0 1px 2px rgb(34 40 36 / 0.05), 0 6px 20px -4px rgb(34 40 36 / 0.08);
+  --shadow-lg: 0 2px 4px rgb(34 40 36 / 0.04), 0 18px 48px -12px rgb(34 40 36 / 0.18);
 
   /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -101,32 +110,37 @@
 /* 다크 모드 — 같은 토큰 이름에 값만 바꿔서 화면 코드는 그대로 둔다 */
 @media (prefers-color-scheme: dark) {
   :root {
-    --c-bg: #161311;
-    --c-surface: #201c19;
-    --c-surface-2: #2a2521;
-    --c-line: #37302a;
-    --c-line-strong: #4a423a;
-    --c-ink: #f5efe6;
-    --c-ink-2: #cfc6ba;
-    --c-ink-3: #ada397;
-    --c-amber-soft: #3a2a10;
-    --c-amber-text: #fbbf24;
-    --c-green: #34d399;
-    --c-green-soft: #0f2e23;
-    --c-green-text: #6ee7b7;
+    --c-bg: #121614;
+    --c-surface: #1a1f1c;
+    --c-surface-2: #232a26;
+    --c-line: #2e3631;
+    --c-line-strong: #414b45;
+    --c-ink: #eef2ee;
+    --c-ink-2: #c3cbc5;
+    --c-ink-3: #9aa49d;
+    --c-primary: #7cc49c;
+    --c-primary-hover: #97d3b1;
+    --c-primary-soft: #1d3329;
+    --c-primary-text: #9ad6b4;
+    --c-on-primary: #0f1a14;
+    --c-success: #4ade80;
+    --c-success-soft: #0f2e1c;
+    --c-success-text: #86efac;
+    --c-warning-soft: #3a2a10;
+    --c-warning-text: #fbbf24;
     --c-danger: #f87171;
     --c-danger-hover: #fca5a5;
     --c-danger-soft: #3a1717;
-    --c-muted-soft: #2e2925;
-    --c-muted-text: #d6cec4;
+    --c-muted-soft: #262d29;
+    --c-muted-text: #d0d7d2;
     --c-rose-soft: #3b1820;
     --c-rose-text: #fda4af;
     --c-sky-soft: #132a3c;
     --c-sky-text: #93c5fd;
-    --c-heat-0: #2a2521;
-    --c-heat-1: #5c4214;
-    --c-heat-2: #a86b0c;
-    --c-heat-3: #f59e0b;
+    --c-heat-0: #232a26;
+    --c-heat-1: #2f4a3a;
+    --c-heat-2: #4f8a68;
+    --c-heat-3: #7cc49c;
     --c-focus: #60a5fa;
     --c-overlay: rgb(0 0 0 / 0.6);
     --shadow-md: 0 1px 2px rgb(0 0 0 / 0.3), 0 6px 20px -4px rgb(0 0 0 / 0.4);
@@ -175,7 +189,7 @@ button:disabled { cursor: not-allowed; }
   border-radius: 4px;
 }
 
-::selection { background: var(--c-amber-soft); color: var(--c-ink); }
+::selection { background: var(--c-primary-soft); color: var(--c-ink); }
 
 img { height: auto; }
 
@@ -218,13 +232,13 @@ img { height: auto; }
 }
 .skip-link:focus { transform: translateY(0); }
 
-.text-amber { color: var(--c-amber-text); }
-.text-green { color: var(--c-green-text); }
+.text-amber { color: var(--c-warning-text); }
+.text-green { color: var(--c-success-text); }
 .text-muted { color: var(--c-ink-2); }
 
 /* 형광펜 강조 — 제목 속 핵심 단어 */
 .marker {
-  background: linear-gradient(transparent 58%, var(--c-amber-soft) 58%, var(--c-amber-soft) 92%, transparent 92%);
+  background: linear-gradient(transparent 58%, var(--c-primary-soft) 58%, var(--c-primary-soft) 92%, transparent 92%);
   padding-inline: 0.08em;
 }
 

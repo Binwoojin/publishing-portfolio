@@ -66,7 +66,7 @@
   function renderItem(item) {
     var isGoal = item.type === 'GOAL';
     var meta = '<div class="tl-item__meta">' +
-      (isGoal ? '<span class="chip chip--green">' + GL.icon('target') + '목표 등록</span>' : '<span class="chip chip--amber">' + GL.icon('pen') + '기록</span>') +
+      (isGoal ? '<span class="chip chip--green">' + GL.icon('target') + '목표 등록</span>' : '<span class="chip chip--primary">' + GL.icon('pen') + '기록</span>') +
       (isGoal ? '' : '<time datetime="' + item.createdAt + '">' + GL.formatDate(item.createdAt, 'time') + '</time>') +
       '</div>';
     return '<li class="tl-item tl-item--' + (isGoal ? 'goal' : 'record') + '">' +
