@@ -187,7 +187,7 @@
   /* 해시태그 */
   function renderTags() {
     tagList.innerHTML = tags.map(function (t, i) {
-      return '<li class="chip chip--sea">#' + WL.esc(t) + '<button type="button" data-untag="' + i + '" aria-label="' + WL.esc(t) + ' 태그 삭제">' + WL.icon('x') + '</button></li>';
+      return '<li class="chip chip--primary">#' + WL.esc(t) + '<button type="button" data-untag="' + i + '" aria-label="' + WL.esc(t) + ' 태그 삭제">' + WL.icon('x') + '</button></li>';
     }).join('');
   }
   function addTag() {

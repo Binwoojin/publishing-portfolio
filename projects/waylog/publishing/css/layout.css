@@ -15,9 +15,10 @@
   letter-spacing: -0.03em;
 }
 .logo__mark { width: 30px; height: 30px; flex-shrink: 0; }
-.logo__mark .route { fill: none; stroke: var(--c-sea); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 2 4.2; }
-.logo__mark .pin { fill: var(--c-coral); }
-.logo__mark .dot { fill: var(--c-sea); }
+/* 원본 로고 그라데이션의 두 끝색: 경로는 진한 파랑, 핀은 하늘색 */
+.logo__mark .route { fill: none; stroke: var(--c-logo-route); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 2 4.2; }
+.logo__mark .pin { fill: var(--c-logo-pin); }
+.logo__mark .dot { fill: var(--c-logo-route); }
 
 /* ---------- Header ---------- */
 .site-header {
@@ -52,7 +53,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--c-coral);
+  background: var(--c-accent);
   transform: translateX(-50%);
 }
 
@@ -144,7 +145,7 @@
   font-size: var(--fs-xl);
   font-weight: 700;
 }
-.drawer__nav a[aria-current="page"] { color: var(--c-sea-text); }
+.drawer__nav a[aria-current="page"] { color: var(--c-primary-text); }
 .drawer__nav .icon { width: 20px; height: 20px; color: var(--c-ink-3); }
 .drawer__foot { display: grid; gap: var(--sp-2); margin-top: auto; }
 
@@ -158,20 +159,24 @@
 /* JS 가 본문을 그리기 전에 푸터가 첫 화면에 보였다가 밀려나지 않도록(CLS) 본문 높이를 화면 높이만큼 잡아 둔다 */
 .main { min-height: calc(100vh - var(--header-h)); min-height: calc(100svh - var(--header-h)); padding-bottom: var(--sp-16); }
 
-/* ---------- Footer ---------- */
+/* ---------- Footer (원본과 같은 남색 바탕) ---------- */
 .site-footer {
   padding-block: var(--sp-12) var(--sp-10);
-  border-top: 1px solid var(--c-line);
-  background: var(--c-surface);
-  color: var(--c-ink-2);
+  background: var(--c-footer-bg);
+  color: var(--c-footer-text);
   font-size: var(--fs-sm);
 }
+.site-footer .logo { color: var(--c-footer-ink); }
+.site-footer .logo__mark .route, .site-footer .logo__mark .dot { stroke: #8fb4ff; }
+.site-footer .logo__mark .dot { fill: #8fb4ff; }
+.site-footer .logo__mark .pin { fill: #5cc2fb; }
+.site-footer :focus-visible { outline-color: #ffffff; }
 .site-footer__top { display: grid; gap: var(--sp-8); }
 .site-footer__brand p { max-width: 34ch; margin-top: var(--sp-3); }
 .site-footer__cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-6); }
-.site-footer__cols h2 { margin-bottom: var(--sp-2); color: var(--c-ink); font-size: var(--fs-sm); font-weight: 700; }
+.site-footer__cols h2 { margin-bottom: var(--sp-2); color: var(--c-footer-ink); font-size: var(--fs-sm); font-weight: 700; }
 .site-footer__cols a { display: inline-flex; align-items: center; min-height: 36px; }
-.site-footer__cols a:hover { color: var(--c-ink); text-decoration: underline; text-underline-offset: 3px; }
+.site-footer__cols a:hover { color: var(--c-footer-ink); text-decoration: underline; text-underline-offset: 3px; }
 .site-footer__bottom {
   display: flex;
   flex-wrap: wrap;
@@ -179,8 +184,8 @@
   gap: var(--sp-2) var(--sp-6);
   margin-top: var(--sp-10);
   padding-top: var(--sp-5);
-  border-top: 1px solid var(--c-line);
-  color: var(--c-ink-3);
+  border-top: 1px solid var(--c-footer-line);
+  color: var(--c-footer-muted);
   font-size: var(--fs-xs);
 }
 @media (min-width: 768px) {
