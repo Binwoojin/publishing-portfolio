@@ -421,7 +421,7 @@ button:focus-visible {
 .about__text p { color: var(--color-muted-foreground); }
 .about__text p + p { margin-top: var(--space-3); }
 .about__lead { font-size: clamp(1.25rem, 2.2vw, 1.625rem); line-height: 1.55; letter-spacing: -.01em; }
-.about__lead strong { color: var(--color-foreground); font-weight: 700; }
+.about__text .about__lead { color: var(--color-foreground); font-weight: 500; }
 .about__info { grid-column: 10 / span 3; border-top: 1px solid var(--color-border-strong); }
 .about__info div { padding: 14px 0; border-bottom: 1px solid var(--color-border); }
 .about__info dt {

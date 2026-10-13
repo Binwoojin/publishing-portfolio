@@ -12,7 +12,10 @@ publishing-portfolio/
 │   ├── css/style.css       # 사이트 스타일 (라이트/다크 모드, 반응형)
 │   ├── js/main.js          # 모바일 메뉴, 작업물 목록 렌더링 · 필터
 │   └── images/             # 작업물 썸네일 이미지
-├── data/projects.js        # ★ 작업물 목록 데이터
+├── data/
+│   ├── projects.json       # ★ 작업물 목록
+│   └── site.json           # ★ 이름 · 연락처 · 소개 문구 · 기술 목록
+├── .pages.yml              # 관리 화면(Pages CMS) 설정
 ├── common/css/reset.css    # 공통 리셋 CSS
 ├── projects/
 │   ├── _template/          # 새 작업물 시작용 템플릿 (복사해서 사용)
@@ -20,31 +23,41 @@ publishing-portfolio/
 └── .github/workflows/pages.yml  # GitHub Pages 자동 배포
 ```
 
-## 사이트 정보 수정하기
+## 관리 화면 (Pages CMS)
 
-`index.html` 에서 `OOO`(이름), `your@email.com`(이메일), 소개 문구, Skills 항목을 본인 정보로 바꿔 주세요.
+작업물과 사이트 정보는 [Pages CMS](https://pagescms.org) 관리 화면에서 코드 없이 수정할 수 있습니다.
 
-## 새 작업물 추가하기
+1. https://app.pagescms.org 에 접속해 **GitHub 계정으로 로그인**합니다.
+2. 처음 한 번은 Pages CMS GitHub App 설치 화면이 나오면 이 저장소(`publishing-portfolio`)를 선택해 허용합니다.
+3. 저장소 목록에서 `publishing-portfolio` 를 열고, GitHub Pages 에 연결한 브랜치를 선택합니다.
+4. 왼쪽 메뉴에서 수정합니다.
+   - **작업물**: 작업물 추가 · 수정 · 삭제 · 순서 변경, 썸네일 이미지 업로드 (권장 비율 16:10)
+   - **사이트 정보**: 이름, 직무, 이메일, GitHub 주소, 소개 문구, 기술 목록
+5. **Save** 를 누르면 저장소에 바로 반영되고, 1~2분 뒤 사이트에도 반영됩니다.
 
-1. `projects/_template` 폴더를 복사해 `projects/<project-name>` 으로 만들고 작업합니다. (영문 소문자, 하이픈 사용)
-2. 썸네일 이미지(권장 비율 16:10)를 `assets/images/` 에 넣습니다.
-3. `data/projects.js` 의 배열에 작업물 정보를 추가합니다. 사이트에 카드가 자동으로 생기고, `category` 값으로 필터 버튼도 자동 생성됩니다.
+> 관리 화면 메뉴 구성은 `.pages.yml` 에서 바꿀 수 있습니다. 업로드한 이미지는 `assets/images/` 에 저장됩니다.
 
-```js
-window.PROJECTS = [
+### 직접 수정할 때
+
+관리 화면 없이 `data/projects.json`, `data/site.json` 을 직접 수정해도 됩니다. (JSON 형식을 지켜야 합니다)
+
+```json
+[
   {
-    title: '프로젝트 이름',
-    desc: '한 줄 설명',
-    category: '반응형',
-    tags: ['HTML', 'CSS', 'JavaScript'],
-    thumbnail: 'assets/images/project-name.jpg',
-    period: '2026.09',
-    contribution: '퍼블리싱 100%',
-    demo: 'projects/project-name/',
-    code: 'https://github.com/Binwoojin/publishing-portfolio/tree/main/projects/project-name'
+    "title": "프로젝트 이름",
+    "desc": "한 줄 설명",
+    "category": "반응형",
+    "tags": ["HTML", "CSS", "JavaScript"],
+    "thumbnail": "assets/images/project-name.jpg",
+    "period": "2026.09",
+    "contribution": "퍼블리싱 100%",
+    "demo": "projects/project-name/",
+    "code": "https://github.com/Binwoojin/publishing-portfolio/tree/main/projects/project-name"
   }
-];
+]
 ```
+
+결과물 페이지는 `projects/_template` 폴더를 복사해 `projects/<project-name>` 으로 만들어 작업하고, `demo` 에 그 경로를 적으면 됩니다.
 
 ## 배포 (GitHub Pages)
 
@@ -75,7 +88,7 @@ Claude Code로 UI 작업을 요청하면 스타일 · 컬러 · 폰트 · UX 가
 
 ## 로컬에서 보기
 
-별도 빌드 과정은 없습니다. 로컬 서버를 띄워 확인합니다.
+별도 빌드 과정은 없습니다. 데이터를 JSON 파일에서 불러오므로 `index.html` 을 더블클릭해 열면 내용이 보이지 않고, 아래처럼 로컬 서버를 띄워 확인해야 합니다.
 
 ```bash
 npx serve .

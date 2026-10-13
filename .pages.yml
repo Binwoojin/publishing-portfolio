@@ -1,0 +1,103 @@
+# Pages CMS 설정 (https://pagescms.org)
+# app.pagescms.org 에 GitHub 계정으로 로그인 → 이 저장소를 열면 아래 메뉴가 관리 화면에 나타납니다.
+
+media:
+  input: assets/images
+  output: assets/images
+  categories: [image]
+  rename: safe
+
+content:
+  - name: projects
+    label: 작업물
+    description: 포트폴리오에 보이는 작업물 목록입니다. 위에 있는 항목이 먼저 보입니다.
+    type: file
+    path: data/projects.json
+    format: json
+    list: true
+    fields:
+      - name: title
+        label: 프로젝트 이름
+        type: string
+        required: true
+      - name: desc
+        label: 한 줄 설명
+        type: string
+      - name: category
+        label: 분류
+        description: 같은 분류끼리 필터 버튼으로 묶입니다. (예 - 반응형, 모바일, 접근성)
+        type: string
+      - name: tags
+        label: 사용 기술
+        description: HTML, CSS 처럼 하나씩 추가하세요.
+        type: string
+        list: true
+      - name: thumbnail
+        label: 썸네일 이미지
+        description: 권장 비율 16:10 (예 - 1600×1000)
+        type: image
+      - name: period
+        label: 작업 기간
+        description: 예 - 2026.09
+        type: string
+      - name: contribution
+        label: 기여도
+        description: 예 - 퍼블리싱 100%
+        type: string
+      - name: demo
+        label: 결과물 링크
+        description: 예 - projects/my-project/ 또는 https://...
+        type: string
+      - name: code
+        label: 코드 링크
+        description: GitHub 코드 주소 (선택)
+        type: string
+
+  - name: site
+    label: 사이트 정보
+    description: 이름, 연락처, 소개 문구, 기술 목록을 수정합니다.
+    type: file
+    path: data/site.json
+    format: json
+    fields:
+      - name: name
+        label: 이름
+        type: string
+        required: true
+      - name: role
+        label: 직무
+        type: string
+      - name: email
+        label: 이메일
+        type: string
+      - name: github
+        label: GitHub 주소
+        description: 예 - https://github.com/아이디
+        type: string
+      - name: heroDescription
+        label: 첫 화면 소개 문구
+        type: text
+      - name: focus
+        label: 주요 분야
+        type: string
+      - name: stack
+        label: 사용 기술 요약
+        type: string
+      - name: aboutLead
+        label: About 강조 문장
+        type: text
+      - name: aboutBody
+        label: About 본문
+        type: text
+      - name: skills
+        label: 기술 목록
+        type: object
+        list: true
+        fields:
+          - name: name
+            label: 기술 이름
+            type: string
+            required: true
+          - name: desc
+            label: 설명
+            type: string

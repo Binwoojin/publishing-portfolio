@@ -1,5 +1,5 @@
 (() => {
-  const projects = Array.isArray(window.PROJECTS) ? window.PROJECTS : [];
+  let projects = [];
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ===== 모바일 메뉴 ===== */
@@ -55,9 +55,11 @@
     String(str).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
   const isExternal = (url) => /^https?:\/\//.test(url);
+  const safeUrl = (url = '') => (/^\s*(javascript|data|vbscript):/i.test(url) ? '' : String(url).trim());
   const icon = (id) => `<svg class="icon" aria-hidden="true"><use href="#${id}"/></svg>`;
 
   const linkHtml = (url, label, title, iconId, modifier = '') => {
+    url = safeUrl(url);
     if (!url) return '';
     const ext = isExternal(url) ? ' target="_blank" rel="noopener"' : '';
     const sr = isExternal(url) ? '(새 창)' : '';
@@ -65,8 +67,9 @@
   };
 
   const cardHtml = (p, i) => {
-    const thumb = p.thumbnail
-      ? `<img src="${escape(p.thumbnail)}" alt="" loading="lazy" decoding="async">`
+    const thumbSrc = safeUrl(p.thumbnail);
+    const thumb = thumbSrc
+      ? `<img src="${escape(thumbSrc)}" alt="" loading="lazy" decoding="async">`
       : `<span class="card__placeholder" aria-hidden="true">${escape((p.title || '?').charAt(0))}</span>`;
     const meta = [p.period, p.contribution].filter(Boolean).map(escape).join(' · ');
     const tags = (p.tags || []).map((t) => `<li>${escape(t)}</li>`).join('');
@@ -119,10 +122,14 @@
 
   if (revealer) document.documentElement.classList.add('js-reveal');
 
-  const categories = ['All', ...new Set(projects.map((p) => p.category).filter(Boolean))];
-  const countOf = (c) => (c === 'All' ? projects.length : projects.filter((p) => p.category === c).length);
+  const setupFilter = () => {
+    const categories = ['All', ...new Set(projects.map((p) => p.category).filter(Boolean))];
+    const countOf = (c) => (c === 'All' ? projects.length : projects.filter((p) => p.category === c).length);
 
-  if (categories.length > 2) {
+    if (categories.length <= 2) {
+      filter.hidden = true;
+      return;
+    }
     filter.innerHTML = categories
       .map((c, i) => `<button type="button" class="filter__btn" data-category="${escape(c)}" aria-pressed="${i === 0}">${escape(c)}<span class="filter__count">${countOf(c)}</span></button>`)
       .join('');
@@ -132,12 +139,63 @@
       filter.querySelectorAll('.filter__btn').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
       render(btn.dataset.category);
     });
-  } else {
-    filter.hidden = true;
-  }
+  };
 
-  render('All');
+  /* ===== 사이트 정보 (data/site.json) ===== */
+  const applySite = (site) => {
+    document.querySelectorAll('[data-site]').forEach((el) => {
+      const value = site[el.dataset.site];
+      if (typeof value === 'string' && value.trim()) el.textContent = value.trim();
+    });
+
+    if (site.name) document.title = `${site.name} | Web Publisher Portfolio`;
+
+    const email = (site.email || '').trim();
+    if (email) {
+      document.querySelectorAll('[data-site-email]').forEach((el) => {
+        el.href = `mailto:${email}`;
+        if (!el.children.length) el.textContent = email;
+      });
+      document.querySelectorAll('[data-site-email-text]').forEach((el) => { el.textContent = email; });
+    }
+
+    const github = safeUrl(site.github);
+    if (github) {
+      document.querySelectorAll('[data-site-github]').forEach((el) => { el.href = github; });
+      document.querySelectorAll('[data-site-github-text]').forEach((el) => {
+        el.textContent = github.replace(/^https?:\/\//, '').replace(/\/$/, '');
+      });
+    }
+
+    const skills = Array.isArray(site.skills) ? site.skills.filter((s) => s && s.name) : [];
+    if (skills.length) {
+      document.getElementById('skill-list').innerHTML = skills.map((s) => `
+          <li class="skill">
+            <h3 class="skill__name">${escape(s.name)}</h3>
+            ${s.desc ? `<p class="skill__desc">${escape(s.desc)}</p>` : ''}
+          </li>`).join('');
+    }
+  };
+
+  const loadJson = (url) => fetch(url, { cache: 'no-cache' }).then((res) => {
+    if (!res.ok) throw new Error(`${url}: ${res.status}`);
+    return res.json();
+  });
+
   observeReveal(document);
+  list.innerHTML = '<li class="projects__empty">작업물을 불러오는 중입니다.</li>';
+
+  loadJson('data/site.json')
+    .then(applySite)
+    .catch((err) => console.warn('사이트 정보를 불러오지 못했습니다.', err));
+
+  loadJson('data/projects.json')
+    .then((data) => { projects = Array.isArray(data) ? data.filter((p) => p && p.title) : []; })
+    .catch((err) => console.warn('작업물 목록을 불러오지 못했습니다.', err))
+    .finally(() => {
+      setupFilter();
+      render('All');
+    });
 
   /* ===== 푸터 연도 ===== */
   document.getElementById('year').textContent = new Date().getFullYear();
