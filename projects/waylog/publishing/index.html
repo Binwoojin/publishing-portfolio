@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko" class="is-guest">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WayLog — 국내 여행지 탐색과 여행 기록</title>
+  <meta name="description" content="국내 여행지를 찾고, 코스를 따라 떠나고, 다녀온 이야기를 피드로 나누는 여행 기록 서비스 WayLog">
+  <meta name="theme-color" content="#f2f5f4">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <script>try{if(JSON.parse(localStorage.getItem('waylog:auth'))===true)document.documentElement.className='is-member';}catch(e){}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../../../common/css/reset.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="logo" href="index.html" aria-label="WayLog 홈"><svg class="logo__mark" viewBox="0 0 32 32" aria-hidden="true"><path class="route" d="M5 27c6-1 7-7 12-8s8-3 9-9"/><circle class="dot" cx="5" cy="27" r="2.6"/><path class="pin" d="M26 2.5a5.5 5.5 0 0 0-5.5 5.5c0 4.2 5.5 9 5.5 9s5.5-4.8 5.5-9A5.5 5.5 0 0 0 26 2.5Zm0 7.6a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2Z"/></svg><span aria-hidden="true">WayLog</span></a>
+      <nav class="gnb" aria-label="주요 메뉴">
+        <ul>
+            <li><a href="destinations.html">여행지</a></li>
+            <li><a href="enjoy.html">여행 즐기기</a></li>
+            <li><a href="feed.html">여행 피드</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a class="icon-btn" href="destinations.html#searchForm" aria-label="여행지 검색"><svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg></a>
+        <div class="auth-guest">
+          <a class="btn btn--outline btn--sm" href="signup.html">회원가입</a>
+          <a class="btn btn--primary btn--sm" href="login.html">로그인</a>
+        </div>
+        <div class="auth-member user-menu">
+          <button class="user-menu__btn" type="button" id="userMenuBtn" aria-expanded="false" aria-controls="userMenuList">
+            <span class="avatar avatar--sm" aria-hidden="true" data-me-initial>바</span>
+            <span class="user-menu__name" data-me-nickname>바다산책</span><span class="blind">님 회원 메뉴</span><svg class="icon" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
+          </button>
+          <div class="user-menu__list" id="userMenuList" hidden>
+            <a href="mypage.html"><svg class="icon" aria-hidden="true"><use href="#i-user"></use></svg>마이페이지</a>
+            <a href="mypage.html?tab=saved"><svg class="icon" aria-hidden="true"><use href="#i-bookmark"></use></svg>저장한 항목</a>
+            <button type="button" data-logout><svg class="icon" aria-hidden="true"><use href="#i-logout"></use></svg>로그아웃</button>
+          </div>
+        </div>
+        <button class="icon-btn menu-btn" type="button" data-open-drawer aria-label="전체 메뉴 열기" aria-haspopup="dialog"><svg class="icon" aria-hidden="true"><use href="#i-menu"></use></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <dialog class="drawer" id="drawer" aria-label="전체 메뉴">
+    <div class="drawer__inner">
+      <div class="drawer__head">
+        <a class="logo" href="index.html" aria-label="WayLog 홈"><svg class="logo__mark" viewBox="0 0 32 32" aria-hidden="true"><path class="route" d="M5 27c6-1 7-7 12-8s8-3 9-9"/><circle class="dot" cx="5" cy="27" r="2.6"/><path class="pin" d="M26 2.5a5.5 5.5 0 0 0-5.5 5.5c0 4.2 5.5 9 5.5 9s5.5-4.8 5.5-9A5.5 5.5 0 0 0 26 2.5Zm0 7.6a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2Z"/></svg><span aria-hidden="true">WayLog</span></a>
+        <button class="icon-btn" type="button" data-dialog-close aria-label="메뉴 닫기"><svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg></button>
+      </div>
+      <nav class="drawer__nav" aria-label="모바일 주요 메뉴">
+        <ul>
+          <li><a href="destinations.html">여행지<svg class="icon" aria-hidden="true"><use href="#i-chevron-right"></use></svg></a></li>
+          <li><a href="enjoy.html">여행 즐기기<svg class="icon" aria-hidden="true"><use href="#i-chevron-right"></use></svg></a></li>
+          <li><a href="feed.html">여행 피드<svg class="icon" aria-hidden="true"><use href="#i-chevron-right"></use></svg></a></li>
+        </ul>
+      </nav>
+      <div class="drawer__foot">
+        <div class="auth-guest-only"><a class="btn btn--primary btn--block" href="login.html">로그인</a></div>
+        <div class="auth-guest-only"><a class="btn btn--outline btn--block" href="signup.html">회원가입</a></div>
+        <div class="auth-member-only"><a class="btn btn--outline btn--block" href="mypage.html"><svg class="icon" aria-hidden="true"><use href="#i-user"></use></svg>마이페이지</a></div>
+        <div class="auth-member-only"><button class="btn btn--ghost btn--block" type="button" data-logout><svg class="icon" aria-hidden="true"><use href="#i-logout"></use></svg>로그아웃</button></div>
+      </div>
+    </div>
+  </dialog>
+
+  <main class="main" id="main">
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="hero__media">
+        <img src="images/hero-main.webp" srcset="images/hero-main.webp 800w, images/hero-main@2x.webp 1600w" sizes="100vw" alt="" width="1600" height="900" fetchpriority="high">
+      </div>
+      <div class="container hero__inner">
+        <p class="hero__eyebrow"><span class="mono">33°N – 38°N</span> 국내 여행 기록 서비스</p>
+        <h1 class="hero__title" id="heroTitle">당신의 여행이<br>모두의 여행이 되다</h1>
+        <p class="hero__desc">여행지를 찾고, 코스를 따라 떠나고, 다녀온 이야기를 피드로 나눠 보세요.</p>
+
+        <form class="search-panel" id="heroSearch" action="destinations.html" role="search" aria-label="여행지 찾기">
+          <div class="search-panel__field">
+            <label for="heroRegion">지역</label>
+            <select class="select" id="heroRegion" name="region"><option value="">전국</option><option value="seoul">서울</option><option value="gyeonggi">경기 · 인천</option><option value="gangwon">강원</option><option value="chungcheong">충청</option><option value="gyeongsang">경상</option><option value="jeolla">전라</option><option value="busan">부산</option><option value="jeju">제주</option></select>
+          </div>
+          <div class="search-panel__field">
+            <label for="heroType">유형</label>
+            <select class="select" id="heroType" name="type"><option value="">전체</option><option value="attraction">관광지</option><option value="culture">문화시설</option><option value="course">여행코스</option></select>
+          </div>
+          <div class="search-panel__field search-panel__field--grow">
+            <label for="heroKeyword">검색어</label>
+            <input class="input" type="search" id="heroKeyword" name="q" placeholder="예: 야경, 숲길, 성산일출봉">
+          </div>
+          <button class="btn btn--coral btn--lg" type="submit"><svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg>여행지 찾기</button>
+        </form>
+
+        <ul class="quick-themes" aria-label="빠른 여행 테마">
+          <li><a href="destinations.html?q=%ED%95%B4%EB%B3%80"><svg class="icon" aria-hidden="true"><use href="#i-waves"></use></svg>바다 여행</a></li>
+          <li><a href="enjoy.html?category=stay"><svg class="icon" aria-hidden="true"><use href="#i-bed"></use></svg>감성 숙소</a></li>
+          <li><a href="destinations.html?type=culture"><svg class="icon" aria-hidden="true"><use href="#i-users"></use></svg>가족 여행</a></li>
+          <li><a href="enjoy.html"><svg class="icon" aria-hidden="true"><use href="#i-sparkle"></use></svg>여행 즐기기</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="regionTitle">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="section-head__eyebrow">Regions · 8</span>
+            <h2 class="section-head__title" id="regionTitle">어디로 떠나볼까요?</h2>
+            <p class="section-head__desc">가고 싶은 지역을 골라 여행지를 확인해 보세요.</p>
+          </div>
+          <a class="more-link" href="destinations.html">전체 여행지<svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a>
+        </div>
+        <ul class="region-rail" id="regionRail"></ul>
+      </div>
+    </section>
+
+    <section class="section section--tint" aria-labelledby="courseTitle">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="section-head__eyebrow">Courses</span>
+            <h2 class="section-head__title" id="courseTitle">추천 여행 코스</h2>
+            <p class="section-head__desc">여행의 시작부터 끝까지, 순서대로 둘러보는 코스입니다.</p>
+          </div>
+          <a class="more-link" href="destinations.html?type=course">코스 더보기<svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a>
+        </div>
+        <div class="course-grid" id="homeCourses"></div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="enjoyTitle">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="section-head__eyebrow">Things to do</span>
+            <h2 class="section-head__title" id="enjoyTitle">여행을 더 즐겁게</h2>
+            <p class="section-head__desc">축제부터 레포츠, 음식점, 쇼핑, 숙박까지 여행의 즐거움을 더해 보세요.</p>
+          </div>
+          <a class="more-link" href="enjoy.html">즐길거리 전체<svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a>
+        </div>
+        <div class="tabs" role="tablist" aria-label="즐길거리 분류" id="enjoyTabs"></div>
+        <div class="tab-panel" role="tabpanel" id="enjoyPanel" tabindex="0"></div>
+      </div>
+    </section>
+
+    <section class="section section--tint" aria-labelledby="newsTitle">
+      <div class="container news">
+        <div class="section-head">
+          <div>
+            <span class="section-head__eyebrow">This week</span>
+            <h2 class="section-head__title" id="newsTitle">이번 주 여행 소식</h2>
+            <p class="section-head__desc">지금 열리고 있거나 곧 시작하는 축제와 행사입니다.</p>
+          </div>
+          <a class="more-link" href="enjoy.html?category=festivals">행사 전체 보기<svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a>
+        </div>
+        <ol class="news-list" id="newsList"></ol>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="recordTitle">
+      <div class="container">
+        <div class="record-banner">
+          <div class="record-banner__copy">
+            <span class="section-head__eyebrow">Travel log</span>
+            <h2 class="record-banner__title" id="recordTitle">여행의 순간을 기록하고, 함께 나눠요</h2>
+            <p>사진과 함께 다녀온 장소와 코스를 태그하면, 같은 곳을 찾는 여행자에게 길잡이가 됩니다.</p>
+            <a class="btn btn--primary btn--lg" href="feed.html"><svg class="icon" aria-hidden="true"><use href="#i-pen"></use></svg>여행 기록하기</a>
+          </div>
+          <img class="record-banner__img" src="images/record.webp" alt="" width="800" height="533" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--notices" id="notices" aria-labelledby="noticeTitle">
+      <div class="container">
+        <h2 class="notices__title" id="noticeTitle">공지사항</h2>
+        <ul class="notices" id="noticeList"></ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__top">
+        <div class="site-footer__brand">
+          <a class="logo" href="index.html" aria-label="WayLog 홈"><svg class="logo__mark" viewBox="0 0 32 32" aria-hidden="true"><path class="route" d="M5 27c6-1 7-7 12-8s8-3 9-9"/><circle class="dot" cx="5" cy="27" r="2.6"/><path class="pin" d="M26 2.5a5.5 5.5 0 0 0-5.5 5.5c0 4.2 5.5 9 5.5 9s5.5-4.8 5.5-9A5.5 5.5 0 0 0 26 2.5Zm0 7.6a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2Z"/></svg><span aria-hidden="true">WayLog</span></a>
+          <p>국내 여행지를 찾고, 코스를 따라 떠나고, 다녀온 이야기를 함께 나누는 여행 기록 서비스</p>
+        </div>
+        <div class="site-footer__cols">
+          <div>
+            <h2>서비스</h2>
+            <ul>
+              <li><a href="destinations.html">여행지</a></li>
+              <li><a href="enjoy.html">여행 즐기기</a></li>
+              <li><a href="feed.html">여행 피드</a></li>
+            </ul>
+          </div>
+          <div>
+            <h2>고객지원</h2>
+            <ul>
+              <li><a href="index.html#notices">공지사항</a></li>
+              <li><a href="mypage.html">마이페이지</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="site-footer__bottom">
+        <p>웹 퍼블리싱 포트폴리오용 리디자인 · 실제 서비스가 아닌 데모 화면입니다.</p>
+        <p>관광 정보 원본 서비스: 한국관광공사 TourAPI</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/icons.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

@@ -1,0 +1,441 @@
+package kr.co.mycom.travel_korea.user.service;
+
+import com.github.benmanes.caffeine.cache.Cache;
+import com.nimbusds.jose.JOSEException;
+
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.transaction.Transactional;
+import kr.co.mycom.travel_korea.config.JwtConfig;
+import kr.co.mycom.travel_korea.user.entity.UserEntity;
+import kr.co.mycom.travel_korea.user.repository.UserRepository;
+import kr.co.mycom.travel_korea.user.dto.MailRequest;
+import kr.co.mycom.travel_korea.user.dto.UserRequest;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseEntity;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.text.ParseException;
+import java.util.Map;
+import java.util.Optional;
+import java.security.SecureRandom;
+import java.util.UUID;
+
+@Slf4j
+@Service
+@Transactional
+@RequiredArgsConstructor
+public class AuthService {
+
+    private static final String REFRESH_FAILED_MESSAGE = "로그인이 만료되었습니다. 다시 로그인해 주세요.";
+
+    private final JwtConfig jwt;
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository repo;
+    private final JavaMailSender emailSender;
+    private final Cache<String, Integer> emailVerificationCache;
+    private final Cache<String, String> emailVerificationTicketCache;
+    private final VerificationLimiter verificationLimiter;
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+
+    public UserEntity signup(UserRequest userInput) {
+        // 컨트롤러 @Validated가 1차로 막지만, 서비스가 null을 캐시 키로 쓰지 않도록 가드합니다.
+        requireText(userInput.getEmail(), "이메일을 입력해 주세요.");
+        requireText(userInput.getPassword(), "비밀번호를 입력해 주세요.");
+        requireText(userInput.getNickname(), "닉네임을 입력해 주세요.");
+        // 약관 거부는 인증 티켓을 소모하기 전에 해야, 사용자가 같은 티켓으로 동의를 바로잡아 재요청할 수 있습니다.
+        requireRequiredTerms(userInput.getAgreements());
+        // 프론트의 중복 확인은 우회될 수 있으므로 저장 직전에 서버에서도 확인합니다. 티켓은 소모하기 전에 검사해, 실패해도 재사용할 수 있게 둡니다.
+        if (repo.existsByEmail(userInput.getEmail())) {
+            throw new IllegalArgumentException("이미 사용 중인 이메일입니다.");
+        }
+        if (repo.existsByNickname(userInput.getNickname())) {
+            throw new IllegalArgumentException("이미 사용 중인 닉네임입니다.");
+        }
+        consumeVerificationTicket(EmailVerificationPurpose.SIGNUP, userInput.getEmail(), userInput.getVerificationToken());
+        UserEntity rep = new UserEntity(
+                userInput.getEmail(),
+                passwordEncoder.encode(userInput.getPassword()),
+                userInput.getNickname(),
+                "user"
+        );
+        try {
+            // 동시에 같은 닉네임·이메일로 가입하면 서버 검사를 둘 다 통과할 수 있으므로, DB 유니크 제약 위반도 같은 메시지로 바꾼다.
+            return repo.saveAndFlush(rep);
+        } catch (DataIntegrityViolationException e) {
+            throw duplicateAccountError(e);
+        }
+    }
+
+    public ResponseEntity login(@RequestBody UserRequest request) throws JOSEException {
+        // passwordEncoder.matches(null, ...)는 IllegalArgumentException(영문 내부 문구)을 던지므로 먼저 막습니다.
+        requireText(request.getEmail(), "이메일을 입력해 주세요.");
+        requireText(request.getPassword(), "비밀번호를 입력해 주세요.");
+        UserEntity dbUser = repo.findByEmail(request.getEmail()).orElse(null);
+        if (dbUser ==null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("message", "이메일 또는 비밀번호가 올바르지 않습니다."));
+        }
+        if (passwordEncoder.matches(request.getPassword(), dbUser.getPassword())) {
+            /*
+             * 체크포인트 1: 탈퇴한 회원은 로그인 실패와 동일한 메시지로 응답한다.
+             * 정지와 달리 "탈퇴된 계정입니다" 같은 안내는 계정 존재 여부를 추측하게 해줄 수
+             * 있어, 탈퇴 사실을 노출하지 않는다.
+             */
+            // Design Ref: mypage-bookmarks 설계 §4.4 체크포인트 1
+            if (dbUser.isWithdrawn()) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body(Map.of("message", "이메일 또는 비밀번호가 올바르지 않습니다."));
+            }
+
+            /*
+             * 체크포인트 1: 비밀번호 검증 통과 직후 정지 여부를 확인한다.
+             * 정지 중이면 토큰을 발급하지 않고 403으로 구체적인 사유(해제 예정일)를 알려준다.
+             */
+            // Design Ref: §4.2 체크포인트 1, §4.3 오류 응답 형식
+            if (dbUser.isSuspended()) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .body(Map.of(
+                                "code", "ACCOUNT_SUSPENDED",
+                                "message", "계정이 일시 정지되었습니다. 해제 예정: " + dbUser.getSuspendedUntil(),
+                                "suspendedUntil", dbUser.getSuspendedUntil()
+                        ));
+            }
+
+            JwtConfig.TokenResponse tokens = jwt.createTokenPair(dbUser.getEmail());
+            /*
+             * "로그인 상태 유지"를 끈 경우(false)만 세션 쿠키로 발급합니다.
+             * 값이 없으면(null) 기존 클라이언트와의 호환을 위해 7일 쿠키를 유지합니다.
+             */
+            boolean rememberLogin = !Boolean.FALSE.equals(request.getRememberLogin());
+            ResponseCookie refreshCookie = jwt.createRefreshTokenCookie(tokens.refreshToken(), rememberLogin);
+
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.SET_COOKIE, refreshCookie.toString())
+                    .body(Map.of(
+                            "accessToken", tokens.accessToken(),
+                            "member", toMemberResponse(dbUser)
+                    ));
+
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(Map.of("message", "이메일 또는 비밀번호가 올바르지 않습니다."));
+    }
+
+    public ResponseCookie logout() {
+//        엑세스 토큰 삭제
+        return jwt.deleteToken();
+    }
+
+    public ResponseEntity<?> refreshToken(String refreshTokenCookie) {
+    // 엑세스 토큰 리프레시
+        UserEntity user = findRefreshSessionUser(refreshTokenCookie).orElse(null);
+        if (user == null) {
+            /*
+             * 쿠키 없음, 파싱·서명·타입·만료 오류, 회원 없음은
+             * "다시 로그인해야 해결되는 상태"이므로 401로 통일하고 쿠키를 삭제합니다.
+             *
+             * 예외 메시지는 내부 정보가 담길 수 있고 null이면 Map.of가 NPE를 던지므로
+             * 응답에는 고정 메시지만 내보냅니다.
+             */
+            // Design Ref: §4.2 — 실패 400→401, body는 고정 메시지 (e.getMessage() 비노출)
+            ResponseCookie deleteCookie = jwt.deleteToken();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .header(HttpHeaders.SET_COOKIE, deleteCookie.toString())
+                    .body(Map.of("message", REFRESH_FAILED_MESSAGE));
+        }
+
+        // Refresh Token이 유효한 경우에만 Access Token을 재발급합니다.
+        String newAccessToken = issueAccessToken(user);
+
+        // Design Ref: §4.2 — 새로고침 후 세션 복원 시 헤더 닉네임을 그리도록 login과 같은 member를 함께 반환
+        return ResponseEntity.ok(Map.of(
+                "accessToken", newAccessToken,
+                "member", toMemberResponse(user)
+        ));
+    }
+
+    /*
+     * Refresh Token 쿠키를 검증하고 해당 회원을 찾습니다.
+     *
+     * 토큰·회원 검증 실패만 Optional.empty()로 돌려 401 처리 대상으로 삼습니다.
+     *  - IllegalArgumentException: 쿠키 없음, 서명 불일치, 타입 불일치, 만료, 회원 없음
+     *  - ParseException: JWT 형식 오류 또는 claim 형식 오류
+     *  - JOSEException: 지원하지 않는 서명 알고리즘 등 검증 단계 오류
+     *
+     * DB 장애 같은 그 밖의 예외는 로그인 상태와 무관한 서버 오류이므로
+     * 쿠키를 지우지 않고 전파해 500이 되게 합니다.
+     * (프론트가 네트워크·서버 오류로 보고 로그인 상태를 유지할 수 있어야 합니다.)
+     *
+     * 회원 없음은 repo가 예외를 던지는 대신 빈 Optional로 판단하므로
+     * @Transactional 프록시를 지나는 RuntimeException이 없어 rollback-only가 생기지 않습니다.
+     */
+    // Design Ref: §12 R-5 — 401 + 쿠키 삭제는 토큰·회원 검증 실패에만 한정
+    private Optional<UserEntity> findRefreshSessionUser(String refreshTokenCookie) {
+        if (refreshTokenCookie == null || refreshTokenCookie.isBlank()) {
+            log.debug("Refresh Token 재발급 실패: 쿠키 없음");
+            return Optional.empty();
+        }
+
+        String email;
+        try {
+            /*
+             * 서명 검증 및 만료 여부 확인.
+             * 만료된 Refresh Token은 재발급하지 않고 거부해야 하므로
+             * 만료 시 예외를 던지는 validateRefreshToken()을 사용합니다.
+             */
+            email = jwt.validateRefreshToken(refreshTokenCookie);
+        } catch (IllegalArgumentException | ParseException | JOSEException e) {
+            log.debug("Refresh Token 재발급 실패: {}", e.toString());
+            return Optional.empty();
+        } catch (RuntimeException e) {
+            log.error("Refresh Token 검증 중 예상하지 못한 오류", e);
+            throw e;
+        } catch (Exception e) {
+            // validateRefreshToken()이 throws Exception으로 선언되어 있어 남은 checked 예외를 감쌉니다.
+            log.error("Refresh Token 검증 중 예상하지 못한 오류", e);
+            throw new IllegalStateException("Refresh Token 검증 중 서버 오류가 발생했습니다.", e);
+        }
+
+        /*
+         * 토큰이 유효해도 그 사이 탈퇴 등으로 회원이 없을 수 있습니다.
+         * 이 경우 새 Access Token을 발급해도 보호 API에서 다시 401이 되므로
+         * 재발급 실패로 처리해 프론트가 로그인 상태를 바로 해제하게 합니다.
+         * DB 조회 자체의 오류는 잡지 않고 전파합니다(500).
+         */
+        Optional<UserEntity> user = repo.findByEmail(email);
+        if (user.isEmpty()) {
+            log.debug("Refresh Token 재발급 실패: 회원 없음");
+            return user;
+        }
+
+        /*
+         * 체크포인트 2: 회원 조회 성공 직후 정지 여부를 확인한다.
+         * 정지 중이면 "회원 없음"과 같은 분기(Optional.empty())로 처리해
+         * 기존 401 REFRESH_FAILED_MESSAGE 흐름을 그대로 타게 한다.
+         */
+        // Design Ref: §4.2 체크포인트 2 (계획 대비 변경 P-4)
+        if (user.get().isSuspended()) {
+            log.debug("Refresh Token 재발급 실패: 계정 정지 중");
+            return Optional.empty();
+        }
+
+        /*
+         * 체크포인트 2: 탈퇴한 회원도 같은 분기로 처리해 재발급 실패(401)로 이어지게 한다.
+         * 이미 발급된 Refresh Token이 유효해도 탈퇴 이후에는 재발급을 막는다.
+         */
+        // Design Ref: mypage-bookmarks 설계 §4.4 체크포인트 2
+        if (user.get().isWithdrawn()) {
+            log.debug("Refresh Token 재발급 실패: 탈퇴한 회원");
+            return Optional.empty();
+        }
+
+        return user;
+    }
+
+    /*
+     * 검증을 통과한 회원에게 Access Token을 발급합니다.
+     * 서명 실패는 사용자 토큰 문제가 아니라 서버 설정 문제이므로 500으로 전파합니다.
+     * (IllegalArgumentException으로 감싸면 GlobalExceptionHandler가 400으로 바꾸므로 IllegalStateException 사용)
+     */
+    private String issueAccessToken(UserEntity user) {
+        try {
+            return jwt.createAccessToken(user.getEmail());
+        } catch (JOSEException e) {
+            log.error("Access Token 발급 실패", e);
+            throw new IllegalStateException("Access Token 발급 중 서버 오류가 발생했습니다.", e);
+        }
+    }
+
+    /*
+     * login과 refresh가 같은 회원 정보 형태를 반환하도록 한 곳에서 만듭니다.
+     *
+     * 비밀번호 해시가 포함된 UserEntity 전체를 반환하면 안 되므로
+     * 화면(헤더 닉네임, 권한 분기)에 필요한 안전한 회원 정보만 전달합니다.
+     *
+     * Map.of는 null 값을 허용하지 않으므로 GRADE가 비어 있는 회원도
+     * 응답이 깨지지 않도록 기본값 "user"를 사용합니다.
+     */
+    // Design Ref: §3 — member { memberId, email, nickname, role } 형태를 login·refresh 공통으로 고정
+    private Map<String, Object> toMemberResponse(UserEntity user) {
+        String role = user.getGrade() != null ? user.getGrade() : "user";
+        return Map.of(
+                "memberId", user.getId(),
+                "email", user.getEmail(),
+                "nickname", user.getNickname(),
+                "role", role
+        );
+    }
+
+    private void createEmailForm(String toEmail,
+                                        String title,
+                                        String text) throws MessagingException {
+        MimeMessage message = emailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+        helper.setTo(toEmail);
+        helper.setSubject(title);
+        helper.setText(text,true);
+        emailSender.send(message);
+    }
+
+
+
+    public ResponseEntity emailVerificationConfirm(MailRequest request) {
+        requireText(request.getEmail(), "이메일을 입력해 주세요.");
+        EmailVerificationPurpose purpose = EmailVerificationPurpose.from(request.getPurpose());
+        if (request.getAuthCode() == null) {
+            throw new IllegalArgumentException("인증번호를 입력해 주세요.");
+        }
+        String key = purpose.keyOf(request.getEmail());
+        verificationLimiter.reserveAttempt(key);
+
+        Integer issuedCode = emailVerificationCache.getIfPresent(key);
+        if (issuedCode != null && issuedCode.equals(request.getAuthCode())
+                && emailVerificationCache.asMap().remove(key, issuedCode)) {
+            // 같은 인증번호를 두 요청이 동시에 확인해도 remove가 한 번만 성공한다.
+            verificationLimiter.recordSuccess(key);
+            /*
+             * 인증 성공 시 용도별 일회용 티켓을 발급합니다.
+             * 티켓은 발급받은 용도의 흐름(가입 또는 비밀번호 재설정)에서만 소모할 수 있습니다.
+             */
+            String verificationToken = UUID.randomUUID().toString();
+            emailVerificationTicketCache.put(key, verificationToken);
+            return ResponseEntity.ok(Map.of("verificationToken", verificationToken));
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", "인증번호가 일치하지 않습니다."));
+    }
+
+    public void changePassword(UserRequest request) {
+        requireText(request.getEmail(), "이메일을 입력해 주세요.");
+        requireText(request.getPassword(), "비밀번호를 입력해 주세요.");
+        consumeVerificationTicket(EmailVerificationPurpose.RESET_PASSWORD, request.getEmail(), request.getVerificationToken());
+        UserEntity user = repo.findByEmail(request.getEmail()).orElseThrow(() -> new IllegalArgumentException("해당 이메일의 회원을 찾을 수 없습니다."));
+        user.changePassword(passwordEncoder.encode(request.getPassword()));
+        repo.save(user);
+    }
+
+    /**
+     * 이메일 인증 티켓을 검증하고 1회성으로 소모합니다.
+     *
+     * 티켓이 없거나 일치하지 않으면 signup/changePassword를 진행할 수 없습니다.
+     * 검증에 성공한 티켓은 재사용을 막기 위해 즉시 무효화합니다.
+     */
+    private void consumeVerificationTicket(EmailVerificationPurpose purpose, String email, String verificationToken) {
+        // Caffeine 캐시는 null 키를 허용하지 않으므로(NPE) 조회 전에 반드시 가드합니다.
+        requireText(email, "이메일을 입력해 주세요.");
+        if (verificationToken == null) {
+            throw new IllegalArgumentException("이메일 인증이 필요합니다.");
+        }
+        // 값이 일치할 때만 제거하므로, 같은 티켓을 동시에 제시해도 한 요청만 통과한다.
+        boolean consumed = emailVerificationTicketCache.asMap().remove(purpose.keyOf(email), verificationToken);
+        if (!consumed) {
+            throw new IllegalArgumentException("이메일 인증이 필요합니다.");
+        }
+    }
+
+    // 중복 가입 충돌 메시지. 제약 이름으로 어느 값이 겹쳤는지 구분하고, 알 수 없으면 일반 문구를 쓴다.
+    private static IllegalArgumentException duplicateAccountError(DataIntegrityViolationException e) {
+        String detail = e.getMostSpecificCause() == null ? "" : String.valueOf(e.getMostSpecificCause().getMessage()).toLowerCase();
+        if (detail.contains("uk_users_email")) {
+            return new IllegalArgumentException("이미 사용 중인 이메일입니다.");
+        }
+        if (detail.contains("uk_users_nickname")) {
+            return new IllegalArgumentException("이미 사용 중인 닉네임입니다.");
+        }
+        return new IllegalArgumentException("이미 사용 중인 정보가 있습니다. 다시 확인해 주세요.");
+    }
+
+    // 인증번호는 보안용 난수로 만든다(java.util.Random은 예측 가능하므로 사용하지 않는다). 범위는 6자리 숫자다.
+    static int newCode(SecureRandom random) {
+        return 100_000 + random.nextInt(900_000);
+    }
+
+    /*
+     * 필수 문자열이 null이거나 공백이면 400으로 매핑되는 IllegalArgumentException을 던집니다.
+     * (GlobalExceptionHandler가 { "message": ... } 형식으로 응답합니다.)
+     */
+    private static void requireText(String value, String message) {
+        if (value == null || value.isBlank()) {
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+    // 필수 약관(서비스 이용, 개인정보)은 true여야 합니다. 선택 약관(마케팅)은 가입을 막지 않습니다.
+    private static void requireRequiredTerms(UserRequest.TermsAgreement agreements) {
+        if (agreements == null
+                || !Boolean.TRUE.equals(agreements.service())
+                || !Boolean.TRUE.equals(agreements.privacy())) {
+            throw new IllegalArgumentException("필수 약관에 동의해 주세요.");
+        }
+    }
+
+    public void sendCodeToEmail(String email, EmailVerificationPurpose purpose) {
+        requireText(email, "이메일을 입력해 주세요.");
+        String key = purpose.keyOf(email);
+        verificationLimiter.reserveSend(key);
+        // 확인코드 담긴 이메일 발송
+        String title = "Waylog 이메일 인증 번호";
+        int checkNum = newCode(SECURE_RANDOM);
+        String content =
+                "<!DOCTYPE html>"
+                        + "<html>"
+                        + "<head><meta charset='UTF-8'></head>"
+                        + "<body style='margin: 0; padding: 0; background-color: #f4f6f8; font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;'>"
+                        + "  <table role='presentation' width='100%' cellspacing='0' cellpadding='0' style='background-color: #f4f6f8; padding: 40px 0;'>"
+                        + "    <tr>"
+                        + "      <td align='center'>"
+                        + "        <table role='presentation' width='100%' cellspacing='0' cellpadding='0' style='max-width: 500px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); overflow: hidden;'>"
+                        // 브랜드 헤더
+                        + "          <tr>"
+                        + "            <td style='background-color: #2563eb; padding: 24px; text-align: center;'>"
+                        + "              <h1 style='color: #ffffff; margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px;'>Waylog</h1>"
+                        + "            </td>"
+                        + "          </tr>"
+                        // 본문 콘텐츠
+                        + "          <tr>"
+                        + "            <td style='padding: 40px 32px; text-align: center;'>"
+                        + "              <h2 style='color: #1e293b; margin: 0 0 12px 0; font-size: 20px; font-weight: 600;'>이메일 인증 번호</h2>"
+                        + "              <p style='color: #64748b; margin: 0 0 28px 0; font-size: 14px; line-height: 1.5;'>Waylog를 이용해 주셔서 감사합니다.<br>아래의 인증 번호를 홈페이지 인증 창에 입력해 주세요.</p>"
+                        // 인증코드 강조 박스
+                        + "              <div style='background-color: #f1f5f9; border-radius: 8px; padding: 16px 24px; display: inline-block; margin-bottom: 24px;'>"
+                        + "                <span style='color: #2563eb; font-size: 32px; font-weight: 800; letter-spacing: 6px; font-family: monospace;'>" + checkNum + "</span>"
+                        + "              </div>"
+                        + "              <p style='color: #ef4444; margin: 0; font-size: 13px; font-weight: 500;'>※ 본 인증번호는 3분 동안만 유효합니다.</p>"
+                        + "            </td>"
+                        + "          </tr>"
+                        // 푸터
+                        + "          <tr>"
+                        + "            <td style='background-color: #f8fafc; padding: 20px 32px; border-top: 1px solid #e2e8f0; text-align: center;'>"
+                        + "              <p style='color: #94a3b8; font-size: 12px; margin: 0; line-height: 1.5;'>본 메일은 발신 전용 메일이므로 회신되지 않습니다.<br>© Waylog. All rights reserved.</p>"
+                        + "            </td>"
+                        + "          </tr>"
+                        + "        </table>"
+                        + "      </td>"
+                        + "    </tr>"
+                        + "  </table>"
+                        + "</body>"
+                        + "</html>";
+        try {
+            createEmailForm(email, title, content);
+            // 인증번호 관련 정보를 캐시에 저장
+            emailVerificationCache.put(key, checkNum);
+            verificationLimiter.recordSent(key);
+        } catch (Exception e) {
+            // 또는 로거를 사용하여 상세한 예외 정보 로깅
+            verificationLimiter.releaseSend(key);
+            throw new RuntimeException("Unable to send email in sendCodeToEmail", e); // 원인 예외를 포함시키기
+        }
+    }
+
+}

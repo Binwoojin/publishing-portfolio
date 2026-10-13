@@ -1,0 +1,61 @@
+.travel-search-modal { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; overscroll-behavior: none; padding: 32px; background: rgba(15,23,42,.58); backdrop-filter: blur(4px); }
+.travel-search-modal__dialog { position: relative; width: min(1040px, 100%); max-height: calc(100vh - 64px); overflow-y: auto; overscroll-behavior: contain; padding: 44px 50px 36px; border-radius: 24px; background: #fff; box-shadow: 0 24px 70px rgba(15,23,42,.32); color: #1f1f1f; }
+.travel-search-modal__close { position: absolute; top: 24px; right: 28px; width: 42px; height: 42px; border: 0; border-radius: 50%; background: #f1f5f9; color: #475569; font-size: 29px; line-height: 1; cursor: pointer; }
+.travel-search-modal header h2 { margin: 0 0 8px; font-size: 40px; letter-spacing: -.04em; }
+.travel-search-modal header p { margin: 0 0 35px; color: #999; font-size: 18px; }
+.travel-search-modal__section { margin-top: 27px; }
+.travel-search-modal__section > h3, .travel-search-modal__detail-title h3 { margin: 0 0 16px; font-size: 24px; }
+.travel-search-modal__region-box { margin-top: 14px; padding: 20px 30px; border: 1px solid #b8d5e6; border-radius: 16px; background: #def2ff; }
+.travel-search-modal__region-box strong { font-size: 19px; }
+/* Design Ref: 코드 리뷰 반영 — 키워드 입력 label은 <strong>과 같은 굵기·크기를 유지합니다(label은 기본이 굵지 않음). */
+.travel-search-modal__region-box label { display: block; font-size: 19px; font-weight: 700; }
+.travel-search-modal__region-box p { margin: 4px 0 14px; color: #999; }
+.travel-search-modal__region-box button, .travel-search-modal__detail-button { min-width: 90px; height: 44px; border: 1px solid #c9c9c9; border-radius: 8px; background: #fff; color: #1f1f1f; font-size: 16px; font-weight: 700; cursor: pointer; }
+/* Design Ref: tour-course-list-integration.design.md §9.2 — 여행코스 유형의 키워드 입력(지역 선택 박스 대체) */
+.travel-search-modal__keyword-input { width: 100%; height: 48px; padding: 0 18px; border: 1px solid #b8d5e6; border-radius: 8px; color: #1f1f1f; background: #fff; font: inherit; font-size: 16px; }
+.travel-search-modal__keyword-input:focus { border-color: #3b82f6; outline: none; box-shadow: 0 0 0 3px rgba(59,130,246,.16); }
+.travel-search-modal__region-box button:disabled { cursor: not-allowed; opacity: .45; }
+.travel-search-modal__detail-button:disabled { cursor: not-allowed; opacity: .45; }
+.travel-search-modal button.is-selected { border-color: #3b82f6; background: #eff6ff; color: #2563eb; box-shadow: 0 0 0 2px rgba(59,130,246,.12); }
+/* Design Ref: §5.4 — 16개 시·도 + 최대 수십 개 시군구를 담을 수 있게 버튼 목록을 줄바꿈합니다. */
+.travel-search-modal__option-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.travel-search-modal__district-list { max-height: 220px; overflow-y: auto; padding-right: 2px; }
+.travel-search-modal__detail-options { display: flex; flex-wrap: wrap; gap: 10px; }
+.travel-search-modal__type-grid > button:disabled, .enjoy-search-modal__type-grid > button:disabled { cursor: not-allowed; opacity: .5; }
+/* Design Ref: §5.4 SearchOptionGroup — 로딩·오류·비활성 안내는 버튼 한 줄과 같은 높이로 고정합니다. */
+.search-option-group__hint { display: flex; align-items: center; gap: 10px; min-height: 44px; margin: 0; color: #94a3b8; font-size: 14px; }
+.search-option-group__hint--error { color: #dc2626; }
+.search-option-group__retry { border: 1px solid #dc2626; border-radius: 6px; padding: 4px 10px; background: #fff; color: #dc2626; font: inherit; font-size: 13px; cursor: pointer; }
+.search-option-group__badge { margin-left: 8px; padding: 2px 8px; border-radius: 999px; background: #fef3c7; color: #92400e; font-size: 12px; font-weight: 700; vertical-align: middle; }
+.travel-search-modal__type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.travel-search-modal__type-grid > button { min-height: 174px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #aaa; border-radius: 14px; background: #fff; color: #1f1f1f; cursor: pointer; }
+.travel-search-modal__type-icon { min-height: 46px; display: grid; place-items: center; color: #3b82f6; font-size: 38px; line-height: 1; }
+.travel-search-modal__type-icon svg { color: #3b82f6; }
+.travel-search-modal__type-grid strong { margin-top: 10px; font-size: 20px; }
+.travel-search-modal__type-grid small { margin-top: 7px; color: #777; font-size: 14px; }
+.travel-search-modal__detail-title { display: flex; align-items: center; gap: 18px; }
+.travel-search-modal__detail-title span { margin-bottom: 15px; padding: 5px 10px; border: 1px solid #9ac9e5; border-radius: 6px; background: #e0f2fe; color: #3b82f6; font-size: 13px; font-weight: 700; }
+.travel-search-modal__summary { margin-top: 28px; padding: 20px 25px; border: 1px solid #b8d5e6; border-radius: 15px; background: #def2ff; }
+.travel-search-modal__summary h3 { margin: 0 0 14px; color: #3b82f6; font-size: 20px; }
+.travel-search-modal__summary > div { display: flex; flex-wrap: wrap; gap: 10px; }
+.travel-search-modal__summary span { padding: 8px 12px; border-radius: 7px; background: #fff; color: #64748b; font-size: 14px; }
+.travel-search-modal__summary strong { margin-left: 5px; color: #1f1f1f; }
+.travel-search-modal__actions { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; margin-top: 28px; }
+.travel-search-modal__actions button { border: 0; background: transparent; font: inherit; font-size: 16px; font-weight: 700; cursor: pointer; }
+.travel-search-modal__actions button:first-child { justify-self: start; }
+.travel-search-modal__actions button:last-child { justify-self: end; min-width: 245px; height: 58px; padding: 0 24px; border-radius: 12px; background: #3b82f6; color: #fff; font-size: 18px; }
+.travel-search-modal__actions p { margin: 0; color: #999; text-align: center; }
+@media (max-width: 720px) {
+  .travel-search-modal { padding: 12px; }
+  .travel-search-modal__dialog { max-height: calc(100vh - 24px); padding: 34px 18px 25px; border-radius: 18px; }
+  .travel-search-modal header h2 { font-size: 31px; }
+  .travel-search-modal__type-grid { grid-template-columns: 1fr; gap: 10px; }
+  .travel-search-modal__type-grid > button { min-height: 126px; }
+  /* Design Ref: §5.4 — 모바일에서 지역·시군구·세부 항목 버튼을 3열로 배치합니다. */
+  .travel-search-modal__option-list > button, .travel-search-modal__detail-options > button { min-width: calc(33% - 8px); flex: 1 1 calc(33% - 8px); }
+  .travel-search-modal__detail-title { display: block; }
+  .travel-search-modal__actions { grid-template-columns: 1fr; }
+  .travel-search-modal__actions button, .travel-search-modal__actions button:first-child, .travel-search-modal__actions button:last-child { width: 100%; justify-self: stretch; }
+  .travel-search-modal__actions p { grid-row: 1; }
+}
+.travel-search-modal #travel-search-title { font-weight: 700; }

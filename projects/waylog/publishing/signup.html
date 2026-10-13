@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko" class="is-guest">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입 | WayLog</title>
+  <meta name="description" content="WayLog 로그인 · 회원가입">
+  <meta name="theme-color" content="#f2f5f4">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <script>try{if(JSON.parse(localStorage.getItem('waylog:auth'))===true)document.documentElement.className='is-member';}catch(e){}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../../../common/css/reset.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+  <div class="auth">
+    <div class="auth__visual" aria-hidden="true">
+      <img src="images/login-background.webp" srcset="images/login-background.webp 800w, images/login-background@2x.webp 1600w" sizes="50vw" alt="" width="800" height="1067">
+      <div class="auth__quote">
+        <p class="mono">37.6587°N 126.9779°E · 북한산 백운대</p>
+        <p class="auth__quote-text">당신의 모든 여행 기록이<br>새로운 이야기로 이어집니다.</p>
+      </div>
+    </div>
+    <main class="auth__main" id="main">
+      <div class="auth__top"><a class="logo" href="index.html" aria-label="WayLog 홈"><svg class="logo__mark" viewBox="0 0 32 32" aria-hidden="true"><path class="route" d="M5 27c6-1 7-7 12-8s8-3 9-9"/><circle class="dot" cx="5" cy="27" r="2.6"/><path class="pin" d="M26 2.5a5.5 5.5 0 0 0-5.5 5.5c0 4.2 5.5 9 5.5 9s5.5-4.8 5.5-9A5.5 5.5 0 0 0 26 2.5Zm0 7.6a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2Z"/></svg><span aria-hidden="true">WayLog</span></a><a class="more-link" href="index.html"><svg class="icon" aria-hidden="true"><use href="#i-arrow-left"></use></svg>홈으로</a></div>
+      <div class="auth__panel">
+        <h1 class="auth__title">WayLog 회원가입</h1>
+        <ol class="stepper" aria-label="회원가입 단계">
+          <li data-step-label="1" aria-current="step"><span class="mono">01</span>약관 동의</li>
+          <li data-step-label="2"><span class="mono">02</span>정보 입력</li>
+          <li data-step-label="3"><span class="mono">03</span>가입 완료</li>
+        </ol>
+
+        <!-- 1단계: 약관 동의 -->
+        <form class="auth__form" id="stepTerms" data-step="1" novalidate aria-labelledby="termsTitle">
+          <h2 class="auth__step-title" id="termsTitle">서비스 이용 약관에 동의해 주세요</h2>
+          <div class="terms">
+            <label class="check check--all"><input type="checkbox" id="agreeAll"><span>전체 동의</span></label>
+            <label class="check"><input type="checkbox" class="agree" data-required="true" id="agreeService"><span><strong>[필수]</strong> 서비스 이용약관</span></label>
+            <label class="check"><input type="checkbox" class="agree" data-required="true" id="agreePrivacy"><span><strong>[필수]</strong> 개인정보 수집 · 이용</span></label>
+            <label class="check"><input type="checkbox" class="agree" id="agreeMarketing"><span>[선택] 여행 소식 · 이벤트 알림 수신</span></label>
+          </div>
+          <p class="field__error" id="termsError" role="alert" hidden></p>
+          <button class="btn btn--primary btn--lg btn--block" type="submit">다음</button>
+        </form>
+
+        <!-- 2단계: 정보 입력 -->
+        <form class="auth__form" id="stepInfo" data-step="2" novalidate hidden aria-labelledby="infoTitle">
+          <h2 class="auth__step-title" id="infoTitle">계정 정보를 입력해 주세요</h2>
+          <div class="form-alert" id="infoAlert" role="alert" tabindex="-1" hidden><svg class="icon" aria-hidden="true"><use href="#i-alert"></use></svg><div><strong>입력 내용을 확인해 주세요.</strong><ul id="infoAlertList"></ul></div></div>
+
+          <div class="field">
+            <label class="field__label" for="suEmail">이메일<span class="req" aria-hidden="true">*</span></label>
+            <div class="field__row">
+              <input class="input" type="email" id="suEmail" autocomplete="email" inputmode="email" placeholder="example@waylog.kr" aria-describedby="suEmailMsg">
+              <button class="btn btn--outline" type="button" id="checkEmailBtn">중복 확인</button>
+            </div>
+            <p class="field__help" id="suEmailMsg">예: ‘traveler@waylog.kr’은 이미 가입된 이메일</p>
+          </div>
+          <div class="field" id="codeField" hidden>
+            <label class="field__label" for="suCode">인증번호<span class="req" aria-hidden="true">*</span></label>
+            <div class="field__row">
+              <div class="input-wrap"><input class="input" type="text" id="suCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="6자리 숫자" aria-describedby="suCodeMsg"><span class="timer mono" id="codeTimer" aria-hidden="true">05:00</span></div>
+              <button class="btn btn--outline" type="button" id="verifyCodeBtn">확인</button>
+            </div>
+            <p class="field__help" id="suCodeMsg">메일로 보낸 6자리 숫자를 입력해 주세요. (데모 인증번호: 246810)</p>
+          </div>
+          <div class="field">
+            <label class="field__label" for="suPw">비밀번호<span class="req" aria-hidden="true">*</span></label>
+            <div class="input-wrap">
+              <input class="input" type="password" id="suPw" autocomplete="new-password" maxlength="20" aria-describedby="suPwRules suPwMsg">
+              <button class="icon-btn" type="button" data-toggle-password="suPw" aria-label="비밀번호 보기" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-eye"></use></svg></button>
+            </div>
+            <ul class="rule-list" id="suPwRules" aria-label="비밀번호 조건">
+              <li data-rule="length"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>8~20자</li>
+              <li data-rule="letter"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>영문</li>
+              <li data-rule="number"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>숫자</li>
+              <li data-rule="special"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>특수문자</li>
+            </ul>
+            <p class="field__help" id="suPwMsg" hidden></p>
+          </div>
+          <div class="field">
+            <label class="field__label" for="suPw2">비밀번호 확인<span class="req" aria-hidden="true">*</span></label>
+            <input class="input" type="password" id="suPw2" autocomplete="new-password" maxlength="20" aria-describedby="suPw2Msg">
+            <p class="field__help" id="suPw2Msg" hidden></p>
+          </div>
+          <div class="field">
+            <label class="field__label" for="suNick">닉네임<span class="req" aria-hidden="true">*</span></label>
+            <div class="field__row">
+              <input class="input" type="text" id="suNick" maxlength="12" autocomplete="nickname" aria-describedby="suNickMsg">
+              <button class="btn btn--outline" type="button" id="checkNickBtn">중복 확인</button>
+            </div>
+            <p class="field__help" id="suNickMsg">한글 · 영문 · 숫자 2~12자 (예: ‘바다산책’은 사용 중)</p>
+          </div>
+          <div class="auth__actions">
+            <button class="btn btn--outline btn--lg" type="button" id="backToTerms">이전</button>
+            <button class="btn btn--primary btn--lg" type="submit">가입하기</button>
+          </div>
+        </form>
+
+        <!-- 3단계: 완료 -->
+        <section class="auth__done" data-step="3" hidden aria-labelledby="doneTitle" tabindex="-1" id="stepDone">
+          <span class="auth__done-icon"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg></span>
+          <h2 class="auth__step-title" id="doneTitle"><span id="doneNick"></span>님, 환영해요!</h2>
+          <p class="auth__desc">가입이 완료되었습니다. 로그인하고 첫 여행 이야기를 남겨 보세요.</p>
+          <a class="btn btn--primary btn--lg btn--block" href="login.html">로그인하러 가기</a>
+        </section>
+
+        <p class="auth__switch" id="signupSwitch">이미 회원이신가요? <a class="text-link" href="login.html">로그인</a></p>
+      </div>
+    </main>
+  </div>
+  <script src="js/icons.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

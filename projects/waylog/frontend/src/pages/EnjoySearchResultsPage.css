@@ -1,0 +1,3 @@
+/* 카드 목록은 이제 TourCardGrid/TourCard(catalog-*)를 그대로 써서 Destination 검색 결과와 같은
+   모양입니다. 안내 문구만 즐기기 톤(파란 배경)으로 남깁니다. */
+.enjoy-results-page .search-results-notice{border-radius:12px;color:#5c7fa7!important;background:#edf5fd}

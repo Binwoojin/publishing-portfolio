@@ -1,0 +1,82 @@
+.destinations-page { min-width: 320px; color: #1f1f1f; background: #fff; }
+.destination-main { width: min(1480px, calc(100% - 48px)); margin: 0 auto; }
+/*
+ * 상단 히어로 골격·모바일 규칙은 components/common/PageHero.css. 여기에는 이 페이지 비주얼만 둡니다.
+ * 모든 폭에 필요한 규칙이라 .page-hero--destinations 수정자(761px 이상 전용)가 아닌 페이지 자체 클래스로 겁니다.
+ * height: 100%: 모바일에서는 PageHero가 정한 비주얼 상자 높이를 채우고(contain이라 잘리지 않음),
+ * 데스크톱에서는 상자 높이가 auto라 퍼센트가 무시되어 기존처럼 이미지 비율대로 그려집니다.
+ */
+.destination-hero__image { display: block; width: 100%; height: 100%; max-height: 540px; object-fit: contain; }
+.destination-main { padding: 105px 0 130px; }
+.destination-main > section + section { margin-top: 120px; }
+.destination-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; margin-bottom: 44px; }
+.destination-heading h2 { margin: 0 0 18px; font-size: 48px; font-weight: 700; line-height: 1.15; letter-spacing: -1px; }
+.destination-heading p { margin: 0; color: #999; font-size: 24px; }
+.destination-heading > a { flex: 0 0 auto; color: #333; font-size: 20px; text-decoration: none; }
+.destination-heading > a span { margin-left: 8px; }
+.destination-type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.destination-type-grid > a { color: inherit; text-decoration: none; }
+.destination-type-grid article { position: relative; overflow: visible; border-radius: 30px; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,.18); transition: transform .2s ease; }
+.destination-type-grid article:hover, .region-grid article:hover, .destination-info-card:hover, .destination-course-grid article:hover, .destination-new-grid article:hover { transform: translateY(-5px); }
+.destination-type-grid article > img { display: block; width: 100%; height: 260px; border-radius: 30px 30px 0 0; object-fit: cover; }
+.destination-type-grid article > span { position: absolute; top: 215px; left: 28px; display: grid; width: 88px; height: 88px; place-items: center; border-radius: 50%; color: #3b82f6; background: #e6fdff; box-shadow: 0 4px 12px rgba(0,0,0,.12); font-size: 38px; font-weight: 700; }
+.destination-type-grid article > div { min-height: 140px; padding: 60px 24px 24px; }
+.destination-type-grid h3 { margin: 0 0 10px; font-size: 26px; }
+.destination-type-grid p { margin: 0; color: #999; font-size: 17px; }
+.region-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px 20px; }
+/* Design Ref: §5.5 FR-14 — 지역 카드가 링크가 됩니다. 유형 카드(.destination-type-grid > a)와 같은 규칙입니다. */
+.region-grid > a { display: block; color: inherit; text-decoration: none; cursor: pointer; }
+.region-grid > a:focus-visible { outline: 3px solid rgba(40, 120, 237, .55); outline-offset: 4px; border-radius: 28px; }
+.region-grid article { overflow: hidden; border-radius: 28px; background: #f9f9f9; box-shadow: 0 4px 12px rgba(0,0,0,.18); transition: transform .2s ease; }
+.region-grid img { display: block; width: 100%; height: 210px; object-fit: cover; }
+.region-grid h3 { margin: 0; padding: 17px 24px; font-size: 22px; }
+.destination-info-grid { display: grid; gap: 20px; }
+.destination-info-grid--four { grid-template-columns: repeat(4, 1fr); }
+/* 주제 카드는 링크가 감싸는 구조입니다. 유형 카드(.destination-type-grid > a)와 같은 링크 리셋을 씁니다. */
+.destination-info-grid > a { color: inherit; text-decoration: none; }
+.destination-info-grid--three { grid-template-columns: repeat(3, 1fr); }
+.destination-info-card { overflow: hidden; border-radius: 28px; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,.18); transition: transform .2s ease; }
+.destination-info-card > img { display: block; width: 100%; height: 230px; object-fit: cover; }
+.destination-info-card > div { min-height: 210px; padding: 22px 24px 26px; }
+.destination-info-card span, .destination-new-grid span { display: inline-block; margin-bottom: 13px; padding: 5px 10px; border: 1px solid #98cae3; border-radius: 5px; color: #3b82f6; background: #dff5ff; font-size: 13px; font-weight: 600; }
+.destination-info-card h3, .destination-new-grid h3 { margin: 0 0 9px; font-size: 22px; }
+.destination-info-card p, .destination-new-grid p { margin: 9px 0 0; color: #777; font-size: 15px; line-height: 1.5; }
+.destination-info-card .destination-card-location { display: flex; align-items: center; gap: 5px; color: #999; }
+.destination-card-location svg, .location-with-pin svg { flex: 0 0 auto; }
+.location-with-pin { display: flex; align-items: center; gap: 5px; }
+.destination-course-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.destination-course-grid > article { overflow: hidden; border-radius: 28px; background: #f9f9f9; box-shadow: 0 4px 12px rgba(0,0,0,.18); transition: transform .2s ease; }
+.destination-course-card__photo { display: block; width: 100%; height: 230px; object-fit: cover; }
+.destination-course-grid article > div { padding: 18px 24px 25px; }
+.destination-course-meta { display: flex; align-items: center; justify-content: space-between; }
+.destination-course-meta span { padding: 6px 20px; border-radius: 16px; color: #fff; background: #3b82f6; font-size: 13px; }
+.destination-course-meta small { color: #666; font-size: 13px; }
+.destination-course-grid h3 { margin: 14px 0 9px; font-size: 22px; }
+.destination-course-grid article > div > p { min-height: 42px; margin: 0; color: #666; font-size: 14px; line-height: 1.5; }
+.destination-course-route { position: relative; height: 52px; padding-top: 34px; }
+.destination-course-route > img { position: absolute; top: 10px; left: 5%; width: 90%; height: 18px; }
+.destination-course-route small { position: absolute; top: 34px; width: 25%; overflow: hidden; color: #888; font-size: 11px; text-align: center; text-overflow: ellipsis; white-space: nowrap; transform: translateX(-50%); }
+.destination-course-route small:nth-of-type(1) { left: 5%; }
+.destination-course-route small:nth-of-type(2) { left: 35%; }
+.destination-course-route small:nth-of-type(3) { left: 65%; }
+.destination-course-route small:nth-of-type(4) { left: 95%; }
+.destination-new-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.destination-new-grid article { overflow: hidden; border-radius: 28px; background: #f9f9f9; box-shadow: 0 4px 12px rgba(0,0,0,.18); transition: transform .2s ease; }
+.destination-new-grid article > img { display: block; width: 100%; height: 210px; object-fit: cover; }
+.destination-new-grid article > div { min-height: 130px; padding: 18px 24px 22px; }
+.destination-new-grid span { margin-bottom: 9px; }
+.destination-new-grid h3 { font-size: 20px; }
+/* 태블릿 히어로 조정. 모바일 공통 규칙(PageHero.css)을 덮지 않도록 761px 이상으로 한정합니다. */
+@media (min-width: 761px) and (max-width: 1100px) {
+  .page-hero--destinations .page-hero__inner { grid-template-columns: .9fr 1.1fr; } .page-hero--destinations .page-hero__description { font-size: 23px; }
+}
+@media (max-width: 1100px) {
+  .region-grid, .destination-info-grid--four, .destination-new-grid { grid-template-columns: repeat(2, 1fr); }
+  .destination-info-grid--three, .destination-course-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 760px) {
+  .destination-main { width: calc(100% - 32px); }
+  .destination-main { padding-top: 70px; } .destination-main > section + section { margin-top: 82px; }
+  .destination-heading { align-items: flex-start; } .destination-heading h2 { font-size: 32px; } .destination-heading p { font-size: 16px; line-height: 1.5; } .destination-heading > a { font-size: 14px; }
+  .destination-type-grid, .region-grid, .destination-info-grid--four, .destination-info-grid--three, .destination-course-grid, .destination-new-grid { grid-template-columns: 1fr; }
+}
