@@ -60,6 +60,11 @@ window.PROJECTS = [
 - **웹 접근성**: KWCAG / WCAG 2.1 기준 준수 (대체 텍스트, 키보드 접근, 명도 대비 등)
 - **크로스 브라우징**: 최신 Chrome · Edge · Safari · Firefox 확인
 
+## 디자인 스킬 (UI UX Pro Max)
+
+`.claude/skills/ui-ux-pro-max/` 에 [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) (MIT) 스킬이 설치되어 있어,
+Claude Code로 UI 작업을 요청하면 스타일 · 컬러 · 폰트 · UX 가이드라인 데이터를 참고해 작업합니다.
+
 ## 로컬에서 보기
 
 별도 빌드 과정은 없습니다. 로컬 서버를 띄워 확인합니다.
