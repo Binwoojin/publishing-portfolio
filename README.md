@@ -70,7 +70,7 @@ Claude Code로 UI 작업을 요청하면 스타일 · 컬러 · 폰트 · UX 가
 - **레이아웃**: Portfolio Grid — Hero → Projects → About → Skills → Contact
 - **스타일**: Minimalism & Swiss Style — 12단 그리드, 얇은 구분선, 큰 타이포그래피
 - **컬러**: Monochrome + Blue accent (`#18181B` / `#FAFAFA` / `#2563EB`), 다크 모드 지원
-- **폰트**: Archivo (영문 제목) + Pretendard (한글 · 본문)
+- **폰트**: 페이퍼로지(Paperlogy) — `assets/fonts/` 에 포함 (400 · 500 · 600 · 700 · 800)
 - **UX**: 클릭 영역 44px 이상, 키보드 포커스 표시, 모션 감소 설정 시 애니메이션 끔
 
 ## 로컬에서 보기

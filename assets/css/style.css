@@ -1,10 +1,49 @@
 /* ==========================================================================
+   Font: Paperlogy (페이퍼로지)
+   ========================================================================== */
+@font-face {
+  font-family: "Paperlogy";
+  src: url("../fonts/Paperlogy-4Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Paperlogy";
+  src: url("../fonts/Paperlogy-5Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Paperlogy";
+  src: url("../fonts/Paperlogy-6SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Paperlogy";
+  src: url("../fonts/Paperlogy-7Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Paperlogy";
+  src: url("../fonts/Paperlogy-8ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
    Design tokens
    UI UX Pro Max 추천 디자인 시스템 기반
    - Style: Minimalism & Swiss Style (grid-based, high contrast, geometric)
    - Pattern: Portfolio Grid (Hero > Projects > About > Contact)
    - Color: Monochrome + blue accent
-   - Type: Archivo (Latin heading) + Pretendard (한글 본문)
+   - Type: Paperlogy (전체)
    ========================================================================== */
 :root {
   --color-primary: #18181B;
@@ -21,8 +60,8 @@
   --color-ring: #2563EB;
   --color-thumb: #ECEEF2;
 
-  --font-body: "Pretendard", system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-  --font-display: "Archivo", "Pretendard", system-ui, sans-serif;
+  --font-body: "Paperlogy", system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-display: var(--font-body);
 
   /* Spacious density (24–96px) */
   --space-1: 8px;
@@ -206,7 +245,7 @@ button:focus-visible {
   font-size: clamp(2.75rem, 8vw, 6rem);
   font-weight: 800;
   line-height: 1.1;
-  letter-spacing: -.04em;
+  letter-spacing: -.02em;
 }
 .hero__title em { font-style: normal; color: var(--color-accent); }
 .hero__desc {
@@ -262,7 +301,7 @@ button:focus-visible {
   font-size: clamp(2.5rem, 5.5vw, 4.5rem);
   font-weight: 800;
   line-height: 1;
-  letter-spacing: -.04em;
+  letter-spacing: -.02em;
 }
 .section__desc {
   grid-column: 9 / span 4;
@@ -319,7 +358,7 @@ button:focus-visible {
   font-family: var(--font-display);
   font-size: clamp(3rem, 8vw, 5rem);
   font-weight: 800;
-  letter-spacing: -.04em;
+  letter-spacing: -.02em;
   color: var(--color-muted-foreground);
   opacity: .35;
 }
@@ -431,7 +470,7 @@ button:focus-visible {
   font-family: var(--font-display);
   font-size: clamp(1.75rem, 6vw, 4.5rem);
   font-weight: 800;
-  letter-spacing: -.04em;
+  letter-spacing: -.02em;
   line-height: 1.15;
   word-break: break-all;
   background: linear-gradient(currentColor, currentColor) 0 100% / 0 3px no-repeat;
