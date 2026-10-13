@@ -65,6 +65,14 @@ window.PROJECTS = [
 `.claude/skills/ui-ux-pro-max/` 에 [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) (MIT) 스킬이 설치되어 있어,
 Claude Code로 UI 작업을 요청하면 스타일 · 컬러 · 폰트 · UX 가이드라인 데이터를 참고해 작업합니다.
 
+현재 사이트 디자인은 이 스킬의 추천을 바탕으로 합니다.
+
+- **레이아웃**: Portfolio Grid — Hero → Projects → About → Skills → Contact
+- **스타일**: Minimalism & Swiss Style — 12단 그리드, 얇은 구분선, 큰 타이포그래피
+- **컬러**: Monochrome + Blue accent (`#18181B` / `#FAFAFA` / `#2563EB`), 다크 모드 지원
+- **폰트**: Archivo (영문 제목) + Pretendard (한글 · 본문)
+- **UX**: 클릭 영역 44px 이상, 키보드 포커스 표시, 모션 감소 설정 시 애니메이션 끔
+
 ## 로컬에서 보기
 
 별도 빌드 과정은 없습니다. 로컬 서버를 띄워 확인합니다.
