@@ -6,7 +6,8 @@
   <title>회원가입 | WayLog</title>
   <meta name="description" content="WayLog 로그인 · 회원가입">
   <meta name="theme-color" content="#f4f7fb">
-  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="images/favicon.png" type="image/png" sizes="64x64">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
   <script>try{if(JSON.parse(localStorage.getItem('waylog:auth'))===true)document.documentElement.className='is-member';}catch(e){}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +31,7 @@
       </div>
     </div>
     <main class="auth__main" id="main">
-      <div class="auth__top"><a class="logo" href="index.html" aria-label="WayLog 홈"><svg class="logo__mark" viewBox="0 0 32 32" aria-hidden="true"><path class="route" d="M5 27c6-1 7-7 12-8s8-3 9-9"/><circle class="dot" cx="5" cy="27" r="2.6"/><path class="pin" d="M26 2.5a5.5 5.5 0 0 0-5.5 5.5c0 4.2 5.5 9 5.5 9s5.5-4.8 5.5-9A5.5 5.5 0 0 0 26 2.5Zm0 7.6a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2Z"/></svg><span aria-hidden="true">WayLog</span></a><a class="more-link" href="index.html"><svg class="icon" aria-hidden="true"><use href="#i-arrow-left"></use></svg>홈으로</a></div>
+      <div class="auth__top"><a class="logo" href="index.html" aria-label="WayLog 홈"><img class="logo__img logo__img--light" src="images/logo-30.webp" srcset="images/logo-30.webp 1x, images/logo-60.webp 2x, images/logo-90.webp 3x" alt="" width="39" height="30"><img class="logo__img logo__img--dark" src="images/logo-dark-30.webp" srcset="images/logo-dark-30.webp 1x, images/logo-dark-60.webp 2x, images/logo-dark-90.webp 3x" alt="" width="39" height="30"><span aria-hidden="true">WayLog</span></a><a class="more-link" href="index.html"><svg class="icon" aria-hidden="true"><use href="#i-arrow-left"></use></svg>홈으로</a></div>
       <div class="auth__panel">
         <h1 class="auth__title">WayLog 회원가입</h1>
         <h2 class="blind" id="stepperTitle">회원가입 단계</h2>

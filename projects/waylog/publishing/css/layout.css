@@ -14,11 +14,18 @@
   font-weight: 700;
   letter-spacing: -0.03em;
 }
-.logo__mark { width: 30px; height: 30px; flex-shrink: 0; }
-/* 원본 로고 그라데이션의 두 끝색: 경로는 진한 파랑, 핀은 하늘색 */
-.logo__mark .route { fill: none; stroke: var(--c-logo-route); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 2 4.2; }
-.logo__mark .pin { fill: var(--c-logo-pin); }
-.logo__mark .dot { fill: var(--c-logo-route); }
+/* 원본 WayLog 로고: 밝은 배경에는 원본, 어두운 배경에는 밝게 올린 다크 버전 */
+.logo__img { width: auto; height: 30px; flex-shrink: 0; }
+.logo__img--dark { display: none; }
+:root[data-theme="dark"] .logo__img--light { display: none; }
+:root[data-theme="dark"] .logo__img--dark { display: block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .logo__img--light { display: none; }
+  :root:not([data-theme="light"]) .logo__img--dark { display: block; }
+}
+/* 남색 푸터처럼 테마와 상관없이 어두운 바탕 위에 놓일 때 */
+.logo.logo--on-dark .logo__img--light { display: none; }
+.logo.logo--on-dark .logo__img--dark { display: block; }
 
 /* ---------- Header ---------- */
 .site-header {
@@ -167,9 +174,6 @@
   font-size: var(--fs-sm);
 }
 .site-footer .logo { color: var(--c-footer-ink); }
-.site-footer .logo__mark .route, .site-footer .logo__mark .dot { stroke: #8fb4ff; }
-.site-footer .logo__mark .dot { fill: #8fb4ff; }
-.site-footer .logo__mark .pin { fill: #5cc2fb; }
 .site-footer :focus-visible { outline-color: #ffffff; }
 .site-footer__top { display: grid; gap: var(--sp-8); }
 .site-footer__brand p { max-width: 34ch; margin-top: var(--sp-3); }

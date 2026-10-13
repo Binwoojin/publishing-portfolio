@@ -33,8 +33,6 @@
   --c-accent-text: #0a659e;
   --c-like: #e5484d;             /* 좋아요 */
   --c-like-text: #c4303a;
-  --c-logo-route: #2f6cfd;       /* 원본 로고 그라데이션 시작색 */
-  --c-logo-pin: #29a0f8;         /* 원본 로고 그라데이션 끝색 */
 
   /* Semantic */
   --c-danger: #b42318;
@@ -123,8 +121,6 @@
     --c-accent-text: #7fcdfc;
     --c-like: #ff6b70;
     --c-like-text: #ff9ea1;
-    --c-logo-route: #6f9dff;
-    --c-logo-pin: #4cb8fa;
     --c-danger: #f97066;
     --c-danger-soft: #3b1512;
     --c-ok: #6ad39a;
@@ -155,8 +151,6 @@
   --c-accent-text: #7fcdfc;
   --c-like: #ff6b70;
   --c-like-text: #ff9ea1;
-  --c-logo-route: #6f9dff;
-  --c-logo-pin: #4cb8fa;
   --c-danger: #f97066;
   --c-danger-soft: #3b1512;
   --c-ok: #6ad39a;
