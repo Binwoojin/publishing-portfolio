@@ -89,7 +89,7 @@
 
     document.getElementById('courseContent').innerHTML =
       '<nav class="breadcrumb" aria-label="현재 위치"><ol><li><a href="index.html">홈</a></li><li><a href="destinations.html?type=course">여행코스</a></li><li><span aria-current="page">' + WL.esc(course.title) + '</span></li></ol></nav>' +
-      '<header class="detail-head"><div class="detail-head__chips"><span class="chip chip--sea">' + WL.esc(course.days) + '</span><span class="chip">' + WL.esc(r.name) + '</span><span class="chip">' + WL.esc(course.theme) + '</span></div>' +
+      '<header class="detail-head"><div class="detail-head__chips"><span class="chip chip--primary">' + WL.esc(course.days) + '</span><span class="chip">' + WL.esc(r.name) + '</span><span class="chip">' + WL.esc(course.theme) + '</span></div>' +
       '<h1 class="detail-head__title">' + WL.esc(course.title) + '</h1><p class="detail-lead">' + WL.esc(course.desc) + '</p>' +
       '<dl class="course-stats"><div><dt>코스 일정</dt><dd>' + WL.esc(course.days) + '</dd></div><div><dt>들르는 곳</dt><dd><span class="mono">' + course.stops.length + '</span>곳</dd></div>' +
       '<div><dt>직선거리 합계</dt><dd><span class="mono">' + km(total) + '</span></dd></div><div><dt>작성</dt><dd>' + WL.esc(course.author) + '</dd></div></dl></header>' +

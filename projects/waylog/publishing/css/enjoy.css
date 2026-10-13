@@ -10,9 +10,9 @@
   padding-block: var(--sp-12) var(--sp-8);
   color: #ffffff;
 }
-.enjoy-hero__media { position: absolute; inset: 0; z-index: -1; overflow: hidden; background: #1b2a2e; }
+.enjoy-hero__media { position: absolute; inset: 0; z-index: -1; overflow: hidden; background: var(--c-photo-bg); }
 .enjoy-hero__media img { width: 100%; height: 100%; object-fit: cover; animation: fade-in 500ms var(--ease-out); }
-.enjoy-hero__media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgb(8 22 27 / 0.2), rgb(8 22 27 / 0.75)); }
+.enjoy-hero__media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgb(var(--c-shade) / 0.2), rgb(var(--c-shade) / 0.75)); }
 @keyframes fade-in { from { opacity: 0; } }
 .enjoy-hero__title { font-family: var(--font-display); font-size: var(--fs-3xl); font-weight: 700; letter-spacing: -0.03em; text-shadow: 0 2px 16px rgb(0 0 0 / 0.35); }
 .enjoy-hero__desc { max-width: 46ch; margin-top: var(--sp-2); text-shadow: 0 1px 8px rgb(0 0 0 / 0.4); }
@@ -27,4 +27,4 @@
 #enjoyPanel:focus { outline: none; }
 
 /* 해시로 이동한 카드 강조 */
-.place-card.is-target .place-card__media { box-shadow: 0 0 0 3px var(--c-bg), 0 0 0 6px var(--c-coral); }
+.place-card.is-target .place-card__media { box-shadow: 0 0 0 3px var(--c-bg), 0 0 0 6px var(--c-accent); }

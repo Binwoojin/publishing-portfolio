@@ -48,7 +48,7 @@
 .course-card__title a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .course-card__stops { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; color: var(--c-ink-2); font-size: var(--fs-sm); }
 .course-card__stops li { display: inline-flex; align-items: center; gap: 4px; }
-.course-card__stops li + li::before { content: ''; width: 14px; border-top: 2px dotted var(--c-sea); }
+.course-card__stops li + li::before { content: ''; width: 14px; border-top: 2px dotted var(--c-primary); }
 
 /* ---------- 게시물 카드 ---------- */
 .post-list { display: grid; gap: var(--sp-5); }

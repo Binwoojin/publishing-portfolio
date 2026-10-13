@@ -12,15 +12,15 @@
   padding-block: var(--sp-16) var(--sp-10);
   color: #ffffff;
 }
-.hero__media { position: absolute; inset: 0; z-index: -1; overflow: hidden; background: #1b2a2e; }
+.hero__media { position: absolute; inset: 0; z-index: -1; overflow: hidden; background: var(--c-photo-bg); }
 .hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; animation: hero-zoom 14s ease-out both; }
 .hero__media::after {
   content: '';
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgb(8 22 27 / 0.55) 0%, rgb(8 22 27 / 0.15) 55%, rgb(8 22 27 / 0) 75%),
-    linear-gradient(180deg, rgb(8 22 27 / 0.3) 0%, rgb(8 22 27 / 0.05) 35%, rgb(8 22 27 / 0.72) 100%);
+    linear-gradient(90deg, rgb(var(--c-shade) / 0.55) 0%, rgb(var(--c-shade) / 0.15) 55%, rgb(var(--c-shade) / 0) 75%),
+    linear-gradient(180deg, rgb(var(--c-shade) / 0.3) 0%, rgb(var(--c-shade) / 0.05) 35%, rgb(var(--c-shade) / 0.72) 100%);
 }
 @keyframes hero-zoom { from { transform: scale(1.06); } }
 
@@ -63,7 +63,7 @@
   padding: 0 var(--sp-4);
   border: 1px solid rgb(255 255 255 / 0.45);
   border-radius: var(--radius-pill);
-  background: rgb(8 22 27 / 0.32);
+  background: rgb(var(--c-shade) / 0.32);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   color: #ffffff;
@@ -71,7 +71,7 @@
   font-weight: 600;
   transition: background-color var(--dur-fast);
 }
-.quick-themes a:hover { background: rgb(8 22 27 / 0.55); }
+.quick-themes a:hover { background: rgb(var(--c-shade) / 0.55); }
 .quick-themes .icon { width: 18px; height: 18px; }
 
 .section--tint { background: var(--c-surface-2); }
@@ -102,7 +102,7 @@
   overflow: hidden;
   padding: var(--sp-4);
   border-radius: var(--radius-lg);
-  background: #1b2a2e;
+  background: var(--c-photo-bg);
   color: #ffffff;
   isolation: isolate;
 }
@@ -113,7 +113,7 @@
 .region-tile__en { font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: 0.08em; opacity: 0.85; }
 .region-tile__name { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: 700; line-height: 1.2; }
 .region-tile__desc { font-size: var(--fs-sm); opacity: 0.9; }
-.region-tile__coord { position: absolute; top: var(--sp-3); left: var(--sp-4); padding: 2px 8px; border-radius: var(--radius-pill); background: rgb(8 22 27 / 0.45); font-family: var(--font-mono); font-size: 11px; }
+.region-tile__coord { position: absolute; top: var(--sp-3); left: var(--sp-4); padding: 2px 8px; border-radius: var(--radius-pill); background: rgb(var(--c-shade) / 0.45); font-family: var(--font-mono); font-size: 11px; }
 
 /* ---------- 즐길거리 탭 ---------- */
 .tab-panel { padding-top: var(--sp-6); }
@@ -139,8 +139,8 @@
   width: 72px;
   height: 72px;
   border-radius: var(--radius-md);
-  background: var(--c-sea-soft);
-  color: var(--c-sea-text);
+  background: var(--c-primary-soft);
+  color: var(--c-primary-text);
   font-family: var(--font-mono);
   line-height: 1.1;
   text-align: center;
@@ -165,7 +165,7 @@
   overflow: hidden;
   padding: var(--sp-8) var(--sp-6) 0;
   border-radius: var(--radius-lg);
-  background: var(--c-sea-soft);
+  background: var(--c-primary-soft);
 }
 .record-banner__title { font-family: var(--font-display); font-size: var(--fs-3xl); font-weight: 700; letter-spacing: -0.03em; }
 .record-banner__copy { display: grid; justify-items: start; gap: var(--sp-4); }

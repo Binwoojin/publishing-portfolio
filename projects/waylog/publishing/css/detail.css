@@ -29,7 +29,7 @@
   bottom: var(--sp-3);
   padding: 4px 10px;
   border-radius: var(--radius-pill);
-  background: rgb(8 22 27 / 0.6);
+  background: rgb(var(--c-shade) / 0.6);
   color: #ffffff;
   font-family: var(--font-mono);
   font-size: var(--fs-xs);
@@ -53,11 +53,11 @@
   gap: var(--sp-3);
   padding: var(--sp-4) var(--sp-5);
   border-radius: var(--radius-md);
-  background: var(--c-coral-soft);
+  background: var(--c-accent-soft);
   color: var(--c-ink);
   font-size: var(--fs-sm);
 }
-.notice-box .icon { width: 20px; height: 20px; color: var(--c-coral-text); margin-top: 2px; }
+.notice-box .icon { width: 20px; height: 20px; color: var(--c-accent-text); margin-top: 2px; }
 .notice-box strong { display: block; margin-bottom: 2px; }
 
 /* 이용 안내 카드 */
@@ -66,7 +66,7 @@
 .info-list { display: grid; }
 .info-list > div { display: grid; grid-template-columns: 24px 72px minmax(0, 1fr); gap: var(--sp-2); padding: var(--sp-3) 0; border-top: 1px solid var(--c-line); font-size: var(--fs-sm); }
 .info-list > div:first-child { border-top: 0; }
-.info-list .icon { width: 18px; height: 18px; color: var(--c-sea-text); margin-top: 2px; }
+.info-list .icon { width: 18px; height: 18px; color: var(--c-primary-text); margin-top: 2px; }
 .info-list dt { color: var(--c-ink-3); font-weight: 600; }
 .info-list dd { margin: 0; }
 .info-card .btn { margin-top: var(--sp-4); }
@@ -102,19 +102,19 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: var(--c-sea);
-  color: var(--c-on-sea);
+  background: var(--c-primary);
+  color: var(--c-on-primary);
   font-family: var(--font-mono);
   font-weight: 500;
 }
-.route__stop:last-child .route__marker { background: var(--c-coral); color: #0e2229; }
+.route__stop:last-child .route__marker { background: var(--c-accent); color: var(--c-on-accent); }
 .route__stop:not(:last-child)::before {
   content: '';
   position: absolute;
   top: 44px;
   bottom: 0;
   left: 21px;
-  border-left: 2px dashed var(--c-sea);
+  border-left: 2px dashed var(--c-primary);
   opacity: 0.6;
 }
 .route__card { padding: var(--sp-1) 0 var(--sp-5); }
@@ -130,11 +130,11 @@
 .route-map { overflow: hidden; border: 1px solid var(--c-line); border-radius: var(--radius-lg); background: var(--c-surface); }
 .route-map svg { display: block; width: 100%; height: auto; }
 .route-map__grid { stroke: var(--c-line); stroke-width: 1; }
-.route-map__path { fill: none; stroke: var(--c-sea); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 2 8; }
-.route-map__dot { fill: var(--c-sea); stroke: var(--c-surface); stroke-width: 3; }
-.route-map__dot--end { fill: var(--c-coral); }
-.route-map__num { fill: var(--c-on-sea); font-family: var(--font-mono); font-size: 11px; font-weight: 500; text-anchor: middle; dominant-baseline: central; }
-.route-map__dot--end + .route-map__num { fill: #0e2229; }
+.route-map__path { fill: none; stroke: var(--c-primary); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 2 8; }
+.route-map__dot { fill: var(--c-primary); stroke: var(--c-surface); stroke-width: 3; }
+.route-map__dot--end { fill: var(--c-accent); }
+.route-map__num { fill: var(--c-on-primary); font-family: var(--font-mono); font-size: 11px; font-weight: 500; text-anchor: middle; dominant-baseline: central; }
+.route-map__dot--end + .route-map__num { fill: var(--c-on-accent); }
 .route-map__label { fill: var(--c-ink); font-family: var(--font-sans); font-size: 12px; font-weight: 600; paint-order: stroke; stroke: var(--c-surface); stroke-width: 4px; stroke-linejoin: round; }
 .route-map__scale { stroke: var(--c-ink-2); stroke-width: 2; }
 .route-map__scale-text, .route-map__north { fill: var(--c-ink-2); font-family: var(--font-mono); font-size: 11px; }

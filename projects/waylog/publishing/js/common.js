@@ -268,8 +268,8 @@ window.WL = (function () {
     if (!item.start) return null;
     var s = daysFromToday(item.start), e = daysFromToday(item.end);
     if (e < 0) return { label: '종료', cls: '' };
-    if (s <= 0) return { label: '진행 중', cls: 'chip--coral' };
-    return { label: 'D-' + s, cls: 'chip--sea' };
+    if (s <= 0) return { label: '진행 중', cls: 'chip--accent' };
+    return { label: 'D-' + s, cls: 'chip--primary' };
   }
   function enjoyCard(item) {
     var cat = find.category(item.category);
@@ -288,7 +288,7 @@ window.WL = (function () {
     return '<article class="course-card">' +
       '<div class="course-card__media">' + img(c.image, '', { sizes: '(min-width: 1024px) 390px, calc(100vw - 32px)' }) + '</div>' +
       '<div class="course-card__body">' +
-      '<p class="course-card__meta"><span class="chip chip--sea">' + esc(c.days) + '</span><span>' + esc(r.name) + ' · ' + esc(c.theme) + '</span></p>' +
+      '<p class="course-card__meta"><span class="chip chip--primary">' + esc(c.days) + '</span><span>' + esc(r.name) + ' · ' + esc(c.theme) + '</span></p>' +
       '<h3 class="course-card__title"><a href="course.html?id=' + c.id + '">' + esc(c.title) + '</a></h3>' +
       '<p class="blind">코스 경로 ' + c.stops.length + '곳</p><ol class="course-card__stops">' + stops + '</ol>' +
       '</div></article>';
@@ -321,8 +321,8 @@ window.WL = (function () {
       gallery +
       '<p class="post-card__text">' + esc(post.text) + '</p>' +
       ((place || course || post.tags.length) ? '<ul class="post-card__tags">' +
-        (place ? '<li><a class="chip chip--coral" href="place.html?id=' + place.id + '">' + icon('pin') + esc(place.name) + '</a></li>' : '') +
-        (course ? '<li><a class="chip chip--sea" href="course.html?id=' + course.id + '">' + icon('route') + esc(course.title) + '</a></li>' : '') +
+        (place ? '<li><a class="chip chip--accent" href="place.html?id=' + place.id + '">' + icon('pin') + esc(place.name) + '</a></li>' : '') +
+        (course ? '<li><a class="chip chip--primary" href="course.html?id=' + course.id + '">' + icon('route') + esc(course.title) + '</a></li>' : '') +
         post.tags.map(function (t) { return '<li><span class="chip">#' + esc(t) + '</span></li>'; }).join('') + '</ul>' : '') +
       '<footer class="post-card__actions">' +
       '<button class="toggle" type="button" data-like="' + post.id + '" aria-pressed="false">' + icon('heart') + '<span class="blind">좋아요</span><span data-like-count>' + post.likes + '</span></button>' +

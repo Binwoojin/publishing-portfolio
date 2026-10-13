@@ -1,31 +1,40 @@
 /* ==========================================================================
    WayLog — Base
    컨셉: "Route Note" — 지도 위에 찍은 핀과 점선 경로, 여행 노트.
-   바다색(주요 동작 · 경로)과 코랄(핀 · 좋아요 · 강조) 두 가지 포인트 컬러.
+   색상은 원본 WayLog 를 기준으로 잡았다.
+   - 주색: 원본 버튼 파랑(#2878ED)과 같은 계열의 #2563EB (흰 글자 대비 5.2:1 로 AA 충족)
+   - 보조색: 원본 로고 그라데이션(#2F6CFD → #29A0F8)의 하늘색 — 핀 · 현재 위치
+   - 글자 · 면 · 테두리: 원본의 남색 글자(#17263A)와 청회색 면 · 테두리
+   - 푸터: 원본 남색 #14345F
    ========================================================================== */
 
 :root {
   /* Surface */
-  --c-bg: #f2f5f4;
+  --c-bg: #f4f7fb;
   --c-surface: #ffffff;
-  --c-surface-2: #e6ecea;
-  --c-line: #d5dfdc;
-  --c-line-strong: #b9c7c3;
+  --c-surface-2: #e9eff7;
+  --c-line: #dbe4ee;
+  --c-line-strong: #c3cfdd;
 
   /* Text (모두 --c-bg 위 4.5:1 이상) */
-  --c-ink: #0e2229;
-  --c-ink-2: #45585e;
-  --c-ink-3: #5a6c71;
+  --c-ink: #17263a;
+  --c-ink-2: #405168;
+  --c-ink-3: #5b6a7e;
 
   /* Brand */
-  --c-sea: #0a6b73;          /* 주요 버튼 · 경로 */
-  --c-sea-hover: #08565d;
-  --c-on-sea: #ffffff;
-  --c-sea-soft: #d8eceb;
-  --c-sea-text: #075961;
-  --c-coral: #ff8a5b;        /* 핀 · 좋아요 (위 글자는 --c-ink) */
-  --c-coral-soft: #ffe6da;
-  --c-coral-text: #a63a14;
+  --c-primary: #2563eb;          /* 주요 버튼 · 경로 · 저장 */
+  --c-primary-hover: #1d4ed8;
+  --c-on-primary: #ffffff;
+  --c-primary-soft: #e8f1fe;
+  --c-primary-text: #1d56c2;
+  --c-accent: #38a8f8;           /* 핀 · 현재 위치 (위 글자는 --c-on-accent) */
+  --c-on-accent: #0f2742;
+  --c-accent-soft: #e1f2fe;
+  --c-accent-text: #0a659e;
+  --c-like: #e5484d;             /* 좋아요 */
+  --c-like-text: #c4303a;
+  --c-logo-route: #2f6cfd;       /* 원본 로고 그라데이션 시작색 */
+  --c-logo-pin: #29a0f8;         /* 원본 로고 그라데이션 끝색 */
 
   /* Semantic */
   --c-danger: #b42318;
@@ -34,8 +43,17 @@
   --c-ok-soft: #def3e6;
 
   --c-focus: #2563eb;
-  --c-overlay: rgb(14 34 41 / 0.5);
-  --c-photo-shade: linear-gradient(180deg, rgb(8 22 27 / 0) 30%, rgb(8 22 27 / 0.78) 100%);
+  --c-overlay: rgb(15 32 57 / 0.5);
+  --c-shade: 15 32 57;           /* 사진 위 어두운 막 (원본 코스 상세의 #0F2039) */
+  --c-photo-bg: #142b46;
+  --c-photo-shade: linear-gradient(180deg, rgb(var(--c-shade) / 0) 30%, rgb(var(--c-shade) / 0.8) 100%);
+
+  /* Footer (원본 남색) */
+  --c-footer-bg: #14345f;
+  --c-footer-ink: #ffffff;
+  --c-footer-text: #c9d6e8;
+  --c-footer-muted: #9fb3cf;
+  --c-footer-line: rgb(255 255 255 / 0.14);
 
   /* Typography */
   --font-display: 'Hahmlet', 'Noto Serif KR', 'AppleMyungjo', serif;
@@ -68,9 +86,9 @@
   --radius-md: 10px;
   --radius-lg: 16px;
   --radius-pill: 999px;
-  --shadow-sm: 0 1px 2px rgb(14 34 41 / 0.06);
-  --shadow-md: 0 1px 2px rgb(14 34 41 / 0.05), 0 8px 24px -8px rgb(14 34 41 / 0.14);
-  --shadow-lg: 0 24px 56px -16px rgb(14 34 41 / 0.32);
+  --shadow-sm: 0 1px 2px rgb(23 38 58 / 0.06);
+  --shadow-md: 0 1px 2px rgb(23 38 58 / 0.05), 0 8px 24px -8px rgb(38 79 125 / 0.14);
+  --shadow-lg: 0 24px 56px -16px rgb(23 38 58 / 0.3);
 
   /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -87,53 +105,65 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --c-bg: #0b1a1f;
-    --c-surface: #11252c;
-    --c-surface-2: #183039;
-    --c-line: #22404a;
-    --c-line-strong: #33555f;
-    --c-ink: #e7f0f1;
-    --c-ink-2: #b3c5ca;
-    --c-ink-3: #93a7ad;
-    --c-sea: #5cc6cc;
-    --c-sea-hover: #82d5d9;
-    --c-on-sea: #0b1a1f;
-    --c-sea-soft: #123a3e;
-    --c-sea-text: #7fd6db;
-    --c-coral-soft: #3d1f14;
-    --c-coral-text: #ffb08f;
+    --c-bg: #0d1726;
+    --c-surface: #142238;
+    --c-surface-2: #1b2d47;
+    --c-line: #263b59;
+    --c-line-strong: #34507a;
+    --c-ink: #e8eef7;
+    --c-ink-2: #b4c2d6;
+    --c-ink-3: #8fa0b8;
+    --c-primary: #5b9dff;
+    --c-primary-hover: #7db1ff;
+    --c-on-primary: #0d1726;
+    --c-primary-soft: #16305a;
+    --c-primary-text: #8ab8ff;
+    --c-accent: #4cb8fa;
+    --c-accent-soft: #0f3150;
+    --c-accent-text: #7fcdfc;
+    --c-like: #ff6b70;
+    --c-like-text: #ff9ea1;
+    --c-logo-route: #6f9dff;
+    --c-logo-pin: #4cb8fa;
     --c-danger: #f97066;
     --c-danger-soft: #3b1512;
     --c-ok: #6ad39a;
     --c-ok-soft: #12301f;
-    --c-focus: #7aa7ff;
+    --c-focus: #8ab8ff;
     --c-overlay: rgb(0 0 0 / 0.62);
+    --c-footer-bg: #0e2442;
     --shadow-md: 0 1px 2px rgb(0 0 0 / 0.35), 0 8px 24px -8px rgb(0 0 0 / 0.5);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --c-bg: #0b1a1f;
-  --c-surface: #11252c;
-  --c-surface-2: #183039;
-  --c-line: #22404a;
-  --c-line-strong: #33555f;
-  --c-ink: #e7f0f1;
-  --c-ink-2: #b3c5ca;
-  --c-ink-3: #93a7ad;
-  --c-sea: #5cc6cc;
-  --c-sea-hover: #82d5d9;
-  --c-on-sea: #0b1a1f;
-  --c-sea-soft: #123a3e;
-  --c-sea-text: #7fd6db;
-  --c-coral-soft: #3d1f14;
-  --c-coral-text: #ffb08f;
+  --c-bg: #0d1726;
+  --c-surface: #142238;
+  --c-surface-2: #1b2d47;
+  --c-line: #263b59;
+  --c-line-strong: #34507a;
+  --c-ink: #e8eef7;
+  --c-ink-2: #b4c2d6;
+  --c-ink-3: #8fa0b8;
+  --c-primary: #5b9dff;
+  --c-primary-hover: #7db1ff;
+  --c-on-primary: #0d1726;
+  --c-primary-soft: #16305a;
+  --c-primary-text: #8ab8ff;
+  --c-accent: #4cb8fa;
+  --c-accent-soft: #0f3150;
+  --c-accent-text: #7fcdfc;
+  --c-like: #ff6b70;
+  --c-like-text: #ff9ea1;
+  --c-logo-route: #6f9dff;
+  --c-logo-pin: #4cb8fa;
   --c-danger: #f97066;
   --c-danger-soft: #3b1512;
   --c-ok: #6ad39a;
   --c-ok-soft: #12301f;
-  --c-focus: #7aa7ff;
+  --c-focus: #8ab8ff;
   --c-overlay: rgb(0 0 0 / 0.62);
+  --c-footer-bg: #0e2442;
   --shadow-md: 0 1px 2px rgb(0 0 0 / 0.35), 0 8px 24px -8px rgb(0 0 0 / 0.5);
   color-scheme: dark;
 }
@@ -165,7 +195,7 @@ button, [role="button"], summary, select, label[for], input[type="checkbox"], in
 button:disabled { cursor: not-allowed; }
 
 :focus-visible { outline: 3px solid var(--c-focus); outline-offset: 2px; border-radius: 4px; }
-::selection { background: var(--c-sea-soft); color: var(--c-ink); }
+::selection { background: var(--c-primary-soft); color: var(--c-ink); }
 
 .icon {
   width: 1.25em;
