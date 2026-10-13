@@ -28,7 +28,7 @@
     var u = WL.find.user(post.author);
     document.title = u.nickname + '님의 여행 이야기 | WayLog';
     document.getElementById('postHeading').textContent = u.nickname + '님의 여행 이야기';
-    var html = WL.postCard(post);
+    var html = WL.postCard(post, { eager: true });
     /* 내 글이면 머리에 삭제 버튼 추가 */
     if (post.author === D.me.id && WL.auth.isMember()) {
       html = html.replace('</p></header>', '</p><button class="btn btn--ghost btn--sm post-owner" type="button" id="deletePost">' + WL.icon('trash') + '삭제</button></header>');

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>대시보드 | GrowLog</title>
+  <meta name="description" content="이번 달 기록 수 · 진행 중 목표 · 연속 기록 일수와 최근 12주 활동을 한눈에 보는 GrowLog 대시보드">
   <meta name="theme-color" content="#fbf7ef">
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
@@ -142,14 +143,14 @@
                   </div>
                 </div>
                 <div class="heatmap-legend" aria-hidden="true">
-                  <span>적음</span><i style="background:var(--c-heat-0)"></i><i style="background:var(--c-heat-1)"></i><i style="background:var(--c-heat-2)"></i><i style="background:var(--c-heat-3)"></i><span>많음</span>
+                  <span>적음</span><i data-level="0"></i><i data-level="1"></i><i data-level="2"></i><i data-level="3"></i><span>많음</span>
                 </div>
               </section>
 
               <section class="card card--pad" aria-labelledby="goalsTitle">
                 <div class="card__head">
                   <h2 class="card__title" id="goalsTitle">진행 중인 목표</h2>
-                  <a class="card__more" href="goals.html">전체 보기<svg class="icon" aria-hidden="true"><use href="#i-chevron-right"></use></svg></a>
+                  <a class="card__more" href="goals.html">목표 전체 보기<svg class="icon" aria-hidden="true"><use href="#i-chevron-right"></use></svg></a>
                 </div>
                 <ul class="mini-goals" id="miniGoals"></ul>
               </section>

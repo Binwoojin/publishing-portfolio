@@ -99,3 +99,11 @@
 .results .demo-bar, .demo-bar + .results { margin-top: var(--sp-5); }
 
 .detail-skeleton, .post-skeleton { display: grid; gap: var(--sp-4); }
+.detail-skeleton .skeleton:nth-child(1) { height: 28px; width: 45%; }
+.detail-skeleton .skeleton:nth-child(2) { aspect-ratio: 16 / 9; }
+.detail-skeleton .skeleton:nth-child(3) { height: 120px; }
+.detail-skeleton--course .skeleton:nth-child(2) { aspect-ratio: 21 / 9; }
+.detail-skeleton--course .skeleton:nth-child(3) { height: 240px; }
+.post-skeleton .skeleton:nth-child(1) { height: 40px; width: 40%; }
+.post-skeleton .skeleton:nth-child(2) { aspect-ratio: 4 / 3; }
+.post-skeleton .skeleton:nth-child(3) { height: 60px; }

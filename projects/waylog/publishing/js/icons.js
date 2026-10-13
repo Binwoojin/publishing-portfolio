@@ -57,5 +57,5 @@
   var symbols = Object.keys(icons).map(function (name) {
     return '<symbol id="i-' + name + '" viewBox="0 0 24 24">' + icons[name] + '</symbol>';
   }).join('');
-  document.body.insertAdjacentHTML('afterbegin', '<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">' + symbols + '</svg>');
+  document.body.insertAdjacentHTML('afterbegin', '<svg xmlns="http://www.w3.org/2000/svg" class="icon-sprite" aria-hidden="true" focusable="false">' + symbols + '</svg>');
 })();

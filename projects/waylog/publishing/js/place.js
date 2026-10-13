@@ -5,7 +5,7 @@
 
   function miniPost(p) {
     var u = WL.find.user(p.author);
-    return '<li class="mini-post">' + (p.images[0] ? '<img src="images/' + p.images[0] + '.webp" alt="" loading="lazy" width="88" height="66">' : '<span></span>') +
+    return '<li class="mini-post">' + (p.images[0] ? '<img src="' + WL.thumb(p.images[0]) + '" alt="" loading="lazy" width="88" height="66">' : '<span></span>') +
       '<div><p class="mini-post__text"><a href="post.html?id=' + p.id + '">' + WL.esc(p.text) + '</a></p>' +
       '<p class="mini-post__meta">' + WL.esc(u.nickname) + ' · ' + WL.formatDate(p.date, 'relative') + ' · 좋아요 ' + p.likes + '</p></div></li>';
   }
@@ -38,7 +38,7 @@
       '<div class="detail-body"><div>' +
         '<section class="detail-section" aria-labelledby="introTitle"><h2 class="detail-section__title" id="introTitle">소개</h2>' +
         '<p class="detail-lead">' + WL.esc(place.desc) + '</p>' +
-        '<ul class="detail-tags" aria-label="태그">' + place.tags.map(function (t) { return '<li><a class="chip" href="destinations.html?q=' + encodeURIComponent(t) + '">#' + WL.esc(t) + '</a></li>'; }).join('') + '</ul></section>' +
+        '<ul class="detail-tags">' + place.tags.map(function (t) { return '<li><a class="chip" href="destinations.html?q=' + encodeURIComponent(t) + '">#' + WL.esc(t) + '</a></li>'; }).join('') + '</ul></section>' +
         '<section class="detail-section"><div class="notice-box" role="note">' + WL.icon('info') + '<p><strong>방문 전 확인하세요</strong>운영시간과 휴무일은 현지 사정에 따라 바뀔 수 있어요. 방문 전에 문의 전화로 확인해 주세요.</p></div></section>' +
         '<section class="detail-section" aria-labelledby="storyTitle"><h2 class="detail-section__title" id="storyTitle">이곳을 다녀온 여행 이야기 <span class="mono">' + posts.length + '</span></h2>' +
         (posts.length ? '<ul class="mini-posts">' + posts.map(miniPost).join('') + '</ul>' : '<p class="empty-line">아직 이곳을 태그한 이야기가 없어요. <a class="text-link" href="feed.html">첫 이야기 남기기</a></p>') + '</section>' +

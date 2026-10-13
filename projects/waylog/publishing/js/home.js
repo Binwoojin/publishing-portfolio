@@ -5,7 +5,7 @@
   /* 지역 레일 */
   document.getElementById('regionRail').innerHTML = D.regions.map(function (r) {
     var count = D.places.filter(function (p) { return p.region === r.id; }).length;
-    return '<li><a class="region-tile" href="destinations.html?region=' + r.id + '">' + WL.img(r.image, '', { sizes: '(min-width: 1200px) 25vw, 60vw' }) +
+    return '<li><a class="region-tile" href="destinations.html?region=' + r.id + '">' + WL.img(r.image, '', { sizes: '(min-width: 1200px) 290px, 220px' }) +
       '<span class="region-tile__coord">' + r.lat.toFixed(2) + '°N ' + r.lng.toFixed(2) + '°E</span>' +
       '<span class="region-tile__en">' + r.en + '</span>' +
       '<span class="region-tile__name">' + WL.esc(r.name) + '</span>' +

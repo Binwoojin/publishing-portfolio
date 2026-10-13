@@ -10,7 +10,9 @@
   <script>try{if(JSON.parse(localStorage.getItem('waylog:auth'))===true)document.documentElement.className='is-member';}catch(e){}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+  <!-- 웹폰트 CSS 가 첫 화면 표시를 막지 않도록 비동기로 불러온다 -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap" onload="this.onload=null;this.removeAttribute('as');this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap"></noscript>
   <link rel="stylesheet" href="../../../common/css/reset.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
@@ -21,7 +23,7 @@
   <a class="skip-link" href="#main">본문 바로가기</a>
   <div class="auth">
     <div class="auth__visual" aria-hidden="true">
-      <img src="images/login-background.webp" srcset="images/login-background.webp 800w, images/login-background@2x.webp 1600w" sizes="50vw" alt="" width="800" height="1067">
+      <img src="images/login-background.webp" srcset="images/login-background-400.webp 400w, images/login-background.webp 800w, images/login-background@2x.webp 1600w" sizes="50vw" alt="" width="800" height="1067" loading="lazy">
       <div class="auth__quote">
         <p class="mono">37.6587°N 126.9779°E · 북한산 백운대</p>
         <p class="auth__quote-text">당신의 모든 여행 기록이<br>새로운 이야기로 이어집니다.</p>
@@ -31,7 +33,8 @@
       <div class="auth__top"><a class="logo" href="index.html" aria-label="WayLog 홈"><svg class="logo__mark" viewBox="0 0 32 32" aria-hidden="true"><path class="route" d="M5 27c6-1 7-7 12-8s8-3 9-9"/><circle class="dot" cx="5" cy="27" r="2.6"/><path class="pin" d="M26 2.5a5.5 5.5 0 0 0-5.5 5.5c0 4.2 5.5 9 5.5 9s5.5-4.8 5.5-9A5.5 5.5 0 0 0 26 2.5Zm0 7.6a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2Z"/></svg><span aria-hidden="true">WayLog</span></a><a class="more-link" href="index.html"><svg class="icon" aria-hidden="true"><use href="#i-arrow-left"></use></svg>홈으로</a></div>
       <div class="auth__panel">
         <h1 class="auth__title">WayLog 회원가입</h1>
-        <ol class="stepper" aria-label="회원가입 단계">
+        <h2 class="blind" id="stepperTitle">회원가입 단계</h2>
+        <ol class="stepper" aria-labelledby="stepperTitle">
           <li data-step-label="1" aria-current="step"><span class="mono">01</span>약관 동의</li>
           <li data-step-label="2"><span class="mono">02</span>정보 입력</li>
           <li data-step-label="3"><span class="mono">03</span>가입 완료</li>
@@ -77,7 +80,7 @@
               <input class="input" type="password" id="suPw" autocomplete="new-password" maxlength="20" aria-describedby="suPwRules suPwMsg">
               <button class="icon-btn" type="button" data-toggle-password="suPw" aria-label="비밀번호 보기" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-eye"></use></svg></button>
             </div>
-            <ul class="rule-list" id="suPwRules" aria-label="비밀번호 조건">
+            <ul class="rule-list" id="suPwRules">
               <li data-rule="length"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>8~20자</li>
               <li data-rule="letter"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>영문</li>
               <li data-rule="number"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>숫자</li>

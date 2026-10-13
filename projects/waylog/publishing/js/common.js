@@ -49,12 +49,22 @@ window.WL = (function () {
   function icon(name, cls) { return '<svg class="icon' + (cls ? ' ' + cls : '') + '" aria-hidden="true"><use href="#i-' + name + '"></use></svg>'; }
 
   /* 이미지: 800px WebP 기본, 큰 사진은 1600px 를 srcset 으로 */
+  /*
+   * 이미지: 400 · 800px WebP 를 srcset 으로 주고, 큰 사진은 1600px 도 함께 준다.
+   * sizes 는 화면에서 실제로 차지하는 폭을 호출하는 쪽에서 알려 준다.
+   */
   function img(name, alt, attrs) {
+    attrs = attrs || {};
+    var loading = ' loading="' + (attrs.eager ? 'eager' : 'lazy') + '" decoding="async"';
     /* 사용자가 올린 사진(data URL)은 그대로 쓴다 */
-    if (/^(data|blob):/.test(name)) return '<img src="' + name + '" alt="' + esc(alt || '') + '" loading="lazy" decoding="async">';
-    var src = 'images/' + name + '.webp';
-    var set = HIDPI.indexOf(name) > -1 ? ' srcset="' + src + ' 800w, images/' + name + '@2x.webp 1600w" sizes="' + ((attrs && attrs.sizes) || '100vw') + '"' : '';
-    return '<img src="' + src + '"' + set + ' alt="' + esc(alt || '') + '" loading="' + ((attrs && attrs.eager) ? 'eager' : 'lazy') + '" decoding="async" width="800" height="533">';
+    if (/^(data|blob):/.test(name)) return '<img src="' + esc(name) + '" alt="' + esc(alt || '') + '"' + loading + '>';
+    var base = 'images/' + name;
+    var set = base + '-400.webp 400w, ' + base + '.webp 800w' + (HIDPI.indexOf(name) > -1 ? ', ' + base + '@2x.webp 1600w' : '');
+    return '<img src="' + base + '.webp" srcset="' + set + '" sizes="' + (attrs.sizes || '100vw') + '" alt="' + esc(alt || '') + '"' + loading + ' width="800" height="533">';
+  }
+  /* 아바타 · 작은 썸네일용 400px 이미지 주소 */
+  function thumb(name) {
+    return /^(data|blob):/.test(name) ? esc(name) : 'images/' + name + '-400.webp';
   }
 
   /* ---------- 저장소 (localStorage → 실패 시 메모리) ---------- */
@@ -247,7 +257,7 @@ window.WL = (function () {
   function placeCard(p, opts) {
     var r = find.region(p.region);
     return '<article class="place-card">' +
-      '<div class="place-card__media">' + img(p.image, '', { sizes: '(min-width: 1024px) 25vw, 50vw' }) +
+      '<div class="place-card__media">' + img(p.image, '', { sizes: '(min-width: 1200px) 290px, (min-width: 560px) 45vw, calc(100vw - 32px)' }) +
       '<span class="place-card__badge chip chip--photo">' + esc(D.types[p.type]) + '</span>' + saveFab('place', p.id, p.name) + '</div>' +
       '<div><h3 class="place-card__title"><a href="place.html?id=' + p.id + '">' + esc(p.name) + '</a></h3>' +
       '<p class="place-card__meta"><span>' + icon('pin') + esc(r.name) + '</span><span class="mono">' + coord(p.lat, p.lng) + '</span></p></div>' +
@@ -266,7 +276,7 @@ window.WL = (function () {
     var st = festivalStatus(item);
     var period = item.start ? '<span>' + icon('calendar') + '<span class="mono">' + formatDate(item.start) + (item.end !== item.start ? ' – ' + formatDate(item.end).slice(5) : '') + '</span></span>' : '';
     return '<article class="place-card">' +
-      '<div class="place-card__media">' + img(item.image, '', { sizes: '(min-width: 1024px) 25vw, 50vw' }) +
+      '<div class="place-card__media">' + img(item.image, '', { sizes: '(min-width: 1200px) 290px, (min-width: 560px) 45vw, calc(100vw - 32px)' }) +
       '<span class="place-card__badge chip ' + (st ? st.cls || 'chip--photo' : 'chip--photo') + '">' + (st ? st.label : esc(cat.name)) + '</span>' + saveFab('enjoy', item.id, item.name) + '</div>' +
       '<div><h3 class="place-card__title"><a href="enjoy.html?category=' + item.category + '#' + item.id + '">' + esc(item.name) + '</a></h3>' +
       '<p class="place-card__meta">' + period + '<span>' + icon('pin') + esc(item.place) + '</span></p></div>' +
@@ -276,24 +286,32 @@ window.WL = (function () {
     var r = find.region(c.region);
     var stops = c.stops.map(function (s) { return '<li>' + esc(s.name) + '</li>'; }).join('');
     return '<article class="course-card">' +
-      '<div class="course-card__media">' + img(c.image, '', { sizes: '(min-width: 1024px) 33vw, 90vw' }) + '</div>' +
+      '<div class="course-card__media">' + img(c.image, '', { sizes: '(min-width: 1024px) 390px, calc(100vw - 32px)' }) + '</div>' +
       '<div class="course-card__body">' +
       '<p class="course-card__meta"><span class="chip chip--sea">' + esc(c.days) + '</span><span>' + esc(r.name) + ' · ' + esc(c.theme) + '</span></p>' +
       '<h3 class="course-card__title"><a href="course.html?id=' + c.id + '">' + esc(c.title) + '</a></h3>' +
-      '<ol class="course-card__stops" aria-label="코스 경로 ' + c.stops.length + '곳">' + stops + '</ol>' +
+      '<p class="blind">코스 경로 ' + c.stops.length + '곳</p><ol class="course-card__stops">' + stops + '</ol>' +
       '</div></article>';
   }
   function avatar(user, size) {
     return '<span class="avatar' + (size ? ' avatar--' + size : '') + '" aria-hidden="true">' +
-      (user.image ? '<img src="images/' + user.image + '.webp" alt="">' : esc(user.nickname.charAt(0))) + '</span>';
+      (user.image ? '<img src="' + thumb(user.image) + '" alt="" width="40" height="40">' : esc(user.nickname.charAt(0))) + '</span>';
   }
-  function postCard(post) {
+  /* 게시물 사진 칸의 실제 폭: 카드 본문 폭(데스크톱 약 600px, 모바일 100vw - 72px)을 사진 수로 나눈 값 */
+  var GALLERY_SIZES = {
+    1: ['(min-width: 768px) 600px, calc(100vw - 72px)'],
+    2: ['(min-width: 768px) 300px, calc(50vw - 36px)', '(min-width: 768px) 300px, calc(50vw - 36px)'],
+    3: ['(min-width: 768px) 400px, calc(66vw - 48px)', '(min-width: 768px) 200px, calc(33vw - 24px)', '(min-width: 768px) 200px, calc(33vw - 24px)']
+  };
+  /* opts.eager: 첫 화면에 보이는 게시물은 사진을 바로 불러온다 (LCP) */
+  function postCard(post, opts) {
+    opts = (opts && typeof opts === 'object') ? opts : {};
     var u = find.user(post.author);
     var place = post.place ? find.place(post.place) : null;
     var course = post.course ? find.course(post.course) : null;
     var imgs = post.images.slice(0, 3);
     var gallery = imgs.length ? '<div class="post-card__gallery post-card__gallery--' + imgs.length + '">' + imgs.map(function (name, i) {
-      return '<figure>' + img(name, post.images.length > 1 ? '사진 ' + (i + 1) + ' / ' + post.images.length : '첨부 사진', { sizes: '(min-width: 768px) 640px, 100vw' }) + '</figure>';
+      return '<figure>' + img(name, post.images.length > 1 ? '사진 ' + (i + 1) + ' / ' + post.images.length : '첨부 사진', { sizes: GALLERY_SIZES[imgs.length][i], eager: opts.eager }) + '</figure>';
     }).join('') + '</div>' : '';
     var commentCount = commentsOf(post).length;
     return '<article class="post-card" aria-labelledby="post-' + post.id + '-author">' +
@@ -302,14 +320,14 @@ window.WL = (function () {
       '<time datetime="' + post.date + '">' + formatDate(post.date, 'relative') + '</time></p></header>' +
       gallery +
       '<p class="post-card__text">' + esc(post.text) + '</p>' +
-      ((place || course || post.tags.length) ? '<ul class="post-card__tags" aria-label="태그">' +
+      ((place || course || post.tags.length) ? '<ul class="post-card__tags">' +
         (place ? '<li><a class="chip chip--coral" href="place.html?id=' + place.id + '">' + icon('pin') + esc(place.name) + '</a></li>' : '') +
         (course ? '<li><a class="chip chip--sea" href="course.html?id=' + course.id + '">' + icon('route') + esc(course.title) + '</a></li>' : '') +
         post.tags.map(function (t) { return '<li><span class="chip">#' + esc(t) + '</span></li>'; }).join('') + '</ul>' : '') +
       '<footer class="post-card__actions">' +
       '<button class="toggle" type="button" data-like="' + post.id + '" aria-pressed="false">' + icon('heart') + '<span class="blind">좋아요</span><span data-like-count>' + post.likes + '</span></button>' +
       '<a class="toggle" href="post.html?id=' + post.id + '">' + icon('comment') + '<span class="blind">댓글</span>' + commentCount + '<span class="blind">개 · 게시물 보기</span></a>' +
-      '<button class="toggle toggle--save" type="button" data-save="post:' + post.id + '" aria-pressed="false" style="margin-left:auto">' + icon('bookmark') + '<span data-save-label>저장</span></button>' +
+      '<button class="toggle toggle--save toggle--end" type="button" data-save="post:' + post.id + '" aria-pressed="false">' + icon('bookmark') + '<span data-save-label>저장</span></button>' +
       '</footer></article>';
   }
 
@@ -332,7 +350,9 @@ window.WL = (function () {
     demoButtons.forEach(function (b) { b.addEventListener('click', function () { set(b.getAttribute('data-demo-state')); }); });
     root.addEventListener('click', function (e) { if (e.target.closest('[data-retry]')) load(); });
     var initial = param('state');
-    if (initial && root.querySelector('[data-state="' + initial + '"]')) set(initial, true); else load();
+    /* 처음 열 때는 바로 그린다. 로딩 화면은 데모 도구 · 재시도 · 조건 변경 때 보여 준다 (첫 화면 표시 속도 우선) */
+    if (initial && root.querySelector('[data-state="' + initial + '"]')) set(initial, true);
+    else set(options.resolve ? options.resolve() : 'success', true);
     return { set: set, load: load };
   }
 
@@ -386,7 +406,7 @@ window.WL = (function () {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 
   return {
-    data: D, find: find, esc: esc, formatDate: formatDate, daysFromToday: daysFromToday, coord: coord, param: param, icon: icon, img: img,
+    data: D, find: find, esc: esc, formatDate: formatDate, daysFromToday: daysFromToday, coord: coord, param: param, icon: icon, img: img, thumb: thumb,
     store: store, auth: auth, isSaved: isSaved, savedList: savedList, allPosts: allPosts, commentsOf: commentsOf,
     toast: toast, flash: flash, announce: announce, openDialog: openDialog, bindDialog: bindDialog, requireLogin: requireLogin,
     syncToggles: syncToggles, placeCard: placeCard, enjoyCard: enjoyCard, courseCard: courseCard, postCard: postCard, avatar: avatar,

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>새 목표 | GrowLog</title>
+  <meta name="description" content="분류와 기간을 정해 새 목표를 등록하는 GrowLog 목표 추가 화면">
   <meta name="theme-color" content="#fbf7ef">
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
@@ -62,7 +63,7 @@
         </div>
 
         <form class="card form-card" id="goalForm" novalidate>
-          <div class="form-alert" id="goalAlert" role="alert" tabindex="-1" hidden style="margin-bottom:24px">
+          <div class="form-alert" id="goalAlert" role="alert" tabindex="-1" hidden>
             <svg class="icon" aria-hidden="true"><use href="#i-alert"></use></svg>
             <div><strong>입력 내용을 확인해 주세요.</strong><ul id="goalAlertList"></ul></div>
           </div>
@@ -73,7 +74,7 @@
             <p class="field__error" id="categoryError" hidden></p>
           </fieldset>
 
-          <div class="field" style="margin-top:24px">
+          <div class="field">
             <label class="field__label" for="goalTitle">목표 이름<span class="req" aria-hidden="true">*</span></label>
             <input class="input" type="text" id="goalTitle" name="goalTitle" maxlength="50" placeholder="예: 웹 접근성 KWCAG 2.2 정리하기" aria-describedby="goalTitleMsg goalTitleCount" required>
             <div class="field__meta">
@@ -88,7 +89,7 @@
             <div class="field__meta"><span class="field__counter" id="goalContentCount">0 / 500</span></div>
           </div>
 
-          <div class="field-grid field-grid--2" style="margin-top:20px">
+          <div class="field-grid field-grid--2">
             <div class="field">
               <label class="field__label" for="startDate">시작일<span class="req" aria-hidden="true">*</span></label>
               <input class="input" type="date" id="startDate" name="startDate" aria-describedby="startDateMsg" required>
