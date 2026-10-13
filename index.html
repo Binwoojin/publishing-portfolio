@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publishing Portfolio</title>
+  <link rel="stylesheet" href="common/css/reset.css">
+  <style>
+    body { font-family: system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; color: #222; background: #f7f7f8; line-height: 1.6; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 64px 16px; }
+    h1 { font-size: 2rem; }
+    .desc { margin-top: 8px; color: #666; }
+    .list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; margin-top: 40px; }
+    .card { display: block; padding: 24px; background: #fff; border: 1px solid #e5e5e5; border-radius: 12px; transition: box-shadow .2s; }
+    .card:hover, .card:focus-visible { box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+    .card h2 { font-size: 1.125rem; }
+    .card p { margin-top: 8px; color: #666; font-size: .9375rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+    .tags li { padding: 2px 10px; font-size: .8125rem; background: #f0f0f2; border-radius: 999px; }
+    .empty { color: #999; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>Publishing Portfolio</h1>
+    <p class="desc">웹 퍼블리싱 작업물 모음</p>
+
+    <ul class="list">
+      <!--
+        작업물 추가 시 아래 형식으로 카드를 추가하세요.
+        <li>
+          <a class="card" href="projects/project-name/">
+            <h2>프로젝트 이름</h2>
+            <p>한 줄 설명</p>
+            <ul class="tags"><li>HTML</li><li>CSS</li><li>반응형</li></ul>
+          </a>
+        </li>
+      -->
+      <li class="empty">등록된 작업물이 아직 없습니다.</li>
+    </ul>
+  </main>
+</body>
+</html>
