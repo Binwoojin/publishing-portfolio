@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GrowLog — 기록이 쌓여 성장이 되는 곳</title>
+  <meta name="description" content="목표를 세우고 하루를 기록하면, 쌓인 시간이 타임라인 위에 성장으로 펼쳐집니다. 개인 성장 아카이브 GrowLog.">
+  <meta name="theme-color" content="#fbf7ef">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="../../../common/css/reset.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/landing.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <header class="site-header" id="siteHeader">
+    <div class="container site-header__inner">
+      <a class="logo" href="index.html">
+        <span class="logo__mark"><svg class="icon" aria-hidden="true"><use href="#i-sprout"></use></svg></span>
+        <span>GrowLog</span>
+      </a>
+      <nav class="site-nav" aria-label="소개 메뉴">
+        <ul>
+          <li><a href="#why">왜 GrowLog인가요</a></li>
+          <li><a href="#features">주요 기능</a></li>
+          <li><a href="#journey">성장 과정</a></li>
+        </ul>
+      </nav>
+      <div class="site-header__actions">
+        <a class="btn btn--ghost btn--sm" href="login.html">로그인</a>
+        <a class="btn btn--dark btn--sm" href="signup.html">시작하기</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="container hero__inner">
+        <div class="hero__copy">
+          <p class="hero__eyebrow"><svg class="icon" aria-hidden="true"><use href="#i-sprout"></use></svg>개인 성장 아카이브</p>
+          <h1 class="hero__title" id="heroTitle">오늘의 기록이<br><span class="marker">내일의 성장</span>이 됩니다</h1>
+          <p class="hero__desc">목표를 세우고, 하루를 짧게 남기세요. 흩어져 있던 시간이 타임라인 위에 이어지면서 눈에 잘 보이지 않던 성장이 드러납니다.</p>
+          <div class="hero__cta">
+            <a class="btn btn--primary btn--lg" href="signup.html">무료로 시작하기<svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a>
+            <a class="btn btn--outline btn--lg" href="dashboard.html">데모 둘러보기</a>
+          </div>
+          <ul class="hero__points">
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>목표 · 기록 · 회고를 한곳에</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>모바일에서도 그대로</li>
+          </ul>
+        </div>
+
+        <!-- 서비스 화면을 HTML/CSS 로 축약해 보여주는 장식 영역 -->
+        <div class="hero__visual" aria-hidden="true">
+          <div class="mock-card mock-card--main">
+            <div class="mock-card__head">
+              <span class="mock-card__title">안녕하세요, 성장러님</span>
+              <span class="mock-card__date">9월 22일 화요일</span>
+            </div>
+            <div class="mock-stats">
+              <div><strong>9</strong><span>이번 달 기록</span></div>
+              <div><strong>4</strong><span>진행 중 목표</span></div>
+              <div><strong>12<small>일</small></strong><span>연속 기록</span></div>
+            </div>
+            <div class="mock-heatmap" data-heatmap="84"></div>
+          </div>
+
+          <div class="mock-card mock-card--goal">
+            <span class="chip chip--green"><svg class="icon"><use href="#i-target"></use></svg>프로젝트</span>
+            <strong class="mock-card__goal">포트폴리오 사이트 완성하기</strong>
+            <div class="progress">
+              <div class="progress__head"><span class="progress__label">진행률</span><strong class="progress__value">85%</strong></div>
+              <div class="progress__track"><span class="progress__bar" style="--value:85%"></span></div>
+            </div>
+          </div>
+
+          <div class="mock-card mock-card--streak">
+            <span class="mock-card__flame"><svg class="icon"><use href="#i-flame"></use></svg></span>
+            <span><strong>12일째</strong> 연속 기록 중</span>
+          </div>
+
+          <div class="mock-card mock-card--note">
+            <span class="mock-card__label">오늘 배운 점</span>
+            <p>aspect-ratio 로 썸네일 비율을 고정하면 레이아웃이 밀리지 않는다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why -->
+    <section class="section section--why" id="why" aria-labelledby="whyTitle">
+      <div class="container">
+        <div class="section-head section-head--center reveal">
+          <p class="section-head__eyebrow">Why GrowLog</p>
+          <h2 class="section-head__title" id="whyTitle">성장은 눈에 잘 보이지 않습니다</h2>
+          <p class="section-head__desc">열심히 보낸 하루도, 조금씩 나아진 실력도 기록하지 않으면 금방 흐려집니다.</p>
+        </div>
+        <ul class="pain-list">
+          <li class="pain reveal">
+            <span class="pain__num">01</span>
+            <h3 class="pain__title">목표는 세웠는데<br>어디까지 왔는지 모르겠고</h3>
+            <p class="pain__desc">진행률과 기한이 한눈에 보이지 않으면 목표는 금세 잊힙니다.</p>
+          </li>
+          <li class="pain reveal">
+            <span class="pain__num">02</span>
+            <h3 class="pain__title">열심히 보낸 하루도<br>기록이 없으면 사라지고</h3>
+            <p class="pain__desc">무엇을 배웠고 어떻게 해결했는지, 시간이 지나면 기억나지 않습니다.</p>
+          </li>
+          <li class="pain reveal">
+            <span class="pain__num">03</span>
+            <h3 class="pain__title">돌아보려 해도<br>흩어진 메모뿐이라</h3>
+            <p class="pain__desc">메모 앱, 캘린더, 노트에 나뉜 기록은 하나의 흐름으로 읽히지 않습니다.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section" id="features" aria-labelledby="featuresTitle">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-head__eyebrow">Features</p>
+          <h2 class="section-head__title" id="featuresTitle">목표에서 회고까지,<br>하나의 흐름으로</h2>
+        </div>
+
+        <article class="feature reveal">
+          <div class="feature__copy">
+            <span class="feature__num">01 목표</span>
+            <h3 class="feature__title">이루고 싶은 목표를 정하고<br>진행 상황을 스스로 확인합니다</h3>
+            <p class="feature__desc">분류와 기한을 정해 목표를 등록하고, 진행률과 상태(진행중 · 완료 · 중단)를 직접 갱신합니다.</p>
+            <ul class="feature__list">
+              <li>분류별 목표 관리</li>
+              <li>진행률 · D-day 표시</li>
+              <li>상태별 필터</li>
+            </ul>
+          </div>
+          <div class="feature__visual" aria-hidden="true">
+            <div class="mock-goal">
+              <div class="mock-goal__top"><span class="chip chip--amber"><svg class="icon"><use href="#i-book"></use></svg>공부</span><span class="badge badge--progress">진행중</span></div>
+              <strong class="mock-goal__title">웹 접근성 KWCAG 2.2 정리하기</strong>
+              <p class="mock-goal__desc">33개 검사 항목을 실습 예제로 만들어 확인한다.</p>
+              <div class="progress">
+                <div class="progress__head"><span class="progress__label">진행률</span><strong class="progress__value">72%</strong></div>
+                <div class="progress__track"><span class="progress__bar" style="--value:72%"></span></div>
+              </div>
+              <div class="mock-goal__foot"><span>2026.09.01 – 10.15</span><strong>D-23</strong></div>
+            </div>
+            <div class="mock-goal mock-goal--back">
+              <div class="mock-goal__top"><span class="chip chip--green"><svg class="icon"><use href="#i-target"></use></svg>프로젝트</span><span class="badge badge--done">완료</span></div>
+              <strong class="mock-goal__title">GrowLog 리뉴얼 배포</strong>
+            </div>
+          </div>
+        </article>
+
+        <article class="feature feature--reverse reveal">
+          <div class="feature__copy">
+            <span class="feature__num">02 기록</span>
+            <h3 class="feature__title">하루의 과정과 생각을<br>짧게 남깁니다</h3>
+            <p class="feature__desc">목표와 연결한 기록이든 자유로운 하루 기록이든, 오늘 배운 점 · 어려웠던 점 · 회고로 나눠 적으면 나중에 다시 읽기 쉬워집니다.</p>
+            <ul class="feature__list">
+              <li>목표 기록 / 자유 기록</li>
+              <li>이미지 · 영상 첨부</li>
+              <li>체감 난이도 · 오늘의 기분</li>
+            </ul>
+          </div>
+          <div class="feature__visual" aria-hidden="true">
+            <div class="mock-record">
+              <div class="segmented"><span class="segmented__btn" aria-current="true">목표 기록</span><span class="segmented__btn">자유 기록</span></div>
+              <strong class="mock-record__title">모달 포커스 트랩 구현</strong>
+              <dl class="mock-record__list">
+                <div><dt>오늘 배운 점</dt><dd>&lt;dialog&gt; 의 showModal() 은 바깥 영역을 inert 처리해 준다.</dd></div>
+                <div><dt>해결 방법</dt><dd>닫힌 뒤 모달을 연 버튼으로 포커스를 되돌렸다.</dd></div>
+              </dl>
+              <div class="mock-record__level"><span>체감 난이도</span><i></i><i></i><i class="is-on"></i></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="feature reveal">
+          <div class="feature__copy">
+            <span class="feature__num">03 타임라인</span>
+            <h3 class="feature__title">목표와 기록이 시간에 따라<br>어떻게 이어졌는지 봅니다</h3>
+            <p class="feature__desc">목표 등록과 기록 작성이 날짜순으로 한 줄에 놓입니다. 월별로 넘겨 보며 흐름을 확인하세요.</p>
+            <ul class="feature__list">
+              <li>월별 이동</li>
+              <li>목표 / 기록 필터</li>
+              <li>기록 상세로 바로 이동</li>
+            </ul>
+          </div>
+          <div class="feature__visual" aria-hidden="true">
+            <ol class="mock-timeline">
+              <li><span class="mock-timeline__date">9월 22일</span><span class="mock-timeline__dot is-record"></span><span>포트폴리오 메인 반응형 점검</span></li>
+              <li><span class="mock-timeline__date">9월 21일</span><span class="mock-timeline__dot is-record"></span><span>모달 포커스 트랩 구현</span></li>
+              <li><span class="mock-timeline__date">9월 1일</span><span class="mock-timeline__dot is-goal"></span><span>웹 접근성 정리하기 <em>목표 등록</em></span></li>
+              <li><span class="mock-timeline__date">8월 20일</span><span class="mock-timeline__dot is-goal"></span><span>포트폴리오 완성하기 <em>목표 등록</em></span></li>
+            </ol>
+          </div>
+        </article>
+
+        <article class="feature feature--reverse reveal">
+          <div class="feature__copy">
+            <span class="feature__num">04 대시보드</span>
+            <h3 class="feature__title">쌓인 기록과 목표를<br>한눈에 돌아봅니다</h3>
+            <p class="feature__desc">이번 달 기록 수, 진행 중인 목표, 연속 기록 일수와 최근 12주 활동을 한 화면에 모았습니다.</p>
+            <ul class="feature__list">
+              <li>연속 기록 일수</li>
+              <li>12주 활동 히트맵</li>
+              <li>최근 타임라인</li>
+            </ul>
+          </div>
+          <div class="feature__visual" aria-hidden="true">
+            <div class="mock-dash">
+              <div class="mock-stats">
+                <div><strong>9</strong><span>이번 달 기록</span></div>
+                <div><strong>4</strong><span>진행 중 목표</span></div>
+                <div><strong>12<small>일</small></strong><span>연속 기록</span></div>
+              </div>
+              <div class="mock-heatmap mock-heatmap--wide" data-heatmap="84"></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Journey -->
+    <section class="section section--journey" id="journey" aria-labelledby="journeyTitle">
+      <div class="container">
+        <div class="section-head section-head--center reveal">
+          <p class="section-head__eyebrow">Growth Journey</p>
+          <h2 class="section-head__title" id="journeyTitle">작은 기록이 성장으로 이어지는 과정</h2>
+        </div>
+        <ol class="journey">
+          <li class="journey__step reveal">
+            <span class="journey__icon"><svg class="icon" aria-hidden="true"><use href="#i-target"></use></svg></span>
+            <h3 class="journey__title">목표 세우기</h3>
+            <p class="journey__desc">이루고 싶은 것을 분류와 기한으로 구체화합니다.</p>
+          </li>
+          <li class="journey__step reveal">
+            <span class="journey__icon"><svg class="icon" aria-hidden="true"><use href="#i-pen"></use></svg></span>
+            <h3 class="journey__title">하루 기록하기</h3>
+            <p class="journey__desc">배운 점과 어려웠던 점을 짧게 남깁니다.</p>
+          </li>
+          <li class="journey__step reveal">
+            <span class="journey__icon"><svg class="icon" aria-hidden="true"><use href="#i-timeline"></use></svg></span>
+            <h3 class="journey__title">흐름 확인하기</h3>
+            <p class="journey__desc">타임라인에서 목표와 기록의 연결을 봅니다.</p>
+          </li>
+          <li class="journey__step reveal">
+            <span class="journey__icon"><svg class="icon" aria-hidden="true"><use href="#i-trending"></use></svg></span>
+            <h3 class="journey__title">성장 발견하기</h3>
+            <p class="journey__desc">쌓인 기록에서 나아진 나를 확인합니다.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section section--cta" aria-labelledby="ctaTitle">
+      <div class="container">
+        <div class="cta-band reveal">
+          <h2 class="cta-band__title" id="ctaTitle">당신의 성장은<br>이미 시작되고 있습니다</h2>
+          <p class="cta-band__desc">오늘 하루를 한 줄로 남기는 것부터 시작해 보세요.</p>
+          <a class="btn btn--dark btn--lg" href="signup.html">GrowLog 시작하기<svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <a class="logo" href="index.html">
+        <span class="logo__mark"><svg class="icon" aria-hidden="true"><use href="#i-sprout"></use></svg></span>
+        <span>GrowLog</span>
+      </a>
+      <p>웹 퍼블리싱 포트폴리오용 리디자인 · 실제 서비스가 아닌 데모 화면입니다.</p>
+    </div>
+  </footer>
+
+  <script src="js/icons.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/landing.js"></script>
+</body>
+</html>

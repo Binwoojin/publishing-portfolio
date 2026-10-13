@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>기록하기 | GrowLog</title>
+  <meta name="theme-color" content="#fbf7ef">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="../../../common/css/reset.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <div class="app">
+    <header class="topbar">
+      <a class="logo" href="index.html">
+        <span class="logo__mark"><svg class="icon" aria-hidden="true"><use href="#i-sprout"></use></svg></span>
+        <span>GrowLog</span>
+      </a>
+      <div class="topbar__actions">
+        <span class="avatar" aria-hidden="true" data-me-initial>성</span>
+        <button class="icon-btn" type="button" data-logout aria-label="로그아웃"><svg class="icon" aria-hidden="true"><use href="#i-logout"></use></svg></button>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <a class="logo sidebar__brand" href="index.html">
+        <span class="logo__mark"><svg class="icon" aria-hidden="true"><use href="#i-sprout"></use></svg></span>
+        <span>GrowLog</span>
+      </a>
+      <nav class="gnb" aria-label="주요 메뉴">
+        <ul class="gnb__list">
+          <li class="gnb__item"><a class="gnb__link" href="dashboard.html"><svg class="icon" aria-hidden="true"><use href="#i-dashboard"></use></svg><span>대시보드</span></a></li>
+          <li class="gnb__item"><a class="gnb__link" href="timeline.html"><svg class="icon" aria-hidden="true"><use href="#i-timeline"></use></svg><span>타임라인</span></a></li>
+          <li class="gnb__item"><a class="gnb__link" href="goals.html"><svg class="icon" aria-hidden="true"><use href="#i-target"></use></svg><span>목표</span></a></li>
+          <li class="gnb__item gnb__item--write"><a class="gnb__link" href="record-new.html" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-pen"></use></svg><span>기록하기</span></a></li>
+        </ul>
+      </nav>
+      <div class="sidebar__user">
+        <span class="avatar" aria-hidden="true" data-me-initial>성</span>
+        <p class="sidebar__user-text">
+          <span class="sidebar__user-name"><span data-me-nickname>성장러</span>님</span>
+          <span class="sidebar__user-mail" data-me-email>grower@growlog.kr</span>
+        </p>
+        <button class="icon-btn" type="button" data-logout aria-label="로그아웃"><svg class="icon" aria-hidden="true"><use href="#i-logout"></use></svg></button>
+      </div>
+    </aside>
+
+    <main class="main" id="main">
+      <div class="main__inner main__inner--narrow">
+        <a class="back-link" href="timeline.html" id="backLink"><svg class="icon" aria-hidden="true"><use href="#i-chevron-left"></use></svg>타임라인</a>
+        <div class="page-head">
+          <div>
+            <h1 class="page-head__title" id="formTitle">오늘의 기록</h1>
+            <p class="page-head__desc">배운 점과 어려웠던 점을 나눠 적으면 나중에 다시 읽기 쉬워요.</p>
+          </div>
+        </div>
+
+        <form class="card form-card" id="recordForm" novalidate>
+          <div class="form-alert" id="recordAlert" role="alert" tabindex="-1" hidden style="margin-bottom:24px">
+            <svg class="icon" aria-hidden="true"><use href="#i-alert"></use></svg>
+            <div><strong>입력 내용을 확인해 주세요.</strong><ul id="recordAlertList"></ul></div>
+          </div>
+
+          <section class="form-section" aria-labelledby="secBasic">
+            <h2 class="form-section__title" id="secBasic">기본 정보</h2>
+
+            <fieldset class="choice-group">
+              <legend class="field__label">기록 종류</legend>
+              <div class="type-switch">
+                <label class="choice">
+                  <input type="radio" name="recordType" value="GOAL" checked>
+                  <span class="choice__box"><strong><svg class="icon" aria-hidden="true"><use href="#i-target"></use></svg>목표 기록</strong><small>진행 중인 목표와 연결</small></span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="recordType" value="FREE">
+                  <span class="choice__box"><strong><svg class="icon" aria-hidden="true"><use href="#i-book"></use></svg>자유 기록</strong><small>목표 없이 하루를 기록</small></span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="field" id="goalField" style="margin-top:20px">
+              <label class="field__label" for="goalSelect">연결할 목표<span class="req" aria-hidden="true">*</span></label>
+              <select class="select" id="goalSelect" name="goalNum" aria-describedby="goalSelectMsg">
+                <option value="">목표를 선택하세요</option>
+              </select>
+              <p class="field__error" id="goalSelectMsg" hidden></p>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="title">제목<span class="req" aria-hidden="true">*</span></label>
+              <input class="input" type="text" id="title" name="title" maxlength="100" placeholder="예: 모달 포커스 트랩 구현" aria-describedby="titleMsg titleCount" required>
+              <div class="field__meta">
+                <p class="field__error" id="titleMsg" hidden></p>
+                <span class="field__counter" id="titleCount">0 / 100</span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="content">내용<span class="req" aria-hidden="true">*</span></label>
+              <textarea class="textarea" id="content" name="content" maxlength="2000" placeholder="오늘 무엇을 했나요?" aria-describedby="contentMsg contentCount" required></textarea>
+              <div class="field__meta">
+                <p class="field__error" id="contentMsg" hidden></p>
+                <span class="field__counter" id="contentCount">0 / 2000</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="form-section" aria-labelledby="secReflect">
+            <h2 class="form-section__title" id="secReflect">돌아보기<small>모두 선택 입력</small></h2>
+
+            <fieldset class="choice-group">
+              <legend class="field__label" id="difficultyLegend">체감 난이도</legend>
+              <div class="choice-list" style="grid-template-columns:repeat(3,1fr)">
+                <label class="choice"><input type="radio" name="difficulty" value="EASY"><span class="choice__box" data-label="EASY">쉬움</span></label>
+                <label class="choice"><input type="radio" name="difficulty" value="NORMAL" checked><span class="choice__box" data-label="NORMAL">보통</span></label>
+                <label class="choice"><input type="radio" name="difficulty" value="HARD"><span class="choice__box" data-label="HARD">어려움</span></label>
+              </div>
+            </fieldset>
+
+            <div class="field" style="margin-top:20px">
+              <label class="field__label" for="todayLearning">오늘 배운 점</label>
+              <textarea class="textarea" id="todayLearning" name="todayLearning" rows="3"></textarea>
+            </div>
+            <div class="field">
+              <label class="field__label" for="solution">어려웠던 점과 해결 방법</label>
+              <textarea class="textarea" id="solution" name="solution" rows="3"></textarea>
+            </div>
+            <div class="field">
+              <label class="field__label" for="retrospective">회고</label>
+              <textarea class="textarea" id="retrospective" name="retrospective" rows="3" placeholder="다음에는 어떻게 해 볼까요?"></textarea>
+            </div>
+          </section>
+
+          <section class="form-section" aria-labelledby="secMedia">
+            <h2 class="form-section__title" id="secMedia">첨부<small>선택</small></h2>
+
+            <div class="field">
+              <span class="field__label" id="imageLabel">이미지</span>
+              <label class="dropzone" id="dropzone">
+                <svg class="icon" aria-hidden="true"><use href="#i-upload"></use></svg>
+                <strong>이미지를 끌어다 놓거나 눌러서 선택</strong>
+                <span>JPG · PNG · GIF, 한 장당 5MB, 최대 5장</span>
+                <input type="file" id="imageInput" accept="image/*" multiple aria-labelledby="imageLabel" aria-describedby="imageMsg">
+              </label>
+              <p class="field__help" id="imageMsg" hidden></p>
+              <ul class="previews" id="previews" aria-label="첨부한 이미지"></ul>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="youtubeUrl">YouTube 링크</label>
+              <input class="input" type="url" id="youtubeUrl" name="youtubeUrl" inputmode="url" placeholder="https://www.youtube.com/watch?v=..." aria-describedby="youtubeMsg">
+              <p class="field__help" id="youtubeMsg">관련 영상이 있다면 붙여 넣어 주세요.</p>
+            </div>
+          </section>
+
+          <div class="form-actions">
+            <a class="btn btn--outline" href="timeline.html" id="cancelLink">취소</a>
+            <button class="btn btn--primary" type="submit" id="submitBtn"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>기록 저장</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/icons.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/record-form.js"></script>
+</body>
+</html>

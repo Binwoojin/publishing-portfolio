@@ -1,0 +1,158 @@
+/* ==========================================================================
+   GrowLog — 로그인 · 회원가입
+   모바일: 폼만 / 데스크톱: 왼쪽 소개 패널 + 오른쪽 폼
+   ========================================================================== */
+.auth { min-height: 100vh; }
+
+.auth__aside { display: none; }
+
+.auth__main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--sp-6) var(--gutter) var(--sp-16);
+}
+.auth__mobile-logo { align-self: flex-start; margin-bottom: var(--sp-10); }
+
+.auth__panel { width: 100%; max-width: 420px; }
+.auth__title { font-size: var(--fs-2xl); font-weight: 800; }
+.auth__desc { margin-top: var(--sp-2); color: var(--c-ink-2); }
+.req-mark { color: var(--c-danger); }
+
+.auth__demo {
+  display: flex;
+  gap: var(--sp-2);
+  margin-top: var(--sp-5);
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--radius-sm);
+  background: var(--c-amber-soft);
+  color: var(--c-ink);
+  font-size: var(--fs-sm);
+}
+.auth__demo .icon { width: 18px; height: 18px; margin-top: 2px; color: var(--c-amber-text); }
+
+.auth__form { display: grid; margin-top: var(--sp-8); }
+.auth__form .form-alert { margin-bottom: var(--sp-5); }
+.auth__form > .btn { margin-top: var(--sp-8); }
+.auth__form .field__row .btn { flex-shrink: 0; min-height: 48px; border-radius: var(--radius-sm); }
+
+.auth__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  margin-top: var(--sp-4);
+}
+.auth__sub-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--c-ink-2);
+  font-size: var(--fs-sm);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.auth__switch {
+  margin-top: var(--sp-8);
+  padding-top: var(--sp-6);
+  border-top: 1px solid var(--c-line);
+  color: var(--c-ink-2);
+  text-align: center;
+}
+
+/* 체크박스 */
+.check {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  min-height: 44px;
+  padding-top: 10px;
+  font-size: var(--fs-sm);
+  cursor: pointer;
+}
+.check input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  flex-shrink: 0;
+  accent-color: var(--c-amber-text);
+}
+.check--box {
+  display: flex;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--c-surface);
+}
+.check--box:has(input[aria-invalid="true"]) { border-color: var(--c-danger); }
+
+/* 인증번호 남은 시간 */
+.input-wrap--timer { flex: 1; min-width: 0; }
+.input-wrap--timer .input { padding-right: 64px; }
+.timer {
+  position: absolute;
+  top: 50%;
+  right: var(--sp-4);
+  color: var(--c-danger);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  transform: translateY(-50%);
+}
+
+@media (min-width: 1024px) {
+  .auth {
+    display: grid;
+    grid-template-columns: minmax(400px, 0.9fr) 1.1fr;
+  }
+
+  .auth__aside {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    padding: var(--sp-10) var(--sp-12);
+    overflow: hidden;
+    background: #1c1917;
+    color: #fbf7ef;
+  }
+  /* 배경의 노트 줄무늬 */
+  .auth__aside::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(to bottom, transparent 0 39px, rgb(251 247 239 / 0.06) 39px 40px);
+    pointer-events: none;
+  }
+  .auth__aside > * { position: relative; }
+
+  .logo--invert { color: #fbf7ef; }
+
+  .auth__quote blockquote { margin: 0; }
+  .auth__quote p { font-size: 1.75rem; font-weight: 700; line-height: 1.45; letter-spacing: -0.03em; }
+  .auth__quote figcaption { margin-top: var(--sp-5); color: #f59e0b; font-weight: 600; }
+
+  .auth__steps { display: grid; gap: var(--sp-3); color: rgb(251 247 239 / 0.7); font-size: var(--fs-sm); }
+  .auth__steps li { display: flex; align-items: center; gap: var(--sp-3); }
+  .auth__dot { width: 10px; height: 10px; border-radius: 50%; background: #f59e0b; }
+  .auth__dot--goal { background: #34d399; }
+
+  .auth__intro { margin-block: auto; }
+  .auth__intro-title { font-size: 1.75rem; font-weight: 700; line-height: 1.45; letter-spacing: -0.03em; }
+  .auth__benefits { display: grid; gap: var(--sp-4); margin-top: var(--sp-8); }
+  .auth__benefits li { display: flex; align-items: center; gap: var(--sp-3); color: rgb(251 247 239 / 0.85); }
+  .auth__benefits .icon {
+    width: 40px;
+    height: 40px;
+    padding: 9px;
+    border-radius: 12px;
+    background: rgb(251 247 239 / 0.08);
+    color: #f59e0b;
+  }
+
+  .auth__main { justify-content: center; padding: var(--sp-16) var(--sp-12); }
+  .auth__mobile-logo { display: none; }
+}
