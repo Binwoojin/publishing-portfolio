@@ -248,7 +248,67 @@ button:focus-visible {
   line-height: 1.1;
   letter-spacing: -.02em;
 }
-.hero__title em { font-style: normal; color: var(--color-accent); }
+.hero__line { display: block; }
+.hero__title em { position: relative; font-style: normal; color: var(--color-accent); }
+
+/* ===== Hero 제목 모션 =====
+   1) 글자가 한 글자씩 아래에서 올라옴 (expo-out, 글자당 35ms 간격)
+   2) "정확하게." 아래 형광펜이 왼쪽부터 그어짐
+   3) 소개 문구 · 버튼 · 정보가 차례로 나타남
+   4) 마우스를 올리면 글자가 살짝 튀어오름 */
+.hero__title em::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: -.04em;
+  right: -.04em;
+  bottom: .08em;
+  height: .3em;
+  background: color-mix(in srgb, var(--color-accent) 20%, transparent);
+}
+.hero__title { isolation: isolate; }
+
+.hero-anim .hero__line { overflow: hidden; padding-bottom: .06em; margin-bottom: -.06em; }
+.hero-anim .hero__char {
+  display: inline-block;
+  transform: translateY(105%);
+  opacity: 0;
+  transition:
+    transform 700ms cubic-bezier(.16, 1, .3, 1) calc(var(--i) * 35ms + 120ms),
+    opacity 400ms ease calc(var(--i) * 35ms + 120ms),
+    color var(--dur-fast) var(--ease);
+}
+.hero-anim .is-ready .hero__char { transform: none; opacity: 1; }
+.hero-anim .hero__title em::after {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 600ms cubic-bezier(.65, 0, .35, 1) var(--mark-delay, 900ms);
+}
+.hero-anim .is-ready .hero__title em::after { transform: scaleX(1); }
+
+.hero-anim .hero__eyebrow,
+.hero-anim .hero__desc,
+.hero-anim .hero__actions,
+.hero-anim .hero__meta {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 500ms ease, transform 600ms cubic-bezier(.16, 1, .3, 1);
+}
+.hero-anim .is-ready .hero__eyebrow { opacity: 1; transform: none; transition-delay: 0ms; }
+.hero-anim .is-ready .hero__desc { opacity: 1; transform: none; transition-delay: var(--after-title, 800ms); }
+.hero-anim .is-ready .hero__actions { opacity: 1; transform: none; transition-delay: calc(var(--after-title, 800ms) + 100ms); }
+.hero-anim .is-ready .hero__meta { opacity: 1; transform: none; transition-delay: calc(var(--after-title, 800ms) + 200ms); }
+
+/* 스크립트가 실패해도 2초 뒤에는 내용이 보이도록 */
+.hero-anim .hero:not(.is-ready) .inner > * { animation: hero-fallback 0s 2s forwards; }
+@keyframes hero-fallback { to { opacity: 1; transform: none; } }
+
+@media (hover: hover) {
+  .hero-anim .is-ready .hero__char.is-settled {
+    transition: transform 300ms cubic-bezier(.34, 1.56, .64, 1), color var(--dur-fast) var(--ease);
+  }
+  .hero-anim .is-ready .hero__char.is-settled:hover { transform: translateY(-.08em); color: var(--color-accent); }
+}
 .hero__desc {
   max-width: 34em;
   margin-top: var(--space-4);

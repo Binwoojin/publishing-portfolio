@@ -2,6 +2,53 @@
   let projects = [];
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ===== 첫 화면 제목 모션 ===== */
+  const hero = document.querySelector('.hero');
+  const heroTitle = hero && hero.querySelector('.hero__title');
+  if (heroTitle && document.documentElement.classList.contains('hero-anim')) {
+    // 스크린리더는 글자 조각 대신 문장 전체를 읽도록
+    heroTitle.setAttribute('aria-label', heroTitle.textContent.replace(/\s+/g, ' ').trim());
+
+    let index = 0;
+    const splitNode = (node) => {
+      [...node.childNodes].forEach((child) => {
+        if (child.nodeType === Node.TEXT_NODE) {
+          const frag = document.createDocumentFragment();
+          [...child.textContent.replace(/\s+/g, ' ')].forEach((ch) => {
+            if (ch === ' ') {
+              frag.appendChild(document.createTextNode(' '));
+              return;
+            }
+            const span = document.createElement('span');
+            span.className = 'hero__char';
+            span.style.setProperty('--i', index++);
+            span.textContent = ch;
+            frag.appendChild(span);
+          });
+          child.replaceWith(frag);
+        } else if (child.nodeType === Node.ELEMENT_NODE) {
+          splitNode(child);
+        }
+      });
+    };
+    heroTitle.querySelectorAll('.hero__line').forEach((line) => {
+      line.setAttribute('aria-hidden', 'true');
+      splitNode(line);
+    });
+
+    const titleEnd = index * 35 + 120 + 500;
+    hero.style.setProperty('--mark-delay', `${titleEnd}ms`);
+    hero.style.setProperty('--after-title', `${Math.max(titleEnd - 300, 400)}ms`);
+
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      hero.classList.add('is-ready');
+      // 등장이 끝난 뒤에 hover 반응 켜기
+      setTimeout(() => {
+        heroTitle.querySelectorAll('.hero__char').forEach((c) => c.classList.add('is-settled'));
+      }, titleEnd + 400);
+    }));
+  }
+
   /* ===== 모바일 메뉴 ===== */
   const header = document.getElementById('header');
   const toggle = header.querySelector('.header__toggle');

@@ -14,6 +14,10 @@
   <link rel="preload" href="assets/fonts/Paperlogy-4Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="common/css/reset.css">
   <link rel="stylesheet" href="assets/css/style.css">
+  <script>
+    // 첫 화면 제목 애니메이션 준비 (모션 감소 설정이면 생략)
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('hero-anim');
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">본문 바로가기</a>
@@ -53,8 +57,8 @@
       <div class="inner">
         <p class="hero__eyebrow"><span class="hero__dot" aria-hidden="true"></span>Web Publisher Portfolio</p>
         <h1 class="hero__title" id="hero-title">
-          구조는 단단하게,<br>
-          화면은 <em>정확하게.</em>
+          <span class="hero__line">구조는 단단하게,</span>
+          <span class="hero__line">화면은 <em>정확하게.</em></span>
         </h1>
         <p class="hero__desc" data-site="heroDescription">
           안녕하세요, 웹 퍼블리셔 OOO입니다.
