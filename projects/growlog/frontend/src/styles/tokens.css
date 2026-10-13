@@ -1,0 +1,114 @@
+/*
+ * GrowLog Design System — 디자인 토큰
+ *
+ * 브랜드 컨셉: "Growth Archive" — 목표와 하루의 기록이 시간에 따라
+ * 쌓이고, 그 축적을 통해 성장 과정을 발견하는 개인 성장 아카이브.
+ * 컬러는 Muted Green(Primary) + Warm Neutral(Background/Surface) 조합을
+ * 쓰고, 채도가 높은 색은 쓰지 않는다. Primary Green은 CTA/활성 상태/
+ * 성장 관련 강조에만 쓰고, success/warning/error 같은 상태 의미 색은
+ * 브랜드 컬러와 분리된 별도 토큰을 쓴다(브랜드 컬러가 바뀌어도 상태
+ * 의미가 함께 바뀌지 않도록).
+ *
+ * 화면마다 개별 CSS 값을 하드코딩하지 않고, 아래 변수를 통해서만
+ * 색/타이포/여백을 사용한다 — 나중에 색 하나만 바꿔도 전체 화면에
+ * 일관되게 반영되게 하기 위함이다.
+ */
+
+:root {
+  /* ===== Color — Brand (Primary Green / Warm Neutral) ===== */
+  --color-primary: #3f7d63;
+  --color-primary-hover: #35694f;
+  --color-primary-bg: #ddebe3;
+  --color-accent: #c9d7a8;
+
+  --color-bg: #f7f8f5;
+  --color-surface: #ffffff;
+  --color-border: #e5e9e1;
+
+  --color-text-primary: #222824;
+  --color-text-secondary: #727872;
+  --color-text-inverse: #ffffff;
+
+  /*
+   * ===== Color — Semantic (상태 의미 전용) =====
+   * success/warning/error는 브랜드 그린과 독립적으로 유지한다.
+   * --color-success-bg는 예전 --color-primary-bg 값을 그대로 얼려서
+   * 만든 토큰이라, Primary Green이 바뀌어도 "완료" 같은 success 배지의
+   * 색은 바뀌지 않는다.
+   */
+  --color-success: #16a34a;
+  --color-success-bg: #e9f7f0;
+  --color-warning: #d97706;
+  --color-warning-bg: #fef3e2;
+  --color-error: #dc2626;
+  --color-error-bg: #fdecea;
+
+  /* ===== Typography ===== */
+  /*
+   * Pretendard를 self-host(main.ts에서 pretendard 패키지 import)로
+   * 적용하고, 로드 전/실패 시를 대비해 기존 system font fallback을
+   * 그대로 남겨둔다 — CDN 의존 없음.
+   */
+  --font-sans: Pretendard, system-ui, -apple-system, 'Segoe UI', Roboto, 'Malgun Gothic', sans-serif;
+
+  /*
+   * `--font-size-xl`/`--font-size-2xl`은 Login도 그대로 참조하고 있어서
+   * (LoginView.vue 타이틀이 --font-size-2xl) 값 자체는 건드리지 않는다.
+   * 대신 실제로 더 큰 제목이 필요한 화면(Dashboard/Timeline/Goal)에는
+   * 역할이 분명한 새 토큰을 추가해서 그 화면들에서만 쓴다 — Login은
+   * 계속 기존 --font-size-2xl(28px)만 참조하므로 영향이 없다. 모든
+   * Application 화면이 완성되면 이 역할 토큰들을 기준으로 전체 scale을
+   * 다시 통합 검토한다.
+   */
+  --font-size-sm: 13px;
+  --font-size-base: 15px;
+  --font-size-lg: 18px;
+  --font-size-xl: 22px;
+  --font-size-2xl: 28px;
+
+  /* Landing Hero 전용 — Application UI에서는 쓰지 않는다 */
+  --font-size-hero: 44px;
+
+  /*
+   * 역할 기반 타이포 토큰 — Dashboard/Timeline/Goal의 페이지 제목,
+   * Landing의 섹션 제목, Dashboard Summary Card처럼 강조가 필요한
+   * 큰 숫자에만 쓴다. 기존 --font-size-xl/2xl과 별개 토큰이라
+   * Login 등 다른 화면에는 영향이 없다.
+   */
+  --font-size-page-title: 28px;
+  --font-size-section-title: 24px;
+  --font-size-display: 32px;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-base: 1.5;
+
+  /* ===== Spacing (4px 기준) ===== */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+
+  /* ===== Radius / Shadow ===== */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  /*
+   * 와이어프레임 단계에서 뺐던 그림자를 낮은 강도로 복원한다. 카드가
+   * "떠 있는" 느낌이 아니라 Surface(#fff)와 Background(#f7f8f5)를
+   * 아주 미세하게만 구분하는 수준으로 제한했다.
+   *
+   * Depth는 2단계로만 제한한다: 기본 카드는 --shadow-card, Hero
+   * Preview의 레이어드 카드나 hover처럼 한 단계 더 강조가 필요한
+   * 곳만 --shadow-elevated. 3단계 이상 elevation은 만들지 않는다.
+   */
+  --shadow-card: 0 1px 2px rgba(34, 40, 36, 0.04), 0 2px 8px rgba(34, 40, 36, 0.05);
+  --shadow-elevated: 0 2px 4px rgba(34, 40, 36, 0.06), 0 8px 20px rgba(34, 40, 36, 0.08);
+}

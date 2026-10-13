@@ -1,0 +1,853 @@
+/* ========================================
+   Account Settings 기본 화면
+======================================== */
+
+.settings_page {
+    min-height: 100vh;
+    padding: 42px 24px 100px;
+
+    background:
+            linear-gradient(
+                    180deg,
+                    #f5faf4 0,
+                    #ffffff 430px
+            );
+
+    color: #263329;
+}
+
+
+/* ========================================
+   계정 설정 상단 소개 영역
+======================================== */
+
+.settings_hero {
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    max-width: 1200px;
+    min-height: 280px;
+    margin: 0 auto 32px;
+    padding: 46px 56px;
+
+    border: 1px solid #dcebd9;
+    border-radius: 30px;
+
+    background:
+            linear-gradient(
+                    135deg,
+                    #eff8ea 0%,
+                    #f9fcf5 55%,
+                    #edf7e9 100%
+            );
+
+    box-shadow: 0 16px 42px rgba(69, 105, 66, 0.09);
+}
+
+.settings_hero_text {
+    position: relative;
+    z-index: 2;
+
+    max-width: 640px;
+}
+
+.settings_hero_label,
+.section_eyebrow {
+    display: inline-block;
+
+    margin-bottom: 10px;
+
+    color: #6c9566;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+}
+
+.settings_hero h1 {
+    margin: 0;
+
+    color: #2f4731;
+    font-size: clamp(30px, 4vw, 44px);
+    font-weight: 800;
+    line-height: 1.3;
+    letter-spacing: -0.045em;
+}
+
+.settings_hero p {
+    max-width: 570px;
+    margin: 20px 0 0;
+
+    color: #647267;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+
+/* 상단 장식 영역 */
+
+.settings_hero_visual {
+    position: relative;
+    flex: 0 0 250px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 190px;
+}
+
+.settings_visual_circle {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 142px;
+    height: 142px;
+
+    border: 7px solid rgba(255, 255, 255, 0.86);
+    border-radius: 50%;
+
+    background-color: #d5ead0;
+
+    font-size: 62px;
+
+    box-shadow: 0 18px 36px rgba(65, 105, 63, 0.16);
+}
+
+.settings_visual_leaf {
+    position: absolute;
+
+    width: 68px;
+    height: 128px;
+
+    border-radius: 100% 0 100% 0;
+
+    background-color: rgba(143, 185, 130, 0.27);
+}
+
+.leaf_left {
+    left: 22px;
+    bottom: 9px;
+
+    transform: rotate(-27deg);
+}
+
+.leaf_right {
+    right: 21px;
+    top: 8px;
+
+    transform: rotate(149deg);
+}
+
+
+/* ========================================
+   계정 설정 본문 레이아웃
+======================================== */
+
+.settings_content {
+    display: grid;
+    grid-template-columns: 230px minmax(0, 1fr);
+    gap: 28px;
+
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+/* ========================================
+   왼쪽 사이드 메뉴
+======================================== */
+
+.settings_sidebar {
+    align-self: start;
+
+    padding: 22px 14px;
+
+    border: 1px solid #e1e9df;
+    border-radius: 22px;
+
+    background-color: #ffffff;
+
+    box-shadow: 0 12px 32px rgba(50, 74, 52, 0.06);
+}
+
+.sidebar_title {
+    padding: 4px 12px 17px;
+    margin-bottom: 8px;
+
+    border-bottom: 1px solid #edf1ec;
+
+    color: #354a37;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.sidebar_navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sidebar_menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    width: 100%;
+    min-height: 48px;
+    padding: 0 12px;
+
+    border: 0;
+    border-radius: 13px;
+
+    background-color: transparent;
+
+    color: #667168;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: left;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+            background-color 0.2s ease,
+            color 0.2s ease,
+            transform 0.2s ease;
+}
+
+.sidebar_menu:hover {
+    background-color: #f1f7ef;
+    color: #416640;
+
+    transform: translateX(2px);
+}
+
+.sidebar_menu.active {
+    background-color: #e9f5e5;
+    color: #38613a;
+}
+
+.sidebar_menu_icon {
+    width: 24px;
+
+    font-size: 17px;
+    text-align: center;
+}
+
+.sidebar_menu_disabled {
+    color: #a7aea8;
+
+    cursor: default;
+}
+
+.sidebar_menu_disabled:hover {
+    background-color: transparent;
+    color: #a7aea8;
+
+    transform: none;
+}
+
+.coming_badge {
+    margin-left: auto;
+    padding: 4px 7px;
+
+    border-radius: 20px;
+
+    background-color: #f0f2ef;
+
+    color: #9a9f9b;
+    font-size: 10px;
+}
+
+
+/* ========================================
+   오른쪽 계정 설정 콘텐츠
+======================================== */
+
+.settings_main {
+    min-width: 0;
+}
+
+.settings_title_card,
+.settings_section {
+    margin-bottom: 24px;
+    padding: 30px;
+
+    border: 1px solid #e1e9df;
+    border-radius: 24px;
+
+    background-color: #ffffff;
+
+    box-shadow: 0 12px 32px rgba(50, 74, 52, 0.06);
+}
+
+.settings_title_card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.settings_title_card h2,
+.settings_section_header h2 {
+    margin: 0;
+
+    color: #304334;
+    font-size: 23px;
+    letter-spacing: -0.035em;
+}
+
+.settings_title_card p,
+.settings_section_header p {
+    margin: 9px 0 0;
+
+    color: #838d85;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.profile_back_link {
+    flex: 0 0 auto;
+
+    padding: 11px 15px;
+
+    border: 1px solid #d7e1d5;
+    border-radius: 11px;
+
+    background-color: #f8faf7;
+
+    color: #657367;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+
+    transition:
+            background-color 0.2s ease,
+            border-color 0.2s ease;
+}
+
+.profile_back_link:hover {
+    border-color: #c2d4bf;
+
+    background-color: #eef5eb;
+}
+
+
+/* ========================================
+   설정 섹션 제목
+======================================== */
+
+.settings_section_header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+
+    padding-bottom: 24px;
+    margin-bottom: 4px;
+
+    border-bottom: 1px solid #edf1ec;
+}
+
+.settings_section_icon {
+    flex: 0 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 50px;
+    height: 50px;
+
+    border-radius: 16px;
+
+    font-size: 22px;
+}
+
+.profile_icon {
+    background-color: #e7f2e3;
+}
+
+.security_icon {
+    background-color: #edf1f7;
+}
+
+
+/* ========================================
+   프로필 설정 폼
+======================================== */
+
+.settings_form_group {
+    display: grid;
+    grid-template-columns: minmax(180px, 0.8fr) minmax(260px, 1.4fr);
+    gap: 34px;
+
+    padding: 25px 0;
+
+    border-bottom: 1px solid #edf1ec;
+}
+
+.settings_label_area label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #384b3b;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.settings_label_area p {
+    margin: 0;
+
+    color: #899189;
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.settings_input_area {
+    min-width: 0;
+}
+
+.settings_input_area input {
+    width: 100%;
+    height: 48px;
+    padding: 0 15px;
+
+    border: 1px solid #dce5da;
+    border-radius: 12px;
+    outline: none;
+
+    background-color: #fbfcfa;
+
+    color: #445047;
+    font-family: inherit;
+    font-size: 14px;
+
+    transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease,
+            background-color 0.2s ease;
+}
+
+.settings_input_area input:focus {
+    border-color: #93b28d;
+
+    background-color: #ffffff;
+
+    box-shadow: 0 0 0 4px rgba(116, 157, 108, 0.12);
+}
+
+.settings_input_area input:disabled {
+    background-color: #f2f4f1;
+
+    color: #8b928c;
+
+    cursor: not-allowed;
+}
+
+.input_limit,
+.input_notice {
+    display: block;
+
+    margin-top: 8px;
+
+    color: #959c96;
+    font-size: 11px;
+}
+
+.settings_form_actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    padding-top: 24px;
+}
+
+.settings_cancel_button,
+.settings_save_button {
+    min-width: 108px;
+    height: 44px;
+    padding: 0 17px;
+
+    border-radius: 11px;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.settings_cancel_button {
+    border: 1px solid #dbe3d9;
+
+    background-color: #ffffff;
+
+    color: #69746b;
+}
+
+.settings_save_button {
+    border: 1px solid #668f62;
+
+    background-color: #6f9b69;
+
+    color: #ffffff;
+}
+
+.settings_cancel_button:hover {
+    background-color: #f5f7f4;
+}
+
+.settings_save_button:hover {
+    background-color: #60895d;
+}
+
+
+/* ========================================
+   닉네임 입력 및 중복 확인
+======================================== */
+
+.nickname_input_row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    width: 100%;
+}
+
+.nickname_input_row input {
+    flex: 1;
+    min-width: 0;
+}
+
+.nickname_check_button {
+    flex-shrink: 0;
+
+    height: 48px;
+    padding: 0 18px;
+
+    border: 1px solid #b9cfb5;
+    border-radius: 12px;
+
+    background-color: #eef6eb;
+
+    color: #557451;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+            background-color 0.2s ease,
+            border-color 0.2s ease,
+            transform 0.2s ease;
+}
+
+.nickname_check_button:hover {
+    border-color: #99b693;
+
+    background-color: #e2f0de;
+
+    transform: translateY(-1px);
+}
+
+.nickname_check_message {
+    display: block;
+
+    margin-top: 8px;
+
+    color: #8c968e;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.nickname_check_message.success {
+    color: #5f8b59;
+}
+
+.nickname_check_message.error {
+    color: #c2675e;
+}
+
+/* ========================================
+   비밀번호 변경 폼
+======================================== */
+
+.password_change_form {
+    padding-top: 24px;
+}
+
+
+/* 비밀번호 입력 항목 전체 */
+.password_form_grid {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/*
+ * 각 비밀번호 항목은
+ * 왼쪽에 라벨, 오른쪽에 입력창과 안내문이 보이도록 구성한다.
+ */
+.password_form_group {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    column-gap: 72px;
+    row-gap: 8px;
+
+    padding: 24px 0;
+
+    border-bottom: 1px solid #e9eee8;
+}
+
+.password_form_group:first-child {
+    border-top: 1px solid #e9eee8;
+}
+
+
+/* 비밀번호 항목 라벨 */
+.password_form_group label {
+    align-self: center;
+
+    color: #344939;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+/* 비밀번호 입력창 */
+.password_form_group input {
+    width: 100%;
+    height: 48px;
+    padding: 0 16px;
+
+    border: 1px solid #d6e1d3;
+    border-radius: 12px;
+    outline: none;
+
+    background-color: #fbfcfa;
+
+    color: #3f4d42;
+    font-family: inherit;
+    font-size: 14px;
+
+    transition:
+            border-color 0.2s ease,
+            background-color 0.2s ease,
+            box-shadow 0.2s ease;
+}
+
+
+/* 입력창에 포커스가 들어왔을 때 */
+.password_form_group input:focus {
+    border-color: #91b28a;
+
+    background-color: #ffffff;
+
+    box-shadow:
+            0 0 0 4px rgba(111, 155, 103, 0.12);
+}
+
+
+/*
+ * 안내 문구와 비밀번호 일치 여부 메시지는
+ * 입력창 아래쪽에 표시한다.
+ */
+.password_form_help,
+.password_match_message {
+    grid-column: 2;
+
+    color: #909991;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* 새 비밀번호가 일치할 때 */
+.password_match_message.success {
+    color: #5f8b59;
+}
+
+
+/* 새 비밀번호가 일치하지 않을 때 */
+.password_match_message.error {
+    color: #c2675e;
+}
+
+
+/* ========================================
+   비밀번호 변경 버튼 영역
+======================================== */
+
+.password_change_form .settings_form_actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+
+    padding-top: 24px;
+}
+
+
+/* 비밀번호 변경 버튼 비활성 상태 */
+.password_change_form .settings_save_button:disabled {
+    border-color: #cfd7cd;
+
+    background-color: #cfd7cd;
+
+    color: #ffffff;
+
+    cursor: not-allowed;
+
+    opacity: 0.75;
+}
+
+
+/* 비활성 버튼은 hover 효과를 적용하지 않는다. */
+.password_change_form .settings_save_button:disabled:hover {
+    border-color: #cfd7cd;
+
+    background-color: #cfd7cd;
+
+    transform: none;
+}
+
+
+/* ========================================
+   태블릿 및 모바일 반응형
+======================================== */
+
+@media (max-width: 900px) {
+
+    .password_form_group {
+        grid-template-columns: 200px minmax(0, 1fr);
+        column-gap: 32px;
+    }
+
+}
+
+
+@media (max-width: 720px) {
+
+    .password_form_group {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .password_form_group label {
+        align-self: auto;
+    }
+
+    .password_form_help,
+    .password_match_message {
+        grid-column: auto;
+    }
+
+    .password_change_form .settings_form_actions {
+        flex-direction: column-reverse;
+    }
+
+    .password_change_form .settings_cancel_button,
+    .password_change_form .settings_save_button {
+        width: 100%;
+    }
+
+}
+
+
+
+/* ========================================
+   태블릿 반응형
+======================================== */
+
+@media (max-width: 1024px) {
+
+    .settings_content {
+        grid-template-columns: 1fr;
+    }
+
+    .settings_sidebar {
+        padding: 12px;
+    }
+
+    .sidebar_title {
+        display: none;
+    }
+
+    .sidebar_navigation {
+        flex-direction: row;
+        overflow-x: auto;
+    }
+
+    .sidebar_menu {
+        flex: 0 0 auto;
+        width: auto;
+    }
+
+}
+
+
+/* ========================================
+   모바일 반응형
+======================================== */
+
+@media (max-width: 720px) {
+
+    .settings_page {
+        padding: 22px 16px 70px;
+    }
+
+    .settings_hero {
+        min-height: auto;
+        padding: 32px 26px;
+    }
+
+    .settings_hero_visual {
+        display: none;
+    }
+
+    .settings_hero h1 {
+        font-size: 30px;
+    }
+
+    .settings_hero p {
+        font-size: 14px;
+    }
+
+    .settings_title_card,
+    .settings_section {
+        padding: 22px 18px;
+        border-radius: 20px;
+    }
+
+    .settings_title_card {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .settings_form_group {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .settings_form_actions {
+        flex-direction: column-reverse;
+    }
+
+    .settings_cancel_button,
+    .settings_save_button {
+        width: 100%;
+    }
+
+}

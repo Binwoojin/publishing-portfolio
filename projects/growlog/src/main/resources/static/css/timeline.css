@@ -1,0 +1,835 @@
+@charset "UTF-8";
+
+/* ========================================
+   GrowLog Timeline
+   [React 전환 준비] JSP의 컴포넌트 경계 순서대로 스타일을 구성합니다.
+======================================== */
+
+.timeline_page {
+    min-height: 100vh;
+    color: #26362b;
+    background: #f8f7f1;
+}
+
+.timeline_container {
+    width: min(1200px, calc(100% - 48px));
+    margin: 40px auto 90px;
+}
+
+.timeline_hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 340px;
+    padding: 50px 58px;
+    overflow: hidden;
+    border: 1px solid #d3e5d1;
+    border-radius: 30px;
+    background:
+            radial-gradient(circle at 83% 18%, rgba(255, 255, 255, 0.78), transparent 24%),
+            linear-gradient(120deg, #f4faf2 0%, #eaf5e8 58%, #dcefd9 100%);
+}
+
+.timeline_hero_copy {
+    position: relative;
+    z-index: 2;
+    max-width: 650px;
+}
+
+.timeline_eyebrow_row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.timeline_eyebrow,
+.timeline_section_label {
+    color: #528a5b;
+    font-size: 12px;
+    font-weight: 850;
+    letter-spacing: 0.14em;
+}
+
+.timeline_preview_badge {
+    padding: 6px 10px;
+    border: 1px solid #c9ddc8;
+    border-radius: 999px;
+    color: #607064;
+    background: rgba(255, 255, 255, 0.7);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.timeline_hero h1 {
+    margin: 18px 0 0;
+    color: #173c2b;
+    font-size: clamp(36px, 4vw, 52px);
+    line-height: 1.28;
+    letter-spacing: -0.045em;
+    word-break: keep-all;
+}
+
+.timeline_hero_copy > p {
+    margin: 20px 0 0;
+    color: #5d7063;
+    font-size: 16px;
+    line-height: 1.75;
+}
+
+.timeline_hero_actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.timeline_button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 0 21px;
+    border: 1px solid #5e9c68;
+    border-radius: 13px;
+    font-size: 14px;
+    font-weight: 750;
+    transition: background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.timeline_button svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-width: 2;
+}
+
+.timeline_button.primary {
+    color: #ffffff;
+    background: #5e9c68;
+    box-shadow: 0 10px 22px rgba(65, 125, 76, 0.18);
+}
+
+.timeline_button.primary:hover {
+    background: #4f8959;
+    border-color: #4f8959;
+}
+
+.timeline_button.secondary {
+    color: #46764e;
+    background: rgba(255, 255, 255, 0.82);
+}
+
+.timeline_button.secondary:hover {
+    background: #ffffff;
+}
+
+.timeline_hero_visual {
+    position: relative;
+    flex: 0 0 320px;
+    min-height: 250px;
+}
+
+.timeline_hero_visual img {
+    position: absolute;
+    right: 10px;
+    bottom: 22px;
+    z-index: 2;
+    width: 230px;
+    height: 200px;
+    object-fit: contain;
+}
+
+.timeline_hero_visual p {
+    position: absolute;
+    right: 12px;
+    bottom: 0;
+    z-index: 3;
+    margin: 0;
+    color: #5d7162;
+    font-size: 12px;
+}
+
+.timeline_hero_visual p strong {
+    color: #3e7047;
+}
+
+.journey_path {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    width: 270px;
+    height: 170px;
+    border: 2px dashed rgba(86, 139, 94, 0.28);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    border-radius: 50%;
+    transform: rotate(-8deg);
+}
+
+.journey_dot {
+    position: absolute;
+    z-index: 3;
+    width: 13px;
+    height: 13px;
+    border: 4px solid rgba(255, 255, 255, 0.84);
+    border-radius: 50%;
+    background: #68a972;
+    box-sizing: content-box;
+}
+
+.journey_dot.dot_one { top: 18px; right: 58px; }
+.journey_dot.dot_two { top: 88px; left: 20px; }
+.journey_dot.dot_three { right: 10px; bottom: 76px; }
+
+/* Summary */
+
+.timeline_summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 22px;
+}
+
+.timeline_summary_card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    min-width: 0;
+    padding: 24px;
+    border: 1px solid #dce5db;
+    border-radius: 22px;
+    background: #ffffff;
+}
+
+.timeline_summary_card.accent {
+    border-color: #c6ddc5;
+    background: #f2f8f0;
+}
+
+.summary_icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
+    color: #558f60;
+    background: #edf6eb;
+}
+
+.summary_icon.goal {
+    color: #9a7736;
+    background: #fff5df;
+}
+
+.summary_icon.streak {
+    color: #bf694e;
+    background: #fff0e9;
+}
+
+.summary_icon svg {
+    width: 25px;
+    height: 25px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.7;
+}
+
+.timeline_summary_card > div {
+    min-width: 0;
+}
+
+.timeline_summary_card div > span {
+    display: block;
+    color: #69766d;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.timeline_summary_card strong {
+    display: block;
+    margin-top: 5px;
+    color: #284b31;
+    font-size: 28px;
+    line-height: 1;
+}
+
+.timeline_summary_card strong small {
+    margin-left: 3px;
+    font-size: 14px;
+}
+
+.timeline_summary_card p {
+    overflow: hidden;
+    margin: 8px 0 0;
+    color: #79847c;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Timeline content */
+
+.timeline_content {
+    margin-top: 24px;
+    padding: 40px 44px 54px;
+    border: 1px solid #dce5db;
+    border-radius: 28px;
+    background: #ffffff;
+}
+
+.timeline_content_header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.timeline_content_header h2 {
+    margin: 7px 0 0;
+    color: #26382b;
+    font-size: 30px;
+    letter-spacing: -0.035em;
+}
+
+.timeline_content_header p {
+    margin: 8px 0 0;
+    color: #748078;
+    font-size: 14px;
+}
+
+.timeline_month_control {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 5px;
+    border: 1px solid #dce5db;
+    border-radius: 14px;
+    background: #fafcf9;
+}
+
+.timeline_month_control button {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 10px;
+    color: #526359;
+    background: #ffffff;
+}
+
+.timeline_month_control button:hover:not(:disabled) {
+    color: #386742;
+    background: #edf5eb;
+}
+
+.timeline_month_control button:disabled {
+    color: #b5bdb7;
+    cursor: not-allowed;
+}
+
+.timeline_month_control svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+}
+
+.timeline_month_control strong {
+    min-width: 90px;
+    color: #37483c;
+    font-size: 14px;
+    text-align: center;
+}
+
+.timeline_filter_bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 30px;
+    padding: 18px 0 24px;
+    border-top: 1px solid #e5ebe4;
+    border-bottom: 1px solid #e5ebe4;
+}
+
+.timeline_filters {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.timeline_filters button {
+    min-height: 38px;
+    padding: 0 15px;
+    border: 1px solid #dce5db;
+    border-radius: 999px;
+    color: #627067;
+    background: #ffffff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    transition: background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.timeline_filters button:hover {
+    color: #477850;
+    border-color: #aecaaf;
+    background: #f4f8f2;
+}
+
+.timeline_filters button.active {
+    color: #ffffff;
+    border-color: #548d5e;
+    background: #548d5e;
+}
+
+.timeline_filter_bar > p {
+    flex: 0 0 auto;
+    margin: 0;
+    color: #7a867e;
+    font-size: 13px;
+}
+
+.timeline_filter_bar > p strong {
+    margin-right: 3px;
+    color: #477850;
+}
+
+/* Journey */
+
+.journey_timeline {
+    position: relative;
+    margin-top: 34px;
+}
+
+.journey_timeline::before {
+    position: absolute;
+    top: 24px;
+    bottom: 34px;
+    left: 116px;
+    width: 2px;
+    border-radius: 999px;
+    background: #deeadc;
+    content: "";
+}
+
+.journey_day {
+    display: grid;
+    grid-template-columns: 86px minmax(0, 1fr);
+    gap: 58px;
+    position: relative;
+    padding-bottom: 30px;
+}
+
+.journey_day[hidden] {
+    display: none;
+}
+
+.journey_date {
+    padding-top: 14px;
+    text-align: right;
+}
+
+.journey_date time {
+    display: block;
+}
+
+.journey_date strong {
+    display: block;
+    color: #304b37;
+    font-size: 27px;
+    line-height: 1;
+}
+
+.journey_date time span {
+    display: block;
+    margin-top: 6px;
+    color: #818c84;
+    font-size: 12px;
+}
+
+.journey_date > span {
+    display: inline-flex;
+    margin-top: 8px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    color: #ffffff;
+    background: #5e9c68;
+    font-size: 10px;
+    font-weight: 750;
+}
+
+.journey_event {
+    position: relative;
+}
+
+.event_marker {
+    position: absolute;
+    top: 19px;
+    left: -43px;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border: 5px solid #ffffff;
+    border-radius: 50%;
+    color: #ffffff;
+    background: #66a670;
+    box-shadow: 0 0 0 1px #a8c9aa;
+    box-sizing: content-box;
+}
+
+.journey_event.goal .event_marker {
+    background: #c19849;
+    box-shadow: 0 0 0 1px #dbc89f;
+}
+
+.journey_event.milestone .event_marker {
+    background: #e08060;
+    box-shadow: 0 0 0 1px #edb19d;
+}
+
+.event_marker svg {
+    width: 15px;
+    height: 15px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+}
+
+.event_card {
+    padding: 24px 26px;
+    border: 1px solid #dfe7de;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 9px 28px rgba(44, 70, 49, 0.055);
+    transition: border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.event_card:hover {
+    border-color: #bfd2be;
+    box-shadow: 0 13px 30px rgba(44, 70, 49, 0.085);
+}
+
+.journey_event.milestone .event_card {
+    border-color: #eed8cd;
+    background: #fffaf7;
+}
+
+.journey_event.milestone.soft .event_card {
+    border-color: #d9e6d7;
+    background: #f8fbf7;
+}
+
+.event_meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.event_badge,
+.goal_category {
+    display: inline-flex;
+    align-items: center;
+    min-height: 26px;
+    padding: 0 10px;
+    border-radius: 999px;
+    color: #4d8256;
+    background: #eaf4e8;
+    font-size: 11px;
+    font-weight: 750;
+}
+
+.event_badge.goal,
+.goal_category {
+    color: #8a692c;
+    background: #fff2d8;
+}
+
+.event_badge.milestone {
+    color: #a8563d;
+    background: #ffebe3;
+}
+
+.event_meta time {
+    color: #929b94;
+    font-size: 12px;
+}
+
+.event_card h3 {
+    margin: 14px 0 0;
+    color: #293b2e;
+    font-size: 20px;
+    letter-spacing: -0.025em;
+}
+
+.event_card > p {
+    margin: 10px 0 0;
+    color: #6a766e;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.event_card > p strong {
+    color: #527e59;
+}
+
+.event_quote {
+    margin-top: 16px;
+    padding: 13px 16px;
+    border-left: 3px solid #e69a7f;
+    border-radius: 0 10px 10px 0;
+    color: #765a50;
+    background: rgba(255, 255, 255, 0.72);
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.event_footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin-top: 18px;
+    padding-top: 15px;
+    border-top: 1px solid #e8ede7;
+    color: #7b867e;
+    font-size: 12px;
+}
+
+.prototype_link {
+    color: #588b61;
+    font-weight: 700;
+}
+
+.goal_progress {
+    overflow: hidden;
+    height: 9px;
+    margin-top: 18px;
+    border-radius: 999px;
+    background: #f0eadc;
+}
+
+.goal_progress span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: #c49a4f;
+}
+
+.event_card > small {
+    display: block;
+    margin-top: 7px;
+    color: #897550;
+    font-size: 11px;
+    text-align: right;
+}
+
+.goal_category {
+    margin-top: 16px;
+}
+
+.timeline_filter_empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 280px;
+    margin-top: 28px;
+    border: 1px dashed #cbdac9;
+    border-radius: 20px;
+    background: #f8fbf7;
+    text-align: center;
+}
+
+.timeline_filter_empty[hidden] {
+    display: none;
+}
+
+.timeline_filter_empty svg {
+    width: 34px;
+    height: 34px;
+    fill: none;
+    stroke: #68916f;
+    stroke-linecap: round;
+    stroke-width: 1.7;
+}
+
+.timeline_filter_empty h3 {
+    margin: 14px 0 0;
+    color: #3f5044;
+    font-size: 18px;
+}
+
+.timeline_filter_empty p {
+    margin: 8px 0 0;
+    color: #7c8780;
+    font-size: 13px;
+}
+
+/* Accessibility and responsive */
+
+.timeline_button:focus-visible,
+.timeline_month_control button:focus-visible,
+.timeline_filters button:focus-visible {
+    outline: 3px solid rgba(74, 133, 84, 0.25);
+    outline-offset: 3px;
+}
+
+@media (max-width: 960px) {
+    .timeline_hero {
+        padding: 44px;
+    }
+
+    .timeline_hero_visual {
+        flex-basis: 240px;
+    }
+
+    .timeline_summary {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 740px) {
+    .timeline_container {
+        width: calc(100% - 28px);
+        margin-top: 24px;
+    }
+
+    .timeline_hero {
+        min-height: 0;
+        padding: 34px 26px;
+        border-radius: 24px;
+    }
+
+    .timeline_hero_visual {
+        display: none;
+    }
+
+    .timeline_hero h1 {
+        font-size: clamp(31px, 10vw, 40px);
+    }
+
+    .timeline_hero_copy > p br {
+        display: none;
+    }
+
+    .timeline_hero_actions,
+    .timeline_button {
+        width: 100%;
+    }
+
+    .timeline_summary_card {
+        padding: 20px;
+    }
+
+    .timeline_content {
+        padding: 28px 18px 40px;
+        border-radius: 22px;
+    }
+
+    .timeline_content_header {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .timeline_month_control {
+        justify-content: space-between;
+    }
+
+    .timeline_filter_bar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .timeline_filters {
+        flex-wrap: nowrap;
+        width: 100%;
+        overflow-x: auto;
+        padding: 3px;
+        scrollbar-width: none;
+    }
+
+    .timeline_filters::-webkit-scrollbar {
+        display: none;
+    }
+
+    .timeline_filters button {
+        flex: 0 0 auto;
+    }
+
+    .journey_timeline::before {
+        left: 18px;
+    }
+
+    .journey_day {
+        display: block;
+        padding-left: 48px;
+    }
+
+    .journey_date {
+        margin-bottom: 12px;
+        padding-top: 0;
+        text-align: left;
+    }
+
+    .journey_date time {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 7px;
+    }
+
+    .journey_date strong,
+    .journey_date time span {
+        display: inline;
+    }
+
+    .journey_date > span {
+        margin: 0 0 0 6px;
+    }
+
+    .event_marker {
+        top: -43px;
+        left: -47px;
+    }
+
+    .event_card {
+        padding: 21px 18px;
+    }
+
+    .event_meta,
+    .event_footer {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .timeline_button,
+    .timeline_filters button,
+    .event_card {
+        transition: none;
+    }
+}

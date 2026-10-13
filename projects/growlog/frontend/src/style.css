@@ -1,0 +1,49 @@
+@import './styles/tokens.css';
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-text-primary);
+  background: var(--color-bg);
+}
+
+#app {
+  min-height: 100vh;
+}
+
+button {
+  font-family: inherit;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+/*
+ * 전역 안전망 — Landing의 reveal/entrance 애니메이션은 기본적으로 각자
+ * "JS가 motion을 켤 때만" 준비 상태(opacity:0 등)로 들어가도록 설계했지만
+ * (컴포넌트별 .will-reveal 패턴 참고), 사람이 실수로 그 조건을 빠뜨리는
+ * 경우까지 대비해 전역으로 한 번 더 모든 animation/transition을
+ * 사실상 즉시 종료시킨다. 콘텐츠 자체를 숨기는 처리는 하지 않는다 —
+ * 오직 지속 시간만 줄인다.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
