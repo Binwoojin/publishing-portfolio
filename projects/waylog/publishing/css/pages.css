@@ -1,0 +1,101 @@
+/* ==========================================================================
+   WayLog — 여러 화면이 함께 쓰는 블록 (코스 카드 · 게시물 카드 · 검색 조건 · 결과)
+   ========================================================================== */
+
+/* 로그인 상태에 따라 보이는 영역 */
+.is-guest .member-only, .is-guest .auth-member-only { display: none !important; }
+.is-member .guest-only, .is-member .auth-guest-only { display: none !important; }
+
+/* ---------- 코스 카드 (탑승권 모양) ---------- */
+.course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: var(--sp-5); }
+.course-card {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-lg);
+  background: var(--c-surface);
+  transition: box-shadow var(--dur-base), transform var(--dur-base) var(--ease-out);
+}
+.course-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.course-card__media { aspect-ratio: 16 / 9; max-width: 100%; overflow: hidden; background: var(--c-surface-2); }
+.course-card__media img { width: 100%; height: 100%; object-fit: cover; }
+.course-card__body {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: var(--sp-3);
+  padding: var(--sp-5);
+  border-top: 2px dashed var(--c-line);
+}
+/* 탑승권 절취선 양쪽 홈 */
+.course-card__body::before, .course-card__body::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--c-bg);
+}
+.course-card__body::before { left: -10px; }
+.course-card__body::after { right: -10px; }
+.section--tint .course-card__body::before, .section--tint .course-card__body::after { background: var(--c-surface-2); }
+.course-card__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2); color: var(--c-ink-3); font-size: var(--fs-sm); }
+.course-card__title { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: 700; line-height: 1.35; }
+.course-card__title a::after { content: ''; position: absolute; inset: 0; }
+.course-card__title a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.course-card__stops { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; color: var(--c-ink-2); font-size: var(--fs-sm); }
+.course-card__stops li { display: inline-flex; align-items: center; gap: 4px; }
+.course-card__stops li + li::before { content: ''; width: 14px; border-top: 2px dotted var(--c-sea); }
+
+/* ---------- 게시물 카드 ---------- */
+.post-list { display: grid; gap: var(--sp-5); }
+.post-list--grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); align-items: start; }
+.post-card {
+  display: grid;
+  gap: var(--sp-4);
+  padding: var(--sp-5);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-lg);
+  background: var(--c-surface);
+  min-width: 0;
+}
+.post-card__head { display: flex; align-items: center; gap: var(--sp-3); }
+.post-card__who { display: grid; line-height: 1.35; }
+.post-card__who time { color: var(--c-ink-3); font-size: var(--fs-xs); }
+.post-card__head .post-card__menu { margin-left: auto; }
+.post-card__gallery { display: grid; gap: 4px; overflow: hidden; border-radius: var(--radius-md); }
+.post-card__gallery figure { min-width: 0; background: var(--c-surface-2); }
+.post-card__gallery img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 3; }
+.post-card__gallery--2 { grid-template-columns: 1fr 1fr; }
+.post-card__gallery--2 img { aspect-ratio: 3 / 4; }
+.post-card__gallery--3 { grid-template-columns: 2fr 1fr; grid-template-rows: 1fr 1fr; }
+.post-card__gallery--3 figure:first-child { grid-row: span 2; }
+.post-card__gallery--3 img { aspect-ratio: auto; }
+.post-card__text { white-space: pre-line; }
+.post-card__tags { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.post-card__tags a.chip:hover { text-decoration: underline; text-underline-offset: 2px; }
+.post-card__actions { display: flex; align-items: center; gap: var(--sp-1); margin: 0 calc(var(--sp-3) * -1) calc(var(--sp-2) * -1); padding-top: var(--sp-2); border-top: 1px solid var(--c-line); }
+.post-list--grid .post-card__text { display: -webkit-box; overflow: hidden; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+
+/* ---------- 검색 조건 패널 ---------- */
+.filter-panel { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-5); margin-bottom: var(--sp-6); padding: var(--sp-5); border: 1px solid var(--c-line); border-radius: var(--radius-lg); background: var(--c-surface); }
+.filter-panel__search { position: relative; display: flex; gap: var(--sp-2); }
+.filter-panel__search > .icon { position: absolute; top: 14px; left: 14px; width: 20px; height: 20px; color: var(--c-ink-3); pointer-events: none; }
+.filter-panel__search .input { flex: 1; min-width: 0; padding-left: 44px; }
+.filter-panel__search .btn { min-height: 48px; }
+.filter-panel__group { margin: 0; padding: 0; border: 0; min-width: 0; }
+.filter-panel__group legend { margin-bottom: var(--sp-2); font-size: var(--fs-sm); font-weight: 600; }
+.filter-panel__row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sp-3); }
+.filter-panel__row .tabs { flex: 1; min-width: 0; border-bottom: 0; }
+.sort { display: flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-sm); font-weight: 600; }
+.sort .select { width: auto; min-height: 40px; padding-block: var(--sp-2); font-size: var(--fs-sm); }
+
+.results { margin-top: var(--sp-5); }
+.results__count { margin-bottom: var(--sp-5); color: var(--c-ink-2); font-size: var(--fs-sm); }
+.results__count strong { color: var(--c-ink); font-family: var(--font-mono); }
+.results .demo-bar, .demo-bar + .results { margin-top: var(--sp-5); }
+
+.detail-skeleton, .post-skeleton { display: grid; gap: var(--sp-4); }

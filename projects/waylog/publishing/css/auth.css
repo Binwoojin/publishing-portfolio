@@ -1,0 +1,70 @@
+/* ==========================================================================
+   WayLog — 로그인 · 회원가입 (데스크톱: 사진 + 폼 / 모바일: 폼)
+   ========================================================================== */
+.auth { min-height: 100vh; }
+.auth__visual { display: none; }
+.auth__main { display: flex; flex-direction: column; align-items: center; padding: var(--sp-4) var(--gutter) var(--sp-16); }
+.auth__top { display: flex; align-items: center; justify-content: space-between; align-self: stretch; margin-bottom: var(--sp-10); }
+.auth__panel { width: 100%; max-width: 440px; }
+.auth__title { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: 700; letter-spacing: -0.03em; }
+.auth__desc { margin-top: var(--sp-2); color: var(--c-ink-2); }
+.auth__demo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-1) var(--sp-2);
+  margin-top: var(--sp-5);
+  padding: var(--sp-3) var(--sp-3) var(--sp-3) var(--sp-4);
+  border-radius: var(--radius-md);
+  background: var(--c-sea-soft);
+  font-size: var(--fs-sm);
+}
+.auth__demo > .icon { width: 18px; height: 18px; color: var(--c-sea-text); }
+.auth__demo > span { flex: 1; min-width: 200px; }
+.auth__form { display: grid; margin-top: var(--sp-8); }
+.auth__form > .btn { margin-top: var(--sp-6); }
+.auth__form .form-alert { margin-bottom: var(--sp-5); }
+.auth__row { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); margin-top: var(--sp-3); }
+.auth__switch { margin-top: var(--sp-8); padding-top: var(--sp-6); border-top: 1px solid var(--c-line); color: var(--c-ink-2); text-align: center; }
+.auth__step-title { margin-bottom: var(--sp-5); font-size: var(--fs-lg); font-weight: 700; }
+.auth__actions { display: grid; grid-template-columns: 1fr 2fr; gap: var(--sp-2); margin-top: var(--sp-8); }
+
+.timer { position: absolute; top: 50%; right: var(--sp-4); color: var(--c-danger); font-size: var(--fs-sm); transform: translateY(-50%); }
+
+/* 단계 표시 */
+.stepper { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-2); margin: var(--sp-6) 0 var(--sp-2); }
+.stepper li {
+  display: grid;
+  gap: 2px;
+  padding-top: var(--sp-3);
+  border-top: 3px solid var(--c-line);
+  color: var(--c-ink-3);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+.stepper li .mono { font-size: var(--fs-xs); }
+.stepper li.is-done { border-top-color: var(--c-sea); color: var(--c-ink-2); }
+.stepper li[aria-current="step"] { border-top-color: var(--c-coral); color: var(--c-ink); }
+
+.terms { display: grid; gap: var(--sp-1); padding: var(--sp-3) var(--sp-4); border: 1px solid var(--c-line-strong); border-radius: var(--radius-md); background: var(--c-surface); }
+.check--all { padding-bottom: var(--sp-3); border-bottom: 1px solid var(--c-line); font-size: var(--fs-md); font-weight: 700; }
+.terms + .field__error { margin-top: var(--sp-2); }
+
+.auth__done { display: grid; justify-items: center; gap: var(--sp-3); margin-top: var(--sp-8); text-align: center; }
+.auth__done:focus { outline: none; }
+.auth__done .auth__step-title { margin: 0; font-family: var(--font-display); font-size: var(--fs-2xl); }
+.auth__done-icon { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: var(--c-sea); color: var(--c-on-sea); }
+.auth__done-icon .icon { width: 32px; height: 32px; stroke-width: 2.6; }
+.auth__done .btn { margin-top: var(--sp-4); }
+
+@media (min-width: 1024px) {
+  .auth { display: grid; grid-template-columns: 1fr minmax(520px, 1fr); }
+  .auth__visual { position: sticky; top: 0; display: block; height: 100vh; overflow: hidden; background: #1b2a2e; isolation: isolate; color: #ffffff; }
+  .auth__visual img { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; object-fit: cover; }
+  .auth__visual::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgb(8 22 27 / 0) 45%, rgb(8 22 27 / 0.75)); }
+  .auth__quote { position: absolute; left: var(--sp-12); right: var(--sp-12); bottom: var(--sp-12); }
+  .auth__quote .mono { font-size: var(--fs-xs); opacity: 0.85; }
+  .auth__quote-text { margin-top: var(--sp-3); font-family: var(--font-display); font-size: 2rem; font-weight: 700; line-height: 1.35; letter-spacing: -0.03em; }
+  .auth__main { padding: var(--sp-6) var(--sp-12) var(--sp-16); }
+  .auth__top { margin-bottom: var(--sp-16); }
+}

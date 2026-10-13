@@ -1,0 +1,185 @@
+/* ==========================================================================
+   WayLog — Layout (헤더 · 모바일 메뉴 · 푸터 · 서브 페이지 머리)
+   ========================================================================== */
+
+/* ---------- Logo ---------- */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 44px;
+  color: var(--c-ink);
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+.logo__mark { width: 30px; height: 30px; flex-shrink: 0; }
+.logo__mark .route { fill: none; stroke: var(--c-sea); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 2 4.2; }
+.logo__mark .pin { fill: var(--c-coral); }
+.logo__mark .dot { fill: var(--c-sea); }
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 100;
+  border-bottom: 1px solid var(--c-line);
+  background: color-mix(in srgb, var(--c-bg) 88%, transparent);
+  backdrop-filter: saturate(1.4) blur(12px);
+  -webkit-backdrop-filter: saturate(1.4) blur(12px);
+}
+.site-header__inner { display: flex; align-items: center; gap: var(--sp-4); height: var(--header-h); }
+
+.gnb { display: none; margin-left: var(--sp-8); }
+.gnb ul { display: flex; gap: var(--sp-1); }
+.gnb a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--sp-4);
+  color: var(--c-ink-2);
+  font-weight: 600;
+}
+.gnb a:hover { color: var(--c-ink); }
+.gnb a[aria-current="page"] { color: var(--c-ink); }
+.gnb a[aria-current="page"]::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 4px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-coral);
+  transform: translateX(-50%);
+}
+
+.header-actions { display: flex; align-items: center; gap: var(--sp-1); margin-left: auto; }
+.header-actions .auth-guest,
+.header-actions .auth-member { display: none; align-items: center; gap: var(--sp-2); }
+.is-guest .header-actions .auth-guest,
+.is-member .header-actions .auth-member { display: flex; }
+
+/* 회원 메뉴 (펼침 목록) */
+.user-menu { position: relative; }
+.user-menu__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 44px;
+  padding: 2px var(--sp-3) 2px 2px;
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-pill);
+  background: var(--c-surface);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+.user-menu__btn .icon { width: 16px; height: 16px; color: var(--c-ink-3); transition: transform var(--dur-fast); }
+.user-menu__btn[aria-expanded="true"] .icon { transform: rotate(180deg); }
+.user-menu__list {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 180px;
+  padding: var(--sp-2);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-md);
+  background: var(--c-surface);
+  box-shadow: var(--shadow-md);
+}
+.user-menu__list a, .user-menu__list button {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  width: 100%;
+  min-height: 44px;
+  padding: 0 var(--sp-3);
+  border-radius: var(--radius-sm);
+  color: var(--c-ink);
+  font-size: var(--fs-sm);
+  text-align: left;
+}
+.user-menu__list a:hover, .user-menu__list button:hover { background: var(--c-surface-2); }
+.user-menu__list .icon { width: 18px; height: 18px; color: var(--c-ink-3); }
+
+.menu-btn { display: inline-grid; }
+
+@media (min-width: 900px) {
+  .gnb { display: block; }
+  .menu-btn { display: none; }
+}
+@media (max-width: 899px) {
+  .header-actions .auth-guest .btn--outline { display: none; }
+  .user-menu__name { display: none; }
+}
+
+/* ---------- 모바일 메뉴 (오른쪽 시트) ---------- */
+.drawer {
+  width: min(340px, 88vw);
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0 0 0 auto;
+  padding: 0;
+  border: 0;
+  background: var(--c-surface);
+  color: var(--c-ink);
+}
+.drawer::backdrop { background: var(--c-overlay); }
+.drawer[open] { animation: drawer-in var(--dur-base) var(--ease-out); }
+@keyframes drawer-in { from { transform: translateX(100%); } }
+.drawer__inner { display: flex; flex-direction: column; height: 100%; padding: calc(var(--sp-4) + env(safe-area-inset-top, 0px)) var(--sp-5) calc(var(--sp-6) + env(safe-area-inset-bottom, 0px)); }
+.drawer__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--sp-6); }
+.drawer__nav a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 56px;
+  border-bottom: 1px solid var(--c-line);
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 700;
+}
+.drawer__nav a[aria-current="page"] { color: var(--c-sea-text); }
+.drawer__nav .icon { width: 20px; height: 20px; color: var(--c-ink-3); }
+.drawer__foot { display: grid; gap: var(--sp-2); margin-top: auto; }
+
+/* ---------- 서브 페이지 머리 ---------- */
+.page-head { padding-block: var(--sp-8) var(--sp-6); }
+.page-head .breadcrumb { margin-bottom: var(--sp-3); }
+.page-head__title { font-family: var(--font-display); font-size: var(--fs-3xl); font-weight: 700; letter-spacing: -0.03em; }
+.page-head__desc { max-width: 60ch; margin-top: var(--sp-2); color: var(--c-ink-2); }
+.page-head__row { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--sp-4); }
+
+.main { min-height: 60vh; padding-bottom: var(--sp-16); }
+
+/* ---------- Footer ---------- */
+.site-footer {
+  padding-block: var(--sp-12) var(--sp-10);
+  border-top: 1px solid var(--c-line);
+  background: var(--c-surface);
+  color: var(--c-ink-2);
+  font-size: var(--fs-sm);
+}
+.site-footer__top { display: grid; gap: var(--sp-8); }
+.site-footer__brand p { max-width: 34ch; margin-top: var(--sp-3); }
+.site-footer__cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-6); }
+.site-footer__cols h2 { margin-bottom: var(--sp-2); color: var(--c-ink); font-size: var(--fs-sm); font-weight: 700; }
+.site-footer__cols a { display: inline-flex; align-items: center; min-height: 36px; }
+.site-footer__cols a:hover { color: var(--c-ink); text-decoration: underline; text-underline-offset: 3px; }
+.site-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--sp-2) var(--sp-6);
+  margin-top: var(--sp-10);
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--c-line);
+  color: var(--c-ink-3);
+  font-size: var(--fs-xs);
+}
+@media (min-width: 768px) {
+  .site-footer__top { grid-template-columns: 1.4fr 1fr; }
+}

@@ -1,5 +1,23 @@
 [
   {
+    "title": "WayLog 리디자인",
+    "desc": "국내 여행지 탐색 · 여행 기록 서비스 WayLog를 새 디자인으로 리디자인하고 10개 화면을 퍼블리싱했습니다. 주소와 연동되는 검색 필터, 좌표로 그린 코스 지도, 피드 글쓰기 · 댓글, 단계형 회원가입까지 구현했습니다.",
+    "category": "반응형",
+    "tags": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "반응형",
+      "웹 접근성",
+      "다크 모드"
+    ],
+    "thumbnail": "assets/images/waylog.jpg",
+    "period": "2026.10",
+    "contribution": "디자인 · 퍼블리싱 100%",
+    "demo": "projects/waylog/publishing/",
+    "code": "https://github.com/Binwoojin/publishing-portfolio/tree/main/projects/waylog/publishing"
+  },
+  {
     "title": "GrowLog 리디자인",
     "desc": "개인 성장 아카이브 서비스 GrowLog를 새 디자인 시스템으로 리디자인하고 9개 화면을 퍼블리싱했습니다. 로딩 · 빈 상태 · 오류 화면, 폼 검증, 다크 모드까지 구현했습니다.",
     "category": "반응형",

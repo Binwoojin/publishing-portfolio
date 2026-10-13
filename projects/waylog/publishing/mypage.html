@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko" class="is-guest">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>마이페이지 | WayLog</title>
+  <meta name="description" content="국내 여행지를 찾고 기록하는 서비스 WayLog">
+  <meta name="theme-color" content="#f2f5f4">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <script>try{if(JSON.parse(localStorage.getItem('waylog:auth'))===true)document.documentElement.className='is-member';}catch(e){}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;600;700&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="../../../common/css/reset.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/feed.css">
+  <link rel="stylesheet" href="css/mypage.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="logo" href="index.html" aria-label="WayLog 홈"><svg class="logo__mark" viewBox="0 0 32 32" aria-hidden="true"><path class="route" d="M5 27c6-1 7-7 12-8s8-3 9-9"/><circle class="dot" cx="5" cy="27" r="2.6"/><path class="pin" d="M26 2.5a5.5 5.5 0 0 0-5.5 5.5c0 4.2 5.5 9 5.5 9s5.5-4.8 5.5-9A5.5 5.5 0 0 0 26 2.5Zm0 7.6a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2Z"/></svg><span aria-hidden="true">WayLog</span></a>
+      <nav class="gnb" aria-label="주요 메뉴">
+        <ul>
+            <li><a href="destinations.html">여행지</a></li>
+            <li><a href="enjoy.html">여행 즐기기</a></li>
+            <li><a href="feed.html">여행 피드</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a class="icon-btn" href="destinations.html#searchForm" aria-label="여행지 검색"><svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg></a>
+        <div class="auth-guest">
+          <a class="btn btn--outline btn--sm" href="signup.html">회원가입</a>
+          <a class="btn btn--primary btn--sm" href="login.html">로그인</a>
+        </div>
+        <div class="auth-member user-menu">
+          <button class="user-menu__btn" type="button" id="userMenuBtn" aria-expanded="false" aria-controls="userMenuList">
+            <span class="avatar avatar--sm" aria-hidden="true" data-me-initial>바</span>
+            <span class="user-menu__name" data-me-nickname>바다산책</span><span class="blind">님 회원 메뉴</span><svg class="icon" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
+          </button>
+          <div class="user-menu__list" id="userMenuList" hidden>
+            <a href="mypage.html"><svg class="icon" aria-hidden="true"><use href="#i-user"></use></svg>마이페이지</a>
+            <a href="mypage.html?tab=saved"><svg class="icon" aria-hidden="true"><use href="#i-bookmark"></use></svg>저장한 항목</a>
+            <button type="button" data-logout><svg class="icon" aria-hidden="true"><use href="#i-logout"></use></svg>로그아웃</button>
+          </div>
+        </div>
+        <button class="icon-btn menu-btn" type="button" data-open-drawer aria-label="전체 메뉴 열기" aria-haspopup="dialog"><svg class="icon" aria-hidden="true"><use href="#i-menu"></use></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <dialog class="drawer" id="drawer" aria-label="전체 메뉴">
+    <div class="drawer__inner">
+      <div class="drawer__head">
+        <a class="logo" href="index.html" aria-label="WayLog 홈"><svg class="logo__mark" viewBox="0 0 32 32" aria-hidden="true"><path class="route" d="M5 27c6-1 7-7 12-8s8-3 9-9"/><circle class="dot" cx="5" cy="27" r="2.6"/><path class="pin" d="M26 2.5a5.5 5.5 0 0 0-5.5 5.5c0 4.2 5.5 9 5.5 9s5.5-4.8 5.5-9A5.5 5.5 0 0 0 26 2.5Zm0 7.6a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2Z"/></svg><span aria-hidden="true">WayLog</span></a>
+        <button class="icon-btn" type="button" data-dialog-close aria-label="메뉴 닫기"><svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg></button>
+      </div>
+      <nav class="drawer__nav" aria-label="모바일 주요 메뉴">
+        <ul>
+          <li><a href="destinations.html">여행지<svg class="icon" aria-hidden="true"><use href="#i-chevron-right"></use></svg></a></li>
+          <li><a href="enjoy.html">여행 즐기기<svg class="icon" aria-hidden="true"><use href="#i-chevron-right"></use></svg></a></li>
+          <li><a href="feed.html">여행 피드<svg class="icon" aria-hidden="true"><use href="#i-chevron-right"></use></svg></a></li>
+        </ul>
+      </nav>
+      <div class="drawer__foot">
+        <div class="auth-guest-only"><a class="btn btn--primary btn--block" href="login.html">로그인</a></div>
+        <div class="auth-guest-only"><a class="btn btn--outline btn--block" href="signup.html">회원가입</a></div>
+        <div class="auth-member-only"><a class="btn btn--outline btn--block" href="mypage.html"><svg class="icon" aria-hidden="true"><use href="#i-user"></use></svg>마이페이지</a></div>
+        <div class="auth-member-only"><button class="btn btn--ghost btn--block" type="button" data-logout><svg class="icon" aria-hidden="true"><use href="#i-logout"></use></svg>로그아웃</button></div>
+      </div>
+    </div>
+  </dialog>
+
+  <main class="main" id="main">
+    <div class="container">
+      <div class="page-head">
+        <nav class="breadcrumb" aria-label="현재 위치"><ol><li><a href="index.html">홈</a></li><li><span aria-current="page">마이페이지</span></li></ol></nav>
+        <h1 class="page-head__title">마이페이지</h1>
+      </div>
+
+      <div class="state-box guest-only" id="guestBox">
+        <span class="state-box__icon"><svg class="icon" aria-hidden="true"><use href="#i-lock"></use></svg></span>
+        <h2 class="state-box__title">로그인 후 이용할 수 있어요</h2>
+        <p class="state-box__desc">마이페이지는 로그인한 사용자만 볼 수 있습니다. 데모 계정으로 바로 로그인해 둘러보세요.</p>
+        <div class="state-box__actions"><a class="btn btn--primary" href="login.html?next=mypage.html">로그인하기</a><a class="btn btn--outline" href="index.html">홈으로</a></div>
+      </div>
+
+      <div class="member-only">
+        <section class="profile" aria-labelledby="profileName">
+          <span class="avatar avatar--lg" aria-hidden="true" data-me-initial>바</span>
+          <div class="profile__text">
+            <h2 class="profile__name" id="profileName"><span data-me-nickname>바다산책</span></h2>
+            <p class="profile__bio" id="profileBio"></p>
+            <p class="profile__meta mono" id="profileMeta"></p>
+          </div>
+          <dl class="profile__stats" id="profileStats"></dl>
+        </section>
+
+        <div class="tabs" role="tablist" aria-label="마이페이지 메뉴">
+          <button class="tab" type="button" role="tab" id="tab-posts" aria-controls="panel-posts" aria-selected="true" data-tab="posts">내가 쓴 글</button>
+          <button class="tab" type="button" role="tab" id="tab-saved" aria-controls="panel-saved" aria-selected="false" data-tab="saved" tabindex="-1">저장한 항목</button>
+          <button class="tab" type="button" role="tab" id="tab-account" aria-controls="panel-account" aria-selected="false" data-tab="account" tabindex="-1">계정 설정</button>
+        </div>
+
+        <div class="tab-panel" role="tabpanel" id="panel-posts" aria-labelledby="tab-posts" tabindex="0">
+          <div class="post-list post-list--grid" id="myPosts"></div>
+          <div class="state-box" id="myPostsEmpty" hidden>
+            <span class="state-box__icon"><svg class="icon" aria-hidden="true"><use href="#i-pen"></use></svg></span>
+            <p class="state-box__title">아직 작성한 게시물이 없어요</p>
+            <div class="state-box__actions"><a class="btn btn--primary" href="feed.html">여행 이야기 쓰러 가기</a></div>
+          </div>
+        </div>
+
+        <div class="tab-panel" role="tabpanel" id="panel-saved" aria-labelledby="tab-saved" tabindex="0" hidden>
+          <div class="filter-chips saved-filter" role="group" aria-label="저장한 항목 종류" id="savedFilter">
+            <button class="filter-chip" type="button" data-kind="place" aria-pressed="true">여행지 <span class="count" data-saved-count="place">0</span></button>
+            <button class="filter-chip" type="button" data-kind="enjoy" aria-pressed="false">즐길거리 <span class="count" data-saved-count="enjoy">0</span></button>
+            <button class="filter-chip" type="button" data-kind="post" aria-pressed="false">피드 <span class="count" data-saved-count="post">0</span></button>
+          </div>
+          <div id="savedGrid"></div>
+          <div class="state-box" id="savedEmpty" hidden>
+            <span class="state-box__icon"><svg class="icon" aria-hidden="true"><use href="#i-bookmark"></use></svg></span>
+            <p class="state-box__title" id="savedEmptyText">저장한 항목이 없어요</p>
+            <div class="state-box__actions"><a class="btn btn--outline" id="savedEmptyLink" href="destinations.html">둘러보기</a></div>
+          </div>
+        </div>
+
+        <div class="tab-panel" role="tabpanel" id="panel-account" aria-labelledby="tab-account" tabindex="0" hidden>
+          <div class="account-grid">
+            <form class="account-card" id="nicknameForm" novalidate>
+              <h3 class="account-card__title">닉네임 변경</h3>
+              <div class="field">
+                <label class="field__label" for="nicknameInput">닉네임</label>
+                <input class="input" type="text" id="nicknameInput" maxlength="12" aria-describedby="nicknameMsg">
+                <p class="field__help" id="nicknameMsg">한글 · 영문 · 숫자 2~12자</p>
+              </div>
+              <button class="btn btn--primary" type="submit">저장</button>
+            </form>
+            <form class="account-card" id="passwordForm" novalidate>
+              <h3 class="account-card__title">비밀번호 변경</h3>
+              <div class="field">
+                <label class="field__label" for="currentPw">현재 비밀번호</label>
+                <input class="input" type="password" id="currentPw" autocomplete="current-password" aria-describedby="currentPwMsg">
+                <p class="field__help" id="currentPwMsg" hidden></p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="newPw">새 비밀번호</label>
+                <input class="input" type="password" id="newPw" autocomplete="new-password" maxlength="20" aria-describedby="newPwRules newPwMsg">
+                <ul class="rule-list" id="newPwRules" aria-label="비밀번호 조건">
+                  <li data-rule="length"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>8~20자</li>
+                  <li data-rule="letter"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>영문</li>
+                  <li data-rule="number"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>숫자</li>
+                  <li data-rule="special"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>특수문자</li>
+                </ul>
+                <p class="field__help" id="newPwMsg" hidden></p>
+              </div>
+              <button class="btn btn--primary" type="submit">변경</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__top">
+        <div class="site-footer__brand">
+          <a class="logo" href="index.html" aria-label="WayLog 홈"><svg class="logo__mark" viewBox="0 0 32 32" aria-hidden="true"><path class="route" d="M5 27c6-1 7-7 12-8s8-3 9-9"/><circle class="dot" cx="5" cy="27" r="2.6"/><path class="pin" d="M26 2.5a5.5 5.5 0 0 0-5.5 5.5c0 4.2 5.5 9 5.5 9s5.5-4.8 5.5-9A5.5 5.5 0 0 0 26 2.5Zm0 7.6a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2Z"/></svg><span aria-hidden="true">WayLog</span></a>
+          <p>국내 여행지를 찾고, 코스를 따라 떠나고, 다녀온 이야기를 함께 나누는 여행 기록 서비스</p>
+        </div>
+        <div class="site-footer__cols">
+          <div>
+            <h2>서비스</h2>
+            <ul>
+              <li><a href="destinations.html">여행지</a></li>
+              <li><a href="enjoy.html">여행 즐기기</a></li>
+              <li><a href="feed.html">여행 피드</a></li>
+            </ul>
+          </div>
+          <div>
+            <h2>고객지원</h2>
+            <ul>
+              <li><a href="index.html#notices">공지사항</a></li>
+              <li><a href="mypage.html">마이페이지</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="site-footer__bottom">
+        <p>웹 퍼블리싱 포트폴리오용 리디자인 · 실제 서비스가 아닌 데모 화면입니다.</p>
+        <p>관광 정보 원본 서비스: 한국관광공사 TourAPI</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/icons.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/mypage.js"></script>
+</body>
+</html>

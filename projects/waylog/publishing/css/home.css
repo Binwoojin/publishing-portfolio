@@ -1,0 +1,185 @@
+/* ==========================================================================
+   WayLog — 홈
+   ========================================================================== */
+
+/* ---------- Hero: 사진 위에 제목 + 검색 패널 ---------- */
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: flex-end;
+  min-height: min(720px, 88vh);
+  padding-block: var(--sp-16) var(--sp-10);
+  color: #ffffff;
+}
+.hero__media { position: absolute; inset: 0; z-index: -1; overflow: hidden; background: #1b2a2e; }
+.hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; animation: hero-zoom 14s ease-out both; }
+.hero__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgb(8 22 27 / 0.55) 0%, rgb(8 22 27 / 0.15) 55%, rgb(8 22 27 / 0) 75%),
+    linear-gradient(180deg, rgb(8 22 27 / 0.3) 0%, rgb(8 22 27 / 0.05) 35%, rgb(8 22 27 / 0.72) 100%);
+}
+@keyframes hero-zoom { from { transform: scale(1.06); } }
+
+.hero__eyebrow { display: inline-flex; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-4); font-size: var(--fs-sm); font-weight: 600; text-shadow: 0 1px 8px rgb(0 0 0 / 0.4); }
+.hero__eyebrow .mono { padding: 2px 8px; border: 1px solid rgb(255 255 255 / 0.5); border-radius: var(--radius-pill); }
+.hero__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+  text-shadow: 0 2px 24px rgb(0 0 0 / 0.35);
+}
+.hero__desc { max-width: 34rem; margin-top: var(--sp-4); font-size: var(--fs-lg); text-shadow: 0 1px 10px rgb(0 0 0 / 0.45); }
+
+.search-panel {
+  display: grid;
+  gap: var(--sp-3);
+  margin-top: var(--sp-8);
+  padding: var(--sp-4);
+  border-radius: var(--radius-lg);
+  background: var(--c-surface);
+  color: var(--c-ink);
+  box-shadow: var(--shadow-lg);
+}
+.search-panel__field { display: grid; gap: 4px; min-width: 0; }
+.search-panel__field label { color: var(--c-ink-3); font-size: var(--fs-xs); font-weight: 600; }
+.search-panel .btn { width: 100%; }
+@media (min-width: 900px) {
+  .search-panel { grid-template-columns: 160px 160px minmax(0, 1fr) auto; align-items: end; max-width: 980px; }
+  .search-panel .btn { width: auto; min-height: 48px; }
+}
+
+.quick-themes { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
+.quick-themes a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 var(--sp-4);
+  border: 1px solid rgb(255 255 255 / 0.45);
+  border-radius: var(--radius-pill);
+  background: rgb(8 22 27 / 0.32);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #ffffff;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  transition: background-color var(--dur-fast);
+}
+.quick-themes a:hover { background: rgb(8 22 27 / 0.55); }
+.quick-themes .icon { width: 18px; height: 18px; }
+
+.section--tint { background: var(--c-surface-2); }
+
+/* ---------- 지역 레일 (가로 스크롤) ---------- */
+.region-rail {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(200px, 1fr);
+  gap: var(--sp-4);
+  overflow-x: auto;
+  margin-inline: calc(var(--gutter) * -1);
+  padding: var(--sp-1) var(--gutter) var(--sp-4);
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+}
+.region-rail li { scroll-snap-align: start; }
+@media (min-width: 1200px) {
+  .region-rail { grid-auto-flow: row; grid-template-columns: repeat(4, 1fr); overflow: visible; margin-inline: 0; padding-inline: 0; }
+}
+.region-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  aspect-ratio: 3 / 4;
+  max-width: 100%;
+  overflow: hidden;
+  padding: var(--sp-4);
+  border-radius: var(--radius-lg);
+  background: #1b2a2e;
+  color: #ffffff;
+  isolation: isolate;
+}
+@media (min-width: 1200px) { .region-tile { aspect-ratio: 4 / 3; } }
+.region-tile img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; transition: transform 600ms var(--ease-out); }
+.region-tile::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--c-photo-shade); }
+.region-tile:hover img { transform: scale(1.06); }
+.region-tile__en { font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: 0.08em; opacity: 0.85; }
+.region-tile__name { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: 700; line-height: 1.2; }
+.region-tile__desc { font-size: var(--fs-sm); opacity: 0.9; }
+.region-tile__coord { position: absolute; top: var(--sp-3); left: var(--sp-4); padding: 2px 8px; border-radius: var(--radius-pill); background: rgb(8 22 27 / 0.45); font-family: var(--font-mono); font-size: 11px; }
+
+/* ---------- 즐길거리 탭 ---------- */
+.tab-panel { padding-top: var(--sp-6); }
+.tab-panel:focus-visible { outline-offset: 4px; }
+
+/* ---------- 이번 주 여행 소식 ---------- */
+.news-list { display: grid; gap: var(--sp-3); }
+.news-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--sp-4);
+  align-items: center;
+  padding: var(--sp-4);
+  border-radius: var(--radius-lg);
+  background: var(--c-surface);
+  transition: box-shadow var(--dur-base);
+}
+.news-item:hover { box-shadow: var(--shadow-md); }
+.news-item__date {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-md);
+  background: var(--c-sea-soft);
+  color: var(--c-sea-text);
+  font-family: var(--font-mono);
+  line-height: 1.1;
+  text-align: center;
+}
+.news-item__date strong { display: block; font-size: var(--fs-2xl); }
+.news-item__date small { font-size: var(--fs-xs); }
+.news-item__title { font-size: var(--fs-lg); font-weight: 700; }
+.news-item__title a::after { content: ''; position: absolute; inset: 0; }
+.news-item__meta { display: flex; flex-wrap: wrap; gap: 4px var(--sp-3); margin-top: 2px; color: var(--c-ink-3); font-size: var(--fs-sm); }
+.news-item__meta span { display: inline-flex; align-items: center; gap: 4px; }
+.news-item__meta .icon { width: 15px; height: 15px; }
+.news-item .chip { margin-left: var(--sp-2); vertical-align: 2px; }
+@media (min-width: 900px) {
+  .news-list { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---------- 여행 기록 배너 ---------- */
+.record-banner {
+  display: grid;
+  gap: var(--sp-6);
+  align-items: center;
+  overflow: hidden;
+  padding: var(--sp-8) var(--sp-6) 0;
+  border-radius: var(--radius-lg);
+  background: var(--c-sea-soft);
+}
+.record-banner__title { font-family: var(--font-display); font-size: var(--fs-3xl); font-weight: 700; letter-spacing: -0.03em; }
+.record-banner__copy { display: grid; justify-items: start; gap: var(--sp-4); }
+.record-banner__copy p { max-width: 42ch; color: var(--c-ink-2); }
+.record-banner__img { width: 100%; max-width: 520px; justify-self: center; mix-blend-mode: multiply; }
+:root[data-theme="dark"] .record-banner__img { mix-blend-mode: normal; border-radius: var(--radius-md); margin-bottom: var(--sp-6); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .record-banner__img { mix-blend-mode: normal; border-radius: var(--radius-md); margin-bottom: var(--sp-6); } }
+@media (min-width: 900px) {
+  .record-banner { grid-template-columns: 1fr 1fr; padding: var(--sp-10) var(--sp-12); }
+}
+
+/* ---------- 공지사항 ---------- */
+.section--notices { padding-top: 0; }
+.notices__title { margin-bottom: var(--sp-3); font-size: var(--fs-lg); font-weight: 700; }
+.notices { border-top: 2px solid var(--c-ink); }
+.notices li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--sp-1) var(--sp-4); padding: var(--sp-4) 0; border-bottom: 1px solid var(--c-line); }
+.notices time { color: var(--c-ink-3); font-family: var(--font-mono); font-size: var(--fs-sm); }

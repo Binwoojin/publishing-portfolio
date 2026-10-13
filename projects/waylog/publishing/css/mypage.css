@@ -1,0 +1,35 @@
+/* ==========================================================================
+   WayLog — 마이페이지
+   ========================================================================== */
+.profile {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--sp-4) var(--sp-5);
+  align-items: center;
+  margin-bottom: var(--sp-8);
+  padding: var(--sp-6);
+  border-radius: var(--radius-lg);
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+}
+.profile__name { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: 700; }
+.profile__bio { color: var(--c-ink-2); }
+.profile__meta { margin-top: 2px; color: var(--c-ink-3); font-size: var(--fs-xs); }
+.profile__stats { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-2); margin: 0; }
+.profile__stats > div { padding: var(--sp-3); border-radius: var(--radius-md); background: var(--c-surface-2); text-align: center; }
+.profile__stats dt { color: var(--c-ink-3); font-size: var(--fs-xs); font-weight: 600; }
+.profile__stats dd { margin: 0; font-family: var(--font-mono); font-size: var(--fs-xl); font-weight: 500; }
+@media (min-width: 768px) {
+  .profile { grid-template-columns: auto minmax(0, 1fr) auto; }
+  .profile__stats { grid-column: auto; grid-template-columns: repeat(3, 96px); }
+}
+
+.tab-panel { padding-top: var(--sp-6); }
+.saved-filter { margin-bottom: var(--sp-5); }
+
+.account-grid { display: grid; gap: var(--sp-5); }
+@media (min-width: 900px) { .account-grid { grid-template-columns: 1fr 1fr; align-items: start; } }
+.account-card { display: grid; gap: var(--sp-5); padding: var(--sp-6); border: 1px solid var(--c-line); border-radius: var(--radius-lg); background: var(--c-surface); }
+.account-card .field + .field { margin-top: 0; }
+.account-card__title { font-size: var(--fs-lg); font-weight: 700; }
+.account-card .btn { justify-self: start; }

@@ -1,0 +1,217 @@
+/* ==========================================================================
+   WayLog — Base
+   컨셉: "Route Note" — 지도 위에 찍은 핀과 점선 경로, 여행 노트.
+   바다색(주요 동작 · 경로)과 코랄(핀 · 좋아요 · 강조) 두 가지 포인트 컬러.
+   ========================================================================== */
+
+:root {
+  /* Surface */
+  --c-bg: #f2f5f4;
+  --c-surface: #ffffff;
+  --c-surface-2: #e6ecea;
+  --c-line: #d5dfdc;
+  --c-line-strong: #b9c7c3;
+
+  /* Text (모두 --c-bg 위 4.5:1 이상) */
+  --c-ink: #0e2229;
+  --c-ink-2: #45585e;
+  --c-ink-3: #5a6c71;
+
+  /* Brand */
+  --c-sea: #0a6b73;          /* 주요 버튼 · 경로 */
+  --c-sea-hover: #08565d;
+  --c-on-sea: #ffffff;
+  --c-sea-soft: #d8eceb;
+  --c-sea-text: #075961;
+  --c-coral: #ff8a5b;        /* 핀 · 좋아요 (위 글자는 --c-ink) */
+  --c-coral-soft: #ffe6da;
+  --c-coral-text: #a63a14;
+
+  /* Semantic */
+  --c-danger: #b42318;
+  --c-danger-soft: #fdecea;
+  --c-ok: #1d7a4a;
+  --c-ok-soft: #def3e6;
+
+  --c-focus: #2563eb;
+  --c-overlay: rgb(14 34 41 / 0.5);
+  --c-photo-shade: linear-gradient(180deg, rgb(8 22 27 / 0) 30%, rgb(8 22 27 / 0.78) 100%);
+
+  /* Typography */
+  --font-display: 'Hahmlet', 'Noto Serif KR', 'AppleMyungjo', serif;
+  --font-sans: 'IBM Plex Sans KR', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.375rem;
+  --fs-2xl: 1.75rem;
+  --fs-3xl: clamp(1.875rem, 1.3rem + 2.4vw, 2.75rem);
+  --fs-display: clamp(2.375rem, 1.4rem + 4.4vw, 4.25rem);
+
+  /* Spacing */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.25rem;
+  --sp-6: 1.5rem;
+  --sp-8: 2rem;
+  --sp-10: 2.5rem;
+  --sp-12: 3rem;
+  --sp-16: 4rem;
+  --sp-20: 5rem;
+
+  /* Shape · Depth */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+  --shadow-sm: 0 1px 2px rgb(14 34 41 / 0.06);
+  --shadow-md: 0 1px 2px rgb(14 34 41 / 0.05), 0 8px 24px -8px rgb(14 34 41 / 0.14);
+  --shadow-lg: 0 24px 56px -16px rgb(14 34 41 / 0.32);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 150ms;
+  --dur-base: 220ms;
+
+  /* Layout */
+  --container: 1200px;
+  --gutter: 16px;
+  --header-h: 64px;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --c-bg: #0b1a1f;
+    --c-surface: #11252c;
+    --c-surface-2: #183039;
+    --c-line: #22404a;
+    --c-line-strong: #33555f;
+    --c-ink: #e7f0f1;
+    --c-ink-2: #b3c5ca;
+    --c-ink-3: #93a7ad;
+    --c-sea: #5cc6cc;
+    --c-sea-hover: #82d5d9;
+    --c-on-sea: #0b1a1f;
+    --c-sea-soft: #123a3e;
+    --c-sea-text: #7fd6db;
+    --c-coral-soft: #3d1f14;
+    --c-coral-text: #ffb08f;
+    --c-danger: #f97066;
+    --c-danger-soft: #3b1512;
+    --c-ok: #6ad39a;
+    --c-ok-soft: #12301f;
+    --c-focus: #7aa7ff;
+    --c-overlay: rgb(0 0 0 / 0.62);
+    --shadow-md: 0 1px 2px rgb(0 0 0 / 0.35), 0 8px 24px -8px rgb(0 0 0 / 0.5);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --c-bg: #0b1a1f;
+  --c-surface: #11252c;
+  --c-surface-2: #183039;
+  --c-line: #22404a;
+  --c-line-strong: #33555f;
+  --c-ink: #e7f0f1;
+  --c-ink-2: #b3c5ca;
+  --c-ink-3: #93a7ad;
+  --c-sea: #5cc6cc;
+  --c-sea-hover: #82d5d9;
+  --c-on-sea: #0b1a1f;
+  --c-sea-soft: #123a3e;
+  --c-sea-text: #7fd6db;
+  --c-coral-soft: #3d1f14;
+  --c-coral-text: #ffb08f;
+  --c-danger: #f97066;
+  --c-danger-soft: #3b1512;
+  --c-ok: #6ad39a;
+  --c-ok-soft: #12301f;
+  --c-focus: #7aa7ff;
+  --c-overlay: rgb(0 0 0 / 0.62);
+  --shadow-md: 0 1px 2px rgb(0 0 0 / 0.35), 0 8px 24px -8px rgb(0 0 0 / 0.5);
+  color-scheme: dark;
+}
+
+@media (min-width: 768px) {
+  :root { --gutter: 32px; --header-h: 72px; }
+}
+
+/* ---------- Base ---------- */
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 16px); }
+
+body {
+  min-height: 100vh;
+  background: var(--c-bg);
+  color: var(--c-ink);
+  font-family: var(--font-sans);
+  font-size: var(--fs-md);
+  line-height: 1.65;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { line-height: 1.3; letter-spacing: -0.015em; text-wrap: balance; }
+p { text-wrap: pretty; }
+img { height: auto; }
+
+button, [role="button"], summary, select, label[for], input[type="checkbox"], input[type="radio"] { cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+
+:focus-visible { outline: 3px solid var(--c-focus); outline-offset: 2px; border-radius: 4px; }
+::selection { background: var(--c-sea-soft); color: var(--c-ink); }
+
+.icon {
+  width: 1.25em;
+  height: 1.25em;
+  flex-shrink: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.icon--fill { fill: currentColor; }
+
+[hidden] { display: none !important; }
+
+/* ---------- Utilities ---------- */
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.skip-link {
+  position: fixed;
+  top: var(--sp-2);
+  left: var(--sp-2);
+  z-index: 1000;
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--radius-sm);
+  background: var(--c-ink);
+  color: var(--c-bg);
+  font-weight: 600;
+  transform: translateY(-200%);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.skip-link:focus { transform: translateY(0); }
+
+/* 지도 좌표 · 날짜 같은 데이터 글자 */
+.mono { font-family: var(--font-mono); font-size: 0.92em; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

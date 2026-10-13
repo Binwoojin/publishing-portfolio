@@ -1,0 +1,141 @@
+/* ==========================================================================
+   WayLog — 여행지 상세 · 코스 상세
+   ========================================================================== */
+.detail { padding-top: var(--sp-6); }
+.detail > .demo-bar, .container > .demo-bar { margin-top: var(--sp-6); }
+
+.detail-head { display: grid; gap: var(--sp-3); margin: var(--sp-4) 0 var(--sp-6); }
+.detail-head__chips { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.detail-head__title { font-family: var(--font-display); font-size: var(--fs-3xl); font-weight: 700; letter-spacing: -0.03em; }
+.detail-head__sub { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-1) var(--sp-4); color: var(--c-ink-2); font-size: var(--fs-sm); }
+.detail-head__sub > span { display: inline-flex; align-items: center; gap: 4px; }
+.detail-head__sub .icon { width: 16px; height: 16px; }
+.detail-head__row { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--sp-4); }
+.detail-actions { display: flex; gap: var(--sp-2); }
+.detail-actions .toggle { border: 1px solid var(--c-line-strong); background: var(--c-surface); min-height: 44px; padding: 0 var(--sp-4); }
+
+.detail-photo {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--c-surface-2);
+}
+.detail-photo img { width: 100%; height: 100%; object-fit: cover; }
+.detail-photo__coord {
+  position: absolute;
+  left: var(--sp-3);
+  bottom: var(--sp-3);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: rgb(8 22 27 / 0.6);
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+}
+
+.detail-body { display: grid; gap: var(--sp-10); margin-top: var(--sp-8); }
+@media (min-width: 1024px) {
+  .detail-body { grid-template-columns: minmax(0, 1fr) 360px; gap: var(--sp-12); align-items: start; }
+  .detail-aside { position: sticky; top: calc(var(--header-h) + var(--sp-4)); }
+  .detail-body--course { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); }
+}
+/* 모바일에서는 지도를 일정 위에 */
+@media (max-width: 1023px) { .detail-body--course .detail-aside { order: -1; } }
+.detail-section + .detail-section { margin-top: var(--sp-10); }
+.detail-section__title { margin-bottom: var(--sp-4); font-family: var(--font-display); font-size: var(--fs-xl); font-weight: 700; }
+.detail-lead { font-size: var(--fs-lg); line-height: 1.8; }
+.detail-tags { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-4); }
+
+.notice-box {
+  display: flex;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5);
+  border-radius: var(--radius-md);
+  background: var(--c-coral-soft);
+  color: var(--c-ink);
+  font-size: var(--fs-sm);
+}
+.notice-box .icon { width: 20px; height: 20px; color: var(--c-coral-text); margin-top: 2px; }
+.notice-box strong { display: block; margin-bottom: 2px; }
+
+/* 이용 안내 카드 */
+.info-card { padding: var(--sp-5); border: 1px solid var(--c-line); border-radius: var(--radius-lg); background: var(--c-surface); }
+.info-card__title { margin-bottom: var(--sp-3); font-size: var(--fs-lg); font-weight: 700; }
+.info-list { display: grid; }
+.info-list > div { display: grid; grid-template-columns: 24px 72px minmax(0, 1fr); gap: var(--sp-2); padding: var(--sp-3) 0; border-top: 1px solid var(--c-line); font-size: var(--fs-sm); }
+.info-list > div:first-child { border-top: 0; }
+.info-list .icon { width: 18px; height: 18px; color: var(--c-sea-text); margin-top: 2px; }
+.info-list dt { color: var(--c-ink-3); font-weight: 600; }
+.info-list dd { margin: 0; }
+.info-card .btn { margin-top: var(--sp-4); }
+.info-card__source { margin-top: var(--sp-3); color: var(--c-ink-3); font-size: var(--fs-xs); }
+
+.mini-posts { display: grid; gap: var(--sp-3); }
+.mini-post { position: relative; display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: var(--sp-3); align-items: center; padding: var(--sp-3); border: 1px solid var(--c-line); border-radius: var(--radius-md); background: var(--c-surface); }
+.mini-post img { width: 88px; height: 66px; object-fit: cover; border-radius: var(--radius-sm); }
+.mini-post__text { display: -webkit-box; overflow: hidden; font-size: var(--fs-sm); -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.mini-post__meta { color: var(--c-ink-3); font-size: var(--fs-xs); }
+.mini-post a::after { content: ''; position: absolute; inset: 0; }
+.mini-post:hover { border-color: var(--c-line-strong); }
+.empty-line { padding: var(--sp-5); border: 1px dashed var(--c-line-strong); border-radius: var(--radius-md); color: var(--c-ink-2); font-size: var(--fs-sm); text-align: center; }
+
+.related { margin-top: var(--sp-16); padding-top: var(--sp-10); border-top: 1px solid var(--c-line); }
+
+/* ---------- 코스 ---------- */
+.course-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-3); margin-top: var(--sp-6); }
+@media (min-width: 768px) { .course-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.course-stats > div { padding: var(--sp-4); border-radius: var(--radius-md); background: var(--c-surface); border: 1px solid var(--c-line); }
+.course-stats dt { color: var(--c-ink-3); font-size: var(--fs-xs); font-weight: 600; }
+.course-stats dd { margin: 2px 0 0; font-size: var(--fs-lg); font-weight: 700; }
+.course-stats dd .mono { font-size: var(--fs-xl); }
+
+/* 경로 타임라인 */
+.route { position: relative; display: grid; }
+.route__stop { position: relative; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: var(--sp-4); padding-bottom: var(--sp-2); }
+.route__marker {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--c-sea);
+  color: var(--c-on-sea);
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+.route__stop:last-child .route__marker { background: var(--c-coral); color: #0e2229; }
+.route__stop:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  top: 44px;
+  bottom: 0;
+  left: 21px;
+  border-left: 2px dashed var(--c-sea);
+  opacity: 0.6;
+}
+.route__card { padding: var(--sp-1) 0 var(--sp-5); }
+.route__time { color: var(--c-ink-3); font-family: var(--font-mono); font-size: var(--fs-xs); }
+.route__name { font-size: var(--fs-lg); font-weight: 700; }
+.route__name a { text-decoration: underline; text-decoration-color: var(--c-line-strong); text-underline-offset: 4px; }
+.route__name a:hover { text-decoration-color: currentColor; }
+.route__note { color: var(--c-ink-2); font-size: var(--fs-sm); }
+.route__leg { display: inline-flex; align-items: center; gap: 6px; margin-top: var(--sp-2); padding: 2px 10px; border-radius: var(--radius-pill); background: var(--c-surface-2); color: var(--c-ink-2); font-family: var(--font-mono); font-size: var(--fs-xs); }
+.route__leg .icon { width: 14px; height: 14px; }
+
+/* 경로 지도 (좌표를 같은 축척으로 그린 SVG) */
+.route-map { overflow: hidden; border: 1px solid var(--c-line); border-radius: var(--radius-lg); background: var(--c-surface); }
+.route-map svg { display: block; width: 100%; height: auto; }
+.route-map__grid { stroke: var(--c-line); stroke-width: 1; }
+.route-map__path { fill: none; stroke: var(--c-sea); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 2 8; }
+.route-map__dot { fill: var(--c-sea); stroke: var(--c-surface); stroke-width: 3; }
+.route-map__dot--end { fill: var(--c-coral); }
+.route-map__num { fill: var(--c-on-sea); font-family: var(--font-mono); font-size: 11px; font-weight: 500; text-anchor: middle; dominant-baseline: central; }
+.route-map__dot--end + .route-map__num { fill: #0e2229; }
+.route-map__label { fill: var(--c-ink); font-family: var(--font-sans); font-size: 12px; font-weight: 600; paint-order: stroke; stroke: var(--c-surface); stroke-width: 4px; stroke-linejoin: round; }
+.route-map__scale { stroke: var(--c-ink-2); stroke-width: 2; }
+.route-map__scale-text, .route-map__north { fill: var(--c-ink-2); font-family: var(--font-mono); font-size: 11px; }
+.route-map__caption { padding: var(--sp-3) var(--sp-4); border-top: 1px solid var(--c-line); color: var(--c-ink-3); font-size: var(--fs-xs); }
