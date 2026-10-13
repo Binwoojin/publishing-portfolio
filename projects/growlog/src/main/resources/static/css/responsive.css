@@ -1,0 +1,845 @@
+@charset "UTF-8";
+
+/* ========================================
+   GrowLog Responsive System
+   Breakpoints: Tablet 1024 / Mobile 768 / Small 480
+======================================== */
+
+/* [안전망] 긴 콘텐츠와 미디어가 뷰포트 폭을 밀어내지 않도록 합니다. */
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-x: clip;
+}
+
+img,
+svg,
+video,
+iframe {
+    max-width: 100%;
+}
+
+input,
+select,
+textarea,
+button {
+    min-width: 0;
+}
+
+/* ========================================
+   Tablet
+======================================== */
+
+@media (max-width: 1024px) {
+    /* Common header */
+    .header_inner {
+        width: calc(100% - 32px);
+    }
+
+    .main_nav {
+        gap: 20px;
+    }
+
+    .main_nav a {
+        font-size: 14px;
+    }
+
+    /* Shared page widths */
+    .home_container,
+    .goal_container,
+    .timeline_container {
+        width: calc(100% - 32px);
+    }
+
+    .record_list_page,
+    .record_write_page,
+    .record_detail_page,
+    .goal_write_page .goal_container,
+    .goal_edit_page .goal_container,
+    .mypage,
+    .attendance_page,
+    .settings_page {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    /* Home */
+    .welcome_section {
+        padding: 40px;
+    }
+
+    .summary_grid {
+        gap: 16px;
+    }
+
+    .content_panel {
+        padding: 30px;
+    }
+
+    /* Goal write/edit layouts */
+    .goal_write_hero,
+    .goal_edit_page .goal_page_header {
+        grid-template-columns: minmax(0, 1fr) minmax(320px, 0.85fr);
+        padding: 40px;
+    }
+
+    .goal_write_content,
+    .goal_edit_content {
+        grid-template-columns: 260px minmax(0, 1fr);
+    }
+
+    .goal_write_grobi_image {
+        transform: none;
+    }
+
+    /* Record write */
+    .record_write_hero {
+        padding: 42px;
+    }
+
+    .record_write_content {
+        grid-template-columns: 240px minmax(0, 1fr);
+        gap: 24px;
+    }
+
+    /* Detail pages */
+    .record_detail_page {
+        max-width: 920px;
+    }
+
+    /* Mypage family */
+    .mypage_hero,
+    .attendance_hero,
+    .settings_hero {
+        padding: 40px;
+    }
+
+    .mypage_content,
+    .attendance_content,
+    .settings_content {
+        gap: 20px;
+    }
+}
+
+/* ========================================
+   Navigation Switch
+======================================== */
+
+@media (max-width: 820px) {
+    .main_header {
+        padding: 0;
+    }
+
+    .header_inner {
+        position: relative;
+        height: 68px;
+    }
+
+    .header_logo {
+        font-size: 20px;
+    }
+
+    .header_logo img {
+        width: 38px;
+        height: 38px;
+    }
+
+    /* 회원가입은 심볼+텍스트가 합쳐진 가로형 로고를 사용합니다. */
+    .join_page .header_logo img {
+        width: 130px;
+        height: auto;
+    }
+
+    .mobile_menu_button {
+        display: flex;
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    /* [공통 동작] common.js의 .open 상태와 연결되는 모바일 메뉴입니다. */
+    .main_nav {
+        position: absolute;
+        top: calc(100% + 10px);
+        right: 0;
+        left: 0;
+        z-index: 1050;
+
+        display: none;
+        align-items: stretch;
+        flex-direction: column;
+        gap: 4px;
+
+        padding: 10px;
+
+        border: 1px solid #dce7db;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 18px 45px rgba(45, 77, 50, 0.16);
+    }
+
+    .main_nav.open {
+        display: flex;
+    }
+
+    .main_nav a {
+        min-height: 46px;
+        padding: 0 14px;
+        border-radius: 11px;
+    }
+
+    .main_nav a:hover,
+    .main_nav a.active {
+        background: #f1f7f0;
+    }
+
+    .main_nav a.active::after {
+        top: 10px;
+        right: auto;
+        bottom: 10px;
+        left: 0;
+        width: 3px;
+        height: auto;
+        border-radius: 0 999px 999px 0;
+    }
+
+    .profile_name {
+        display: none;
+    }
+
+    .profile_button {
+        min-width: 44px;
+        min-height: 44px;
+        padding-right: 9px;
+    }
+
+    .profile_menu {
+        width: min(230px, calc(100vw - 32px));
+    }
+
+    /* Home */
+    .summary_grid,
+    .content_grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Form pages */
+    .goal_write_content,
+    .goal_edit_content,
+    .record_write_content {
+        grid-template-columns: 1fr;
+    }
+
+    .goal_write_guide,
+    .goal_edit_guide,
+    .record_write_guide {
+        position: static;
+    }
+
+    .goal_write_guide_list,
+    .goal_edit_guide_list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* ========================================
+   Mobile
+======================================== */
+
+@media (max-width: 768px) {
+    :root {
+        --mobile-page-gutter: 14px;
+        --mobile-card-radius: 20px;
+    }
+
+    body {
+        font-size: 15px;
+    }
+
+    html {
+        overflow-y: auto;
+    }
+
+    .header_inner {
+        width: calc(100% - 28px);
+    }
+
+    /*
+     * [공통 Footer]
+     * 모바일에서는 브랜드와 메뉴를 세로로 배치하고 화면 좌우 여백을 공통 gutter에 맞춥니다.
+     */
+    .footer_inner,
+    .footer_bottom {
+        width: calc(100% - 28px);
+    }
+
+    .footer_inner {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 36px 0 28px;
+    }
+
+    .footer_navigation {
+        min-width: 0;
+    }
+
+    .footer_bottom {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+        padding: 18px 0 22px;
+    }
+
+    /* All primary tap targets */
+    a[class*="button"],
+    button,
+    input[type="button"],
+    input[type="submit"] {
+        min-height: 44px;
+    }
+
+    /* Shared containers */
+    .home_container,
+    .goal_container,
+    .timeline_container {
+        width: calc(100% - 28px);
+        margin-top: 24px;
+        margin-bottom: 64px;
+    }
+
+    .record_list_page,
+    .record_write_page,
+    .record_detail_page,
+    .goal_write_page .goal_container,
+    .goal_edit_page .goal_container,
+    .mypage,
+    .attendance_page,
+    .settings_page {
+        padding: 24px var(--mobile-page-gutter) 64px;
+    }
+
+    /* Shared hero identity */
+    .welcome_section,
+    .goal_page_header,
+    .goal_write_hero,
+    .record_list_hero,
+    .record_write_hero,
+    .timeline_hero,
+    .mypage_hero,
+    .attendance_hero,
+    .settings_hero {
+        min-height: 0;
+        padding: 32px 24px;
+        border-radius: 22px;
+    }
+
+    .welcome_section h1,
+    .goal_header_content h1,
+    .goal_write_hero_content h1,
+    .record_list_hero_title,
+    .record_write_hero_title,
+    .timeline_hero h1,
+    .mypage_hero h1,
+    .attendance_hero h1,
+    .settings_hero h1 {
+        font-size: clamp(29px, 8.5vw, 38px);
+        line-height: 1.3;
+    }
+
+    .home_growbi,
+    .goal_header_character,
+    .goal_write_hero_character,
+    .record_list_hero_image,
+    .record_write_hero_visual,
+    .timeline_hero_visual,
+    .mypage_hero_visual,
+    .attendance_hero_visual,
+    .settings_hero_visual {
+        display: none;
+    }
+
+    /* 이미지 열이 사라진 뒤 빈 grid/flex 열이 남지 않도록 재배치합니다. */
+    .goal_page_header,
+    .goal_write_hero {
+        grid-template-columns: 1fr;
+    }
+
+    .record_list_hero,
+    .record_write_hero {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .record_list_hero_right {
+        align-items: flex-start;
+        flex-basis: auto;
+        width: 100%;
+        margin-top: 24px;
+    }
+
+    /* Home */
+    .welcome_buttons {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .welcome_buttons > * {
+        width: 100%;
+    }
+
+    .summary_card,
+    .content_panel {
+        padding: 24px 20px;
+        border-radius: var(--mobile-card-radius);
+    }
+
+    .content_panel .panel_header {
+        align-items: flex-start;
+    }
+
+    /*
+     * [홈 모바일 보정]
+     * 날짜 배지의 실제 너비와 Grid 첫 열을 일치시켜 기록 제목 영역 침범을 방지합니다.
+     */
+    .home_page .record_item {
+        grid-template-columns: 64px minmax(0, 1fr);
+        gap: 16px;
+    }
+
+    .home_page .record_item time {
+        width: 64px;
+    }
+
+    /*
+     * 목표와 최근 기록 카드가 같은 제목/설명 리듬을 갖도록
+     * 모바일에서 텍스트 간격과 행간을 공통 값으로 맞춥니다.
+     */
+    .home_page .goal_info h3,
+    .home_page .record_item h3 {
+        line-height: 1.45;
+    }
+
+    .home_page .goal_info p,
+    .home_page .record_item p {
+        margin-top: 7px;
+        margin-bottom: 0;
+        line-height: 1.55;
+    }
+
+    .home_page .record_item h3 {
+        margin-bottom: 0;
+    }
+
+    /* Goal create/edit */
+    .goal_write_guide,
+    .goal_edit_guide,
+    .record_write_guide,
+    .goal_write_form_panel,
+    .goal_edit_page .goal_form_panel,
+    .record_write_form_panel {
+        padding: 24px 20px;
+        border-radius: var(--mobile-card-radius);
+    }
+
+    .goal_write_guide_list,
+    .goal_edit_guide_list {
+        grid-template-columns: 1fr;
+    }
+
+    /*
+     * [성장기록 미디어 첨부]
+     * 태블릿·모바일에서는 첨부 카드의 여백을 줄여 입력 가능한 폭을 확보합니다.
+     */
+    .record_write_page .record_media_group {
+        padding: 22px 20px;
+        border-radius: var(--mobile-card-radius);
+    }
+
+    .record_write_page .record_media_item {
+        padding: 18px;
+    }
+
+    .record_write_page .record_image_preview_list:not(:empty) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .goal_write_top_grid,
+    .goal_edit_top_grid,
+    .goal_date_grid,
+    .record_type_options,
+    .record_condition_options {
+        grid-template-columns: 1fr;
+    }
+
+    .goal_form_heading,
+    .record_write_form_heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .goal_form_actions,
+    .record_form_actions,
+    .record_detail_actions,
+    .goal_modal_actions {
+        align-items: stretch;
+        flex-direction: column-reverse;
+    }
+
+    .goal_form_actions > *,
+    .record_form_actions > *,
+    .record_detail_actions a,
+    .record_detail_actions button,
+    .goal_modal_actions > *,
+    .goal_modal_button {
+        width: 100%;
+    }
+
+    /* Record detail */
+    .record_detail_header {
+        padding: 32px 24px;
+    }
+
+    .record_detail_meta {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .record_detail_section {
+        margin: 0 24px;
+        padding: 30px 0;
+    }
+
+    .retrospective_section {
+        margin: 24px;
+        padding: 24px 20px;
+    }
+
+    .record_detail_actions {
+        padding: 24px;
+    }
+
+    .record_detail_actions_left,
+    .record_detail_actions_right {
+        width: 100%;
+    }
+
+    .record_detail_actions_right {
+        margin-left: 0;
+    }
+
+    /* Modal */
+    .goal_modal {
+        align-items: flex-end;
+        padding: 12px;
+    }
+
+    .goal_modal_content {
+        max-height: calc(100dvh - 24px);
+        padding: 28px 20px 22px;
+        border-radius: 22px;
+    }
+
+    .goal_modal_info_grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Mypage family */
+    .mypage_content,
+    .attendance_content,
+    .settings_content {
+        grid-template-columns: 1fr;
+    }
+
+    .mypage_sidebar,
+    .attendance_sidebar,
+    .settings_sidebar {
+        padding: 8px;
+        overflow: hidden;
+        border-radius: 16px;
+    }
+
+    .sidebar_navigation {
+        flex-direction: row;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+    }
+
+    .sidebar_navigation::-webkit-scrollbar {
+        display: none;
+    }
+
+    .sidebar_menu {
+        flex: 0 0 auto;
+        min-height: 44px;
+        white-space: nowrap;
+    }
+
+    .profile_card,
+    .activity_section,
+    .quick_menu_section,
+    .attendance_summary_section,
+    .attendance_calendar_section,
+    .attendance_guide_section,
+    .settings_title_card,
+    .settings_section {
+        padding: 22px 18px;
+        border-radius: var(--mobile-card-radius);
+    }
+
+    .profile_card_body,
+    .profile_card_header,
+    .section_heading,
+    .calendar_header,
+    .settings_title_card {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .profile_detail_list,
+    .activity_card_list,
+    .quick_menu_list,
+    .attendance_summary_list {
+        grid-template-columns: 1fr;
+    }
+
+    .activity_card:last-child,
+    .quick_menu_card:last-child,
+    .attendance_summary_card:last-child {
+        grid-column: auto;
+    }
+
+    .settings_form_group,
+    .password_form_group {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .password_form_help,
+    .password_match_message {
+        grid-column: auto;
+    }
+
+    /* Calendar remains usable at 375px without horizontal scrolling. */
+    .attendance_calendar {
+        gap: 3px;
+    }
+
+    .calendar_weekday {
+        font-size: 10px;
+    }
+
+    .calendar_day {
+        min-height: 54px;
+        padding: 4px;
+        border-radius: 8px;
+    }
+
+    /* Authentication and account cards */
+    .join_main {
+        padding: 28px var(--mobile-page-gutter) 56px;
+    }
+
+    .join_container,
+    .password_find_card,
+    .settings_verify_card,
+    .logout_card {
+        padding: 32px 22px;
+        border-radius: var(--mobile-card-radius);
+    }
+
+    .password_find_page,
+    .settings_verify_page,
+    .logout_page {
+        padding-right: var(--mobile-page-gutter);
+        padding-left: var(--mobile-page-gutter);
+    }
+
+    .input_box {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .input_box button {
+        width: 100%;
+    }
+
+    /* Prevent iOS form zoom */
+    input:not([type="checkbox"]):not([type="radio"]),
+    select,
+    textarea {
+        font-size: 16px;
+    }
+}
+
+/* ========================================
+   Small Mobile
+======================================== */
+
+@media (max-width: 480px) {
+    .header_logo span,
+    .profile_arrow {
+        display: none;
+    }
+
+    .join_page .header_logo {
+        display: inline-flex;
+    }
+
+    .join_page .header_logo img {
+        width: 118px;
+    }
+
+    .header_actions {
+        gap: 7px;
+    }
+
+    .profile_button {
+        padding: 5px;
+    }
+
+    /* 작은 모바일에서는 하단 메뉴를 2열로 고정해 링크 간격을 안정적으로 유지합니다. */
+    .footer_navigation_links {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px 20px;
+    }
+
+    .footer_logo {
+        font-size: 20px;
+    }
+
+    .footer_logo img {
+        width: 38px;
+        height: 38px;
+    }
+
+    .welcome_section,
+    .goal_page_header,
+    .goal_write_hero,
+    .record_list_hero,
+    .record_write_hero,
+    .timeline_hero,
+    .mypage_hero,
+    .attendance_hero,
+    .settings_hero {
+        padding: 28px 20px;
+    }
+
+    .record_list_hero_description br,
+    .record_write_hero_description br,
+    .goal_header_description br,
+    .timeline_hero_copy > p br {
+        display: none;
+    }
+
+    .summary_card,
+    .content_panel,
+    .goal_summary_card,
+    .timeline_summary_card {
+        padding: 20px 18px;
+    }
+
+    /*
+     * 작은 모바일에서는 제목과 선택 배지를 세로로 배치하고,
+     * 파일 선택 버튼을 한 줄 너비로 확장해 잘림을 방지합니다.
+     */
+    .record_write_page .record_media_group {
+        padding: 18px 16px;
+    }
+
+    .record_write_page .record_media_heading {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .record_write_page .record_media_item {
+        padding: 16px;
+    }
+
+    .record_write_page .record_media_item_label {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .record_write_page .record_media_icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        font-size: 19px;
+    }
+
+    .record_write_page .record_media_file_input {
+        padding: 6px;
+    }
+
+    .record_write_page .record_media_file_input::file-selector-button {
+        display: block;
+
+        width: 100%;
+        margin: 0 0 7px;
+    }
+
+    .record_card_top,
+    .record_card_bottom,
+    .event_meta,
+    .event_footer {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .record_detail_link {
+        align-self: flex-end;
+    }
+
+    .record_detail_title {
+        font-size: 30px;
+    }
+
+    .record_detail_section,
+    .retrospective_section {
+        margin-right: 18px;
+        margin-left: 18px;
+    }
+
+    .record_detail_actions {
+        padding: 20px 18px;
+    }
+
+    .today_attendance_status {
+        width: 100%;
+    }
+
+    .calendar_day {
+        min-height: 48px;
+    }
+
+    .character_area {
+        width: 210px;
+        height: 190px;
+    }
+
+    .character_background {
+        width: 180px;
+        height: 180px;
+    }
+
+    .logout_character {
+        width: 150px;
+    }
+}
+
+/* ========================================
+   Motion & Print
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

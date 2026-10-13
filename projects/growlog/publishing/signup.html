@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입 | GrowLog</title>
+  <meta name="theme-color" content="#fbf7ef">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="../../../common/css/reset.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <div class="auth">
+    <aside class="auth__aside" aria-label="GrowLog 소개">
+      <a class="logo logo--invert" href="index.html">
+        <span class="logo__mark"><svg class="icon" aria-hidden="true"><use href="#i-sprout"></use></svg></span>
+        <span>GrowLog</span>
+      </a>
+      <div class="auth__intro">
+        <p class="auth__intro-title">가입하면 바로<br>이런 것들을 할 수 있어요</p>
+        <ul class="auth__benefits">
+          <li><svg class="icon" aria-hidden="true"><use href="#i-target"></use></svg>분류 · 기한이 있는 목표 관리</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-pen"></use></svg>배운 점 · 회고를 담는 하루 기록</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-timeline"></use></svg>목표와 기록을 잇는 타임라인</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-flame"></use></svg>연속 기록 · 12주 활동 히트맵</li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="auth__main" id="main">
+      <a class="logo auth__mobile-logo" href="index.html">
+        <span class="logo__mark"><svg class="icon" aria-hidden="true"><use href="#i-sprout"></use></svg></span>
+        <span>GrowLog</span>
+      </a>
+
+      <div class="auth__panel">
+        <h1 class="auth__title">성장 기록을 시작해요</h1>
+        <p class="auth__desc"><span class="req-mark" aria-hidden="true">*</span> 표시는 필수 입력 항목입니다.</p>
+
+        <form class="auth__form" id="signupForm" novalidate>
+          <div class="form-alert" id="signupAlert" role="alert" tabindex="-1" hidden>
+            <svg class="icon" aria-hidden="true"><use href="#i-alert"></use></svg>
+            <div>
+              <strong>입력 내용을 확인해 주세요.</strong>
+              <ul id="signupAlertList"></ul>
+            </div>
+          </div>
+
+          <!-- 이메일 + 인증 -->
+          <div class="field">
+            <label class="field__label" for="email">이메일<span class="req" aria-hidden="true">*</span></label>
+            <div class="field__row">
+              <input class="input" type="email" id="email" name="email" autocomplete="email" inputmode="email" placeholder="example@growlog.kr" aria-describedby="emailMsg" required>
+              <button class="btn btn--outline" type="button" id="sendCodeBtn">인증번호 받기</button>
+            </div>
+            <p class="field__help" id="emailMsg">로그인 아이디로 사용합니다.</p>
+          </div>
+
+          <div class="field" id="codeField" hidden>
+            <label class="field__label" for="emailCode">인증번호<span class="req" aria-hidden="true">*</span></label>
+            <div class="field__row">
+              <div class="input-wrap input-wrap--timer">
+                <input class="input" type="text" id="emailCode" name="emailCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="6자리 숫자" aria-describedby="codeMsg">
+                <span class="timer" id="codeTimer" aria-hidden="true">03:00</span>
+              </div>
+              <button class="btn btn--outline" type="button" id="verifyCodeBtn">확인</button>
+            </div>
+            <p class="field__help" id="codeMsg">메일로 받은 6자리 숫자를 입력해 주세요. (데모 인증번호: 123456)</p>
+          </div>
+
+          <!-- 비밀번호 -->
+          <div class="field">
+            <label class="field__label" for="password">비밀번호<span class="req" aria-hidden="true">*</span></label>
+            <div class="input-wrap">
+              <input class="input" type="password" id="password" name="password" autocomplete="new-password" maxlength="20" aria-describedby="passwordRules passwordError" required>
+              <button class="icon-btn" type="button" data-toggle-password="password" aria-label="비밀번호 보기" aria-pressed="false">
+                <svg class="icon" aria-hidden="true"><use href="#i-eye"></use></svg>
+              </button>
+            </div>
+            <ul class="rule-list" id="passwordRules" aria-label="비밀번호 조건">
+              <li data-rule="letter"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>영문</li>
+              <li data-rule="number"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>숫자</li>
+              <li data-rule="special"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>특수문자(!@#$%^&amp;*)</li>
+              <li data-rule="length"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>8~20자</li>
+            </ul>
+            <p class="field__error" id="passwordError" hidden></p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="passwordCheck">비밀번호 확인<span class="req" aria-hidden="true">*</span></label>
+            <input class="input" type="password" id="passwordCheck" name="passwordCheck" autocomplete="new-password" maxlength="20" aria-describedby="passwordCheckMsg" required>
+            <p class="field__help" id="passwordCheckMsg" hidden></p>
+          </div>
+
+          <!-- 이름 · 닉네임 -->
+          <div class="field">
+            <label class="field__label" for="userName">이름<span class="req" aria-hidden="true">*</span></label>
+            <input class="input" type="text" id="userName" name="userName" autocomplete="name" maxlength="20" aria-describedby="userNameMsg" required>
+            <p class="field__help" id="userNameMsg">한글 또는 영문 2~20자</p>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="nickname">닉네임<span class="req" aria-hidden="true">*</span></label>
+            <div class="field__row">
+              <input class="input" type="text" id="nickname" name="nickname" autocomplete="nickname" maxlength="12" aria-describedby="nicknameMsg" required>
+              <button class="btn btn--outline" type="button" id="checkNicknameBtn">중복 확인</button>
+            </div>
+            <p class="field__help" id="nicknameMsg">한글 · 영문 · 숫자 2~12자 (예: ‘성장러’는 이미 사용 중)</p>
+          </div>
+
+          <div class="field">
+            <label class="check check--box">
+              <input type="checkbox" id="agree" name="agree" aria-describedby="agreeMsg" required>
+              <span><strong>[필수]</strong> 서비스 이용약관 및 개인정보 수집 · 이용에 동의합니다.</span>
+            </label>
+            <p class="field__error" id="agreeMsg" hidden></p>
+          </div>
+
+          <button class="btn btn--primary btn--lg btn--block" type="submit">가입하기</button>
+        </form>
+
+        <p class="auth__switch">이미 계정이 있나요? <a class="text-link" href="login.html">로그인</a></p>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/icons.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+/* ========================================
+   계정 설정 비밀번호 확인 페이지
+======================================== */
+
+.settings_verify_page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: calc(100vh - 78px);
+    padding: 60px 24px;
+
+    background:
+            radial-gradient(
+                    circle at top left,
+                    rgba(225, 239, 220, 0.75),
+                    transparent 34%
+            ),
+            linear-gradient(
+                    180deg,
+                    #f8fbf6 0%,
+                    #f3f7f1 100%
+            );
+}
+
+
+/* ========================================
+   비밀번호 확인 카드
+======================================== */
+
+.settings_verify_card {
+    width: 100%;
+    max-width: 520px;
+    padding: 44px 42px;
+
+    border: 1px solid #e1e9df;
+    border-radius: 24px;
+
+    background-color: rgba(255, 255, 255, 0.96);
+
+    box-shadow:
+            0 22px 55px rgba(74, 98, 72, 0.1);
+
+    text-align: center;
+}
+
+
+/* ========================================
+   상단 아이콘 및 제목
+======================================== */
+
+.settings_verify_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 20px;
+
+    border-radius: 22px;
+
+    background-color: #edf6e9;
+
+    font-size: 30px;
+}
+
+.settings_verify_eyebrow {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #7e9d78;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+}
+
+.settings_verify_card h1 {
+    margin: 0;
+
+    color: #304333;
+    font-size: 27px;
+    font-weight: 800;
+    line-height: 1.35;
+}
+
+.settings_verify_card > p {
+    margin: 14px 0 30px;
+
+    color: #7d887f;
+    font-size: 14px;
+    line-height: 1.75;
+}
+
+
+/* ========================================
+   비밀번호 입력 폼
+======================================== */
+
+.settings_verify_form {
+    text-align: left;
+}
+
+.verify_form_group {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.verify_form_group label {
+    color: #415545;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.verify_form_group input {
+    width: 100%;
+    height: 52px;
+    padding: 0 16px;
+
+    border: 1px solid #dbe5d8;
+    border-radius: 13px;
+    outline: none;
+
+    background-color: #fbfcfa;
+
+    color: #3f4b42;
+    font-family: inherit;
+    font-size: 14px;
+
+    transition:
+            border-color 0.2s ease,
+            background-color 0.2s ease,
+            box-shadow 0.2s ease;
+}
+
+.verify_form_group input:focus {
+    border-color: #91b28a;
+
+    background-color: #ffffff;
+
+    box-shadow:
+            0 0 0 4px rgba(114, 157, 105, 0.12);
+}
+
+.verify_form_group p {
+    margin: 0;
+
+    color: #979f98;
+    font-size: 11px;
+}
+
+
+/* ========================================
+   확인 결과 메시지
+======================================== */
+
+.verification_message {
+    margin-bottom: 20px;
+    padding: 13px 15px;
+
+    border-radius: 12px;
+
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.verification_message.error {
+    border: 1px solid #ecd3ce;
+
+    background-color: #fff1ee;
+
+    color: #b7645b;
+}
+
+.verification_message.success {
+    border: 1px solid #cfe3cb;
+
+    background-color: #eef8eb;
+
+    color: #557d50;
+}
+
+
+/* ========================================
+   하단 버튼
+======================================== */
+
+.verify_form_actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    margin-top: 28px;
+}
+
+.verify_cancel_button,
+.verify_submit_button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 112px;
+    height: 46px;
+    padding: 0 18px;
+
+    border-radius: 12px;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 800;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+            background-color 0.2s ease,
+            border-color 0.2s ease,
+            color 0.2s ease,
+            transform 0.2s ease;
+}
+
+.verify_cancel_button {
+    border: 1px solid #dbe3d9;
+
+    background-color: #f8faf7;
+
+    color: #727f74;
+}
+
+.verify_cancel_button:hover {
+    border-color: #c8d5c5;
+
+    background-color: #f1f5ef;
+
+    color: #4f6252;
+}
+
+.verify_submit_button {
+    border: 1px solid #789b72;
+
+    background-color: #789b72;
+
+    color: #ffffff;
+}
+
+.verify_submit_button:hover {
+    border-color: #678b61;
+
+    background-color: #678b61;
+
+    transform: translateY(-1px);
+}
+
+
+/* ========================================
+   모바일 반응형
+======================================== */
+
+@media (max-width: 600px) {
+
+    .settings_verify_page {
+        align-items: flex-start;
+
+        padding: 36px 16px;
+    }
+
+    .settings_verify_card {
+        padding: 34px 22px;
+
+        border-radius: 20px;
+    }
+
+    .settings_verify_card h1 {
+        font-size: 23px;
+    }
+
+    .verify_form_actions {
+        flex-direction: column-reverse;
+    }
+
+    .verify_cancel_button,
+    .verify_submit_button {
+        width: 100%;
+    }
+
+}

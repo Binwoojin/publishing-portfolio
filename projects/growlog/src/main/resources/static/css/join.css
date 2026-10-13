@@ -1,0 +1,375 @@
+/* ========================================
+   GrowLog 회원가입 페이지
+   join.css
+======================================== */
+
+/* 전체 페이지 */
+.join_page {
+    min-height: 100vh;
+    margin: 0;
+    background:
+            linear-gradient(
+                    135deg,
+                    #f4faf5 0%,
+                    #eef7f0 50%,
+                    #f8fbf8 100%
+            );
+    color: #2f3a32;
+}
+
+.header_logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    color: #315c3a;
+    font-size: 22px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.header_logo img {
+    width: 130px;
+    object-fit: contain;
+}
+
+/* 메인 영역 */
+.join_main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 70px 20px 100px;
+}
+
+/* 회원가입 카드 */
+.join_container {
+    width: 100%;
+    max-width: 620px;
+    padding: 50px 55px;
+    background-color: #ffffff;
+    border: 1px solid #e1ece3;
+    border-radius: 24px;
+    box-sizing: border-box;
+    box-shadow:
+            0 12px 35px rgba(62, 105, 72, 0.08),
+            0 3px 10px rgba(62, 105, 72, 0.04);
+}
+
+/* ========================================
+   회원가입 제목
+======================================== */
+
+.join_title {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.join_title h1 {
+    margin: 0 0 12px;
+    color: #315e3a;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.join_title p {
+    margin: 0;
+    color: #7c8b7f;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* ========================================
+   회원가입 폼
+======================================== */
+
+.join_form {
+    width: 100%;
+}
+
+.form_group {
+    margin-bottom: 24px;
+}
+
+.form_group label {
+    display: block;
+    margin-bottom: 9px;
+    color: #354339;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* 기본 입력창 */
+.form_group input {
+    width: 100%;
+    height: 50px;
+    padding: 0 16px;
+    border: 1px solid #d8e2da;
+    border-radius: 12px;
+    outline: none;
+    background-color: #ffffff;
+    color: #2f3a32;
+    font-family: inherit;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease,
+            background-color 0.2s ease;
+}
+
+.form_group input::placeholder {
+    color: #afb9b1;
+}
+
+/* 입력창 포커스 */
+.form_group input:focus {
+    border-color: #68a875;
+    background-color: #fcfffc;
+    box-shadow: 0 0 0 4px rgba(104, 168, 117, 0.13);
+}
+
+/* 브라우저 자동완성 배경 보정 */
+.form_group input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px #ffffff inset;
+    -webkit-text-fill-color: #2f3a32;
+}
+
+/* ========================================
+   입력창 + 확인 버튼 영역
+======================================== */
+
+.input_box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.input_box input {
+    flex: 1;
+    min-width: 0;
+}
+
+/* 중복 확인, 인증 버튼 */
+.input_box button {
+    flex-shrink: 0;
+    min-width: 100px;
+    height: 50px;
+    padding: 0 16px;
+    border: 1px solid #70a87b;
+    border-radius: 12px;
+    background-color: #ffffff;
+    color: #4f845a;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+            background-color 0.2s ease,
+            color 0.2s ease,
+            border-color 0.2s ease,
+            transform 0.1s ease;
+}
+
+.input_box button:hover {
+    border-color: #5c9568;
+    background-color: #edf7ef;
+    color: #3e7349;
+}
+
+.input_box button:active {
+    transform: translateY(1px);
+}
+
+/* ========================================
+   회원가입 버튼
+======================================== */
+
+.join_button_box {
+    margin-top: 38px;
+}
+
+.join_btn {
+    width: 100%;
+    height: 54px;
+    border: none;
+    border-radius: 14px;
+    background:
+            linear-gradient(
+                    135deg,
+                    #5d9d69,
+                    #3f7f4c
+            );
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(63, 127, 76, 0.2);
+    transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease,
+            background-color 0.2s ease;
+}
+
+.join_btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 11px 24px rgba(63, 127, 76, 0.26);
+}
+
+.join_btn:active {
+    transform: translateY(0);
+    box-shadow: 0 5px 12px rgba(63, 127, 76, 0.18);
+}
+
+/* ========================================
+   로그인 이동 링크
+======================================== */
+
+.login_link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    margin-top: 24px;
+    color: #849087;
+    font-size: 14px;
+}
+
+.login_link a {
+    color: #4e8a5a;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.login_link a:hover {
+    color: #346d40;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* ========================================
+   유효성 검사 메시지
+   추후 JavaScript 연결 시 사용
+======================================== */
+
+.form_message {
+    display: block;
+    min-height: 18px;
+    margin-top: 7px;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* 입력 성공 */
+.form_message.success {
+    color: #40844d;
+}
+
+/* 입력 오류 */
+.form_message.error {
+    color: #d95656;
+}
+
+/* 오류가 발생한 입력창 */
+.form_group.has_error input {
+    border-color: #e17777;
+    background-color: #fffafa;
+}
+
+.form_group.has_error input:focus {
+    box-shadow: 0 0 0 4px rgba(217, 86, 86, 0.11);
+}
+
+/* 입력 완료 상태 */
+.form_group.has_success input {
+    border-color: #68a875;
+    background-color: #fbfffc;
+}
+
+/* ========================================
+   버튼 비활성화
+======================================== */
+
+.input_box button:disabled,
+.join_btn:disabled {
+    background: #d8ded9;
+    border-color: #d8ded9;
+    color: #ffffff;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* ========================================
+   반응형
+======================================== */
+
+@media screen and (max-width: 768px) {
+    .join_main {
+        padding: 45px 18px 70px;
+    }
+
+    .join_container {
+        max-width: 560px;
+        padding: 42px 35px;
+        border-radius: 20px;
+    }
+
+    .join_title h1 {
+        font-size: 28px;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .join_main {
+        padding: 30px 14px 50px;
+    }
+
+    .join_container {
+        padding: 35px 22px;
+        border-radius: 18px;
+    }
+
+    .join_title {
+        margin-bottom: 32px;
+    }
+
+    .join_title h1 {
+        font-size: 25px;
+    }
+
+    .join_title p {
+        font-size: 14px;
+    }
+
+    .form_group {
+        margin-bottom: 21px;
+    }
+
+    .input_box {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .input_box button {
+        width: 100%;
+        min-width: auto;
+        height: 46px;
+    }
+
+    .login_link {
+        flex-wrap: wrap;
+    }
+
+    .main_header {
+        min-height: 68px;
+        padding: 12px 18px;
+    }
+
+    .header_logo img {
+        width: 170px;
+    }
+}

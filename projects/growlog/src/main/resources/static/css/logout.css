@@ -1,0 +1,421 @@
+@charset "UTF-8";
+
+/* ========================================
+   Logout Page
+======================================== */
+
+.logout_page {
+    min-height: 100vh;
+    margin: 0;
+    padding: 40px 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+            radial-gradient(
+                    circle at 20% 20%,
+                    rgba(107, 182, 120, 0.13),
+                    transparent 32%
+            ),
+            radial-gradient(
+                    circle at 80% 80%,
+                    rgba(244, 211, 126, 0.14),
+                    transparent 30%
+            ),
+            #f7faf6;
+
+    color: #344238;
+
+    box-sizing: border-box;
+}
+
+.logout_page *,
+.logout_page *::before,
+.logout_page *::after {
+    box-sizing: border-box;
+}
+
+/* ========================================
+   Main
+======================================== */
+
+.logout_main {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ========================================
+   Logout Card
+======================================== */
+
+.logout_card {
+    position: relative;
+
+    width: 100%;
+    max-width: 560px;
+
+    padding: 48px 55px 52px;
+
+    overflow: hidden;
+
+    border: 1px solid #e2ebe3;
+    border-radius: 28px;
+
+    background-color: rgba(255, 255, 255, 0.96);
+
+    text-align: center;
+
+    box-shadow:
+            0 20px 50px rgba(57, 91, 63, 0.1),
+            0 5px 15px rgba(57, 91, 63, 0.05);
+}
+
+/* 카드 장식 */
+.logout_card::before {
+    content: "";
+
+    position: absolute;
+    top: -100px;
+    left: -100px;
+
+    width: 240px;
+    height: 240px;
+
+    border-radius: 50%;
+
+    background-color: rgba(107, 182, 120, 0.08);
+}
+
+.logout_card::after {
+    content: "";
+
+    position: absolute;
+    right: -80px;
+    bottom: -100px;
+
+    width: 220px;
+    height: 220px;
+
+    border-radius: 50%;
+
+    background-color: rgba(244, 211, 126, 0.1);
+}
+
+/* ========================================
+   Logo
+======================================== */
+
+.logout_logo {
+    position: relative;
+    z-index: 2;
+
+    display: inline-block;
+
+    margin-bottom: 28px;
+}
+
+.logout_logo img {
+    display: block;
+
+    width: 230px;
+    max-width: 70vw;
+    height: auto;
+
+    object-fit: contain;
+}
+
+/* ========================================
+   Character
+======================================== */
+
+.character_area {
+    position: relative;
+    z-index: 2;
+
+    width: 250px;
+    height: 230px;
+
+    margin: 0 auto 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.character_background {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+
+    width: 210px;
+    height: 210px;
+
+    border-radius: 50%;
+
+    background-color: #eef7ec;
+
+    transform: translateX(-50%);
+}
+
+.logout_character {
+    position: relative;
+    z-index: 2;
+
+    display: block;
+
+    width: 180px;
+    max-width: 100%;
+    height: auto;
+
+    object-fit: contain;
+
+    animation: bowGreeting 1.4s ease-in-out;
+}
+
+/* 처음 화면 진입 시 살짝 꾸벅하는 느낌 */
+@keyframes bowGreeting {
+    0% {
+        opacity: 0;
+        transform: translateY(15px) rotate(0deg);
+    }
+
+    35% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+    }
+
+    60% {
+        transform: translateY(5px) rotate(5deg);
+    }
+
+    82% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+/* ========================================
+   Content
+======================================== */
+
+.logout_content {
+    position: relative;
+    z-index: 2;
+}
+
+.logout_badge {
+    display: inline-block;
+
+    margin-bottom: 14px;
+    padding: 7px 15px;
+
+    border-radius: 30px;
+
+    background-color: #edf7ef;
+    color: #5b9d67;
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.logout_content h1 {
+    margin: 0;
+
+    color: #315538;
+
+    font-size: 31px;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.logout_content p {
+    margin: 18px 0 0;
+
+    color: #78827a;
+
+    font-size: 15px;
+    line-height: 1.8;
+
+    word-break: keep-all;
+}
+
+/* ========================================
+   Buttons
+======================================== */
+
+.logout_button_area {
+    position: relative;
+    z-index: 2;
+
+    margin-top: 34px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 17px;
+}
+
+.login_move_button {
+    width: 100%;
+    height: 55px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 14px;
+
+    background-color: #6bb678;
+    color: #ffffff;
+
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+
+    box-shadow: 0 9px 20px rgba(107, 182, 120, 0.22);
+
+    transition:
+            background-color 0.2s ease,
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+}
+
+.login_move_button:hover {
+    background-color: #59a767;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 12px 24px rgba(107, 182, 120, 0.27);
+}
+
+.login_move_button:active {
+    transform: translateY(0);
+}
+
+.home_move_link {
+    color: #758078;
+
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.home_move_link:hover {
+    color: #579663;
+
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+/* ========================================
+   Mobile
+======================================== */
+
+@media screen and (max-width: 600px) {
+    .logout_page {
+        min-height: 100dvh;
+
+        padding:
+                max(22px, env(safe-area-inset-top))
+                16px
+                max(22px, env(safe-area-inset-bottom));
+
+        background-color: #f7faf6;
+    }
+
+    .logout_card {
+        padding: 38px 24px 40px;
+
+        border-radius: 22px;
+    }
+
+    .logout_logo {
+        margin-bottom: 22px;
+    }
+
+    .logout_logo img {
+        width: 190px;
+    }
+
+    .character_area {
+        width: 210px;
+        height: 195px;
+
+        margin-bottom: 20px;
+    }
+
+    .character_background {
+        width: 180px;
+        height: 180px;
+    }
+
+    .logout_character {
+        width: 195px;
+    }
+
+    .logout_content h1 {
+        font-size: 26px;
+    }
+
+    .logout_content p {
+        font-size: 14px;
+    }
+
+    .logout_button_area {
+        margin-top: 30px;
+    }
+
+    .login_move_button {
+        height: 54px;
+
+        border-radius: 12px;
+
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .logout_card {
+        padding-right: 18px;
+        padding-left: 18px;
+    }
+
+    .logout_content h1 {
+        font-size: 24px;
+    }
+
+    .character_area {
+        width: 190px;
+        height: 180px;
+    }
+
+    .character_background {
+        width: 165px;
+        height: 165px;
+    }
+
+    .logout_character {
+        width: 180px;
+    }
+}
+
+/* 모션 감소 설정 사용자 */
+@media (prefers-reduced-motion: reduce) {
+    .logout_character {
+        animation: none;
+    }
+
+    .login_move_button {
+        transition: none;
+    }
+}
+

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>대시보드 | GrowLog</title>
+  <meta name="theme-color" content="#fbf7ef">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="../../../common/css/reset.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <div class="app">
+    <header class="topbar">
+      <a class="logo" href="index.html">
+        <span class="logo__mark"><svg class="icon" aria-hidden="true"><use href="#i-sprout"></use></svg></span>
+        <span>GrowLog</span>
+      </a>
+      <div class="topbar__actions">
+        <span class="avatar" aria-hidden="true" data-me-initial>성</span>
+        <button class="icon-btn" type="button" data-logout aria-label="로그아웃"><svg class="icon" aria-hidden="true"><use href="#i-logout"></use></svg></button>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <a class="logo sidebar__brand" href="index.html">
+        <span class="logo__mark"><svg class="icon" aria-hidden="true"><use href="#i-sprout"></use></svg></span>
+        <span>GrowLog</span>
+      </a>
+      <nav class="gnb" aria-label="주요 메뉴">
+        <ul class="gnb__list">
+          <li class="gnb__item"><a class="gnb__link" href="dashboard.html" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-dashboard"></use></svg><span>대시보드</span></a></li>
+          <li class="gnb__item"><a class="gnb__link" href="timeline.html"><svg class="icon" aria-hidden="true"><use href="#i-timeline"></use></svg><span>타임라인</span></a></li>
+          <li class="gnb__item"><a class="gnb__link" href="goals.html"><svg class="icon" aria-hidden="true"><use href="#i-target"></use></svg><span>목표</span></a></li>
+          <li class="gnb__item gnb__item--write"><a class="gnb__link" href="record-new.html"><svg class="icon" aria-hidden="true"><use href="#i-pen"></use></svg><span>기록하기</span></a></li>
+        </ul>
+      </nav>
+      <div class="sidebar__user">
+        <span class="avatar" aria-hidden="true" data-me-initial>성</span>
+        <p class="sidebar__user-text">
+          <span class="sidebar__user-name"><span data-me-nickname>성장러</span>님</span>
+          <span class="sidebar__user-mail" data-me-email>grower@growlog.kr</span>
+        </p>
+        <button class="icon-btn" type="button" data-logout aria-label="로그아웃"><svg class="icon" aria-hidden="true"><use href="#i-logout"></use></svg></button>
+      </div>
+    </aside>
+
+    <main class="main" id="main">
+      <div class="main__inner">
+      <div class="demo-bar" role="group" aria-label="퍼블리싱 데모: 화면 상태 전환">
+        <span class="demo-bar__label"><svg class="icon" aria-hidden="true"><use href="#i-eye"></use></svg>화면 상태 미리보기</span>
+        <div class="segmented">
+          <button class="segmented__btn" type="button" data-demo-state="success" aria-pressed="true">기본</button>
+          <button class="segmented__btn" type="button" data-demo-state="loading" aria-pressed="false">로딩</button>
+          <button class="segmented__btn" type="button" data-demo-state="empty" aria-pressed="false">빈 상태</button>
+          <button class="segmented__btn" type="button" data-demo-state="error" aria-pressed="false">오류</button>
+        </div>
+      </div>
+
+        <div class="page-head">
+          <div>
+            <span class="page-head__eyebrow" id="todayLabel">2026년 9월 22일 화요일</span>
+            <h1 class="page-head__title">안녕하세요, <span data-me-nickname>성장러</span>님</h1>
+            <p class="page-head__desc">오늘의 작은 진전도 한 줄로 남겨 볼까요?</p>
+          </div>
+          <div class="page-head__actions">
+            <a class="btn btn--outline" href="goal-new.html"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg>목표 추가</a>
+            <a class="btn btn--primary" href="record-new.html"><svg class="icon" aria-hidden="true"><use href="#i-pen"></use></svg>기록하기</a>
+          </div>
+        </div>
+
+        <div class="view" id="dashboardView" aria-busy="true">
+          <div data-state="loading">
+            <p class="blind">대시보드를 불러오는 중입니다.</p>
+            <div class="skeleton-stats" aria-hidden="true"><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton"></span></div>
+            <div class="skeleton-grid" aria-hidden="true"><span class="skeleton"></span><span class="skeleton"></span></div>
+          </div>
+
+        <div data-state="error" hidden>
+          <div class="state-box state-box--error">
+            <span class="state-box__icon"><svg class="icon" aria-hidden="true"><use href="#i-alert"></use></svg></span>
+            <h2 class="state-box__title">대시보드를 불러오지 못했어요</h2>
+            <p class="state-box__desc">네트워크 상태를 확인한 뒤 다시 시도해 주세요.</p>
+            <button class="btn btn--outline" type="button" data-retry><svg class="icon" aria-hidden="true"><use href="#i-refresh"></use></svg>다시 시도</button>
+          </div>
+        </div>
+
+          <div data-state="empty" hidden>
+            <div class="state-box">
+              <span class="state-box__icon"><svg class="icon" aria-hidden="true"><use href="#i-sprout"></use></svg></span>
+              <h2 class="state-box__title">첫 성장 기록을 시작해 보세요</h2>
+              <p class="state-box__desc">이루고 싶은 목표를 하나 정하고, 오늘 한 일을 짧게 남기면 이곳에 요약이 쌓여요.</p>
+              <div class="state-box__actions">
+                <a class="btn btn--primary" href="goal-new.html"><svg class="icon" aria-hidden="true"><use href="#i-target"></use></svg>첫 목표 세우기</a>
+                <a class="btn btn--outline" href="record-new.html">자유 기록 남기기</a>
+              </div>
+            </div>
+          </div>
+
+          <div data-state="success" hidden>
+            <section aria-labelledby="statsTitle">
+              <h2 class="blind" id="statsTitle">이번 달 요약</h2>
+              <ul class="stats">
+                <li class="card stat">
+                  <span class="stat__icon"><svg class="icon" aria-hidden="true"><use href="#i-target"></use></svg></span>
+                  <span class="stat__label">진행 중 목표</span>
+                  <strong class="stat__value" id="statGoals">0<small>개</small></strong>
+                  <span class="stat__note">완료까지 함께 가요</span>
+                </li>
+                <li class="card stat">
+                  <span class="stat__icon"><svg class="icon" aria-hidden="true"><use href="#i-pen"></use></svg></span>
+                  <span class="stat__label">이번 달 기록</span>
+                  <strong class="stat__value" id="statRecords">0<small>개</small></strong>
+                  <span class="stat__note">9월 1일부터 오늘까지</span>
+                </li>
+                <li class="card stat stat--streak">
+                  <span class="stat__icon"><svg class="icon" aria-hidden="true"><use href="#i-flame"></use></svg></span>
+                  <span class="stat__label">연속 기록</span>
+                  <strong class="stat__value" id="statStreak">0<small>일</small></strong>
+                  <span class="stat__note">내일도 이어가 볼까요?</span>
+                </li>
+              </ul>
+            </section>
+
+            <div class="dash-grid">
+              <section class="card card--pad" aria-labelledby="heatTitle">
+                <div class="card__head">
+                  <h2 class="card__title" id="heatTitle">최근 12주 활동</h2>
+                  <p class="heatmap-summary" id="heatSummary"></p>
+                </div>
+                <div class="heatmap">
+                  <div class="heatmap__days" aria-hidden="true"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div>
+                  <div class="heatmap__scroll">
+                    <div class="heatmap__months" id="heatMonths" aria-hidden="true"></div>
+                    <div class="heatmap__grid" id="heatGrid" role="img"></div>
+                  </div>
+                </div>
+                <div class="heatmap-legend" aria-hidden="true">
+                  <span>적음</span><i style="background:var(--c-heat-0)"></i><i style="background:var(--c-heat-1)"></i><i style="background:var(--c-heat-2)"></i><i style="background:var(--c-heat-3)"></i><span>많음</span>
+                </div>
+              </section>
+
+              <section class="card card--pad" aria-labelledby="goalsTitle">
+                <div class="card__head">
+                  <h2 class="card__title" id="goalsTitle">진행 중인 목표</h2>
+                  <a class="card__more" href="goals.html">전체 보기<svg class="icon" aria-hidden="true"><use href="#i-chevron-right"></use></svg></a>
+                </div>
+                <ul class="mini-goals" id="miniGoals"></ul>
+              </section>
+
+              <section class="card card--pad dash-grid__wide" aria-labelledby="feedTitle">
+                <div class="card__head">
+                  <h2 class="card__title" id="feedTitle">최근 활동</h2>
+                  <a class="card__more" href="timeline.html">타임라인<svg class="icon" aria-hidden="true"><use href="#i-chevron-right"></use></svg></a>
+                </div>
+                <ul class="feed" id="feed"></ul>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/icons.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

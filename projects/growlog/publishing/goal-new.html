@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>새 목표 | GrowLog</title>
+  <meta name="theme-color" content="#fbf7ef">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="../../../common/css/reset.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <div class="app">
+    <header class="topbar">
+      <a class="logo" href="index.html">
+        <span class="logo__mark"><svg class="icon" aria-hidden="true"><use href="#i-sprout"></use></svg></span>
+        <span>GrowLog</span>
+      </a>
+      <div class="topbar__actions">
+        <span class="avatar" aria-hidden="true" data-me-initial>성</span>
+        <button class="icon-btn" type="button" data-logout aria-label="로그아웃"><svg class="icon" aria-hidden="true"><use href="#i-logout"></use></svg></button>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <a class="logo sidebar__brand" href="index.html">
+        <span class="logo__mark"><svg class="icon" aria-hidden="true"><use href="#i-sprout"></use></svg></span>
+        <span>GrowLog</span>
+      </a>
+      <nav class="gnb" aria-label="주요 메뉴">
+        <ul class="gnb__list">
+          <li class="gnb__item"><a class="gnb__link" href="dashboard.html"><svg class="icon" aria-hidden="true"><use href="#i-dashboard"></use></svg><span>대시보드</span></a></li>
+          <li class="gnb__item"><a class="gnb__link" href="timeline.html"><svg class="icon" aria-hidden="true"><use href="#i-timeline"></use></svg><span>타임라인</span></a></li>
+          <li class="gnb__item"><a class="gnb__link" href="goals.html" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-target"></use></svg><span>목표</span></a></li>
+          <li class="gnb__item gnb__item--write"><a class="gnb__link" href="record-new.html"><svg class="icon" aria-hidden="true"><use href="#i-pen"></use></svg><span>기록하기</span></a></li>
+        </ul>
+      </nav>
+      <div class="sidebar__user">
+        <span class="avatar" aria-hidden="true" data-me-initial>성</span>
+        <p class="sidebar__user-text">
+          <span class="sidebar__user-name"><span data-me-nickname>성장러</span>님</span>
+          <span class="sidebar__user-mail" data-me-email>grower@growlog.kr</span>
+        </p>
+        <button class="icon-btn" type="button" data-logout aria-label="로그아웃"><svg class="icon" aria-hidden="true"><use href="#i-logout"></use></svg></button>
+      </div>
+    </aside>
+
+    <main class="main" id="main">
+      <div class="main__inner main__inner--narrow">
+        <a class="back-link" href="goals.html"><svg class="icon" aria-hidden="true"><use href="#i-chevron-left"></use></svg>목표 목록</a>
+        <div class="page-head">
+          <div>
+            <h1 class="page-head__title">새 목표 세우기</h1>
+            <p class="page-head__desc">구체적인 목표일수록 기록으로 이어가기 쉬워요.</p>
+          </div>
+        </div>
+
+        <form class="card form-card" id="goalForm" novalidate>
+          <div class="form-alert" id="goalAlert" role="alert" tabindex="-1" hidden style="margin-bottom:24px">
+            <svg class="icon" aria-hidden="true"><use href="#i-alert"></use></svg>
+            <div><strong>입력 내용을 확인해 주세요.</strong><ul id="goalAlertList"></ul></div>
+          </div>
+
+          <fieldset class="choice-group" id="categoryGroup" aria-describedby="categoryError">
+            <legend class="field__label">분류<span class="req" aria-hidden="true">*</span><span class="blind">(필수)</span></legend>
+            <div class="choice-list" id="categoryList"></div>
+            <p class="field__error" id="categoryError" hidden></p>
+          </fieldset>
+
+          <div class="field" style="margin-top:24px">
+            <label class="field__label" for="goalTitle">목표 이름<span class="req" aria-hidden="true">*</span></label>
+            <input class="input" type="text" id="goalTitle" name="goalTitle" maxlength="50" placeholder="예: 웹 접근성 KWCAG 2.2 정리하기" aria-describedby="goalTitleMsg goalTitleCount" required>
+            <div class="field__meta">
+              <p class="field__help" id="goalTitleMsg">무엇을 이룰지 한 문장으로 적어 주세요.</p>
+              <span class="field__counter" id="goalTitleCount" aria-live="polite">0 / 50</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="goalContent">설명<span class="opt">(선택)</span></label>
+            <textarea class="textarea" id="goalContent" name="goalContent" maxlength="500" placeholder="어떻게 이룰지, 왜 이루고 싶은지 적어 두면 좋아요." aria-describedby="goalContentCount"></textarea>
+            <div class="field__meta"><span class="field__counter" id="goalContentCount">0 / 500</span></div>
+          </div>
+
+          <div class="field-grid field-grid--2" style="margin-top:20px">
+            <div class="field">
+              <label class="field__label" for="startDate">시작일<span class="req" aria-hidden="true">*</span></label>
+              <input class="input" type="date" id="startDate" name="startDate" aria-describedby="startDateMsg" required>
+              <p class="field__error" id="startDateMsg" hidden></p>
+            </div>
+            <div class="field">
+              <label class="field__label" for="endDate">목표일<span class="opt">(선택)</span></label>
+              <input class="input" type="date" id="endDate" name="endDate" aria-describedby="endDateMsg">
+              <p class="field__help" id="endDateMsg">비워 두면 기한 없는 목표가 됩니다.</p>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <a class="btn btn--outline" href="goals.html">취소</a>
+            <button class="btn btn--primary" type="submit"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>목표 저장</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/icons.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/goal-form.js"></script>
+</body>
+</html>

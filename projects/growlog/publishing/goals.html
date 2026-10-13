@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>목표 | GrowLog</title>
+  <meta name="theme-color" content="#fbf7ef">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="../../../common/css/reset.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <div class="app">
+    <header class="topbar">
+      <a class="logo" href="index.html">
+        <span class="logo__mark"><svg class="icon" aria-hidden="true"><use href="#i-sprout"></use></svg></span>
+        <span>GrowLog</span>
+      </a>
+      <div class="topbar__actions">
+        <span class="avatar" aria-hidden="true" data-me-initial>성</span>
+        <button class="icon-btn" type="button" data-logout aria-label="로그아웃"><svg class="icon" aria-hidden="true"><use href="#i-logout"></use></svg></button>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <a class="logo sidebar__brand" href="index.html">
+        <span class="logo__mark"><svg class="icon" aria-hidden="true"><use href="#i-sprout"></use></svg></span>
+        <span>GrowLog</span>
+      </a>
+      <nav class="gnb" aria-label="주요 메뉴">
+        <ul class="gnb__list">
+          <li class="gnb__item"><a class="gnb__link" href="dashboard.html"><svg class="icon" aria-hidden="true"><use href="#i-dashboard"></use></svg><span>대시보드</span></a></li>
+          <li class="gnb__item"><a class="gnb__link" href="timeline.html"><svg class="icon" aria-hidden="true"><use href="#i-timeline"></use></svg><span>타임라인</span></a></li>
+          <li class="gnb__item"><a class="gnb__link" href="goals.html" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-target"></use></svg><span>목표</span></a></li>
+          <li class="gnb__item gnb__item--write"><a class="gnb__link" href="record-new.html"><svg class="icon" aria-hidden="true"><use href="#i-pen"></use></svg><span>기록하기</span></a></li>
+        </ul>
+      </nav>
+      <div class="sidebar__user">
+        <span class="avatar" aria-hidden="true" data-me-initial>성</span>
+        <p class="sidebar__user-text">
+          <span class="sidebar__user-name"><span data-me-nickname>성장러</span>님</span>
+          <span class="sidebar__user-mail" data-me-email>grower@growlog.kr</span>
+        </p>
+        <button class="icon-btn" type="button" data-logout aria-label="로그아웃"><svg class="icon" aria-hidden="true"><use href="#i-logout"></use></svg></button>
+      </div>
+    </aside>
+
+    <main class="main" id="main">
+      <div class="main__inner">
+      <div class="demo-bar" role="group" aria-label="퍼블리싱 데모: 화면 상태 전환">
+        <span class="demo-bar__label"><svg class="icon" aria-hidden="true"><use href="#i-eye"></use></svg>화면 상태 미리보기</span>
+        <div class="segmented">
+          <button class="segmented__btn" type="button" data-demo-state="success" aria-pressed="true">기본</button>
+          <button class="segmented__btn" type="button" data-demo-state="loading" aria-pressed="false">로딩</button>
+          <button class="segmented__btn" type="button" data-demo-state="empty" aria-pressed="false">빈 상태</button>
+          <button class="segmented__btn" type="button" data-demo-state="error" aria-pressed="false">오류</button>
+        </div>
+      </div>
+
+        <div class="page-head">
+          <div>
+            <h1 class="page-head__title">목표</h1>
+            <p class="page-head__desc">진행률과 상태를 직접 갱신하며 목표를 관리하세요.</p>
+          </div>
+          <div class="page-head__actions">
+            <a class="btn btn--primary" href="goal-new.html"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg>목표 추가</a>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <div class="segmented" role="group" aria-label="상태 필터" id="statusFilter">
+            <button class="segmented__btn" type="button" data-status="전체" aria-pressed="true">전체 <span class="segmented__count" data-count="전체">0</span></button>
+            <button class="segmented__btn" type="button" data-status="진행중" aria-pressed="false">진행중 <span class="segmented__count" data-count="진행중">0</span></button>
+            <button class="segmented__btn" type="button" data-status="완료" aria-pressed="false">완료 <span class="segmented__count" data-count="완료">0</span></button>
+            <button class="segmented__btn" type="button" data-status="중단" aria-pressed="false">중단 <span class="segmented__count" data-count="중단">0</span></button>
+          </div>
+          <div class="toolbar__sort">
+            <label class="blind" for="sortSelect">정렬</label>
+            <select class="select" id="sortSelect">
+              <option value="recent">최근 등록순</option>
+              <option value="deadline">마감 임박순</option>
+              <option value="progress">진행률 높은순</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="view" id="goalsView" aria-busy="true">
+          <div data-state="loading">
+            <p class="blind">목표 목록을 불러오는 중입니다.</p>
+            <div class="goal-grid" aria-hidden="true">
+              <span class="skeleton skeleton--block" style="height:250px"></span>
+              <span class="skeleton skeleton--block" style="height:250px"></span>
+              <span class="skeleton skeleton--block" style="height:250px"></span>
+            </div>
+          </div>
+
+        <div data-state="error" hidden>
+          <div class="state-box state-box--error">
+            <span class="state-box__icon"><svg class="icon" aria-hidden="true"><use href="#i-alert"></use></svg></span>
+            <h2 class="state-box__title">목표를 불러오지 못했어요</h2>
+            <p class="state-box__desc">네트워크 상태를 확인한 뒤 다시 시도해 주세요.</p>
+            <button class="btn btn--outline" type="button" data-retry><svg class="icon" aria-hidden="true"><use href="#i-refresh"></use></svg>다시 시도</button>
+          </div>
+        </div>
+
+          <div data-state="empty" hidden>
+            <div class="state-box">
+              <span class="state-box__icon"><svg class="icon" aria-hidden="true"><use href="#i-target"></use></svg></span>
+              <h2 class="state-box__title">등록한 목표가 없어요</h2>
+              <p class="state-box__desc">이루고 싶은 것을 하나 정해 보세요. 기한과 분류를 정하면 진행 상황을 확인하기 쉬워져요.</p>
+              <a class="btn btn--primary" href="goal-new.html"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg>첫 목표 세우기</a>
+            </div>
+          </div>
+
+          <div data-state="success" hidden>
+            <h2 class="blind" id="goalListTitle">목표 목록</h2>
+            <ul class="goal-grid" id="goalGrid" aria-labelledby="goalListTitle"></ul>
+            <div class="state-box" id="filterEmpty" hidden>
+              <span class="state-box__icon"><svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg></span>
+              <p class="state-box__title" id="filterEmptyText">해당 상태의 목표가 없어요</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 진행률 · 상태 수정 -->
+      <dialog class="dialog" id="editDialog" aria-labelledby="editTitle">
+        <form class="dialog__inner" id="editForm" method="dialog">
+          <h2 class="dialog__title" id="editTitle">진행 상황 수정</h2>
+          <p class="dialog__desc" id="editGoalName"></p>
+          <div class="dialog__body">
+            <div class="range-field">
+              <div class="range-field__head">
+                <label class="field__label" for="progressRange">진행률</label>
+                <output id="progressOutput" for="progressRange">0%</output>
+              </div>
+              <input class="range" type="range" id="progressRange" min="0" max="100" step="5" value="0">
+              <div class="range-field__scale" aria-hidden="true"><span>0%</span><span>50%</span><span>100%</span></div>
+            </div>
+            <fieldset class="choice-group" style="margin-top:24px">
+              <legend class="field__label">상태</legend>
+              <div class="choice-list status-choices">
+                <label class="choice"><input type="radio" name="status" value="진행중"><span class="choice__box">진행중</span></label>
+                <label class="choice"><input type="radio" name="status" value="완료"><span class="choice__box">완료</span></label>
+                <label class="choice"><input type="radio" name="status" value="중단"><span class="choice__box">중단</span></label>
+              </div>
+            </fieldset>
+            <p class="field__help" id="editHint" style="margin-top:12px" hidden></p>
+          </div>
+          <div class="dialog__actions">
+            <button class="btn btn--outline" type="button" data-dialog-close>취소</button>
+            <button class="btn btn--primary" type="submit" id="editSave">저장</button>
+          </div>
+        </form>
+      </dialog>
+
+      <!-- 삭제 확인 -->
+      <dialog class="dialog" id="deleteDialog" aria-labelledby="deleteTitle" aria-describedby="deleteDesc">
+        <div class="dialog__inner">
+          <span class="dialog__icon"><svg class="icon" aria-hidden="true"><use href="#i-trash"></use></svg></span>
+          <h2 class="dialog__title" id="deleteTitle">목표를 삭제할까요?</h2>
+          <p class="dialog__desc" id="deleteDesc"></p>
+          <div class="dialog__actions">
+            <button class="btn btn--outline" type="button" data-dialog-close>취소</button>
+            <button class="btn btn--danger" type="button" id="deleteConfirm">삭제</button>
+          </div>
+        </div>
+      </dialog>
+    </main>
+  </div>
+
+  <script src="js/icons.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/goals.js"></script>
+</body>
+</html>

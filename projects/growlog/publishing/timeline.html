@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>타임라인 | GrowLog</title>
+  <meta name="theme-color" content="#fbf7ef">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="../../../common/css/reset.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <div class="app">
+    <header class="topbar">
+      <a class="logo" href="index.html">
+        <span class="logo__mark"><svg class="icon" aria-hidden="true"><use href="#i-sprout"></use></svg></span>
+        <span>GrowLog</span>
+      </a>
+      <div class="topbar__actions">
+        <span class="avatar" aria-hidden="true" data-me-initial>성</span>
+        <button class="icon-btn" type="button" data-logout aria-label="로그아웃"><svg class="icon" aria-hidden="true"><use href="#i-logout"></use></svg></button>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <a class="logo sidebar__brand" href="index.html">
+        <span class="logo__mark"><svg class="icon" aria-hidden="true"><use href="#i-sprout"></use></svg></span>
+        <span>GrowLog</span>
+      </a>
+      <nav class="gnb" aria-label="주요 메뉴">
+        <ul class="gnb__list">
+          <li class="gnb__item"><a class="gnb__link" href="dashboard.html"><svg class="icon" aria-hidden="true"><use href="#i-dashboard"></use></svg><span>대시보드</span></a></li>
+          <li class="gnb__item"><a class="gnb__link" href="timeline.html" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-timeline"></use></svg><span>타임라인</span></a></li>
+          <li class="gnb__item"><a class="gnb__link" href="goals.html"><svg class="icon" aria-hidden="true"><use href="#i-target"></use></svg><span>목표</span></a></li>
+          <li class="gnb__item gnb__item--write"><a class="gnb__link" href="record-new.html"><svg class="icon" aria-hidden="true"><use href="#i-pen"></use></svg><span>기록하기</span></a></li>
+        </ul>
+      </nav>
+      <div class="sidebar__user">
+        <span class="avatar" aria-hidden="true" data-me-initial>성</span>
+        <p class="sidebar__user-text">
+          <span class="sidebar__user-name"><span data-me-nickname>성장러</span>님</span>
+          <span class="sidebar__user-mail" data-me-email>grower@growlog.kr</span>
+        </p>
+        <button class="icon-btn" type="button" data-logout aria-label="로그아웃"><svg class="icon" aria-hidden="true"><use href="#i-logout"></use></svg></button>
+      </div>
+    </aside>
+
+    <main class="main" id="main">
+      <div class="main__inner main__inner--narrow">
+      <div class="demo-bar" role="group" aria-label="퍼블리싱 데모: 화면 상태 전환">
+        <span class="demo-bar__label"><svg class="icon" aria-hidden="true"><use href="#i-eye"></use></svg>화면 상태 미리보기</span>
+        <div class="segmented">
+          <button class="segmented__btn" type="button" data-demo-state="success" aria-pressed="true">기본</button>
+          <button class="segmented__btn" type="button" data-demo-state="loading" aria-pressed="false">로딩</button>
+          <button class="segmented__btn" type="button" data-demo-state="empty" aria-pressed="false">빈 상태</button>
+          <button class="segmented__btn" type="button" data-demo-state="error" aria-pressed="false">오류</button>
+        </div>
+      </div>
+
+        <div class="page-head">
+          <div>
+            <h1 class="page-head__title">타임라인</h1>
+            <p class="page-head__desc">목표와 기록이 시간 순서대로 이어집니다.</p>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <div class="month-nav">
+            <button class="icon-btn" type="button" id="prevMonth" aria-label="이전 달"><svg class="icon" aria-hidden="true"><use href="#i-chevron-left"></use></svg></button>
+            <h2 class="month-nav__title" id="monthTitle" aria-live="polite">2026년 9월</h2>
+            <button class="icon-btn" type="button" id="nextMonth" aria-label="다음 달"><svg class="icon" aria-hidden="true"><use href="#i-chevron-right"></use></svg></button>
+          </div>
+          <div class="segmented" role="group" aria-label="종류 필터">
+            <button class="segmented__btn" type="button" data-filter="ALL" aria-pressed="true">전체</button>
+            <button class="segmented__btn" type="button" data-filter="GOAL" aria-pressed="false">목표</button>
+            <button class="segmented__btn" type="button" data-filter="RECORD" aria-pressed="false">기록</button>
+          </div>
+        </div>
+
+        <div class="view" id="timelineView" aria-busy="true">
+          <div data-state="loading">
+            <p class="blind">타임라인을 불러오는 중입니다.</p>
+            <div aria-hidden="true" style="display:grid;gap:12px">
+              <span class="skeleton skeleton--title" style="width:30%"></span>
+              <span class="skeleton skeleton--block" style="height:92px"></span>
+              <span class="skeleton skeleton--block" style="height:92px"></span>
+              <span class="skeleton skeleton--title" style="width:30%;margin-top:16px"></span>
+              <span class="skeleton skeleton--block" style="height:92px"></span>
+            </div>
+          </div>
+
+        <div data-state="error" hidden>
+          <div class="state-box state-box--error">
+            <span class="state-box__icon"><svg class="icon" aria-hidden="true"><use href="#i-alert"></use></svg></span>
+            <h2 class="state-box__title">타임라인을 불러오지 못했어요</h2>
+            <p class="state-box__desc">네트워크 상태를 확인한 뒤 다시 시도해 주세요.</p>
+            <button class="btn btn--outline" type="button" data-retry><svg class="icon" aria-hidden="true"><use href="#i-refresh"></use></svg>다시 시도</button>
+          </div>
+        </div>
+
+          <div data-state="empty" hidden>
+            <div class="state-box">
+              <span class="state-box__icon"><svg class="icon" aria-hidden="true"><use href="#i-inbox"></use></svg></span>
+              <h2 class="state-box__title">아직 타임라인이 비어 있어요</h2>
+              <p class="state-box__desc">목표를 세우거나 기록을 남기면 날짜별로 이곳에 쌓입니다.</p>
+              <a class="btn btn--primary" href="record-new.html"><svg class="icon" aria-hidden="true"><use href="#i-pen"></use></svg>첫 기록 남기기</a>
+            </div>
+          </div>
+
+          <div data-state="success" hidden>
+            <ul class="month-summary" id="monthSummary" aria-label="이 달 요약"></ul>
+            <div id="timelineList"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/icons.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/timeline.js"></script>
+</body>
+</html>

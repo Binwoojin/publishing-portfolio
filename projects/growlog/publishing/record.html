@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>기록 상세 | GrowLog</title>
+  <meta name="theme-color" content="#fbf7ef">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="../../../common/css/reset.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <div class="app">
+    <header class="topbar">
+      <a class="logo" href="index.html">
+        <span class="logo__mark"><svg class="icon" aria-hidden="true"><use href="#i-sprout"></use></svg></span>
+        <span>GrowLog</span>
+      </a>
+      <div class="topbar__actions">
+        <span class="avatar" aria-hidden="true" data-me-initial>성</span>
+        <button class="icon-btn" type="button" data-logout aria-label="로그아웃"><svg class="icon" aria-hidden="true"><use href="#i-logout"></use></svg></button>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <a class="logo sidebar__brand" href="index.html">
+        <span class="logo__mark"><svg class="icon" aria-hidden="true"><use href="#i-sprout"></use></svg></span>
+        <span>GrowLog</span>
+      </a>
+      <nav class="gnb" aria-label="주요 메뉴">
+        <ul class="gnb__list">
+          <li class="gnb__item"><a class="gnb__link" href="dashboard.html"><svg class="icon" aria-hidden="true"><use href="#i-dashboard"></use></svg><span>대시보드</span></a></li>
+          <li class="gnb__item"><a class="gnb__link" href="timeline.html" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-timeline"></use></svg><span>타임라인</span></a></li>
+          <li class="gnb__item"><a class="gnb__link" href="goals.html"><svg class="icon" aria-hidden="true"><use href="#i-target"></use></svg><span>목표</span></a></li>
+          <li class="gnb__item gnb__item--write"><a class="gnb__link" href="record-new.html"><svg class="icon" aria-hidden="true"><use href="#i-pen"></use></svg><span>기록하기</span></a></li>
+        </ul>
+      </nav>
+      <div class="sidebar__user">
+        <span class="avatar" aria-hidden="true" data-me-initial>성</span>
+        <p class="sidebar__user-text">
+          <span class="sidebar__user-name"><span data-me-nickname>성장러</span>님</span>
+          <span class="sidebar__user-mail" data-me-email>grower@growlog.kr</span>
+        </p>
+        <button class="icon-btn" type="button" data-logout aria-label="로그아웃"><svg class="icon" aria-hidden="true"><use href="#i-logout"></use></svg></button>
+      </div>
+    </aside>
+
+    <main class="main" id="main">
+      <div class="main__inner main__inner--narrow">
+        <a class="back-link" href="timeline.html"><svg class="icon" aria-hidden="true"><use href="#i-chevron-left"></use></svg>타임라인</a>
+      <div class="demo-bar" role="group" aria-label="퍼블리싱 데모: 화면 상태 전환">
+        <span class="demo-bar__label"><svg class="icon" aria-hidden="true"><use href="#i-eye"></use></svg>화면 상태 미리보기</span>
+        <div class="segmented">
+          <button class="segmented__btn" type="button" data-demo-state="success" aria-pressed="true">기본</button>
+          <button class="segmented__btn" type="button" data-demo-state="loading" aria-pressed="false">로딩</button>
+          <button class="segmented__btn" type="button" data-demo-state="empty" aria-pressed="false">없는 기록</button>
+          <button class="segmented__btn" type="button" data-demo-state="error" aria-pressed="false">오류</button>
+        </div>
+      </div>
+
+        <div class="view" id="recordView" aria-busy="true">
+          <div data-state="loading">
+            <p class="blind">기록을 불러오는 중입니다.</p>
+            <div class="card record" aria-hidden="true" style="display:grid;gap:14px">
+              <span class="skeleton skeleton--text" style="width:120px"></span>
+              <span class="skeleton skeleton--title"></span>
+              <span class="skeleton skeleton--text" style="width:40%"></span>
+              <span class="skeleton skeleton--block" style="margin-top:16px"></span>
+              <span class="skeleton skeleton--block" style="height:80px"></span>
+            </div>
+          </div>
+
+        <div data-state="error" hidden>
+          <div class="state-box state-box--error">
+            <span class="state-box__icon"><svg class="icon" aria-hidden="true"><use href="#i-alert"></use></svg></span>
+            <h2 class="state-box__title">기록을 불러오지 못했어요</h2>
+            <p class="state-box__desc">네트워크 상태를 확인한 뒤 다시 시도해 주세요.</p>
+            <button class="btn btn--outline" type="button" data-retry><svg class="icon" aria-hidden="true"><use href="#i-refresh"></use></svg>다시 시도</button>
+          </div>
+        </div>
+
+          <div data-state="empty" hidden>
+            <div class="state-box">
+              <span class="state-box__icon"><svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg></span>
+              <h1 class="state-box__title">기록을 찾을 수 없어요</h1>
+              <p class="state-box__desc">삭제되었거나 주소가 잘못된 기록입니다.</p>
+              <a class="btn btn--outline" href="timeline.html"><svg class="icon" aria-hidden="true"><use href="#i-arrow-left"></use></svg>타임라인으로 돌아가기</a>
+            </div>
+          </div>
+
+          <div data-state="success" hidden>
+            <article class="card record" id="recordArticle" aria-labelledby="recordTitle"></article>
+            <nav class="pager" id="pager" aria-label="이전 · 다음 기록"></nav>
+          </div>
+        </div>
+      </div>
+
+      <dialog class="dialog" id="deleteDialog" aria-labelledby="deleteTitle" aria-describedby="deleteDesc">
+        <div class="dialog__inner">
+          <span class="dialog__icon"><svg class="icon" aria-hidden="true"><use href="#i-trash"></use></svg></span>
+          <h2 class="dialog__title" id="deleteTitle">기록을 삭제할까요?</h2>
+          <p class="dialog__desc" id="deleteDesc">삭제한 기록과 첨부 파일은 되돌릴 수 없어요.</p>
+          <div class="dialog__actions">
+            <button class="btn btn--outline" type="button" data-dialog-close>취소</button>
+            <button class="btn btn--danger" type="button" id="deleteConfirm">삭제</button>
+          </div>
+        </div>
+      </dialog>
+    </main>
+  </div>
+
+  <script src="js/icons.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/record.js"></script>
+</body>
+</html>
