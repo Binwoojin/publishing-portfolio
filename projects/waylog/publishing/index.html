@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#f4f7fb">
   <link rel="icon" href="images/favicon.png" type="image/png" sizes="64x64">
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-  <script>try{if(JSON.parse(localStorage.getItem('waylog:auth'))===true)document.documentElement.className='is-member';}catch(e){}</script>
+  <script>document.documentElement.classList.add('js');try{if(JSON.parse(localStorage.getItem('waylog:auth'))===true)document.documentElement.classList.add('is-member');}catch(e){}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- 웹폰트 CSS 가 첫 화면 표시를 막지 않도록 비동기로 불러온다 -->
@@ -85,9 +85,31 @@
       <div class="hero__media">
         <img src="images/hero-main.webp" srcset="images/hero-main-400.webp 400w, images/hero-main.webp 800w, images/hero-main@2x.webp 1600w" sizes="100vw" alt="" width="1600" height="900" fetchpriority="high">
       </div>
+      <!-- 장식: 전국을 잇는 여행 경로 · 핀 · 이동 중인 여행자 -->
+      <svg class="hero__route" viewBox="0 0 640 520" aria-hidden="true" focusable="false">
+        <defs>
+          <mask id="routeReveal" maskUnits="userSpaceOnUse" x="0" y="0" width="640" height="520">
+            <path class="hero__route-mask" d="M99 457 C 160 420 220 360 280 337 C 360 305 440 330 514 298 C 590 265 560 140 481 63 C 400 0 260 30 168 79" pathLength="1"/>
+          </mask>
+        </defs>
+        <path class="hero__route-glow" d="M99 457 C 160 420 220 360 280 337 C 360 305 440 330 514 298 C 590 265 560 140 481 63 C 400 0 260 30 168 79" mask="url(#routeReveal)"/>
+        <path class="hero__route-line" id="heroRoutePath" d="M99 457 C 160 420 220 360 280 337 C 360 305 440 330 514 298 C 590 265 560 140 481 63 C 400 0 260 30 168 79" mask="url(#routeReveal)"/>
+        <g class="route-pin" transform="translate(99 457)"><ellipse class="route-pin__shadow" rx="9" ry="3"/><g class="route-pin__body"><path d="M0 0C-2-6-10-11-10-19A10 10 0 1 1 10-19C10-11 2-6 0 0Z"/><circle cy="-19" r="4"/></g><text class="route-pin__label" x="16" y="-16">제주</text></g>
+        <g class="route-pin" transform="translate(280 337)"><ellipse class="route-pin__shadow" rx="9" ry="3"/><g class="route-pin__body"><path d="M0 0C-2-6-10-11-10-19A10 10 0 1 1 10-19C10-11 2-6 0 0Z"/><circle cy="-19" r="4"/></g><text class="route-pin__label" x="16" y="-16">여수</text></g>
+        <g class="route-pin" transform="translate(514 298)"><ellipse class="route-pin__shadow" rx="9" ry="3"/><g class="route-pin__body"><path d="M0 0C-2-6-10-11-10-19A10 10 0 1 1 10-19C10-11 2-6 0 0Z"/><circle cy="-19" r="4"/></g><text class="route-pin__label" x="-16" y="-16" text-anchor="end">부산</text></g>
+        <g class="route-pin" transform="translate(481 63)"><ellipse class="route-pin__shadow" rx="9" ry="3"/><g class="route-pin__body"><path d="M0 0C-2-6-10-11-10-19A10 10 0 1 1 10-19C10-11 2-6 0 0Z"/><circle cy="-19" r="4"/></g><text class="route-pin__label" x="16" y="-16">강릉</text></g>
+        <g class="route-pin route-pin--end" transform="translate(168 79)"><ellipse class="route-pin__shadow" rx="9" ry="3"/><g class="route-pin__body"><path d="M0 0C-2-6-10-11-10-19A10 10 0 1 1 10-19C10-11 2-6 0 0Z"/><circle cy="-19" r="4"/></g><text class="route-pin__label" x="16" y="-16">서울</text></g>
+        <g class="route-traveler" id="routeTraveler"><circle class="route-traveler__ring" r="14"/><circle r="6"/></g>
+      </svg>
+      <!-- 장식: 지금 지나는 구간 표시 -->
+      <div class="hero__hud" aria-hidden="true">
+        <span class="hero__hud-label mono">NOW TRAVELING · <span id="hudLeg">1/5</span></span>
+        <strong class="hero__hud-name" id="hudName">제주</strong>
+        <span class="hero__hud-next" id="hudNext">다음 · 여수</span>
+      </div>
       <div class="container hero__inner">
-        <p class="hero__eyebrow"><span class="mono">33°N – 38°N</span> 국내 여행 기록 서비스</p>
-        <h1 class="hero__title" id="heroTitle">당신의 여행이<br>모두의 여행이 되다</h1>
+        <p class="hero__eyebrow">국내 여행 기록 서비스</p>
+        <h1 class="hero__title" id="heroTitle"><span class="hero__line"><span>당신의 여행이</span></span> <span class="hero__line"><span><span class="hero__mark">모두의 여행</span>이 되다</span></span></h1>
         <p class="hero__desc">여행지를 찾고, 코스를 따라 떠나고, 다녀온 이야기를 피드로 나눠 보세요.</p>
 
         <form class="search-panel" id="heroSearch" action="destinations.html" role="search" aria-label="여행지 찾기">
