@@ -44,7 +44,6 @@ window.WL = (function () {
     return d.getFullYear() + '.' + pad(d.getMonth() + 1) + '.' + pad(d.getDate());
   }
   function daysFromToday(v) { return Math.round((toDate(v) - toDate(D.today)) / 86400000); }
-  function coord(lat, lng) { return lat.toFixed(4) + '°N ' + lng.toFixed(4) + '°E'; }
   function param(name) { return new URLSearchParams(location.search).get(name); }
   function icon(name, cls) { return '<svg class="icon' + (cls ? ' ' + cls : '') + '" aria-hidden="true"><use href="#i-' + name + '"></use></svg>'; }
 
@@ -260,7 +259,7 @@ window.WL = (function () {
       '<div class="place-card__media">' + img(p.image, '', { sizes: '(min-width: 1200px) 290px, (min-width: 560px) 45vw, calc(100vw - 32px)' }) +
       '<span class="place-card__badge chip chip--photo">' + esc(D.types[p.type]) + '</span>' + saveFab('place', p.id, p.name) + '</div>' +
       '<div><h3 class="place-card__title"><a href="place.html?id=' + p.id + '">' + esc(p.name) + '</a></h3>' +
-      '<p class="place-card__meta"><span>' + icon('pin') + esc(r.name) + '</span><span class="mono">' + coord(p.lat, p.lng) + '</span></p></div>' +
+      '<p class="place-card__meta"><span>' + icon('pin') + esc(r.name) + '</span></p></div>' +
       ((opts && opts.desc) ? '<p class="place-card__desc">' + esc(p.desc) + '</p>' : '') +
       '</article>';
   }
@@ -406,7 +405,7 @@ window.WL = (function () {
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 
   return {
-    data: D, find: find, esc: esc, formatDate: formatDate, daysFromToday: daysFromToday, coord: coord, param: param, icon: icon, img: img, thumb: thumb,
+    data: D, find: find, esc: esc, formatDate: formatDate, daysFromToday: daysFromToday, param: param, icon: icon, img: img, thumb: thumb,
     store: store, auth: auth, isSaved: isSaved, savedList: savedList, allPosts: allPosts, commentsOf: commentsOf,
     toast: toast, flash: flash, announce: announce, openDialog: openDialog, bindDialog: bindDialog, requireLogin: requireLogin,
     syncToggles: syncToggles, placeCard: placeCard, enjoyCard: enjoyCard, courseCard: courseCard, postCard: postCard, avatar: avatar,

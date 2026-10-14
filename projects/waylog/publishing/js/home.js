@@ -8,7 +8,6 @@
   document.getElementById('regionRail').innerHTML = D.regions.map(function (r) {
     var count = D.places.filter(function (p) { return p.region === r.id; }).length;
     return '<li><a class="region-tile" href="destinations.html?region=' + r.id + '">' + WL.img(r.image, '', { sizes: '(min-width: 1200px) 290px, 220px' }) +
-      '<span class="region-tile__coord">' + r.lat.toFixed(2) + '°N ' + r.lng.toFixed(2) + '°E</span>' +
       '<span class="region-tile__en">' + r.en + '</span>' +
       '<span class="region-tile__name">' + WL.esc(r.name) + '</span>' +
       '<span class="region-tile__desc">' + WL.esc(r.desc) + ' · 여행지 ' + count + '곳</span></a></li>';
@@ -107,8 +106,8 @@
 
   if (reduce) return;
 
-  /* 좌표 · 영문 글자를 잠깐 뒤섞었다가 원래 글자로 맞춘다 */
-  var GLYPHS = '0123456789°NE·ABCDEFGHJKLMNOPRSTUVWXYZ';
+  /* 영문 머리글을 잠깐 뒤섞었다가 원래 글자로 맞춘다 */
+  var GLYPHS = 'ABCDEFGHJKLMNOPRSTUVWXYZ0123456789·';
   function scramble(el, duration) {
     var text = el.getAttribute('data-text') || el.textContent;
     el.setAttribute('data-text', text);
@@ -127,7 +126,6 @@
 
   /* 1) 히어로 ------------------------------------------------------------ */
   var hero = document.querySelector('.hero');
-  document.querySelectorAll('[data-scramble]').forEach(function (el) { scramble(el, 1100); });
 
   /* 검색어 예시를 한 글자씩 바꿔 쓴다 (입력을 시작하면 멈춤) */
   var keyword = document.getElementById('heroKeyword');
@@ -154,13 +152,13 @@
   keyword.addEventListener('input', stopTyping);
   setTimeout(typeExample, 1600);
 
-  /* 여행자 점이 경로를 따라 계속 돈다 — 지나는 핀을 튕기고 HUD 이름 · 좌표를 바꾼다 */
+  /* 여행자 점이 경로를 따라 계속 돈다 — 지나는 핀을 튕기고 HUD 에 지금 · 다음 지점을 표시한다 */
   var path = document.getElementById('heroRoutePath');
   var traveler = document.getElementById('routeTraveler');
   var pins = Array.prototype.slice.call(document.querySelectorAll('.route-pin'));
   var hud = document.querySelector('.hero__hud');
   var hudName = document.getElementById('hudName');
-  var hudCoord = document.getElementById('hudCoord');
+  var hudNext = document.getElementById('hudNext');
   var hudLeg = document.getElementById('hudLeg');
   var heroVisible = true;
   /* 경로는 넓은 화면에서만 보이므로, 그때만 첫 화면을 다 그린 뒤 계산 · 재생한다 */
@@ -183,7 +181,7 @@
       var x = Number(m[1]), y = Number(m[2]);
       var rough = nearest(x, y, 0, total, 24);
       var label = pin.querySelector('text');
-      return { at: nearest(x, y, rough - 24, rough + 24, 2), pin: pin, name: label.firstChild.textContent, coord: label.querySelector('tspan').textContent };
+      return { at: nearest(x, y, rough - 24, rough + 24, 2), pin: pin, name: label.textContent };
     });
     var LOOP = 11000;
     var startAt = null, lastStop = -1, elapsed = 0, prevNow = null;
@@ -191,10 +189,8 @@
       var s = stops[i];
       s.pin.classList.remove('is-hit'); void s.pin.getBoundingClientRect(); s.pin.classList.add('is-hit');
       hudName.textContent = s.name;
-      hudCoord.textContent = s.coord;
-      hudCoord.removeAttribute('data-text');
+      hudNext.textContent = i < stops.length - 1 ? '다음 · ' + stops[i + 1].name : '도착 · 다시 출발';
       hudLeg.textContent = (i + 1) + '/' + stops.length;
-      scramble(hudCoord, 600);
       hud.classList.remove('is-tick'); void hud.offsetWidth; hud.classList.add('is-tick');
     }
     function move(now) {
@@ -232,7 +228,7 @@
       var el = entry.target;
       el.classList.add('is-in');
       io.unobserve(el);
-      el.querySelectorAll('.section-head__eyebrow, .region-tile__coord, .region-tile__en').forEach(function (s, i) {
+      el.querySelectorAll('.section-head__eyebrow, .region-tile__en').forEach(function (s, i) {
         setTimeout(function () { scramble(s, 900); }, i * 60);
       });
       if (el.classList.contains('news-list') && !flipped) { flipped = true; flipDates(el); }

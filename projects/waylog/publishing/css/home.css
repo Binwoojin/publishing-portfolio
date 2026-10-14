@@ -25,7 +25,6 @@
 @keyframes hero-zoom { from { transform: scale(1.06); } }
 
 .hero__eyebrow { display: inline-flex; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-4); font-size: var(--fs-sm); font-weight: 600; text-shadow: 0 1px 8px rgb(0 0 0 / 0.4); }
-.hero__eyebrow .mono { padding: 2px 8px; border: 1px solid rgb(255 255 255 / 0.5); border-radius: var(--radius-pill); }
 .hero__title {
   font-family: var(--font-display);
   font-size: var(--fs-display);
@@ -113,7 +112,6 @@
 .region-tile__en { font-family: var(--font-mono); font-size: var(--fs-xs); letter-spacing: 0.08em; opacity: 0.85; }
 .region-tile__name { font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: 700; line-height: 1.2; }
 .region-tile__desc { font-size: var(--fs-sm); opacity: 0.9; }
-.region-tile__coord { position: absolute; top: var(--sp-3); left: var(--sp-4); padding: 2px 8px; border-radius: var(--radius-pill); background: rgb(var(--c-shade) / 0.45); font-family: var(--font-mono); font-size: 11px; }
 
 /* ---------- 즐길거리 탭 ---------- */
 .tab-panel { padding-top: var(--sp-6); }
@@ -224,7 +222,6 @@
   stroke-width: 4px;
   stroke-linejoin: round;
 }
-.route-pin__label tspan { font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; }
 .route-traveler { opacity: 0; }
 .route-traveler circle { fill: #ffffff; }
 .route-traveler .route-traveler__ring { fill: var(--c-accent); opacity: 0.4; transform-box: fill-box; transform-origin: center; }
@@ -249,7 +246,7 @@
 @media (min-width: 1200px) { .hero__hud { display: grid; gap: 2px; } }
 .hero__hud-label { font-size: 10px; letter-spacing: 0.08em; opacity: 0.85; }
 .hero__hud-name { font-family: var(--font-display); font-size: var(--fs-xl); line-height: 1.2; }
-.hero__hud-coord { font-size: var(--fs-xs); }
+.hero__hud-next { font-size: var(--fs-xs); opacity: 0.9; }
 .hero__hud.is-tick .hero__hud-name { animation: hud-tick 500ms var(--ease-out); }
 
 /* 제목 줄 · 점선 밑줄 */
@@ -336,10 +333,10 @@
   /* 지역: 사진이 아래에서 위로 현상되듯 열린다 */
   .js .region-rail li .region-tile { clip-path: inset(100% 0 0 0 round var(--radius-lg)); transition: clip-path 1000ms var(--ease-out); transition-delay: calc(var(--i, 0) * 90ms); }
   .js .region-rail li .region-tile img { scale: 1.35; transition: scale 1600ms var(--ease-out), transform 600ms var(--ease-out); transition-delay: calc(var(--i, 0) * 90ms); }
-  .js .region-rail li .region-tile > span:not(.region-tile__coord) { opacity: 0; transform: translateY(14px); transition: opacity 600ms ease, transform 600ms var(--ease-out); transition-delay: calc(var(--i, 0) * 90ms + 450ms); }
+  .js .region-rail li .region-tile > span { opacity: 0; transform: translateY(14px); transition: opacity 600ms ease, transform 600ms var(--ease-out); transition-delay: calc(var(--i, 0) * 90ms + 450ms); }
   .js .region-rail.is-in .region-tile { clip-path: inset(0 round var(--radius-lg)); }
   .js .region-rail.is-in .region-tile img { scale: 1; }
-  .js .region-rail.is-in li .region-tile > span:not(.region-tile__coord) { opacity: 1; transform: none; }
+  .js .region-rail.is-in li .region-tile > span { opacity: 1; transform: none; }
 
   /* 코스: 탑승권이 인쇄되듯 위에서 내려오고, 경유지가 점선으로 이어진다 */
   .js .course-grid .course-card { clip-path: inset(0 0 100% 0); translate: 0 -28px; transition: clip-path 900ms var(--ease-out), translate 900ms var(--ease-out), box-shadow var(--dur-base), transform var(--dur-base); transition-delay: calc(var(--i, 0) * 170ms); }
