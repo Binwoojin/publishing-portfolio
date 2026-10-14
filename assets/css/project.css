@@ -68,12 +68,15 @@
 .case-hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: var(--space-4); }
 .case-hero__actions .btn .icon { order: 0; }
 .case-hero__cover { margin-top: var(--space-6); }
-.case-hero__cover img {
+.case-hero__cover img,
+.case-hero__video {
   width: 100%;
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   box-shadow: 0 30px 60px -30px rgba(9, 9, 11, .25);
 }
+/* 영상은 불러오기 전에도 자리를 잡아 두어 아래 내용이 밀리지 않게 한다 */
+.case-hero__video { display: block; height: auto; aspect-ratio: 1280 / 800; object-fit: cover; background: var(--color-border); }
 
 /* ===== 본문 레이아웃: 왼쪽 목차 + 오른쪽 내용 ===== */
 .case__body {

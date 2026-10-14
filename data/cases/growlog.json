@@ -3,6 +3,8 @@
   "subtitle": "원본 구조를 살린 UI 리디자인",
   "summary": "개인 성장 아카이브 GrowLog의 원본 화면 구조와 기능은 그대로 유지하고, 디자인을 새로 재구성했습니다. 새 디자인 시스템으로 9개 화면을 HTML · CSS · JavaScript로 퍼블리싱했습니다.",
   "cover": "assets/images/cases/growlog/landing-after.webp",
+  "coverVideo": "assets/videos/cases/growlog-landing.mp4",
+  "coverPoster": "assets/images/cases/growlog/cover-poster.webp",
   "period": "2026.08",
   "contribution": "디자인 · 퍼블리싱 100%",
   "tools": [

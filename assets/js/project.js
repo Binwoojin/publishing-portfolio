@@ -278,10 +278,31 @@
     },
   };
 
+  /* 대표 미디어: coverVideo(.mp4, 같은 이름의 .webm 도 함께 둔다) 가 있으면 자동 재생 · 반복 · 음소거 영상(포스터 = coverPoster 또는 cover), 없으면 대표 이미지.
+     모션 줄이기 설정이면 자동 재생하지 않고 포스터와 재생 버튼(controls)만 보여 준다. */
+  const coverMedia = (d) => {
+    const cover = safeUrl(d.cover);
+    const video = safeUrl(d.coverVideo);
+    /* 같은 이름의 .webm 이 있으면 먼저 쓰고(VP9), 지원하지 않는 브라우저는 .mp4(H.264)로 */
+    const webm = video && /\.mp4$/i.test(video) ? video.replace(/\.mp4$/i, '.webm') : '';
+    const poster = safeUrl(d.coverPoster) || cover;
+    const label = `${d.title || ''} 리디자인 화면`;
+    if (video) {
+      return `<figure class="inner case-hero__cover case-hero__cover--video">
+          <video class="case-hero__video"${poster ? ` poster="${escape(poster)}"` : ''} width="1280" height="800"
+            muted loop playsinline preload="${reduceMotion ? 'none' : 'auto'}"${reduceMotion ? ' controls' : ' autoplay'}
+            aria-label="${escape(label)} 동작 미리보기 (소리 없음)">
+            ${webm ? `<source src="${escape(webm)}" type="video/webm">` : ''}
+            <source src="${escape(video)}" type="video/mp4">
+          </video>
+        </figure>`;
+    }
+    return cover ? `<figure class="inner case-hero__cover"><img src="${escape(cover)}" alt="${escape(label)}" fetchpriority="high"></figure>` : '';
+  };
+
   const heroHtml = (d) => {
     const demo = safeUrl(d.demo);
     const code = safeUrl(d.code);
-    const cover = safeUrl(d.cover);
     const tools = list(d.tools);
     return `
       <header class="case-hero">
@@ -299,7 +320,7 @@
             ${code ? `<a class="btn btn--line" href="${escape(code)}"${linkAttrs(code)}>${icon('i-code')}코드 보기${newWin(code)}</a>` : ''}
           </div>
         </div>
-        ${cover ? `<figure class="inner case-hero__cover"><img src="${escape(cover)}" alt="${escape(d.title || '')} 리디자인 화면" fetchpriority="high"></figure>` : ''}
+        ${coverMedia(d)}
       </header>`;
   };
 
@@ -384,6 +405,18 @@
         box.addEventListener('mouseleave', () => highlight(pinned));
       });
     });
+  };
+
+  /* ===== 대표 영상: 화면에 보일 때만 재생 ===== */
+  const setupCoverVideo = () => {
+    const video = root.querySelector('.case-hero__video');
+    if (!video || reduceMotion) return;
+    video.muted = true; // innerHTML 로 넣은 muted 속성만으로는 자동 재생이 막히는 브라우저가 있어 직접 지정
+    const play = () => { const p = video.play(); if (p && p.catch) p.catch(() => {}); };
+    if (!('IntersectionObserver' in window)) { play(); return; }
+    new IntersectionObserver((entries) => {
+      entries.forEach((entry) => { if (entry.isIntersecting) play(); else video.pause(); });
+    }, { threshold: 0.15 }).observe(video);
   };
 
   /* ===== 목차 + 현재 구성 표시 ===== */
@@ -483,6 +516,7 @@
     setupStructure();
     setupToc();
     setupReveal();
+    setupCoverVideo();
     onScroll();
 
     // 주소에 #before-after 처럼 위치가 있으면 그리기 후 이동

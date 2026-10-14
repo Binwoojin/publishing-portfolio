@@ -3,6 +3,8 @@
   "subtitle": "사용자 경험 및 화면 개선",
   "summary": "국내 여행지를 찾고, 코스를 따라 떠나고, 다녀온 이야기를 피드로 나누는 여행 기록 서비스 WayLog를 새 디자인 시스템으로 리디자인하고, 10개 화면을 HTML · CSS · JavaScript로 퍼블리싱했습니다.",
   "cover": "assets/images/cases/waylog/resp-1440.webp",
+  "coverVideo": "assets/videos/cases/waylog-landing.mp4",
+  "coverPoster": "assets/images/cases/waylog/cover-poster.webp",
   "period": "2026.09",
   "contribution": "디자인 · 퍼블리싱 100%",
   "tools": [
