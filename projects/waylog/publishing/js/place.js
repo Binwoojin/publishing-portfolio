@@ -30,11 +30,11 @@
       '<li><a href="destinations.html?region=' + r.id + '">' + WL.esc(r.name) + '</a></li><li><span aria-current="page">' + WL.esc(place.name) + '</span></li></ol></nav>' +
       '<header class="detail-head"><div class="detail-head__chips"><span class="chip chip--primary">' + D.types[place.type] + '</span><span class="chip">' + WL.esc(r.name) + '</span></div>' +
       '<div class="detail-head__row"><div><h1 class="detail-head__title">' + WL.esc(place.name) + '</h1>' +
-      '<p class="detail-head__sub"><span>' + WL.icon('pin') + WL.esc(place.address) + '</span><span class="mono">' + WL.coord(place.lat, place.lng) + '</span></p></div>' +
+      '<p class="detail-head__sub"><span>' + WL.icon('pin') + WL.esc(place.address) + '</span></p></div>' +
       '<div class="detail-actions"><button class="toggle toggle--save" type="button" data-save="place:' + place.id + '" aria-pressed="false">' + WL.icon('bookmark') + '<span data-save-label>저장</span></button>' +
       '<button class="toggle" type="button" id="shareBtn">' + WL.icon('share') + '공유</button></div></div></header>' +
       '<figure class="detail-photo">' + WL.img(place.image, place.name + ' 풍경', { eager: true, sizes: '(min-width: 1024px) 840px, 100vw' }) +
-      '<figcaption class="detail-photo__coord">' + WL.coord(place.lat, place.lng) + '</figcaption></figure>' +
+      '</figure>' +
       '<div class="detail-body"><div>' +
         '<section class="detail-section" aria-labelledby="introTitle"><h2 class="detail-section__title" id="introTitle">소개</h2>' +
         '<p class="detail-lead">' + WL.esc(place.desc) + '</p>' +
