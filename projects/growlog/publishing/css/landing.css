@@ -221,29 +221,6 @@
 }
 .mock-card--note p { min-height: 3.2em; }
 
-/* 히어로 움직임 멈춤 버튼 */
-.motion-toggle {
-  position: absolute;
-  right: var(--gutter);
-  bottom: var(--sp-4);
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-2);
-  min-height: 36px;
-  padding: 0 var(--sp-3);
-  border: 1px solid var(--c-line-strong);
-  border-radius: var(--radius-pill);
-  background: color-mix(in srgb, var(--c-surface) 85%, transparent);
-  color: var(--c-ink-2);
-  font-size: var(--fs-xs);
-  font-weight: 600;
-}
-.motion-toggle:hover { color: var(--c-ink); border-color: var(--c-ink-3); }
-.motion-toggle .icon { width: 14px; height: 14px; }
-.motion-toggle .icon--play { display: none; fill: currentColor; }
-.motion-toggle[aria-pressed="true"] .icon--pause { display: none; }
-.motion-toggle[aria-pressed="true"] .icon--play { display: block; }
-
 /* ==========================================================================
    히어로 모션 — "기록이 쌓여 성장이 된다"
    1) 제목이 한 줄씩 올라오고 형광펜이 그어진다
@@ -251,6 +228,7 @@
    3) 카드가 튀어오르듯 놓이고, 히트맵 칸이 오래된 날부터 차례로 채워진다
    4) 숫자 · 진행률이 0부터 올라가고, 이후 '오늘의 기록'이 계속 새로 쓰인다
    모션을 줄이도록 설정한 사용자에게는 처음부터 완성된 화면을 보여준다.
+   (반복 모션은 히어로가 화면 밖이거나 탭이 숨겨지면 멈춘다)
    ========================================================================== */
 @media (prefers-reduced-motion: no-preference) {
   .js .hero__line > span { transform: translateY(105%); animation: line-up 900ms var(--ease-out) forwards; }
@@ -296,10 +274,8 @@
   .js .hero .mock-card__saved.is-on { animation: saved 1800ms var(--ease-out); }
   .js .hero [data-typing].is-typing::after { animation: caret 900ms steps(1) infinite; }
 
-  /* 멈춤 버튼 · 화면 밖에서는 반복 모션을 멈춘다 */
-  .hero.is-paused *, .hero.is-paused *::after,
+  /* 화면 밖에서는 반복 모션을 멈춘다 */
   .hero.is-offscreen *, .hero.is-offscreen *::after { animation-play-state: paused !important; }
-  .hero.is-paused .mock-card { translate: none; }
 }
 
 .mock-card__flame { position: relative; }
@@ -582,32 +558,12 @@
 .journey__title::before { content: '0' counter(step) ' '; color: var(--c-ink-3); font-size: var(--fs-sm); font-weight: 600; }
 .journey__desc { color: var(--c-ink-2); font-size: var(--fs-sm); }
 
-/* 단계 사이 연결선 */
-.journey::before {
-  content: '';
-  position: absolute;
-  top: 28px;
-  bottom: 28px;
-  left: 27px;
-  width: 2px;
-  background: repeating-linear-gradient(to bottom, var(--c-line-strong) 0 6px, transparent 6px 12px);
-}
-
 @media (min-width: 1024px) {
   .journey { grid-template-columns: repeat(4, 1fr); gap: var(--sp-6); }
   .journey__step { grid-template-columns: 1fr; row-gap: var(--sp-2); justify-items: center; text-align: center; }
   .journey__icon { grid-row: auto; width: 72px; height: 72px; margin-bottom: var(--sp-3); }
   .journey__icon .icon { width: 30px; height: 30px; }
   .journey__title::before { display: block; }
-  .journey::before {
-    top: 36px;
-    bottom: auto;
-    left: 12.5%;
-    right: 12.5%;
-    width: auto;
-    height: 2px;
-    background: repeating-linear-gradient(to right, var(--c-line-strong) 0 6px, transparent 6px 12px);
-  }
 }
 
 /* ---------- CTA ---------- */
@@ -638,6 +594,297 @@
 .cta-band__desc { margin-bottom: var(--sp-4); font-size: var(--fs-lg); }
 .cta-band .btn--dark { background: var(--c-deep); color: #f7f8f5; }
 .cta-band .btn--dark:hover { background: #1f4032; }
+
+/* ---------- 페이지 진행 막대 (모션 허용 시에만 보임) ---------- */
+.scroll-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  display: none;
+  height: 3px;
+  background: linear-gradient(90deg, var(--c-accent), var(--c-primary));
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+/* ---------- Why: 흐르는 키워드 띠 ---------- */
+.section--why { position: relative; overflow: hidden; }
+.section--why > .container { position: relative; z-index: 1; }
+.marquee {
+  position: absolute;
+  top: var(--sp-6);
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  color: var(--c-accent);
+  font-size: clamp(4rem, 2rem + 9vw, 10rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+  opacity: 0.09;
+  pointer-events: none;
+}
+.marquee__track { display: inline-flex; gap: 0.5em; padding-right: 0.5em; }
+.marquee__track span::before { content: attr(data-word); }
+@media (prefers-color-scheme: dark) { .marquee { color: var(--c-primary); opacity: 0.07; } }
+.pain__num { font-size: 2rem; line-height: 1; letter-spacing: -0.04em; }
+
+/* ---------- 줄 단위 등장 제목 ---------- */
+.split-line { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.split-line > span { display: inline-block; }
+
+/* ---------- Features: 큰 배경 번호 ---------- */
+.feature__bg-num {
+  position: absolute;
+  right: -0.04em;
+  bottom: -0.22em;
+  z-index: 0;
+  color: var(--c-primary);
+  font-size: clamp(8rem, 5rem + 12vw, 15rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  opacity: 0.09;
+  pointer-events: none;
+}
+/* 장식 숫자는 글자가 아닌 생성 콘텐츠로 넣어 읽기 · 대비 검사 대상에서 뺀다 */
+.feature__bg-num::before { content: attr(data-num); }
+.feature__visual > :not(.feature__bg-num, .mock-goal--back) { position: relative; z-index: 1; }
+
+/* ---------- Journey: 스크롤에 따라 채워지는 성장 경로 ---------- */
+.journey-wrap { position: relative; }
+.journey__track {
+  position: absolute;
+  top: 28px;
+  bottom: 28px;
+  left: 27px;
+  width: 2px;
+  background: repeating-linear-gradient(to bottom, var(--c-line-strong) 0 6px, transparent 6px 12px);
+}
+.journey__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--c-primary);
+  transform: scaleY(var(--p, 1));
+  transform-origin: 50% 0;
+}
+.journey__walker {
+  position: absolute;
+  top: calc(var(--p, 1) * 100%);
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--c-primary);
+  color: var(--c-on-primary);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--c-primary) 22%, transparent);
+  transform: translate(-50%, -50%);
+}
+.journey__walker .icon { width: 16px; height: 16px; }
+.journey__step.is-active .journey__icon { border-color: var(--c-primary); background: var(--c-primary); color: var(--c-on-primary); }
+@media (min-width: 1024px) {
+  .journey__track {
+    top: 36px;
+    bottom: auto;
+    left: 12.5%;
+    right: 12.5%;
+    width: auto;
+    height: 2px;
+    background: repeating-linear-gradient(to right, var(--c-line-strong) 0 6px, transparent 6px 12px);
+  }
+  .journey__fill { transform: scaleX(var(--p, 1)); transform-origin: 0 50%; }
+  .journey__walker { top: 50%; left: calc(var(--p, 1) * 100%); }
+}
+
+/* ---------- CTA: 떠오르는 기록 칸 ---------- */
+.cta-band > :not(.cta-band__cells) { position: relative; z-index: 1; }
+.cta-band__cells { display: none; position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.cta-band__cells i {
+  position: absolute;
+  bottom: -40px;
+  width: 18px;
+  aspect-ratio: 1;
+  border-radius: 5px;
+  background: var(--c-accent);
+  opacity: 0;
+}
+.cta-band__cells i:nth-child(3n) { width: 26px; background: rgb(255 255 255 / 0.4); }
+.cta-band__cells i:nth-child(3n + 1) { width: 12px; background: var(--c-deep); }
+.cta-band__cells i:nth-child(1) { left: 4%; --d: 0s; --t: 7s; }
+.cta-band__cells i:nth-child(2) { left: 11%; --d: 2.2s; --t: 9s; }
+.cta-band__cells i:nth-child(3) { left: 18%; --d: 4.1s; --t: 8s; }
+.cta-band__cells i:nth-child(4) { left: 26%; --d: 1.2s; --t: 10s; }
+.cta-band__cells i:nth-child(5) { left: 33%; --d: 5.5s; --t: 7.5s; }
+.cta-band__cells i:nth-child(6) { left: 41%; --d: 3s; --t: 9.5s; }
+.cta-band__cells i:nth-child(7) { left: 48%; --d: 0.6s; --t: 8.5s; }
+.cta-band__cells i:nth-child(8) { left: 56%; --d: 4.8s; --t: 7s; }
+.cta-band__cells i:nth-child(9) { left: 63%; --d: 1.8s; --t: 10s; }
+.cta-band__cells i:nth-child(10) { left: 70%; --d: 6.2s; --t: 8s; }
+.cta-band__cells i:nth-child(11) { left: 77%; --d: 2.8s; --t: 9s; }
+.cta-band__cells i:nth-child(12) { left: 84%; --d: 0.3s; --t: 7.5s; }
+.cta-band__cells i:nth-child(13) { left: 90%; --d: 3.6s; --t: 8.5s; }
+.cta-band__cells i:nth-child(14) { left: 96%; --d: 5s; --t: 9.5s; }
+.cta-band .btn { position: relative; overflow: hidden; transition: translate 350ms var(--ease-out), background-color var(--dur-fast); }
+
+/* ==========================================================================
+   섹션 모션 — 히어로의 "기록이 쌓여 성장이 된다"를 페이지 끝까지 잇는다
+   Why       흐릿한 단어가 하나씩 선명해지고(보이지 않던 성장), 흩어진 메모 카드가 스크롤에 맞춰 한 줄로 정렬
+   Features  패널이 열리듯 펼쳐지고 화면 조각이 튀어올라 놓인 뒤, 기능별로 실제 동작(진행률 · 기록 작성 · 타임라인 · 히트맵)을 재생
+   Journey   스크롤에 맞춰 성장 경로가 채워지고 새싹이 이동하며, 지나간 단계가 하나씩 켜진다
+   CTA       띠가 커지며 다가오고, 기록 칸이 계속 떠오른다. 버튼은 마우스를 살짝 따라온다
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  .js .scroll-progress { display: block; }
+
+  /* Why */
+  .js .marquee__track { animation: marquee 28s linear infinite; }
+  .js [data-split="words"] .word {
+    display: inline-block;
+    opacity: 0.1;
+    filter: blur(10px);
+    transform: translateY(0.35em);
+    transition: opacity 900ms var(--ease-out), filter 900ms var(--ease-out), transform 900ms var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 120ms);
+  }
+  .js [data-split="words"].is-in .word { opacity: 1; filter: none; transform: none; }
+  .js .pain-list .pain {
+    translate: calc((1 - var(--p, 1)) * var(--sx, 0px)) calc((1 - var(--p, 1)) * var(--sy, 0px));
+    rotate: calc((1 - var(--p, 1)) * var(--sr, 0deg));
+  }
+  .js .pain-list .pain:nth-child(1) { --sx: -80px; --sy: 110px; --sr: -10deg; }
+  .js .pain-list .pain:nth-child(2) { --sx: 10px; --sy: 190px; --sr: 7deg; }
+  .js .pain-list .pain:nth-child(3) { --sx: 90px; --sy: 80px; --sr: 12deg; }
+  .js .pain-list.is-in .pain__num { animation: num-pop 800ms var(--ease-spring) both; }
+  .js .pain-list.is-in .pain:nth-child(2) .pain__num { animation-delay: 150ms; }
+  .js .pain-list.is-in .pain:nth-child(3) .pain__num { animation-delay: 300ms; }
+
+  /* 줄 단위 제목 (Features · CTA) */
+  .js .split-line > span { transform: translateY(105%); transition: transform 1000ms var(--ease-out); }
+  .js .split-line + .split-line > span { transition-delay: 140ms; }
+  .js .is-in .split-line > span,
+  .js .split-lines.is-in .split-line > span { transform: none; }
+
+  /* Features: 공통 등장 */
+  .js [data-feature] .feature__copy > * {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+  }
+  .js [data-feature] .feature__copy > :nth-child(2) { transition-delay: 90ms; }
+  .js [data-feature] .feature__copy > :nth-child(3) { transition-delay: 180ms; }
+  .js [data-feature] .feature__copy > :nth-child(4) { transition-delay: 270ms; }
+  .js [data-feature].is-in .feature__copy > * { opacity: 1; transform: none; }
+  .js [data-feature] .feature__list li { scale: 0.6; opacity: 0; transition: scale 600ms var(--ease-spring), opacity 400ms ease; }
+  .js [data-feature] .feature__list li:nth-child(1) { transition-delay: 450ms; }
+  .js [data-feature] .feature__list li:nth-child(2) { transition-delay: 540ms; }
+  .js [data-feature] .feature__list li:nth-child(3) { transition-delay: 630ms; }
+  .js [data-feature].is-in .feature__list li { scale: 1; opacity: 1; }
+
+  .js [data-feature] .feature__visual {
+    clip-path: inset(14% 10% 14% 10% round 40px);
+    transition: clip-path 1200ms var(--ease-out);
+  }
+  .js [data-feature].is-in .feature__visual { clip-path: inset(0 round var(--radius-lg)); }
+  .js [data-feature] .feature__visual > :not(.feature__bg-num) {
+    opacity: 0;
+    scale: 0.82;
+    rotate: -4deg;
+    translate: 0 calc((1 - var(--p, 1)) * 60px);
+    transition: opacity 600ms ease 250ms, scale 900ms var(--ease-spring) 250ms, rotate 900ms var(--ease-spring) 250ms;
+  }
+  .js [data-feature].is-in .feature__visual > :not(.feature__bg-num) { opacity: 1; scale: 1; rotate: 0deg; }
+  .js [data-feature] .feature__bg-num {
+    opacity: 0;
+    translate: 0 calc((0.6 - var(--p, 1)) * 160px);
+    transition: opacity 1200ms ease 200ms;
+  }
+  .js [data-feature].is-in .feature__bg-num { opacity: 0.09; }
+
+  /* 01 목표: 뒤 카드가 휘어 들어오고 D-day 가 두근거린다 */
+  .js [data-feature="goal"] .feature__visual > .mock-goal.mock-goal--back { rotate: -24deg; transition-delay: 650ms; }
+  .js [data-feature="goal"].is-in .feature__visual > .mock-goal.mock-goal--back { opacity: 0.85; rotate: 0deg; }
+  .js [data-feature="goal"].is-in .mock-goal__foot strong { display: inline-block; animation: beat 1.6s ease-in-out 2s infinite; }
+
+  /* 02 기록: 문장이 써지고 체감 난이도 막대가 차오른다 */
+  .js [data-feature="record"] .mock-record__list dd { clip-path: inset(0 100% 0 0); transition: clip-path 1300ms steps(26) 700ms; }
+  .js [data-feature="record"] .mock-record__list > div + div dd { transition-delay: 1900ms; }
+  .js [data-feature="record"].is-in .mock-record__list dd { clip-path: inset(0); }
+  .js [data-feature="record"] .mock-record__list > div { border-left-color: var(--c-line); transition: border-color 500ms ease 700ms; }
+  .js [data-feature="record"] .mock-record__list > div + div { transition-delay: 1900ms; }
+  .js [data-feature="record"].is-in .mock-record__list > div { border-left-color: var(--c-primary); }
+  .js [data-feature="record"] .mock-record__level i { scale: 0 1; transform-origin: 0 50%; transition: scale 500ms var(--ease-spring); }
+  .js [data-feature="record"] .mock-record__level i:nth-of-type(1) { transition-delay: 3200ms; }
+  .js [data-feature="record"] .mock-record__level i:nth-of-type(2) { transition-delay: 3350ms; }
+  .js [data-feature="record"] .mock-record__level i:nth-of-type(3) { transition-delay: 3500ms; }
+  .js [data-feature="record"].is-in .mock-record__level i { scale: 1 1; }
+
+  /* 03 타임라인: 세로선이 그어지고 항목이 차례로 들어와 점이 찍힌다 */
+  .js [data-feature="timeline"] .mock-timeline::before { scale: 1 0; transform-origin: 50% 0; transition: scale 1400ms var(--ease-in-out) 400ms; }
+  .js [data-feature="timeline"].is-in .mock-timeline::before { scale: 1 1; }
+  .js [data-feature="timeline"] .mock-timeline li { opacity: 0; translate: 40px 0; transition: opacity 500ms ease, translate 700ms var(--ease-out); }
+  .js [data-feature="timeline"] .mock-timeline__dot { scale: 0; transition: scale 500ms var(--ease-spring); }
+  .js [data-feature="timeline"] .mock-timeline li:nth-child(1), .js [data-feature="timeline"] .mock-timeline li:nth-child(1) .mock-timeline__dot { transition-delay: 500ms; }
+  .js [data-feature="timeline"] .mock-timeline li:nth-child(2), .js [data-feature="timeline"] .mock-timeline li:nth-child(2) .mock-timeline__dot { transition-delay: 800ms; }
+  .js [data-feature="timeline"] .mock-timeline li:nth-child(3), .js [data-feature="timeline"] .mock-timeline li:nth-child(3) .mock-timeline__dot { transition-delay: 1100ms; }
+  .js [data-feature="timeline"] .mock-timeline li:nth-child(4), .js [data-feature="timeline"] .mock-timeline li:nth-child(4) .mock-timeline__dot { transition-delay: 1400ms; }
+  .js [data-feature="timeline"].is-in .mock-timeline li { opacity: 1; translate: 0 0; }
+  .js [data-feature="timeline"].is-in .mock-timeline__dot { scale: 1; }
+  .js [data-feature="timeline"].is-in .mock-timeline li:first-child .mock-timeline__dot { animation: dot-ring 2s ease-out 2s infinite; }
+
+  /* 04 대시보드: 히트맵 물결 + 숫자 카운트업(JS) */
+  .js [data-feature="dash"] .mock-heatmap i { scale: 0; }
+  .js [data-feature="dash"].is-in .mock-heatmap i {
+    animation: cell-in 520ms var(--ease-spring) forwards;
+    animation-delay: calc(500ms + var(--c, 0) * 55ms + var(--r, 0) * 20ms);
+  }
+
+  /* Journey */
+  .js .journey__walker { animation: walker 1.6s ease-in-out infinite alternate; }
+  .js .journey__step .journey__icon { transition: background-color 400ms ease, border-color 400ms ease, color 400ms ease; }
+  /* 아직 지나지 않은 단계는 흐린 글자색으로 (투명도 대신 색을 바꿔 명도 대비 유지) */
+  .js .journey__step:not(.is-active) .journey__title,
+  .js .journey__step:not(.is-active) .journey__desc { color: var(--c-ink-3); transform: translateY(10px); }
+  .js .journey__step .journey__title,
+  .js .journey__step .journey__desc { transition: color 600ms ease, transform 600ms var(--ease-out); }
+  .js .journey__step:last-child:not(.is-active) .journey__icon { border-color: var(--c-line-strong); background: var(--c-surface); color: var(--c-primary-text); }
+  .js .journey__step.is-active .journey__icon { animation: step-pop 700ms var(--ease-spring); }
+  .js .journey__step:last-child.is-active .journey__icon { animation: step-pop 700ms var(--ease-spring), glow 2.4s ease-in-out 700ms infinite; }
+
+  /* CTA */
+  .js .cta-band {
+    scale: calc(0.86 + var(--p, 1) * 0.14);
+    border-radius: calc(var(--radius-lg) + (1 - var(--p, 1)) * 60px);
+  }
+  .js .cta-band__cells { display: block; }
+  .js .cta-band__cells i { animation: cell-rise var(--t, 8s) linear var(--d, 0s) infinite; }
+  .js .cta-band::after { animation: ring-breathe 9s ease-in-out infinite alternate; }
+  .js .cta-band__desc, .js .cta-band .btn { opacity: 0; transform: translateY(24px); transition: opacity 700ms var(--ease-out) 450ms, transform 700ms var(--ease-out) 450ms; }
+  .js .cta-band .btn { transition: opacity 700ms var(--ease-out) 600ms, transform 700ms var(--ease-out) 600ms, translate 350ms var(--ease-out), background-color var(--dur-fast); }
+  .js .cta-band.is-in .cta-band__desc, .js .cta-band.is-in .btn { opacity: 1; transform: none; }
+  .js .cta-band .btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.28) 50%, transparent 65%);
+    transform: translateX(-120%);
+    animation: shine 3.2s ease-in-out 1.5s infinite;
+  }
+}
+
+@keyframes marquee { to { transform: translateX(-50%); } }
+@keyframes num-pop { from { opacity: 0; transform: translateY(20px) scale(0.6); } }
+@keyframes beat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.25); } 30% { transform: scale(1); } 45% { transform: scale(1.15); } }
+@keyframes dot-ring { 0% { box-shadow: 0 0 0 1px var(--c-line-strong), 0 0 0 0 color-mix(in srgb, var(--c-primary) 50%, transparent); } 100% { box-shadow: 0 0 0 1px var(--c-line-strong), 0 0 0 12px transparent; } }
+@keyframes walker { to { box-shadow: 0 0 0 12px color-mix(in srgb, var(--c-primary) 8%, transparent); } }
+@keyframes step-pop { 40% { transform: scale(1.22); } }
+@keyframes glow { 50% { box-shadow: 0 0 0 10px color-mix(in srgb, var(--c-primary) 20%, transparent); } }
+@keyframes cell-rise { 0% { opacity: 0; transform: translateY(0) rotate(0deg); } 12% { opacity: 0.9; } 80% { opacity: 0.6; } 100% { opacity: 0; transform: translateY(-460px) rotate(160deg); } }
+@keyframes ring-breathe { to { transform: scale(1.25) translate(-30px, -20px); } }
+@keyframes shine { 0% { transform: translateX(-120%); } 45%, 100% { transform: translateX(120%); } }
 
 /* ---------- 스크롤 등장 효과 (JS 동작 + 모션 허용 시에만) ---------- */
 @media (prefers-reduced-motion: no-preference) {
