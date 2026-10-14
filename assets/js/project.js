@@ -41,6 +41,52 @@
   }, { passive: true });
   window.addEventListener('resize', onScroll);
 
+  /* ===== 구조 비교: 원본 · 리디자인 화면을 나란히 두고 같은 역할의 영역에 같은 번호 표시 =====
+     regions[].before / after = [x, y, 너비, 높이] (이미지 크기에 대한 %). before 가 없으면 새로 추가한 영역(+) */
+  const validBox = (b) => Array.isArray(b) && b.length === 4 && b.every((n) => typeof n === 'number' && Number.isFinite(n));
+  const boxStyle = (b) => `left:${b[0]}%;top:${b[1]}%;width:${b[2]}%;height:${b[3]}%`;
+
+  const structureHtml = (p, regions, before, after) => {
+    let n = 0;
+    const marks = regions.map((r) => (validBox(r.before) ? String(++n) : '+'));
+    const boxes = (side) => regions.map((r, i) => {
+      const b = side === 'before' ? r.before : r.after;
+      if (!validBox(b)) return '';
+      const isNew = marks[i] === '+';
+      return `<span class="ba__box${isNew ? ' ba__box--new' : ''}" data-region="${i}" style="${boxStyle(b)}"><span class="ba__badge">${marks[i]}</span></span>`;
+    }).join('');
+    return `
+            <div class="ba__structure">
+              <div class="ba__panes">
+                <figure class="ba__pane">
+                  <figcaption class="ba__pane-label"><span>Before</span>원본</figcaption>
+                  <div class="ba__shot">
+                    <img src="${escape(before)}" alt="개선 전: ${escape(p.beforeAlt || '')}" loading="lazy" decoding="async">
+                    <div class="ba__boxes" aria-hidden="true">${boxes('before')}</div>
+                  </div>
+                </figure>
+                <figure class="ba__pane">
+                  <figcaption class="ba__pane-label ba__pane-label--after"><span>After</span>리디자인</figcaption>
+                  <div class="ba__shot">
+                    <img src="${escape(after)}" alt="개선 후: ${escape(p.afterAlt || '')}" loading="lazy" decoding="async">
+                    <div class="ba__boxes" aria-hidden="true">${boxes('after')}</div>
+                  </div>
+                </figure>
+              </div>
+              <ol class="ba__legend">${regions.map((r, i) => `
+                <li>
+                  <button type="button" class="ba__key${marks[i] === '+' ? ' ba__key--new' : ''}" data-region="${i}" aria-pressed="false">
+                    <span class="ba__badge" aria-hidden="true">${marks[i]}</span>
+                    <span class="ba__key-text">
+                      <span class="ba__key-label">${marks[i] === '+' ? '<span class="blind">새로 추가: </span>' : ''}${escape(r.label)}</span>
+                      ${r.note ? `<span class="ba__key-note">${escape(r.note)}</span>` : ''}
+                    </span>
+                  </button>
+                </li>`).join('')}
+              </ol>
+            </div>`;
+  };
+
   /* ===== 구성별 마크업 ===== */
   const SECTIONS = [
     { key: 'overview', title: 'Project Overview', ko: '프로젝트 소개' },
@@ -82,35 +128,52 @@
     beforeAfter: (d) => {
       const pairs = list(d.beforeAfter).filter((p) => p.before && p.after);
       if (!pairs.length) return '';
+      const anyRegions = pairs.some((p) => list(p.regions).length);
+      const intro = has(d.beforeAfterIntro)
+        ? escape(d.beforeAfterIntro)
+        : '가운데 손잡이를 좌우로 끌거나, 손잡이에 포커스를 두고 ← → 키로 원본(왼쪽)과 리디자인(오른쪽)을 비교할 수 있습니다.';
       return `
-        <p class="case-lead">가운데 손잡이를 좌우로 끌거나, 손잡이에 포커스를 두고 ← → 키로 원본(왼쪽)과 리디자인(오른쪽)을 비교할 수 있습니다.</p>
+        <p class="case-lead">${intro}</p>
         <div class="ba-list">${pairs.map((p, i) => {
           const before = safeUrl(p.before);
           const after = safeUrl(p.after);
           const name = escape(p.title || `화면 ${i + 1}`);
+          const regions = list(p.regions).filter((r) => r && r.label && validBox(r.after));
           return `
           <div class="ba" data-reveal>
-            <h3 class="ba__title"><span aria-hidden="true">${pad(i + 1)}</span>${name}</h3>
-            <figure class="compare" style="--pos:50%">
-              <img class="compare__img" src="${escape(before)}" alt="개선 전: ${escape(p.beforeAlt || '')}" loading="lazy" decoding="async">
-              <div class="compare__after">
-                <img class="compare__img" src="${escape(after)}" alt="개선 후: ${escape(p.afterAlt || '')}" loading="lazy" decoding="async">
+            <div class="ba__top">
+              <h3 class="ba__title"><span aria-hidden="true">${pad(i + 1)}</span>${name}</h3>
+              ${regions.length ? `
+              <div class="ba__modes" role="group" aria-label="${name} 비교 방식">
+                <button type="button" class="ba__mode" data-mode="structure" aria-pressed="true">구조 비교</button>
+                <button type="button" class="ba__mode" data-mode="slider" aria-pressed="false">슬라이더 비교</button>
+              </div>` : ''}
+            </div>
+            ${regions.length ? structureHtml(p, regions, before, after) : ''}
+            <div class="ba__slider"${regions.length ? ' hidden' : ''}>
+              <figure class="compare" style="--pos:50%">
+                <img class="compare__img" src="${escape(before)}" alt="개선 전: ${escape(p.beforeAlt || '')}" loading="lazy" decoding="async">
+                <div class="compare__after">
+                  <img class="compare__img" src="${escape(after)}" alt="개선 후: ${escape(p.afterAlt || '')}" loading="lazy" decoding="async">
+                </div>
+                <span class="compare__tag compare__tag--before" aria-hidden="true">Before</span>
+                <span class="compare__tag compare__tag--after" aria-hidden="true">After</span>
+                <span class="compare__handle" aria-hidden="true">${icon('i-drag')}</span>
+                <input class="compare__range" type="range" min="0" max="100" value="50"
+                  aria-label="${name} 개선 전 · 후 비교 위치. 값이 클수록 개선 전 화면이 넓게 보입니다.">
+                <figcaption class="blind">${name} 화면의 개선 전 · 후 비교</figcaption>
+              </figure>
+              <div class="ba__jump" role="group" aria-label="${name} 비교 위치 바로 이동">
+                <button type="button" data-pos="100">개선 전</button>
+                <button type="button" data-pos="50">반반</button>
+                <button type="button" data-pos="0">개선 후</button>
               </div>
-              <span class="compare__tag compare__tag--before" aria-hidden="true">Before</span>
-              <span class="compare__tag compare__tag--after" aria-hidden="true">After</span>
-              <span class="compare__handle" aria-hidden="true">${icon('i-drag')}</span>
-              <input class="compare__range" type="range" min="0" max="100" value="50"
-                aria-label="${name} 개선 전 · 후 비교 위치. 값이 클수록 개선 전 화면이 넓게 보입니다.">
-              <figcaption class="blind">${name} 화면의 개선 전 · 후 비교</figcaption>
-            </figure>
-            <div class="ba__jump" role="group" aria-label="${name} 비교 위치 바로 이동">
-              <button type="button" data-pos="100">개선 전</button>
-              <button type="button" data-pos="50">반반</button>
-              <button type="button" data-pos="0">개선 후</button>
             </div>
             <div class="ba__notes">
-              ${has(p.problem) ? `<div class="ba__note ba__note--before"><p class="ba__label">${icon('i-alert')}개선 전 문제</p><p>${escape(p.problem)}</p></div>` : ''}
-              ${has(p.improvement) ? `<div class="ba__note ba__note--after"><p class="ba__label">${icon('i-spark')}개선 내용</p><p>${escape(p.improvement)}</p></div>` : ''}
+              ${has(p.kept) ? `<div class="ba__note ba__note--before"><p class="ba__label">${icon('i-check')}유지한 구조</p><p>${escape(p.kept)}</p></div>` : ''}
+              ${has(p.redesign) ? `<div class="ba__note ba__note--after"><p class="ba__label">${icon('i-spark')}다시 디자인한 점</p><p>${escape(p.redesign)}</p></div>` : ''}
+              ${!has(p.kept) && has(p.problem) ? `<div class="ba__note ba__note--before"><p class="ba__label">${icon('i-alert')}개선 전 문제</p><p>${escape(p.problem)}</p></div>` : ''}
+              ${!has(p.redesign) && has(p.improvement) ? `<div class="ba__note ba__note--after"><p class="ba__label">${icon('i-spark')}개선 내용</p><p>${escape(p.improvement)}</p></div>` : ''}
             </div>
           </div>`;
         }).join('')}
@@ -282,6 +345,47 @@
     });
   };
 
+  /* ===== 구조 비교 상호작용 + 비교 방식 전환 ===== */
+  const setupStructure = () => {
+    root.querySelectorAll('.ba').forEach((ba) => {
+      const structure = ba.querySelector('.ba__structure');
+      const slider = ba.querySelector('.ba__slider');
+      const modes = ba.querySelectorAll('.ba__mode');
+      modes.forEach((btn) => btn.addEventListener('click', () => {
+        const toSlider = btn.dataset.mode === 'slider';
+        modes.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+        if (structure) structure.hidden = toSlider;
+        slider.hidden = !toSlider;
+      }));
+      if (!structure) return;
+
+      let pinned = null;
+      const highlight = (idx) => {
+        structure.classList.toggle('has-active', idx !== null);
+        structure.querySelectorAll('[data-region]').forEach((el) => {
+          el.classList.toggle('is-active', idx !== null && el.dataset.region === idx);
+        });
+      };
+      const keys = structure.querySelectorAll('.ba__key');
+      keys.forEach((key) => {
+        const idx = key.dataset.region;
+        key.addEventListener('mouseenter', () => highlight(idx));
+        key.addEventListener('mouseleave', () => highlight(pinned));
+        key.addEventListener('focus', () => highlight(idx));
+        key.addEventListener('blur', () => highlight(pinned));
+        key.addEventListener('click', () => {
+          pinned = pinned === idx ? null : idx;
+          keys.forEach((k) => k.setAttribute('aria-pressed', String(k.dataset.region === pinned)));
+          highlight(pinned);
+        });
+      });
+      structure.querySelectorAll('.ba__box').forEach((box) => {
+        box.addEventListener('mouseenter', () => highlight(box.dataset.region));
+        box.addEventListener('mouseleave', () => highlight(pinned));
+      });
+    });
+  };
+
   /* ===== 목차 + 현재 구성 표시 ===== */
   const setupToc = () => {
     const links = [...root.querySelectorAll('.case-toc a')];
@@ -376,6 +480,7 @@
     root.removeAttribute('aria-busy');
 
     setupCompare();
+    setupStructure();
     setupToc();
     setupReveal();
     onScroll();

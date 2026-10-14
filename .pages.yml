@@ -174,9 +174,13 @@ content:
             label: 담당한 일
             type: string
             list: true
+      - name: beforeAfterIntro
+        label: 03 Before & After 안내 문구
+        description: 비워 두면 기본 안내(슬라이더 사용법)가 나옵니다.
+        type: text
       - name: beforeAfter
         label: 03 Before & After
-        description: 개선 전 · 후 이미지는 같은 크기로 캡처해야 비교 슬라이더가 정확하게 겹칩니다.
+        description: 개선 전 · 후 이미지는 같은 크기로 캡처해야 비교 슬라이더가 정확하게 겹칩니다. '유지한 구조 / 다시 디자인한 점'을 쓰면 '개선 전 문제 / 개선 내용' 대신 그것이 보입니다.
         type: object
         list: true
         fields:
@@ -185,8 +189,20 @@ content:
           - { name: beforeAlt, label: 개선 전 이미지 설명 (대체 텍스트), type: string }
           - { name: after, label: 개선 후 이미지, type: image }
           - { name: afterAlt, label: 개선 후 이미지 설명 (대체 텍스트), type: string }
+          - { name: kept, label: 유지한 구조, type: text }
+          - { name: redesign, label: 다시 디자인한 점, type: text }
           - { name: problem, label: 개선 전 문제, type: text }
           - { name: improvement, label: 개선 내용, type: text }
+          - name: regions
+            label: 구조 비교 영역
+            description: "같은 역할의 영역에 같은 번호를 붙입니다. 위치는 [가로 시작, 세로 시작, 너비, 높이]를 이미지 크기에 대한 %로 적습니다. 개선 전 위치를 비우면 '새로 추가(+)'로 표시됩니다."
+            type: object
+            list: true
+            fields:
+              - { name: label, label: 영역 이름, type: string }
+              - { name: note, label: 바뀐 점, type: string }
+              - { name: before, label: "개선 전 위치 (%)", type: number, list: true }
+              - { name: after, label: "개선 후 위치 (%)", type: number, list: true }
       - name: process
         label: 04 Design Process
         type: object
