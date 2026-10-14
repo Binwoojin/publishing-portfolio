@@ -183,3 +183,213 @@
 .notices { border-top: 2px solid var(--c-ink); }
 .notices li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--sp-1) var(--sp-4); padding: var(--sp-4) 0; border-bottom: 1px solid var(--c-line); }
 .notices time { color: var(--c-ink-3); font-family: var(--font-mono); font-size: var(--fs-sm); }
+
+/* ==========================================================================
+   홈 모션 — "Route Note": 핀을 찍고, 점선 경로를 따라 떠난다
+   - 히어로: 제목이 한 줄씩 올라오고 '모두의 여행' 아래 점선이 그어진다. 사진 위로 전국을 잇는 경로가
+     그려지며 핀이 떨어지고, 여행자 점이 경로를 계속 돈다(지나는 지점의 이름 · 좌표가 HUD 에 표시)
+   - 섹션: 좌표 글자 스크램블, 사진이 아래에서 현상되듯 열림, 탑승권이 인쇄되듯 내려옴,
+     출발 안내판처럼 날짜가 넘어감, 탭 표시줄이 미끄러짐, 스크롤에 따라 경로 진행 막대가 자람
+   모션 줄이기 설정이면 처음부터 완성된 화면을 보여 준다.
+   ========================================================================== */
+
+/* ---------- 히어로 경로 (넓은 화면) ---------- */
+.hero__route {
+  position: absolute;
+  top: var(--sp-8);
+  right: max(var(--gutter), calc((100vw - var(--container)) / 2));
+  z-index: 0;
+  display: none;
+  width: min(42vw, 560px);
+  height: auto;
+  overflow: visible;
+}
+@media (min-width: 1024px) { .hero__route { display: block; } }
+.hero__inner { position: relative; z-index: 1; }
+.hero__route-mask { fill: none; stroke: #ffffff; stroke-width: 40; stroke-linecap: round; }
+.hero__route-glow { fill: none; stroke: var(--c-accent); stroke-width: 10; stroke-linecap: round; opacity: 0.28; }
+.hero__route-line { fill: none; stroke: #ffffff; stroke-width: 3.5; stroke-linecap: round; stroke-dasharray: 0.5 11; }
+.route-pin__body { transform-box: fill-box; transform-origin: 50% 100%; }
+.route-pin__body path { fill: var(--c-accent); stroke: #ffffff; stroke-width: 2; }
+.route-pin--end .route-pin__body path { fill: var(--c-primary); }
+.route-pin__body circle { fill: #ffffff; }
+.route-pin__shadow { fill: rgb(0 0 0 / 0.35); }
+.route-pin__label {
+  fill: #ffffff;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  paint-order: stroke;
+  stroke: rgb(var(--c-shade) / 0.55);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.route-pin__label tspan { font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; }
+.route-traveler { opacity: 0; }
+.route-traveler circle { fill: #ffffff; }
+.route-traveler .route-traveler__ring { fill: var(--c-accent); opacity: 0.4; transform-box: fill-box; transform-origin: center; }
+.route-pin.is-hit .route-pin__body { animation: pin-hit 700ms var(--ease-spring); }
+
+/* 지금 지나는 지점 (검색 패널 오른쪽 빈자리) */
+.hero__hud {
+  position: absolute;
+  right: max(var(--gutter), calc((100vw - var(--container)) / 2));
+  bottom: var(--sp-10);
+  z-index: 1;
+  display: none;
+  width: 200px;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid rgb(255 255 255 / 0.35);
+  border-radius: var(--radius-md);
+  background: rgb(var(--c-shade) / 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #ffffff;
+}
+@media (min-width: 1200px) { .hero__hud { display: grid; gap: 2px; } }
+.hero__hud-label { font-size: 10px; letter-spacing: 0.08em; opacity: 0.85; }
+.hero__hud-name { font-family: var(--font-display); font-size: var(--fs-xl); line-height: 1.2; }
+.hero__hud-coord { font-size: var(--fs-xs); }
+.hero__hud.is-tick .hero__hud-name { animation: hud-tick 500ms var(--ease-out); }
+
+/* 제목 줄 · 점선 밑줄 */
+.hero__line { display: block; overflow: hidden; padding-bottom: 0.1em; margin-bottom: -0.1em; }
+.hero__line > span { display: inline-block; }
+.hero__mark { position: relative; white-space: nowrap; }
+.hero__mark::after {
+  content: '';
+  position: absolute;
+  left: 0.04em;
+  right: 0.04em;
+  bottom: 0.02em;
+  height: 0.12em;
+  background: radial-gradient(circle, var(--c-accent) 48%, transparent 52%) 0 50% / 0.24em 0.12em repeat-x;
+  transform-origin: 0 50%;
+}
+
+/* 페이지 진행 막대: 점선 경로 위로 실선이 자라고 끝에 핀 */
+.route-progress { position: absolute; left: 0; right: 0; bottom: -2px; display: none; height: 3px; pointer-events: none; }
+.route-progress__fill { position: absolute; inset: 0; background: linear-gradient(90deg, var(--c-accent), var(--c-primary)); transform: scaleX(0); transform-origin: 0 50%; }
+.route-progress__pin { position: absolute; top: 50%; left: 0; width: 11px; height: 11px; border: 2px solid var(--c-surface); border-radius: 50%; background: var(--c-primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--c-primary) 25%, transparent); transform: translate(-50%, -50%); }
+
+/* 즐길거리 탭: 미끄러지는 표시줄 */
+.tabs.has-indicator { position: relative; }
+.tabs.has-indicator .tab[aria-selected="true"]::after { display: none; }
+.tabs__indicator { position: absolute; left: 0; bottom: 0; width: 0; height: 3px; border-radius: 3px 3px 0 0; background: var(--c-primary); transition: transform 450ms var(--ease-out), width 450ms var(--ease-out); }
+
+/* 여행 기록 배너: 뒤에서 도는 점선 궤도 */
+.record-banner { position: relative; isolation: isolate; }
+.record-banner::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  right: -8%;
+  bottom: -30%;
+  width: min(640px, 90vw);
+  aspect-ratio: 1;
+  border: 2px dashed color-mix(in srgb, var(--c-primary) 30%, transparent);
+  border-radius: 50%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* 히어로 */
+  .js .hero__line > span { transform: translateY(105%); animation: wl-line-up 1000ms var(--ease-out) 150ms forwards; }
+  .js .hero__line + .hero__line > span { animation-delay: 300ms; }
+  .js .hero__mark::after { transform: scaleX(0); animation: wl-draw-x 900ms var(--ease-out) 1100ms forwards; }
+  .js .hero__eyebrow { animation: wl-rise 700ms var(--ease-out) both; }
+  .js .hero__desc { animation: wl-rise 700ms var(--ease-out) 550ms both; }
+  .js .search-panel { animation: wl-panel-in 900ms var(--ease-spring) 700ms both; }
+  .js .quick-themes li { animation: wl-pop 600ms var(--ease-spring) both; }
+  .js .quick-themes li:nth-child(1) { animation-delay: 1000ms; }
+  .js .quick-themes li:nth-child(2) { animation-delay: 1080ms; }
+  .js .quick-themes li:nth-child(3) { animation-delay: 1160ms; }
+  .js .quick-themes li:nth-child(4) { animation-delay: 1240ms; }
+  .js .hero__media img { translate: 0 calc(var(--hy, 0) * 1px); }
+
+  .js .hero__route-mask { stroke-dasharray: 1; stroke-dashoffset: 1; animation: wl-dash 2600ms var(--ease-in-out) 500ms forwards; }
+  .js .route-pin .route-pin__body { opacity: 0; animation: pin-drop 800ms var(--ease-spring) forwards; }
+  .js .route-pin .route-pin__shadow { opacity: 0; transform-box: fill-box; transform-origin: center; animation: pin-shadow 800ms var(--ease-out) forwards; }
+  .js .route-pin .route-pin__label { opacity: 0; animation: wl-fade 600ms ease forwards; }
+  .js .route-pin:nth-of-type(1) > * { animation-delay: 600ms; }
+  .js .route-pin:nth-of-type(2) > * { animation-delay: 1150ms; }
+  .js .route-pin:nth-of-type(3) > * { animation-delay: 1700ms; }
+  .js .route-pin:nth-of-type(4) > * { animation-delay: 2350ms; }
+  .js .route-pin:nth-of-type(5) > * { animation-delay: 2950ms; }
+  .js .route-traveler.is-moving { opacity: 1; transition: opacity 400ms ease; }
+  .js .route-traveler__ring { animation: traveler-ring 1.6s ease-out infinite; }
+  .js .hero__hud { animation: wl-rise 700ms var(--ease-out) 3200ms both; }
+  .hero.is-offscreen *, .hero.is-offscreen *::after { animation-play-state: paused !important; }
+
+  .js .route-progress { display: block; }
+
+  /* 섹션 머리: 제목이 아래에서 열리고, 설명 · 더보기가 따라온다 */
+  .js .section-head__title,
+  .js .notices__title { clip-path: inset(0 0 100% 0); transform: translateY(40%); transition: clip-path 900ms var(--ease-out), transform 900ms var(--ease-out); }
+  .js .section-head__desc { opacity: 0; transform: translateY(16px); transition: opacity 700ms ease 250ms, transform 700ms var(--ease-out) 250ms; }
+  .js .section-head .more-link { opacity: 0; transform: translateX(24px); transition: opacity 600ms ease 350ms, transform 600ms var(--ease-out) 350ms; }
+  .js .is-in .section-head__title,
+  .js .notices__title.is-in,
+  .js .section-head.is-in .section-head__title { clip-path: inset(0 0 -20% 0); transform: none; }
+  .js .section-head.is-in .section-head__desc,
+  .js .section-head.is-in .more-link { opacity: 1; transform: none; }
+
+  /* 지역: 사진이 아래에서 위로 현상되듯 열린다 */
+  .js .region-rail li .region-tile { clip-path: inset(100% 0 0 0 round var(--radius-lg)); transition: clip-path 1000ms var(--ease-out); transition-delay: calc(var(--i, 0) * 90ms); }
+  .js .region-rail li .region-tile img { scale: 1.35; transition: scale 1600ms var(--ease-out), transform 600ms var(--ease-out); transition-delay: calc(var(--i, 0) * 90ms); }
+  .js .region-rail li .region-tile > span:not(.region-tile__coord) { opacity: 0; transform: translateY(14px); transition: opacity 600ms ease, transform 600ms var(--ease-out); transition-delay: calc(var(--i, 0) * 90ms + 450ms); }
+  .js .region-rail.is-in .region-tile { clip-path: inset(0 round var(--radius-lg)); }
+  .js .region-rail.is-in .region-tile img { scale: 1; }
+  .js .region-rail.is-in li .region-tile > span:not(.region-tile__coord) { opacity: 1; transform: none; }
+
+  /* 코스: 탑승권이 인쇄되듯 위에서 내려오고, 경유지가 점선으로 이어진다 */
+  .js .course-grid .course-card { clip-path: inset(0 0 100% 0); translate: 0 -28px; transition: clip-path 900ms var(--ease-out), translate 900ms var(--ease-out), box-shadow var(--dur-base), transform var(--dur-base); transition-delay: calc(var(--i, 0) * 170ms); }
+  .js .course-grid.is-in .course-card { clip-path: inset(-20px -20px -20px -20px); translate: 0 0; }
+  .js .course-grid .course-card__stops li { opacity: 0; transform: translateX(-8px); transition: opacity 400ms ease, transform 400ms var(--ease-out); transition-delay: calc(var(--i, 0) * 170ms + 700ms + var(--s, 0) * 140ms); }
+  .js .course-grid .course-card__stops li + li::before { width: 0; transition: width 400ms var(--ease-out); transition-delay: inherit; }
+  .js .course-grid.is-in .course-card__stops li { opacity: 1; transform: none; }
+  .js .course-grid.is-in .course-card__stops li + li::before { width: 14px; }
+  .js .course-grid .course-card__media img { translate: 0 calc((var(--p, 0.5) - 0.5) * -36px); scale: 1.12; }
+
+  /* 즐길거리: 탭을 바꿀 때마다 카드가 차례로 들어온다 */
+  .js #enjoyPanel.is-swapping .card-grid > * { animation: wl-card-in 650ms var(--ease-out) both; }
+  .js #enjoyPanel.is-swapping .card-grid > :nth-child(2) { animation-delay: 80ms; }
+  .js #enjoyPanel.is-swapping .card-grid > :nth-child(3) { animation-delay: 160ms; }
+  .js #enjoyPanel.is-swapping .card-grid > :nth-child(4) { animation-delay: 240ms; }
+
+  /* 이번 주 소식: 좌우에서 들어오고, 날짜는 출발 안내판처럼 넘어간다(JS) */
+  .js .news-list .news-item { opacity: 0; translate: -40px 0; transition: opacity 600ms ease, translate 700ms var(--ease-out), box-shadow var(--dur-base); transition-delay: calc(var(--i, 0) * 120ms); }
+  @media (min-width: 900px) { .js .news-list .news-item:nth-child(even) { translate: 24px 0; } }
+  .js .news-list.is-in .news-item { opacity: 1; translate: 0 0; }
+  .news-item__date strong.is-flip { animation: flap 120ms linear; }
+
+  /* 여행 기록 배너 */
+  .js .record-banner .record-banner__copy > * { opacity: 0; transform: translateY(24px); transition: opacity 700ms ease, transform 700ms var(--ease-out); }
+  .js .record-banner .record-banner__copy > :nth-child(2) { transition-delay: 100ms; }
+  .js .record-banner .record-banner__copy > :nth-child(3) { transition-delay: 200ms; }
+  .js .record-banner .record-banner__copy > :nth-child(4) { transition-delay: 300ms; }
+  .js .record-banner.is-in .record-banner__copy > * { opacity: 1; transform: none; }
+  .js .record-banner .record-banner__img { opacity: 0; scale: 0.8; rotate: 8deg; translate: 0 calc((var(--p, 0.5) - 0.5) * -50px); transition: opacity 700ms ease 200ms, scale 1100ms var(--ease-spring) 200ms, rotate 1100ms var(--ease-spring) 200ms; }
+  .js .record-banner.is-in .record-banner__img { opacity: 1; scale: 1; rotate: 0deg; animation: wl-float 6s ease-in-out 1.4s infinite alternate; }
+  .js .record-banner::before { animation: wl-spin 40s linear infinite; }
+
+  /* 공지 */
+  .js .notices li { opacity: 0; transform: translateY(14px); transition: opacity 500ms ease, transform 500ms var(--ease-out); transition-delay: calc(var(--i, 0) * 100ms + 200ms); }
+  .js .notices.is-in li { opacity: 1; transform: none; }
+}
+
+@keyframes wl-line-up { to { transform: none; } }
+@keyframes wl-draw-x { to { transform: scaleX(1); } }
+@keyframes wl-rise { from { opacity: 0; transform: translateY(20px); } }
+@keyframes wl-panel-in { from { opacity: 0; transform: translateY(40px) scale(0.96); } }
+@keyframes wl-pop { from { opacity: 0; transform: scale(0.6); } }
+@keyframes wl-fade { to { opacity: 1; } }
+@keyframes wl-dash { to { stroke-dashoffset: 0; } }
+@keyframes pin-drop { 0% { opacity: 0; transform: translateY(-44px) scale(0.6); } 60% { opacity: 1; transform: translateY(2px) scale(1.05, 0.92); } 100% { opacity: 1; transform: none; } }
+@keyframes pin-shadow { 0% { opacity: 0; transform: scale(0.2); } 100% { opacity: 1; transform: none; } }
+@keyframes pin-hit { 40% { transform: translateY(-8px) scale(1.25); } }
+@keyframes traveler-ring { 0% { transform: scale(0.6); opacity: 0.6; } 100% { transform: scale(1.8); opacity: 0; } }
+@keyframes hud-tick { from { opacity: 0; transform: translateY(8px); } }
+@keyframes wl-card-in { from { opacity: 0; transform: translateY(28px) rotate(-1.5deg); } }
+@keyframes flap { 50% { transform: rotateX(90deg); } }
+@keyframes wl-float { to { transform: translateY(-14px) rotate(-1.5deg); } }
+@keyframes wl-spin { to { transform: rotate(360deg); } }
