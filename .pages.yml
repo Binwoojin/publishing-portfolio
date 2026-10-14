@@ -223,6 +223,17 @@ content:
             fields:
               - { name: title, label: 단계 이름, type: string }
               - { name: text, label: 내용, type: text }
+          - name: decisions
+            label: 대표 개선 판단
+            description: 대표 개선 2~3개를 문제 → 선택 이유 → 구현 → 확인 결과 순서로 적습니다.
+            type: object
+            list: true
+            fields:
+              - { name: title, label: 제목, type: string }
+              - { name: problem, label: 문제, type: text }
+              - { name: reason, label: 선택 이유, type: text }
+              - { name: implementation, label: 구현, type: text }
+              - { name: result, label: 확인 결과, type: text }
           - name: tokens
             label: 주요 색상 토큰
             type: object
@@ -276,9 +287,31 @@ content:
             fields:
               - { name: label, label: 항목, type: string }
               - { name: value, label: 값, type: string }
+              - { name: note, label: "출처 (예 - 2026.10.14 측정 / 작업 당시 기록)", type: string }
           - name: text
             label: 결과 설명
             type: text
+          - name: verification
+            label: 측정 근거
+            description: tools/verify 의 검증 스크립트 결과(reports/아이디/report.json)를 옮겨 적습니다.
+            type: object
+            fields:
+              - { name: measuredAt, label: "측정일 (예 - 2026-10-14)", type: string }
+              - name: items
+                label: 검사 결과
+                type: object
+                list: true
+                fields:
+                  - { name: label, label: 검사, type: string }
+                  - { name: value, label: 결과, type: string }
+                  - { name: scope, label: 범위, type: string }
+              - { name: conditions, label: 검사 조건, type: string, list: true }
+              - { name: report, label: "보고서 경로 (예 - reports/growlog/index.html)", type: string }
+              - { name: note, label: 참고, type: text }
+          - name: limitations
+            label: 한계와 다음 단계
+            type: string
+            list: true
           - name: retrospective
             label: 회고
             description: 직접 느낀 점 · 다음에 다르게 해 볼 점을 적어 주세요. 비워 두면 회고 칸은 나오지 않습니다.

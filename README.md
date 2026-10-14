@@ -80,6 +80,22 @@ publishing-portfolio/
 - 관리 화면(Pages CMS)의 **작업물 상세** 메뉴에서 수정할 수 있습니다. 작업물 목록의 **상세페이지 ID** 와 파일 이름이 같아야 카드에 버튼이 생깁니다.
 - 상세 이미지는 `assets/images/cases/<아이디>/` 에 있습니다. Before & After 이미지는 **개선 전 · 후를 같은 크기로 캡처**해야 슬라이더에서 정확히 겹칩니다.
 
+## 검증 (html-validate · axe-core · Lighthouse)
+
+작업물 화면을 같은 조건으로 다시 검사하고, 결과를 `reports/<프로젝트>/` 에 보고서로 남깁니다.
+
+```bash
+cd tools/verify
+npm install
+npx playwright install chromium
+npm run verify              # html-validate + axe-core (전 화면 × 데스크톱 · 모바일 × 라이트 · 다크)
+npm run verify:lighthouse   # 위 검사 + Lighthouse (대표 화면, 모바일 · 데스크톱)
+```
+
+- 결과: `reports/<프로젝트>/report.json`(원본 데이터), `reports/<프로젝트>/index.html`(화면별 보고서)
+- 보고서에는 측정일 · 도구 버전 · 브라우저 버전 · 검사 조건이 함께 기록됩니다.
+- 상세페이지 09 Result 의 **측정 근거**는 이 보고서를 옮겨 적은 것입니다. 다시 측정하면 `data/cases/<프로젝트>.json` 의 `result.verification` 도 함께 고쳐 주세요.
+
 ## 배포 (GitHub Pages)
 
 `main` 브랜치에 push 하면 `.github/workflows/pages.yml` 이 사이트를 자동 배포합니다.

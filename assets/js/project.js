@@ -41,6 +41,10 @@
   }, { passive: true });
   window.addEventListener('resize', onScroll);
 
+  /* ===== 이미지 크게 보기 버튼 (dialog#zoom 으로 엶) ===== */
+  const zoomBtn = (src, alt, label, extra = '') =>
+    `<button type="button" class="zoom-btn${extra}" data-zoom="${escape(src)}" data-zoom-alt="${escape(alt)}">${icon('i-zoom')}<span class="zoom-btn__text">${escape(label)}</span></button>`;
+
   /* ===== 구조 비교: 원본 · 리디자인 화면을 나란히 두고 같은 역할의 영역에 같은 번호 표시 =====
      regions[].before / after = [x, y, 너비, 높이] (이미지 크기에 대한 %). before 가 없으면 새로 추가한 영역(+) */
   const validBox = (b) => Array.isArray(b) && b.length === 4 && b.every((n) => typeof n === 'number' && Number.isFinite(n));
@@ -63,6 +67,7 @@
                   <div class="ba__shot">
                     <img src="${escape(before)}" alt="개선 전: ${escape(p.beforeAlt || '')}" loading="lazy" decoding="async">
                     <div class="ba__boxes" aria-hidden="true">${boxes('before')}</div>
+                    ${zoomBtn(before, `개선 전: ${p.beforeAlt || ''}`, `${p.title || ''} 개선 전 크게 보기`, ' zoom-btn--icon')}
                   </div>
                 </figure>
                 <figure class="ba__pane">
@@ -70,6 +75,7 @@
                   <div class="ba__shot">
                     <img src="${escape(after)}" alt="개선 후: ${escape(p.afterAlt || '')}" loading="lazy" decoding="async">
                     <div class="ba__boxes" aria-hidden="true">${boxes('after')}</div>
+                    ${zoomBtn(after, `개선 후: ${p.afterAlt || ''}`, `${p.title || ''} 개선 후 크게 보기`, ' zoom-btn--icon')}
                   </div>
                 </figure>
               </div>
@@ -174,6 +180,10 @@
                 <button type="button" data-pos="50">반반</button>
                 <button type="button" data-pos="0">개선 후</button>
               </div>
+              <div class="ba__zooms">
+                ${zoomBtn(before, `개선 전: ${p.beforeAlt || ''}`, '개선 전 크게 보기')}
+                ${zoomBtn(after, `개선 후: ${p.afterAlt || ''}`, '개선 후 크게 보기')}
+              </div>
             </div>
             <div class="ba__notes">
               ${has(p.kept) ? `<div class="ba__note ba__note--before"><p class="ba__label">${icon('i-check')}유지한 정보 · 흐름</p><p>${escape(p.kept)}</p></div>` : ''}
@@ -190,9 +200,22 @@
       const pr = d.process || {};
       const steps = list(pr.steps).filter((s) => s.title || s.text);
       const tokens = list(pr.tokens).filter((t) => t.value);
-      if (!has(pr.text) && !steps.length && !tokens.length) return '';
+      const decisions = list(pr.decisions).filter((x) => x.title);
+      if (!has(pr.text) && !steps.length && !tokens.length && !decisions.length) return '';
+      const STEPS = [['problem', '문제'], ['reason', '선택 이유'], ['implementation', '구현'], ['result', '확인 결과']];
       return `
         ${has(pr.text) ? `<p class="case-lead">${escape(pr.text)}</p>` : ''}
+        ${decisions.length ? `
+        <h3 class="case-sub">대표 개선 판단</h3>
+        <ol class="case-decisions">${decisions.map((x, i) => `
+          <li class="decision" data-reveal>
+            <h4 class="decision__title"><span aria-hidden="true">${pad(i + 1)}</span>${escape(x.title)}</h4>
+            <dl class="decision__flow">${STEPS.filter(([k]) => has(x[k])).map(([k, label]) => `
+              <div class="decision__step decision__step--${k}"><dt>${label}</dt><dd>${escape(x[k])}</dd></div>`).join('')}
+            </dl>
+          </li>`).join('')}
+        </ol>
+        <h3 class="case-sub">디자인 과정</h3>` : ''}
         ${steps.length ? `<ol class="case-steps" data-stagger>${steps.map((s, i) => `
           <li class="case-step">
             <span class="case-step__num">Step ${pad(i + 1)}</span>
@@ -236,7 +259,8 @@
         ${shots.length ? `<ul class="case-devices" data-stagger>${shots.map((s) => `
           <li class="case-device">
             <figure>
-              <div class="case-device__frame"><img src="${escape(safeUrl(s.image))}" alt="${escape(s.alt || '')}" loading="lazy" decoding="async"></div>
+              <div class="case-device__frame"><img src="${escape(safeUrl(s.image))}" alt="${escape(s.alt || '')}" loading="lazy" decoding="async">
+                ${zoomBtn(safeUrl(s.image), s.alt || '', `${s.label || ''} 화면 크게 보기`, ' zoom-btn--icon')}</div>
               <figcaption>${escape(s.label || '')}</figcaption>
             </figure>
           </li>`).join('')}
@@ -270,12 +294,35 @@
     result: (d) => {
       const r = d.result || {};
       const metrics = list(r.metrics).filter((m) => m.value);
-      if (!metrics.length && !has(r.text) && !has(r.retrospective)) return '';
+      const v = r.verification || null;
+      const limits = list(r.limitations);
+      if (!metrics.length && !has(r.text) && !has(r.retrospective) && !v && !limits.length) return '';
+      const report = v ? safeUrl(v.report) : '';
       return `
         ${metrics.length ? `<dl class="case-metrics" data-stagger>${metrics.map((m) => `
-          <div><dt>${escape(m.label || '')}</dt><dd>${escape(m.value)}</dd></div>`).join('')}
+          <div><dt>${escape(m.label || '')}</dt><dd>${escape(m.value)}</dd>${m.note ? `<dd class="case-metrics__note">${escape(m.note)}</dd>` : ''}</div>`).join('')}
         </dl>` : ''}
         ${has(r.text) ? `<p class="case-lead case-lead--small">${escape(r.text)}</p>` : ''}
+        ${v ? `
+        <div class="case-verify" data-reveal>
+          <div class="case-verify__head">
+            <h3 class="case-sub">측정 근거</h3>
+            ${v.measuredAt ? `<p class="case-verify__date">측정일 <time datetime="${escape(v.measuredAt)}">${escape(String(v.measuredAt).replace(/-/g, '.'))}</time></p>` : ''}
+          </div>
+          ${list(v.items).length ? `<table class="case-verify__table">
+            <caption class="blind">자동 검사 결과</caption>
+            <thead><tr><th scope="col">검사</th><th scope="col">결과</th><th scope="col">범위</th></tr></thead>
+            <tbody>${list(v.items).map((it) => `<tr><th scope="row">${escape(it.label || '')}</th><td>${escape(it.value || '')}</td><td>${escape(it.scope || '')}</td></tr>`).join('')}</tbody>
+          </table>` : ''}
+          ${list(v.conditions).length ? `<p class="case-verify__label">검사 조건</p><ul class="case-bullets">${list(v.conditions).map((c) => `<li>${escape(c)}</li>`).join('')}</ul>` : ''}
+          ${has(v.note) ? `<p class="case-verify__note">${escape(v.note)}</p>` : ''}
+          ${report ? `<a class="btn btn--line case-verify__link" href="${escape(report)}"${linkAttrs(report)}>화면별 검증 보고서 보기${icon('i-arrow-up-right')}</a>` : ''}
+        </div>` : ''}
+        ${limits.length ? `
+        <div class="case-limits" data-reveal>
+          <h3 class="case-sub">한계와 다음 단계</h3>
+          <ul class="case-bullets">${limits.map((l) => `<li>${escape(l)}</li>`).join('')}</ul>
+        </div>` : ''}
         ${has(r.retrospective) ? `
         <div class="case-retro" data-reveal>
           <h3 class="case-sub">회고</h3>
@@ -423,9 +470,38 @@
     }, { threshold: 0.15 }).observe(video);
   };
 
+  /* ===== 이미지 크게 보기 ===== */
+  const setupZoom = () => {
+    const dialog = document.getElementById('zoom');
+    if (!dialog || typeof dialog.showModal !== 'function') return;
+    const img = dialog.querySelector('.zoom__img');
+    const title = dialog.querySelector('.zoom__title');
+    const fit = dialog.querySelector('.zoom__fit');
+    const setNatural = (on) => {
+      dialog.classList.toggle('is-natural', on);
+      fit.setAttribute('aria-pressed', String(on));
+      fit.textContent = on ? '화면에 맞추기' : '원본 크기로 보기';
+    };
+    root.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-zoom]');
+      if (!btn) return;
+      img.src = btn.dataset.zoom;
+      img.alt = btn.dataset.zoomAlt || '';
+      title.textContent = btn.querySelector('.zoom-btn__text').textContent.replace(/ ?크게 보기$/, '');
+      setNatural(false);
+      dialog.showModal();
+    });
+    fit.addEventListener('click', () => setNatural(!dialog.classList.contains('is-natural')));
+    dialog.querySelector('.zoom__close').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+  };
+
   /* ===== 목차 + 현재 구성 표시 ===== */
   const setupToc = () => {
-    const links = [...root.querySelectorAll('.case-toc a')];
+    const links = [...root.querySelectorAll('.case-toc a, .case-toc-mobile a')];
+    const mobile = root.querySelector('.case-toc-mobile');
+    const current = mobile && mobile.querySelector('.case-toc-mobile__current');
+    if (mobile) mobile.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => { mobile.open = false; }));
     if (!links.length || !('IntersectionObserver' in window)) return;
     const spy = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -436,6 +512,8 @@
           if (on) a.setAttribute('aria-current', 'true');
           else a.removeAttribute('aria-current');
         });
+        const sec = SECTIONS.find((x) => x.key === entry.target.id);
+        if (current && sec) current.textContent = sec.title;
       });
     }, { rootMargin: '-35% 0px -60% 0px' });
     root.querySelectorAll('.case-section').forEach((s) => spy.observe(s));
@@ -496,6 +574,14 @@
 
     root.innerHTML = `
       ${heroHtml(data)}
+      <details class="case-toc-mobile">
+        <summary class="inner"><span class="case-toc-mobile__label">${icon('i-list')}목차</span><span class="case-toc-mobile__current" aria-hidden="true">${visible[0] ? visible[0].title : ''}</span></summary>
+        <nav class="inner" aria-label="상세 목차 (모바일)">
+          <ol>${visible.map((s, i) => `
+            <li><a href="#${s.key}"><span aria-hidden="true">${pad(i + 1)}</span>${s.title}</a></li>`).join('')}
+          </ol>
+        </nav>
+      </details>
       <div class="inner case__body">
         <nav class="case-toc" aria-label="상세 목차">
           <ol>${visible.map((s, i) => `
@@ -518,6 +604,7 @@
 
     setupCompare();
     setupStructure();
+    setupZoom();
     setupToc();
     setupReveal();
     setupCoverVideo();
