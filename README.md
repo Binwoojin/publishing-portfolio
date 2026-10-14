@@ -7,14 +7,16 @@ HTML · CSS · JavaScript 기반의 마크업, 반응형 레이아웃, 웹 접�
 
 ```
 publishing-portfolio/
-├── index.html              # 포트폴리오 사이트 (About · Skills · Projects · Contact)
+├── index.html              # 포트폴리오 메인 (Hero · Projects · About · Skills · Contact)
+├── project.html            # 작업물 상세 (project.html?id=growlog)
 ├── assets/
 │   ├── css/style.css       # 사이트 스타일 (라이트/다크 모드, 반응형)
 │   ├── js/main.js          # 모바일 메뉴, 작업물 목록 렌더링 · 필터
 │   └── images/             # 작업물 썸네일 이미지
 ├── data/
 │   ├── projects.json       # ★ 작업물 목록
-│   └── site.json           # ★ 이름 · 연락처 · 소개 문구 · 기술 목록
+│   ├── site.json           # ★ 이름 · 연락처 · 소개 문구 · 기술 목록
+│   └── cases/              # ★ 작업물 상세 내용 (growlog.json, waylog.json)
 ├── .pages.yml              # 관리 화면(Pages CMS) 설정
 ├── common/css/reset.css    # 공통 리셋 CSS
 ├── projects/
@@ -50,14 +52,49 @@ publishing-portfolio/
     "tags": ["HTML", "CSS", "JavaScript"],
     "thumbnail": "assets/images/project-name.jpg",
     "period": "2026.09",
-    "contribution": "퍼블리싱 100%",
+    "contribution": "1인 프로젝트 · Claude Code 보조 구현",
     "demo": "projects/project-name/",
-    "code": "https://github.com/Binwoojin/publishing-portfolio/tree/main/projects/project-name"
+    "caseStudy": "project-name"
   }
 ]
 ```
 
 결과물 페이지는 `projects/_template` 폴더를 복사해 `projects/<project-name>` 으로 만들어 작업하고, `demo` 에 그 경로를 적으면 됩니다.
+
+## 작업물 상세페이지
+
+메인의 작업물 카드에서 **Case Study 보기**를 누르면 `project.html?id=<아이디>` 로 이동하고, `data/cases/<아이디>.json` 의 내용을 아래 9개 구성으로 보여줍니다. 내용이 비어 있는 구성은 자동으로 빠지고 번호가 다시 매겨집니다.
+
+| 순서 | 구성 | 내용 |
+| --- | --- | --- |
+| 01 | Project Overview | 프로젝트 소개 · 요약 정보 |
+| 02 | My Role | 담당 범위 — 직접 판단 · 확인한 일 / Claude Code가 보조한 일 |
+| 03 | Before & After | 원본 · 리디자인 화면 비교 슬라이더 + 개선 전 문제 / 개선 내용 |
+| 04 | Design Process | 디자인 개선 과정 · 주요 색상 토큰 |
+| 05 | Publishing | HTML · CSS · JS 구현 내용 |
+| 06 | Responsive | PC · 태블릿 · 모바일 화면 |
+| 07 | Accessibility | 접근성 개선 내용 |
+| 08 | Troubleshooting | 구현 중 해결한 문제 (문제 / 해결) |
+| 09 | Result | 결과 수치 · 회고 |
+
+- 관리 화면(Pages CMS)의 **작업물 상세** 메뉴에서 수정할 수 있습니다. 작업물 목록의 **상세페이지 ID** 와 파일 이름이 같아야 카드에 버튼이 생깁니다.
+- 상세 이미지는 `assets/images/cases/<아이디>/` 에 있습니다. Before & After 이미지는 **개선 전 · 후를 같은 크기로 캡처**해야 슬라이더에서 정확히 겹칩니다.
+
+## 검증 (html-validate · axe-core · Lighthouse)
+
+작업물 화면을 같은 조건으로 다시 검사하고, 결과를 `reports/<프로젝트>/` 에 보고서로 남깁니다.
+
+```bash
+cd tools/verify
+npm install
+npx playwright install chromium
+npm run verify              # html-validate + axe-core (전 화면 × 데스크톱 · 모바일 × 라이트 · 다크)
+npm run verify:lighthouse   # 위 검사 + Lighthouse (대표 화면, 모바일 · 데스크톱)
+```
+
+- 결과: `reports/<프로젝트>/report.json`(원본 데이터), `reports/<프로젝트>/index.html`(화면별 보고서)
+- 보고서에는 측정일 · 도구 버전 · 브라우저 버전 · 검사 조건이 함께 기록됩니다.
+- 상세페이지 09 Result 의 **측정 근거**는 이 보고서를 옮겨 적은 것입니다. 다시 측정하면 `data/cases/<프로젝트>.json` 의 `result.verification` 도 함께 고쳐 주세요.
 
 ## 배포 (GitHub Pages)
 

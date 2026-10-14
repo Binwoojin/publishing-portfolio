@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OOO | Web Publisher Portfolio</title>
-  <meta name="description" content="웹 퍼블리셔 OOO의 포트폴리오입니다. 시맨틱 마크업, 반응형 웹, 웹 접근성 작업물을 소개합니다.">
+  <title>Binwoojin | Web Publisher Portfolio</title>
+  <meta name="description" content="기존 UI의 문제를 분석하고 리디자인 · 퍼블리싱으로 개선하는 웹 퍼블리셔 김지현(빈우진)의 포트폴리오입니다.">
   <meta name="theme-color" content="#FAFAFA" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#09090B" media="(prefers-color-scheme: dark)">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="OOO | Web Publisher Portfolio">
-  <meta property="og:description" content="시맨틱 마크업, 반응형 웹, 웹 접근성 작업물을 소개합니다.">
+  <meta property="og:title" content="Binwoojin | Web Publisher Portfolio">
+  <meta property="og:description" content="기존 UI의 문제를 분석하고 리디자인 · 퍼블리싱으로 개선하는 웹 퍼블리셔 포트폴리오입니다.">
   <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/Paperlogy-4Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="common/css/reset.css">
@@ -49,20 +49,20 @@
         </ul>
       </nav>
     </div>
+    <span class="header__progress" aria-hidden="true"></span>
   </header>
 
   <main id="main">
     <!-- Hero -->
     <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="inner">
-        <p class="hero__eyebrow"><span class="hero__dot" aria-hidden="true"></span>Web Publisher Portfolio</p>
+        <p class="hero__eyebrow"><span class="hero__dot" aria-hidden="true"></span>Web Publisher · UI Redesign</p>
         <h1 class="hero__title" id="hero-title">
-          <span class="hero__line">구조는 단단하게,</span>
-          <span class="hero__line">화면은 <em>정확하게.</em></span>
+          <span class="hero__line">문제를 찾는 눈,</span>
+          <span class="hero__line"><em>고쳐내는 마크업.</em></span>
         </h1>
         <p class="hero__desc" data-site="heroDescription">
-          안녕하세요, 웹 퍼블리셔 OOO입니다.
-          시맨틱 마크업과 웹 접근성을 기본으로, 어떤 기기에서도 의도대로 보이는 화면을 만듭니다.
+          기존 프론트엔드 프로젝트의 UI를 분석해 문제를 찾고, 리디자인 · 퍼블리싱해 더 나은 화면으로 개선합니다.
         </p>
         <div class="hero__actions">
           <a class="btn btn--primary" href="#projects">
@@ -79,11 +79,11 @@
           </div>
           <div>
             <dt>Focus</dt>
-            <dd data-site="focus">시맨틱 마크업 · 반응형 · 웹 접근성</dd>
+            <dd data-site="focus">UI 분석 · 리디자인 · 퍼블리싱</dd>
           </div>
           <div>
-            <dt>Stack</dt>
-            <dd data-site="stack">HTML · CSS · JavaScript</dd>
+            <dt>Work</dt>
+            <dd data-site="highlight">서비스 2개 리디자인 · 화면 19개 퍼블리싱</dd>
           </div>
         </dl>
       </div>
@@ -95,7 +95,7 @@
         <header class="section__head" data-reveal>
           <p class="section__num">01</p>
           <h2 class="section__title" id="projects-title">Projects</h2>
-          <p class="section__desc">직접 마크업하고 스타일링한 퍼블리싱 작업물입니다.</p>
+          <p class="section__desc">기존 서비스를 분석해 리디자인 · 퍼블리싱한 작업물입니다. 구현에는 Claude Code를 보조 도구로 썼습니다.</p>
         </header>
 
         <div class="filter" role="group" aria-label="작업물 분류">
@@ -116,8 +116,8 @@
           <p class="section__desc">일하는 방식과 기본 정보입니다.</p>
         </header>
 
-        <div class="about" data-reveal>
-          <div class="about__text">
+        <div class="about">
+          <div class="about__text" data-reveal>
             <p class="about__lead" data-site="aboutLead">
               디자인 시안을 픽셀 단위로 옮기는 데서 그치지 않고,
               누구나 불편 없이 쓸 수 있는 마크업을 고민합니다.
@@ -128,7 +128,7 @@
               개발자 · 디자이너와의 원활한 협업을 중요하게 생각합니다.
             </p>
           </div>
-          <dl class="about__info">
+          <dl class="about__info" data-stagger>
             <div><dt>Name</dt><dd data-site="name">OOO</dd></div>
             <div><dt>Role</dt><dd data-site="role">Web Publisher</dd></div>
             <div><dt>Email</dt><dd><a href="mailto:your@email.com" data-site-email>your@email.com</a></dd></div>
@@ -147,7 +147,7 @@
           <p class="section__desc">작업에 사용하는 기술과 기준입니다.</p>
         </header>
 
-        <ul class="skills" id="skill-list" data-reveal>
+        <ul class="skills" id="skill-list" data-stagger>
           <li class="skill">
             <h3 class="skill__name">HTML5</h3>
             <p class="skill__desc">시맨틱 마크업, 문서 구조 설계, SEO를 고려한 메타 정보 작성</p>
@@ -190,7 +190,7 @@
             <span data-site-email-text>your@email.com</span>
             <svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
           </a>
-          <ul class="contact__links">
+          <ul class="contact__links" data-stagger>
             <li>
               <a class="btn btn--line" href="mailto:your@email.com" data-site-email>
                 <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>

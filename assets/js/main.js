@@ -2,6 +2,32 @@
   let projects = [];
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ===== 글자 단위로 나누기 (제목 모션용) =====
+     글자마다 <span class="{className}" style="--i:n"> 로 감싸고, 다음 번호를 돌려줍니다. */
+  const splitChars = (node, className, start = 0) => {
+    let index = start;
+    [...node.childNodes].forEach((child) => {
+      if (child.nodeType === Node.TEXT_NODE) {
+        const frag = document.createDocumentFragment();
+        [...child.textContent.replace(/\s+/g, ' ')].forEach((ch) => {
+          if (ch === ' ') {
+            frag.appendChild(document.createTextNode(' '));
+            return;
+          }
+          const span = document.createElement('span');
+          span.className = className;
+          span.style.setProperty('--i', index++);
+          span.textContent = ch;
+          frag.appendChild(span);
+        });
+        child.replaceWith(frag);
+      } else if (child.nodeType === Node.ELEMENT_NODE) {
+        index = splitChars(child, className, index);
+      }
+    });
+    return index;
+  };
+
   /* ===== 첫 화면 제목 모션 ===== */
   const hero = document.querySelector('.hero');
   const heroTitle = hero && hero.querySelector('.hero__title');
@@ -10,30 +36,9 @@
     heroTitle.setAttribute('aria-label', heroTitle.textContent.replace(/\s+/g, ' ').trim());
 
     let index = 0;
-    const splitNode = (node) => {
-      [...node.childNodes].forEach((child) => {
-        if (child.nodeType === Node.TEXT_NODE) {
-          const frag = document.createDocumentFragment();
-          [...child.textContent.replace(/\s+/g, ' ')].forEach((ch) => {
-            if (ch === ' ') {
-              frag.appendChild(document.createTextNode(' '));
-              return;
-            }
-            const span = document.createElement('span');
-            span.className = 'hero__char';
-            span.style.setProperty('--i', index++);
-            span.textContent = ch;
-            frag.appendChild(span);
-          });
-          child.replaceWith(frag);
-        } else if (child.nodeType === Node.ELEMENT_NODE) {
-          splitNode(child);
-        }
-      });
-    };
     heroTitle.querySelectorAll('.hero__line').forEach((line) => {
       line.setAttribute('aria-hidden', 'true');
-      splitNode(line);
+      index = splitChars(line, 'hero__char', index);
     });
 
     const titleEnd = index * 35 + 120 + 500;
@@ -69,9 +74,24 @@
     }
   });
 
-  /* ===== 스크롤 시 헤더 구분선 ===== */
-  const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 10);
-  window.addEventListener('scroll', onScroll, { passive: true });
+  /* ===== 스크롤 시 헤더 구분선 + 읽기 진행 막대 ===== */
+  const progress = header.querySelector('.header__progress');
+  let ticking = false;
+  const onScroll = () => {
+    header.classList.toggle('is-scrolled', window.scrollY > 10);
+    if (progress) {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.transform = `scaleX(${max > 0 ? Math.min(window.scrollY / max, 1) : 0})`;
+    }
+    ticking = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(onScroll);
+    }
+  }, { passive: true });
+  window.addEventListener('resize', onScroll);
   onScroll();
 
   /* ===== 현재 섹션 메뉴 표시 ===== */
@@ -113,6 +133,11 @@
     return `<a class="card__link ${modifier}" href="${escape(url)}"${ext}>${label}<span class="blind"> - ${escape(title)}${sr}</span>${icon(iconId)}</a>`;
   };
 
+  // 상세페이지(data/cases/{caseStudy}.json)가 있는 작업물은 'Case Study 보기'를 먼저 보여줌
+  const caseLink = (p) => (/^[a-z0-9-]+$/.test(p.caseStudy || '')
+    ? `<a class="card__link" href="project.html?id=${p.caseStudy}">Case Study 보기<span class="blind"> - ${escape(p.title)} 개선 과정</span>${icon('i-arrow-right')}</a>`
+    : '');
+
   const cardHtml = (p, i) => {
     const thumbSrc = safeUrl(p.thumbnail);
     const thumb = thumbSrc
@@ -122,7 +147,7 @@
     const tags = (p.tags || []).map((t) => `<li>${escape(t)}</li>`).join('');
 
     return `
-      <li class="card" data-reveal>
+      <li class="card" data-reveal style="--i:${i % 2}">
         <div class="card__thumb">
           ${thumb}
           <span class="card__index" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
@@ -136,8 +161,8 @@
           ${p.desc ? `<p class="card__desc">${escape(p.desc)}</p>` : ''}
           ${tags ? `<ul class="card__tags" aria-label="사용 기술">${tags}</ul>` : ''}
           <div class="card__links">
-            ${linkHtml(p.demo, '결과물 보기', p.title, 'i-arrow-up-right')}
-            ${linkHtml(p.code, '코드 보기', p.title, 'i-code', 'card__link--sub')}
+            ${caseLink(p)}
+            ${linkHtml(p.demo, 'Live Demo 보기', p.title, 'i-arrow-up-right', p.caseStudy ? 'card__link--sub' : '')}
           </div>
         </div>
       </li>`;
@@ -164,10 +189,26 @@
 
   function observeReveal(root) {
     if (!revealer) return;
-    root.querySelectorAll('[data-reveal]:not(.is-visible)').forEach((el) => revealer.observe(el));
+    // data-stagger: 자식 요소가 차례로 등장
+    root.querySelectorAll('[data-stagger]').forEach((group) => {
+      [...group.children].forEach((child, i) => child.style.setProperty('--i', i));
+    });
+    root.querySelectorAll('[data-reveal]:not(.is-visible), [data-stagger]:not(.is-visible)').forEach((el) => revealer.observe(el));
   }
 
-  if (revealer) document.documentElement.classList.add('js-reveal');
+  if (revealer) {
+    document.documentElement.classList.add('js-reveal');
+    // 섹션 제목을 글자 단위로 나눠 한 글자씩 올라오게
+    document.querySelectorAll('.section__title').forEach((title) => {
+      title.setAttribute('aria-label', title.textContent.trim());
+      const inner = document.createElement('span');
+      inner.className = 'section__title-inner';
+      inner.setAttribute('aria-hidden', 'true');
+      inner.append(...title.childNodes);
+      title.appendChild(inner);
+      splitChars(inner, 'section__char');
+    });
+  }
 
   const setupFilter = () => {
     const categories = ['All', ...new Set(projects.map((p) => p.category).filter(Boolean))];
@@ -216,11 +257,13 @@
 
     const skills = Array.isArray(site.skills) ? site.skills.filter((s) => s && s.name) : [];
     if (skills.length) {
-      document.getElementById('skill-list').innerHTML = skills.map((s) => `
+      const skillList = document.getElementById('skill-list');
+      skillList.innerHTML = skills.map((s) => `
           <li class="skill">
             <h3 class="skill__name">${escape(s.name)}</h3>
             ${s.desc ? `<p class="skill__desc">${escape(s.desc)}</p>` : ''}
           </li>`).join('');
+      [...skillList.children].forEach((li, i) => li.style.setProperty('--i', i));
     }
   };
 

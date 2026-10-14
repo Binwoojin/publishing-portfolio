@@ -1,0 +1,422 @@
+{
+  "project": "WayLog 리디자인",
+  "dir": "projects/waylog/publishing",
+  "pages": [
+    "projects/waylog/publishing/course.html",
+    "projects/waylog/publishing/destinations.html",
+    "projects/waylog/publishing/enjoy.html",
+    "projects/waylog/publishing/feed.html",
+    "projects/waylog/publishing/index.html",
+    "projects/waylog/publishing/login.html",
+    "projects/waylog/publishing/mypage.html",
+    "projects/waylog/publishing/place.html",
+    "projects/waylog/publishing/post.html",
+    "projects/waylog/publishing/signup.html"
+  ],
+  "measuredAt": "2026-10-14T02:33:28.069Z",
+  "tools": {
+    "html-validate": "11.16.2",
+    "axe-core": "4.14.0",
+    "playwright": "1.64.0",
+    "Chromium": "141.0.7390.37"
+  },
+  "environment": "Linux 6.18.44-fc-v114 · Node v22.22.0 · 로컬 정적 서버",
+  "conditions": [
+    "axe-core 규칙: wcag2a, wcag2aa, wcag21a, wcag21aa, wcag22aa, best-practice",
+    "화면: 데스크톱 1280×800 / 모바일 375×812 × 라이트 · 다크",
+    "페이지를 끝까지 스크롤해 등장 효과를 모두 재생한 뒤 검사",
+    "각 화면의 기본 상태만 검사 (로딩 · 빈 상태 · 오류 · 다이얼로그 상태는 포함하지 않음)"
+  ],
+  "summary": {
+    "htmlErrors": 0,
+    "htmlWarnings": 0,
+    "axeRuns": 40,
+    "axeViolations": 0,
+    "horizontalScroll": 0
+  },
+  "htmlValidate": [
+    {
+      "file": "projects/waylog/publishing/course.html",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    {
+      "file": "projects/waylog/publishing/destinations.html",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    {
+      "file": "projects/waylog/publishing/enjoy.html",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    {
+      "file": "projects/waylog/publishing/feed.html",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    {
+      "file": "projects/waylog/publishing/index.html",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    {
+      "file": "projects/waylog/publishing/login.html",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    {
+      "file": "projects/waylog/publishing/mypage.html",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    {
+      "file": "projects/waylog/publishing/place.html",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    {
+      "file": "projects/waylog/publishing/post.html",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    {
+      "file": "projects/waylog/publishing/signup.html",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    }
+  ],
+  "axe": [
+    {
+      "file": "projects/waylog/publishing/course.html",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/course.html",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/course.html",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/course.html",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/destinations.html",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/destinations.html",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/destinations.html",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/destinations.html",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/enjoy.html",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/enjoy.html",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/enjoy.html",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/enjoy.html",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/feed.html",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/feed.html",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/feed.html",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/feed.html",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/index.html",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/index.html",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/index.html",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/index.html",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/login.html",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/login.html",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/login.html",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/login.html",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/mypage.html",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/mypage.html",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/mypage.html",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/mypage.html",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/place.html",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/place.html",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/place.html",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/place.html",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/post.html",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/post.html",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/post.html",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/post.html",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/signup.html",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/signup.html",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/signup.html",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/waylog/publishing/signup.html",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    }
+  ],
+  "lighthouse": null
+}

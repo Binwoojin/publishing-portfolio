@@ -44,13 +44,13 @@ content:
         label: 기여도
         description: 예 - 퍼블리싱 100%
         type: string
-      - name: demo
-        label: 결과물 링크
-        description: 예 - projects/my-project/ 또는 https://...
+      - name: caseStudy
+        label: 상세페이지 ID
+        description: 작업물 상세(data/cases/아이디.json)의 아이디. 예 - growlog (비우면 '자세히 보기' 버튼이 없습니다)
         type: string
-      - name: code
-        label: 코드 링크
-        description: GitHub 코드 주소 (선택)
+      - name: demo
+        label: Live Demo 링크
+        description: 예 - projects/my-project/ 또는 https://...
         type: string
 
   - name: site
@@ -80,8 +80,9 @@ content:
       - name: focus
         label: 주요 분야
         type: string
-      - name: stack
-        label: 사용 기술 요약
+      - name: highlight
+        label: 주요 성과 (첫 화면 Work)
+        description: 예 - 서비스 2개 리디자인 · 화면 19개 퍼블리싱
         type: string
       - name: aboutLead
         label: About 강조 문장
@@ -101,3 +102,217 @@ content:
           - name: desc
             label: 설명
             type: string
+
+  - name: cases
+    label: 작업물 상세
+    description: 작업물마다 하나씩 있는 상세페이지 내용입니다. 새로 만들 때 파일 이름을 영문 소문자로 정하고(예 - cafe.json), 작업물 목록의 '상세페이지 ID'에 같은 이름(cafe)을 적어 주세요. 비워 둔 구성은 상세페이지에 나오지 않습니다.
+    type: collection
+    path: data/cases
+    format: json
+    filename:
+      template: "{primary}.json"
+      field: create
+    view:
+      fields: [title, period]
+    fields:
+      - name: title
+        label: 제목
+        type: string
+        required: true
+      - name: subtitle
+        label: 한 줄 방향
+        description: 예 - UI 리디자인 및 퍼블리싱
+        type: string
+      - name: summary
+        label: 요약
+        type: text
+      - name: cover
+        label: 대표 이미지
+        type: image
+      - name: coverVideo
+        label: 대표 영상 (선택)
+        description: 상세페이지 첫 화면에 자동 재생 · 반복 · 음소거로 보여 줄 MP4 경로입니다. 예 - assets/videos/cases/growlog-landing.mp4 (비우면 대표 이미지가 보입니다)
+        type: string
+      - name: coverPoster
+        label: 대표 영상 포스터 (선택)
+        description: 영상을 불러오기 전과 모션 줄이기 설정에서 보이는 정지 화면입니다. 비우면 대표 이미지를 씁니다.
+        type: image
+      - name: period
+        label: 작업 기간
+        type: string
+      - name: contribution
+        label: 기여도
+        type: string
+      - name: tools
+        label: 사용 기술
+        type: string
+        list: true
+      - name: demo
+        label: 결과물 링크
+        type: string
+      - name: overview
+        label: 01 Project Overview
+        type: object
+        fields:
+          - name: text
+            label: 소개
+            type: text
+          - name: facts
+            label: 요약 정보
+            type: object
+            list: true
+            fields:
+              - { name: label, label: 항목, type: string }
+              - { name: value, label: 내용, type: string }
+      - name: role
+        label: 02 My Role
+        description: 담당 비율(1인 프로젝트)과 코드를 직접 작성한 비율을 구분해 적습니다.
+        type: object
+        fields:
+          - name: text
+            label: 설명
+            type: text
+          - name: items
+            label: 직접 판단 · 확인한 일
+            type: string
+            list: true
+          - name: ai
+            label: Claude Code가 보조한 일
+            type: string
+            list: true
+      - name: beforeAfterIntro
+        label: 03 Before & After 안내 문구
+        description: 비워 두면 기본 안내(슬라이더 사용법)가 나옵니다.
+        type: text
+      - name: beforeAfter
+        label: 03 Before & After
+        description: 개선 전 · 후 이미지는 같은 크기로 캡처해야 비교 슬라이더가 정확하게 겹칩니다. '유지한 구조 / 다시 디자인한 점'을 쓰면 '개선 전 문제 / 개선 내용' 대신 그것이 보입니다.
+        type: object
+        list: true
+        fields:
+          - { name: title, label: 화면 이름, type: string }
+          - { name: before, label: 개선 전 이미지, type: image }
+          - { name: beforeAlt, label: 개선 전 이미지 설명 (대체 텍스트), type: string }
+          - { name: after, label: 개선 후 이미지, type: image }
+          - { name: afterAlt, label: 개선 후 이미지 설명 (대체 텍스트), type: string }
+          - { name: kept, label: 유지한 구조, type: text }
+          - { name: redesign, label: 다시 디자인한 점, type: text }
+          - { name: problem, label: 개선 전 문제, type: text }
+          - { name: improvement, label: 개선 내용, type: text }
+          - name: regions
+            label: 구조 비교 영역
+            description: "같은 역할의 영역에 같은 번호를 붙입니다. 위치는 [가로 시작, 세로 시작, 너비, 높이]를 이미지 크기에 대한 %로 적습니다. 개선 전 위치를 비우면 '새로 추가(+)'로 표시됩니다."
+            type: object
+            list: true
+            fields:
+              - { name: label, label: 영역 이름, type: string }
+              - { name: note, label: 바뀐 점, type: string }
+              - { name: before, label: "개선 전 위치 (%)", type: number, list: true }
+              - { name: after, label: "개선 후 위치 (%)", type: number, list: true }
+      - name: process
+        label: 04 Design Process
+        type: object
+        fields:
+          - name: text
+            label: 설명
+            type: text
+          - name: steps
+            label: 과정
+            type: object
+            list: true
+            fields:
+              - { name: title, label: 단계 이름, type: string }
+              - { name: text, label: 내용, type: text }
+          - name: decisions
+            label: 대표 개선 판단
+            description: 대표 개선 2~3개를 문제 → 선택 이유 → 구현 → 확인 결과 순서로 적습니다.
+            type: object
+            list: true
+            fields:
+              - { name: title, label: 제목, type: string }
+              - { name: problem, label: 문제, type: text }
+              - { name: reason, label: 선택 이유, type: text }
+              - { name: implementation, label: 구현, type: text }
+              - { name: result, label: 확인 결과, type: text }
+          - name: tokens
+            label: 주요 색상 토큰
+            type: object
+            list: true
+            fields:
+              - { name: name, label: 이름, type: string }
+              - { name: value, label: "색상값 (예 - #3F7D63)", type: string }
+              - { name: note, label: 설명, type: string }
+      - name: publishing
+        label: 05 Publishing
+        type: object
+        list: true
+        fields:
+          - { name: title, label: 구분 (HTML · CSS · JavaScript), type: string }
+          - { name: items, label: 구현 내용, type: string, list: true }
+      - name: responsive
+        label: 06 Responsive
+        type: object
+        fields:
+          - name: text
+            label: 설명
+            type: text
+          - name: shots
+            label: 화면 캡처
+            type: object
+            list: true
+            fields:
+              - { name: label, label: 이름 (예 - 모바일 375px), type: string }
+              - { name: image, label: 이미지, type: image }
+              - { name: alt, label: 이미지 설명 (대체 텍스트), type: string }
+      - name: accessibility
+        label: 07 Accessibility
+        type: string
+        list: true
+      - name: troubleshooting
+        label: 08 Troubleshooting
+        type: object
+        list: true
+        fields:
+          - { name: title, label: 제목, type: string }
+          - { name: problem, label: 문제, type: text }
+          - { name: solution, label: 해결, type: text }
+      - name: result
+        label: 09 Result
+        type: object
+        fields:
+          - name: metrics
+            label: 결과 수치
+            type: object
+            list: true
+            fields:
+              - { name: label, label: 항목, type: string }
+              - { name: value, label: 값, type: string }
+              - { name: note, label: "출처 (예 - 2026.10.14 측정 / 작업 당시 기록)", type: string }
+          - name: text
+            label: 결과 설명
+            type: text
+          - name: verification
+            label: 측정 근거
+            description: tools/verify 의 검증 스크립트 결과(reports/아이디/report.json)를 옮겨 적습니다.
+            type: object
+            fields:
+              - { name: measuredAt, label: "측정일 (예 - 2026-10-14)", type: string }
+              - name: items
+                label: 검사 결과
+                type: object
+                list: true
+                fields:
+                  - { name: label, label: 검사, type: string }
+                  - { name: value, label: 결과, type: string }
+                  - { name: scope, label: 범위, type: string }
+              - { name: conditions, label: 검사 조건, type: string, list: true }
+              - { name: report, label: "보고서 경로 (예 - reports/growlog/index.html)", type: string }
+              - { name: note, label: 참고, type: text }
+          - name: limitations
+            label: 한계와 다음 단계
+            type: string
+            list: true
+          - name: retrospective
+            label: 회고
+            description: 직접 느낀 점 · 다음에 다르게 해 볼 점을 적어 주세요. 비워 두면 회고 칸은 나오지 않습니다.
+            type: text

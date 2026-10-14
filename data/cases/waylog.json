@@ -1,0 +1,274 @@
+{
+  "title": "WayLog 리디자인",
+  "subtitle": "사용자 경험 및 화면 개선",
+  "summary": "국내 여행지를 찾고, 코스를 따라 떠나고, 다녀온 이야기를 피드로 나누는 여행 기록 서비스 WayLog를 새 디자인 시스템으로 리디자인하고, 10개 화면을 HTML · CSS · JavaScript로 퍼블리싱했습니다.",
+  "cover": "assets/images/cases/waylog/resp-1440.webp",
+  "coverVideo": "assets/videos/cases/waylog-landing.mp4",
+  "coverPoster": "assets/images/cases/waylog/cover-poster.webp",
+  "period": "2026.09",
+  "contribution": "1인 프로젝트 · Claude Code 보조 구현",
+  "tools": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "웹 접근성",
+    "반응형",
+    "다크 모드"
+  ],
+  "demo": "projects/waylog/publishing/",
+  "overview": {
+    "text": "WayLog는 React 19 + Spring Boot로 만든 국내 여행 기록 서비스입니다. 이번 작업에서는 원본의 화면 구성 · 검증 규칙 · 상태 처리를 바탕으로 디자인을 새로 잡고, 서버 없이 동작하는 정적 퍼블리싱본으로 다시 만들었습니다.",
+    "facts": [
+      {
+        "label": "서비스",
+        "value": "국내 여행지 탐색 · 코스 · 여행 피드"
+      },
+      {
+        "label": "원본",
+        "value": "React 19 + Spring Boot 모노레포"
+      },
+      {
+        "label": "결과물",
+        "value": "정적 퍼블리싱 10개 화면"
+      },
+      {
+        "label": "디자인 시스템",
+        "value": "Route Note"
+      }
+    ]
+  },
+  "role": {
+    "text": "혼자 진행한 프로젝트입니다. 무엇을 바꿀지와 결과가 맞는지는 직접 판단하고 확인했고, 코드 작성은 Claude Code의 보조를 받았습니다. 담당 비율(1인)과 코드를 직접 타이핑한 비율은 다릅니다.",
+    "items": [
+      "원본 화면 구성 · 검증 규칙 · 상태 처리를 보고 리디자인 범위 결정",
+      "디자인 방향 결정 — 원본 색 · 로고 기준 유지, 대비가 부족한 값만 같은 계열에서 보정",
+      "모바일 성능을 개선 대상으로 정하고, 개선 전후 수치 확인",
+      "화면별 결과를 브라우저에서 보고 수정 요청, 반영 여부 판단"
+    ],
+    "ai": [
+      "HTML · CSS · JavaScript 코드 작성과 반복 수정",
+      "자동 검사(html-validate · axe-core · Lighthouse) 실행과 결과 정리",
+      "README · 문서 초안 작성"
+    ]
+  },
+  "beforeAfter": [
+    {
+      "title": "게시물 상세",
+      "before": "assets/images/cases/waylog/post-before.webp",
+      "after": "assets/images/cases/waylog/post-after.webp",
+      "beforeAlt": "원본 게시물 상세. 작성자, 본문 한 줄, 좋아요 · 댓글 수, 댓글 입력창",
+      "afterAlt": "리디자인한 게시물 상세. 3단계 경로, 사진 두 장, 본문, 위치 · 코스 태그와 해시태그",
+      "problem": "글이 어느 장소 · 코스와 연결되는지 보이지 않았고, 댓글은 이모지 아이콘 · 삭제는 빨간 알약 버튼처럼 아이콘과 버튼 스타일이 섞여 있었습니다.",
+      "improvement": "위치 · 코스 태그 칩과 해시태그로 글과 여행지를 연결하고, 홈 › 여행 피드 › 게시물 경로를 보여줍니다. 좋아요 · 저장 · 삭제는 아이콘 버튼으로 통일하고 aria-pressed로 상태를 전달합니다."
+    },
+    {
+      "title": "마이페이지",
+      "before": "assets/images/cases/waylog/mypage-before.webp",
+      "after": "assets/images/cases/waylog/mypage-after.webp",
+      "beforeAlt": "원본 마이페이지. 프로필 카드와 게시물 수 · 받은 좋아요, 아래로 이어지는 내가 쓴 글 목록",
+      "afterAlt": "리디자인한 마이페이지. 프로필 · 소개 · 가입일, 통계 3종, 탭 메뉴, 2열 게시물 카드",
+      "problem": "내가 쓴 글이 사진 없이 세로로 길게 이어지고, 저장한 항목(북마크)은 별도 페이지에서만 볼 수 있었습니다.",
+      "improvement": "통계를 게시물 · 저장 · 받은 좋아요 3종으로 늘리고, 내가 쓴 글 · 저장한 항목 · 계정 설정을 WAI-ARIA 탭으로 한 화면에 모았습니다. 글은 사진이 보이는 2열 카드로 바꿨습니다."
+    }
+  ],
+  "process": {
+    "text": "원본 WayLog의 색 · 로고를 기준으로 삼고, 접근성 기준에 못 미치는 값만 같은 계열 안에서 보정했습니다.",
+    "steps": [
+      {
+        "title": "원본 분석",
+        "text": "원본 화면 구성과 검증 규칙, 로그인 · 빈 상태 · 오류 같은 상태 처리를 정리했습니다."
+      },
+      {
+        "title": "컨셉",
+        "text": "'Route Note' — 지도 위에 찍은 핀과 점선 경로, 여행 노트. 코스 카드는 탑승권 절취선 모양, 지도 경로는 점선으로 통일했습니다."
+      },
+      {
+        "title": "색 · 로고 정리",
+        "text": "원본 버튼 파랑과 로고 그라데이션, 청회색 면 · 남색 푸터를 토큰으로 옮기고, 대비가 부족한 값은 같은 계열에서 보정했습니다."
+      },
+      {
+        "title": "타이포그래피",
+        "text": "제목 Hahmlet, 본문 IBM Plex Sans KR, 날짜 · 거리 같은 데이터 글자는 IBM Plex Mono로 구분했습니다."
+      }
+    ],
+    "tokens": [
+      {
+        "name": "Primary",
+        "value": "#2563EB",
+        "note": "원본 #2878ED(흰 글자 4.2:1) → 5.2:1"
+      },
+      {
+        "name": "Accent",
+        "value": "#38A8F8",
+        "note": "원본 로고 그라데이션의 하늘색"
+      },
+      {
+        "name": "Ink",
+        "value": "#17263A",
+        "note": "원본 상세 화면 제목 남색"
+      },
+      {
+        "name": "Footer",
+        "value": "#14345F",
+        "note": "원본 푸터 남색"
+      }
+    ],
+    "decisions": [
+      {
+        "title": "사진은 줄이지 않고, 기기에 맞는 크기만 — 이미지 최적화",
+        "problem": "원본 사진 28장(약 53MB PNG)을 그대로 쓰면 모바일 Lighthouse 성능이 59~65점, 가장 큰 콘텐츠가 보이기까지(LCP) 5.8~8.1초가 걸렸습니다.",
+        "reason": "여행 서비스에서 사진은 핵심 정보라 개수나 크기를 줄일 수 없어서, 화면에 실제로 보이는 크기만 내려받게 하는 방향을 골랐습니다.",
+        "implementation": "WebP 400 · 800 · 1600px(약 3.6MB)로 변환하고 srcset + 실제 표시 폭에 맞춘 sizes를 지정했습니다. 첫 화면 사진은 fetchpriority로 먼저, 나머지는 지연 로딩하고, 웹폰트 CSS는 비동기로 바꿨습니다.",
+        "result": "모바일 성능 96~99점, LCP 1.7~2.6초 (작업 당시 Lighthouse 기록)."
+      },
+      {
+        "title": "원본 브랜드 색은 지키고 대비만 — 색 보정",
+        "problem": "원본 버튼 파랑 #2878ED는 흰 글자 대비 4.2:1, 원본 로고는 다크 배경에서 3.2:1로 WCAG AA(4.5:1 · 3:1) 기준에 못 미치거나 겨우 걸쳤습니다.",
+        "reason": "WayLog의 인상을 만드는 색이라 다른 색으로 바꾸기보다, 같은 계열 안에서 기준을 넘는 값을 찾는 쪽을 택했습니다.",
+        "implementation": "버튼은 같은 계열의 #2563EB(5.2:1)로 맞추고, 다크 배경용 로고는 같은 그라데이션을 40% 밝힌 버전(6.6:1)을 따로 만들어 테마에 따라 바꿔 보여줍니다.",
+        "result": "라이트 · 다크 40회 검사에서 axe 위반 0 (2026.10.14 측정)."
+      }
+    ]
+  },
+  "publishing": [
+    {
+      "title": "HTML",
+      "items": [
+        "랜드마크 · 제목 단계 · 본문 바로가기 · 브레드크럼(aria-current)",
+        "다이얼로그와 모바일 메뉴는 네이티브 <dialog>",
+        "코스 지도는 role=\"img\" + 경로 순서를 담은 설명 제공"
+      ]
+    },
+    {
+      "title": "CSS",
+      "items": [
+        "색 · 간격 · 모서리 · 그림자를 CSS 변수로 정의, 다크 모드는 시스템 설정과 data-theme 모두 지원",
+        "이미지 영역은 aspect-ratio로 미리 자리를 잡아 레이아웃 밀림 방지",
+        "base · components · layout · pages + 화면별 CSS로 분리, 인라인 style 속성 없음"
+      ]
+    },
+    {
+      "title": "JavaScript",
+      "items": [
+        "지역 · 유형 · 검색어 · 정렬 · 페이지를 주소(URL)와 동기화",
+        "하버사인 공식으로 코스 지점 간 직선거리 계산, 같은 축척의 SVG 경로 지도와 축척 막대",
+        "글쓰기 사진은 캔버스로 640px까지 줄여 미리보기, 형식 · 용량 · 개수 검사",
+        "로그인이 필요한 동작은 안내 → 로그인 → 원래 화면 복귀(?next=)"
+      ]
+    }
+  ],
+  "responsive": {
+    "text": "모바일 우선으로 작성하고 560 · 768 · 900 · 1024 · 1200px에서 레이아웃을 나눴습니다. 사진은 WebP 400 · 800px(큰 사진은 1600px)로 준비해 srcset과 실제 표시 폭에 맞춘 sizes로 기기에 맞는 크기만 내려받습니다. 320 · 375 · 390 · 768 · 1024 · 1440px에서 가로 스크롤이 없는 것을 확인했습니다.",
+    "shots": [
+      {
+        "label": "PC 1440px",
+        "image": "assets/images/cases/waylog/resp-1440.webp",
+        "alt": "1440px 너비의 WayLog 홈. 사진 히어로와 검색 패널"
+      },
+      {
+        "label": "태블릿 768px",
+        "image": "assets/images/cases/waylog/resp-768.webp",
+        "alt": "768px 너비의 WayLog 홈"
+      },
+      {
+        "label": "모바일 375px",
+        "image": "assets/images/cases/waylog/resp-375.webp",
+        "alt": "375px 너비의 WayLog 홈"
+      }
+    ]
+  },
+  "accessibility": [
+    "탭은 WAI-ARIA Tabs 패턴 — role=\"tab\", 화살표 · Home · End 키 이동, aria-selected, tabindex 관리",
+    "필터 칩 · 좋아요 · 저장 버튼은 aria-pressed로 상태 전달",
+    "폼: 라벨 연결, 오류 문구 aria-describedby 연결, 제출 실패 시 오류 요약으로 포커스 이동",
+    "다이얼로그 · 모바일 메뉴: 바깥 비활성화, ESC 닫기, 닫힌 뒤 원래 버튼으로 포커스 복귀",
+    "글자색 조합 라이트 · 다크 모두 명도 대비 4.5:1 이상, 다크 배경용 로고 별도 제작",
+    "클릭 영역 44px 이상, 포커스 링, prefers-reduced-motion 대응"
+  ],
+  "troubleshooting": [
+    {
+      "title": "모바일 성능 59~65점 → 96~99점",
+      "problem": "원본 사진 28장(약 53MB PNG)을 그대로 쓰면 모바일 Lighthouse 성능이 59~65점, LCP가 5.8~8.1초였습니다.",
+      "solution": "사진을 WebP 400 · 800 · 1600px(약 3.6MB)로 변환하고 srcset + 실제 표시 폭에 맞춘 sizes로 필요한 크기만 내려받게 했습니다. 첫 화면 사진은 fetchpriority로 먼저 불러오고 나머지는 지연 로딩, 웹폰트 CSS는 비동기로 바꿔 96~99점(LCP 1.7~2.6초)이 됐습니다."
+    },
+    {
+      "title": "원본 브랜드 색의 명도 대비 부족",
+      "problem": "원본 버튼 파랑 #2878ED는 흰 글자 대비 4.2:1, 원본 로고는 다크 배경에서 3.2:1로 기준에 못 미쳤습니다.",
+      "solution": "같은 계열의 #2563EB(5.2:1)로 맞추고, 다크 배경용 로고는 같은 그라데이션을 40% 밝힌 버전(6.6:1)을 따로 만들어 테마에 따라 바꿔 보여줍니다."
+    },
+    {
+      "title": "JS가 그리기 전 푸터가 보였다가 밀리는 현상",
+      "problem": "목록을 JS로 그리는 화면은 내용이 채워지기 전 푸터가 먼저 보였다가 아래로 밀려 레이아웃 이동(CLS)이 생겼습니다.",
+      "solution": "본문 최소 높이를 화면 높이로 잡고, 이미지 영역은 aspect-ratio로 미리 자리를 잡아 CLS를 0.07 이하로 낮췄습니다."
+    },
+    {
+      "title": "코스 지도의 왜곡과 라벨 겹침",
+      "problem": "위도 · 경도 좌표를 그대로 평면에 그리면 경도 간격이 실제보다 넓어 보이고, 가까운 지점끼리는 이름표가 겹칠 수 있습니다.",
+      "solution": "위도에 따라 경도 간격을 보정한 등장방형 투영으로 그리고, 축척 막대를 같은 축척에서 계산했습니다. 이름표는 겹침을 피하도록 위치를 조정했습니다."
+    },
+    {
+      "title": "다시 검증하며 찾은 페이지 번호 버튼 이름 불일치",
+      "problem": "2026년 10월 14일 axe-core 4.14.0으로 다시 검사하자, 여행지 찾기의 페이지 번호 버튼이 화면에는 \"2\"로 보이는데 스크린리더 이름은 \"2페이지\"여서 label-content-name-mismatch(WCAG 2.5.3)가 4개 조건 모두에서 나왔습니다.",
+      "solution": "이름을 \"2 페이지\"로 바꿔 화면에 보이는 숫자로 시작하게 했습니다. 다시 검사해 40회 모두 위반 0을 확인했습니다."
+    }
+  ],
+  "result": {
+    "metrics": [
+      {
+        "label": "axe-core 위반",
+        "value": "0",
+        "note": "40회 검사 · 2026.10.14 측정"
+      },
+      {
+        "label": "HTML 검사 오류",
+        "value": "0",
+        "note": "10개 화면 · 2026.10.14 측정"
+      },
+      {
+        "label": "Lighthouse 성능 (모바일)",
+        "value": "96~99",
+        "note": "작업 당시 기록"
+      },
+      {
+        "label": "CLS",
+        "value": "≤ 0.07",
+        "note": "작업 당시 기록"
+      }
+    ],
+    "text": "자동 검사는 2026년 10월 14일에 아래 조건으로 다시 측정했고(이때 찾은 문제 1건은 수정 후 재검사), 화면별 결과는 검증 보고서에서 볼 수 있습니다. Lighthouse 수치(성능 모바일 96~99 · 데스크톱 100, 접근성 · 권장사항 · SEO 100, CLS 0.07 이하)는 작업 당시 기록입니다.",
+    "retrospective": "",
+    "verification": {
+      "measuredAt": "2026-10-14",
+      "items": [
+        {
+          "label": "HTML 검사 — html-validate 11.16.2 (권장 규칙)",
+          "value": "오류 0 · 경고 0",
+          "scope": "10개 화면"
+        },
+        {
+          "label": "접근성 자동 검사 — axe-core 4.14.0",
+          "value": "위반 0건",
+          "scope": "40회 검사 (10개 화면 × 데스크톱 · 모바일 × 라이트 · 다크)"
+        },
+        {
+          "label": "가로 스크롤",
+          "value": "0회",
+          "scope": "데스크톱 1280px · 모바일 375px"
+        }
+      ],
+      "conditions": [
+        "Chromium 141.0.7390.37 (Playwright 1.64.0), 로컬 정적 서버",
+        "axe-core 규칙: WCAG 2.0 · 2.1 · 2.2 A / AA + 모범 사례(best-practice)",
+        "페이지를 끝까지 스크롤해 등장 효과를 모두 재생한 뒤 검사",
+        "각 화면의 기본 상태만 검사 — 로딩 · 빈 상태 · 오류 · 다이얼로그 상태와 Safari · Firefox · 실제 스크린리더는 포함하지 않음"
+      ],
+      "report": "reports/waylog/index.html",
+      "note": "Lighthouse 수치는 작업 당시 기록값이며 보고서는 첨부하지 않았습니다. 저장소의 tools/verify 에서 npm run verify:lighthouse 로 같은 조건을 다시 측정할 수 있습니다."
+    },
+    "limitations": [
+      "검증은 Chromium에서만 했습니다. Safari · Firefox와 실제 스크린리더(NVDA · VoiceOver)는 아직 확인하지 못했습니다.",
+      "저장 · 좋아요 · 글쓰기 · 댓글은 브라우저(localStorage)에만 저장되는 데모이고, 코스 거리는 지점 사이의 직선거리라 실제 이동 경로와 다릅니다.",
+      "다음에는 Safari · Firefox · 스크린리더 확인을 검증 기준에 넣고, 실제 API와 연결된 원본 React 화면에도 같은 개선을 적용해 확인하려 합니다."
+    ]
+  }
+}

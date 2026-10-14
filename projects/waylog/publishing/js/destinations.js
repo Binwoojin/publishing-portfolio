@@ -107,7 +107,7 @@
     if (pages < 2) { nav.innerHTML = ''; } else {
       var html = '<button type="button" data-page="' + (state.page - 1) + '"' + (state.page === 1 ? ' disabled' : '') + ' aria-label="이전 페이지">' + WL.icon('chevron-left') + '</button>';
       for (var i = 1; i <= pages; i++) {
-        html += '<button type="button" data-page="' + i + '"' + (i === state.page ? ' aria-current="page"' : '') + ' aria-label="' + i + '페이지">' + i + '</button>';
+        html += '<button type="button" data-page="' + i + '"' + (i === state.page ? ' aria-current="page"' : '') + ' aria-label="' + i + ' 페이지">' + i + '</button>';
       }
       html += '<button type="button" data-page="' + (state.page + 1) + '"' + (state.page === pages ? ' disabled' : '') + ' aria-label="다음 페이지">' + WL.icon('chevron-right') + '</button>';
       nav.innerHTML = html;

@@ -1,0 +1,16 @@
+{
+  "name": "publishing-portfolio-verify",
+  "private": true,
+  "type": "module",
+  "description": "퍼블리싱 작업물 검증 (html-validate · axe-core · Lighthouse) — 결과는 reports/ 에 저장",
+  "scripts": {
+    "verify": "node verify.mjs",
+    "verify:lighthouse": "node verify.mjs --lighthouse"
+  },
+  "dependencies": {
+    "axe-core": "4.14.0",
+    "html-validate": "11.16.2",
+    "lighthouse": "13.5.0",
+    "playwright": "1.64.0"
+  }
+}
