@@ -5,8 +5,47 @@
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
+  isolation: isolate;
   overflow: hidden;
   padding: var(--sp-12) 0 var(--sp-16);
+}
+
+/* 배경 장식: 은은한 초록 빛 2개 + 위로 자라는 성장 곡선 */
+.hero__backdrop { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.hero__glow {
+  position: absolute;
+  width: 46vmax;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(63 125 99 / 0.14), transparent);
+}
+.hero__glow--a { top: -18vmax; right: -12vmax; }
+.hero__glow--b { bottom: -26vmax; left: -16vmax; background: radial-gradient(closest-side, rgb(201 215 168 / 0.28), transparent); }
+.hero__growth { position: absolute; inset: 0; display: none; width: 100%; height: 100%; color: var(--c-primary); }
+/* 좁은 화면은 히어로가 세로로 길어 곡선이 수직에 가까워지므로 넓은 화면에서만 그린다 */
+@media (min-width: 1024px) { .hero__growth { display: block; } }
+@media (prefers-color-scheme: dark) {
+  .hero__glow { background: radial-gradient(closest-side, rgb(124 196 156 / 0.1), transparent); }
+  .hero__glow--b { background: radial-gradient(closest-side, rgb(124 196 156 / 0.06), transparent); }
+}
+.hero__growth-line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-opacity: 0.45;
+  vector-effect: non-scaling-stroke;
+}
+/* 곡선을 따라 위로 타고 오르는 빛 (모션 허용 시에만 보임) */
+.hero__growth-spark {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 0.06 1;
+  stroke-dashoffset: 0.06;
+  opacity: 0;
+  vector-effect: non-scaling-stroke;
 }
 /* 노트 종이 느낌의 가로줄 배경 */
 .hero::before {
@@ -41,6 +80,9 @@
 }
 .hero__eyebrow .icon { color: var(--c-primary); width: 18px; height: 18px; }
 
+/* 한 줄씩 아래에서 올라오도록 줄마다 가리는 틀 */
+.hero__line { display: block; overflow: hidden; padding-bottom: 0.06em; margin-bottom: -0.06em; }
+.hero__line > span { display: inline-block; }
 .hero__title {
   font-size: var(--fs-display);
   font-weight: 800;
@@ -162,12 +204,154 @@
   .mock-card--streak { top: 0; right: 4%; }
   .mock-card--note { right: -2%; bottom: 0; width: 250px; }
 
-  .mock-card { animation: float-in var(--dur-slow) var(--ease-out) both; }
-  .mock-card--goal { animation-delay: 120ms; }
-  .mock-card--streak { animation-delay: 220ms; }
-  .mock-card--note { animation-delay: 320ms; }
+  .mock-card--main { z-index: 1; }
+  .mock-card--goal, .mock-card--note { z-index: 2; }
+  .mock-card--streak { z-index: 3; }
 }
-@keyframes float-in { from { opacity: 0; transform: translateY(16px); } }
+
+.mock-card__saved {
+  display: inline-flex;
+  margin-left: var(--sp-1);
+  padding: 0 var(--sp-2);
+  border-radius: var(--radius-pill);
+  background: var(--c-primary-soft);
+  color: var(--c-primary-text);
+  font-size: 11px;
+  opacity: 0;
+}
+.mock-card--note p { min-height: 3.2em; }
+
+/* 히어로 움직임 멈춤 버튼 */
+.motion-toggle {
+  position: absolute;
+  right: var(--gutter);
+  bottom: var(--sp-4);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 36px;
+  padding: 0 var(--sp-3);
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--c-surface) 85%, transparent);
+  color: var(--c-ink-2);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+.motion-toggle:hover { color: var(--c-ink); border-color: var(--c-ink-3); }
+.motion-toggle .icon { width: 14px; height: 14px; }
+.motion-toggle .icon--play { display: none; fill: currentColor; }
+.motion-toggle[aria-pressed="true"] .icon--pause { display: none; }
+.motion-toggle[aria-pressed="true"] .icon--play { display: block; }
+
+/* ==========================================================================
+   히어로 모션 — "기록이 쌓여 성장이 된다"
+   1) 제목이 한 줄씩 올라오고 형광펜이 그어진다
+   2) 성장 곡선이 왼쪽 아래에서 오른쪽 위로 그려진다
+   3) 카드가 튀어오르듯 놓이고, 히트맵 칸이 오래된 날부터 차례로 채워진다
+   4) 숫자 · 진행률이 0부터 올라가고, 이후 '오늘의 기록'이 계속 새로 쓰인다
+   모션을 줄이도록 설정한 사용자에게는 처음부터 완성된 화면을 보여준다.
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  .js .hero__line > span { transform: translateY(105%); animation: line-up 900ms var(--ease-out) forwards; }
+  .js .hero__line + .hero__line > span { animation-delay: 140ms; }
+  .js .hero .marker {
+    background-size: 0% 34%;
+    animation: marker-draw 700ms var(--ease-out) 750ms forwards;
+  }
+  .js .hero__eyebrow { animation: rise 600ms var(--ease-out) both; }
+  .js .hero__eyebrow .icon { transform-origin: 50% 100%; animation: sprout 900ms var(--ease-spring) 200ms both; }
+  .js .hero__desc { animation: rise 700ms var(--ease-out) 450ms both; }
+  .js .hero__cta { animation: rise 700ms var(--ease-out) 580ms both; }
+  .js .hero__points { animation: rise 700ms var(--ease-out) 700ms both; }
+
+  .js .hero__growth-line { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2200ms var(--ease-in-out) 300ms forwards; }
+  .js .hero__growth-area { opacity: 0; animation: fade 1400ms ease 1300ms forwards; }
+  .js .hero__growth-spark { animation: spark 3600ms var(--ease-in-out) 2600ms infinite; }
+  .js .hero__glow--a { animation: drift-a 16s ease-in-out infinite alternate; }
+  .js .hero__glow--b { animation: drift-b 20s ease-in-out infinite alternate; }
+
+  /* 카드: 등장(opacity · scale · rotate) / 떠 있기(transform) / 마우스 · 스크롤 깊이(translate)를 서로 다른 속성으로 나눠 겹치지 않게 한다 */
+  .js .hero .mock-card {
+    animation: card-in 900ms var(--ease-spring) both, bob 7s ease-in-out infinite alternate;
+    animation-delay: var(--in, 250ms), calc(var(--in, 250ms) + 900ms);
+    translate: calc(var(--px, 0) * var(--depth, 10px)) calc(var(--py, 0) * var(--depth, 10px) - var(--sy, 0) * var(--lift, 40px));
+    transition: translate 600ms var(--ease-out);
+  }
+  .js .hero .mock-card--main { --in: 250ms; --depth: 8px; --lift: 30px; animation-duration: 900ms, 9s; }
+  .js .hero .mock-card--goal { --in: 520ms; --depth: 22px; --lift: 90px; animation-duration: 900ms, 6s; }
+  .js .hero .mock-card--streak { --in: 700ms; --depth: 28px; --lift: 130px; animation-duration: 900ms, 5s; }
+  .js .hero .mock-card--note { --in: 860ms; --depth: 18px; --lift: 70px; animation-duration: 900ms, 7.5s; }
+
+  /* 히트맵: 열(주) · 행(요일) 순서로 물결처럼 채워진다 */
+  .js .hero .mock-heatmap i {
+    scale: 0;
+    animation: cell-in 520ms var(--ease-spring) forwards;
+    animation-delay: calc(700ms + var(--c, 0) * 60ms + var(--r, 0) * 22ms);
+  }
+  .js .hero .mock-heatmap i.is-bump { animation: cell-in 520ms var(--ease-spring) forwards, bump 700ms var(--ease-spring); }
+
+  .js .hero .mock-card__flame .icon { transform-origin: 50% 90%; animation: flicker 1.8s ease-in-out infinite alternate; }
+  .js .hero .mock-card__flame::after { animation: ring 2.4s ease-out 1.6s infinite; }
+  .js .hero .mock-card__saved.is-on { animation: saved 1800ms var(--ease-out); }
+  .js .hero [data-typing].is-typing::after { animation: caret 900ms steps(1) infinite; }
+
+  /* 멈춤 버튼 · 화면 밖에서는 반복 모션을 멈춘다 */
+  .hero.is-paused *, .hero.is-paused *::after,
+  .hero.is-offscreen *, .hero.is-offscreen *::after { animation-play-state: paused !important; }
+  .hero.is-paused .mock-card { translate: none; }
+}
+
+.mock-card__flame { position: relative; }
+.mock-card__flame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--c-primary);
+  opacity: 0;
+}
+.mock-heatmap i { position: relative; }
+.hero .mock-heatmap i.is-today::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border: 2px solid var(--c-ink);
+  border-radius: 5px;
+}
+[data-typing].is-typing::after {
+  content: '';
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  background: var(--c-primary);
+  vertical-align: -0.15em;
+}
+
+/* 1024~1199px: 미리보기 폭이 좁아 아래 두 카드가 겹치지 않도록 줄인다 */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .mock-card--goal { width: 240px; }
+  .mock-card--note { width: 230px; }
+}
+
+@keyframes line-up { to { transform: none; } }
+@keyframes marker-draw { to { background-size: 100% 34%; } }
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } }
+@keyframes sprout { from { transform: scale(0) rotate(-20deg); } }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes spark { 0% { opacity: 0; stroke-dashoffset: 0.06; } 10% { opacity: 1; } 85% { opacity: 1; } 100% { opacity: 0; stroke-dashoffset: -1; } }
+@keyframes fade { to { opacity: 1; } }
+@keyframes drift-a { to { transform: translate(-6vmax, 5vmax) scale(1.12); } }
+@keyframes drift-b { to { transform: translate(8vmax, -4vmax) scale(0.9); } }
+@keyframes card-in { from { opacity: 0; scale: 0.88; rotate: -4deg; } }
+@keyframes bob { to { transform: translateY(-10px); } }
+@keyframes cell-in { to { scale: 1; } }
+@keyframes bump { 40% { transform: scale(1.7); } }
+@keyframes flicker { 0% { transform: scale(1) rotate(-3deg); } 100% { transform: scale(1.12) rotate(3deg); } }
+@keyframes ring { 0% { opacity: 0.6; transform: scale(1); } 100% { opacity: 0; transform: scale(1.9); } }
+@keyframes saved { 0% { opacity: 0; transform: translateY(4px); } 15%, 75% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+@keyframes caret { 50% { opacity: 0; } }
 
 /* ---------- Section 공통 ---------- */
 .section { padding: var(--sp-16) 0; }

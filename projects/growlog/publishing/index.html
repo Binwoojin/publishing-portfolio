@@ -40,11 +40,27 @@
 
   <main id="main">
     <!-- Hero -->
-    <section class="hero" aria-labelledby="heroTitle">
+    <section class="hero" id="hero" aria-labelledby="heroTitle">
+      <!-- 장식: 기록이 쌓이며 위로 자라는 성장 곡선 · 은은한 빛 -->
+      <div class="hero__backdrop" aria-hidden="true">
+        <span class="hero__glow hero__glow--a"></span>
+        <span class="hero__glow hero__glow--b"></span>
+        <svg class="hero__growth" viewBox="0 0 1440 720" preserveAspectRatio="none" focusable="false">
+          <defs>
+            <linearGradient id="growthFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="currentColor" stop-opacity="0.16"/>
+              <stop offset="1" stop-color="currentColor" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path class="hero__growth-area" d="M0 690 C 260 676 420 640 600 600 S 900 470 1080 380 S 1330 150 1440 110 L 1440 720 L 0 720 Z" fill="url(#growthFill)"/>
+          <path class="hero__growth-line" d="M0 690 C 260 676 420 640 600 600 S 900 470 1080 380 S 1330 150 1440 110" pathLength="1"/>
+          <path class="hero__growth-spark" d="M0 690 C 260 676 420 640 600 600 S 900 470 1080 380 S 1330 150 1440 110" pathLength="1"/>
+        </svg>
+      </div>
       <div class="container hero__inner">
         <div class="hero__copy">
           <p class="hero__eyebrow"><svg class="icon" aria-hidden="true"><use href="#i-sprout"></use></svg>개인 성장 아카이브</p>
-          <h1 class="hero__title" id="heroTitle">오늘의 기록이<br><span class="marker">내일의 성장</span>이 됩니다</h1>
+          <h1 class="hero__title" id="heroTitle"><span class="hero__line"><span>오늘의 기록이</span></span> <span class="hero__line"><span><span class="marker">내일의 성장</span>이 됩니다</span></span></h1>
           <p class="hero__desc">목표를 세우고, 하루를 짧게 남기세요. 흩어져 있던 시간이 타임라인 위에 이어지면서 눈에 잘 보이지 않던 성장이 드러납니다.</p>
           <div class="hero__cta">
             <a class="btn btn--primary btn--lg" href="signup.html">무료로 시작하기<svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a>
@@ -64,19 +80,19 @@
               <span class="mock-card__date">9월 22일 화요일</span>
             </div>
             <div class="mock-stats">
-              <div><strong>9</strong><span>이번 달 기록</span></div>
-              <div><strong>4</strong><span>진행 중 목표</span></div>
-              <div><strong>12<small>일</small></strong><span>연속 기록</span></div>
+              <div><strong data-count="9">9</strong><span>이번 달 기록</span></div>
+              <div><strong data-count="4">4</strong><span>진행 중 목표</span></div>
+              <div><strong><span data-count="12">12</span><small>일</small></strong><span>연속 기록</span></div>
             </div>
-            <div class="mock-heatmap" data-heatmap="84"></div>
+            <div class="mock-heatmap" data-heatmap="84" data-live></div>
           </div>
 
           <div class="mock-card mock-card--goal">
             <span class="chip chip--green"><svg class="icon"><use href="#i-target"></use></svg>프로젝트</span>
             <strong class="mock-card__goal">포트폴리오 사이트 완성하기</strong>
             <div class="progress">
-              <div class="progress__head"><span class="progress__label">진행률</span><strong class="progress__value">85%</strong></div>
-              <progress class="progress__track" max="100" value="85">85%</progress>
+              <div class="progress__head"><span class="progress__label">진행률</span><strong class="progress__value"><span data-count="85">85</span>%</strong></div>
+              <progress class="progress__track" max="100" value="85" data-progress="85">85%</progress>
             </div>
           </div>
 
@@ -86,11 +102,16 @@
           </div>
 
           <div class="mock-card mock-card--note">
-            <span class="mock-card__label">오늘 배운 점</span>
-            <p>aspect-ratio 로 썸네일 비율을 고정하면 레이아웃이 밀리지 않는다.</p>
+            <span class="mock-card__label">오늘 배운 점 <span class="mock-card__saved">기록됨</span></span>
+            <p data-typing>aspect-ratio 로 썸네일 비율을 고정하면 레이아웃이 밀리지 않는다.</p>
           </div>
         </div>
       </div>
+      <button class="motion-toggle" type="button" id="motionToggle" aria-pressed="false" hidden>
+        <svg class="icon icon--pause" aria-hidden="true"><use href="#i-pause"></use></svg>
+        <svg class="icon icon--play" aria-hidden="true"><use href="#i-play"></use></svg>
+        <span class="motion-toggle__text">움직임 멈추기</span>
+      </button>
     </section>
 
     <!-- Why -->
