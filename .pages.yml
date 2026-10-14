@@ -49,12 +49,8 @@ content:
         description: 작업물 상세(data/cases/아이디.json)의 아이디. 예 - growlog (비우면 '자세히 보기' 버튼이 없습니다)
         type: string
       - name: demo
-        label: 결과물 링크
+        label: Live Demo 링크
         description: 예 - projects/my-project/ 또는 https://...
-        type: string
-      - name: code
-        label: 코드 링크
-        description: GitHub 코드 주소 (선택)
         type: string
 
   - name: site
@@ -154,9 +150,6 @@ content:
       - name: demo
         label: 결과물 링크
         type: string
-      - name: code
-        label: 코드 링크
-        type: string
       - name: overview
         label: 01 Project Overview
         type: object
@@ -173,13 +166,18 @@ content:
               - { name: value, label: 내용, type: string }
       - name: role
         label: 02 My Role
+        description: 담당 비율(1인 프로젝트)과 코드를 직접 작성한 비율을 구분해 적습니다.
         type: object
         fields:
           - name: text
             label: 설명
             type: text
           - name: items
-            label: 담당한 일
+            label: 직접 판단 · 확인한 일
+            type: string
+            list: true
+          - name: ai
+            label: Claude Code가 보조한 일
             type: string
             list: true
       - name: beforeAfterIntro

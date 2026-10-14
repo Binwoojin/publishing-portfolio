@@ -133,7 +133,9 @@
 .case-facts dd { margin-top: 4px; font-weight: 600; }
 
 /* 02 Role */
-.case-role { margin-top: var(--space-3); border-top: 1px solid var(--color-border-strong); }
+.case-role-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+.case-role-cols .case-sub { margin-top: var(--space-4); }
+.case-role { border-top: 1px solid var(--color-border-strong); }
 .case-role li {
   display: flex;
   gap: var(--space-2);
@@ -419,7 +421,8 @@
   .case-steps,
   .case-checks,
   .ba__notes,
-  .ba__legend { grid-template-columns: 1fr; }
+  .ba__legend,
+  .case-role-cols { grid-template-columns: 1fr; }
   .case-section__head { grid-template-columns: auto minmax(0, 1fr); }
   .case-devices { grid-template-columns: 1fr 1fr; }
   .case-device:first-child { grid-column: 1 / -1; }

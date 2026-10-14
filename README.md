@@ -52,9 +52,9 @@ publishing-portfolio/
     "tags": ["HTML", "CSS", "JavaScript"],
     "thumbnail": "assets/images/project-name.jpg",
     "period": "2026.09",
-    "contribution": "퍼블리싱 100%",
+    "contribution": "1인 프로젝트 · Claude Code 보조 구현",
     "demo": "projects/project-name/",
-    "code": "https://github.com/Binwoojin/publishing-portfolio/tree/main/projects/project-name"
+    "caseStudy": "project-name"
   }
 ]
 ```
@@ -63,12 +63,12 @@ publishing-portfolio/
 
 ## 작업물 상세페이지
 
-메인의 작업물 카드에서 **자세히 보기**를 누르면 `project.html?id=<아이디>` 로 이동하고, `data/cases/<아이디>.json` 의 내용을 아래 9개 구성으로 보여줍니다. 내용이 비어 있는 구성은 자동으로 빠지고 번호가 다시 매겨집니다.
+메인의 작업물 카드에서 **Case Study 보기**를 누르면 `project.html?id=<아이디>` 로 이동하고, `data/cases/<아이디>.json` 의 내용을 아래 9개 구성으로 보여줍니다. 내용이 비어 있는 구성은 자동으로 빠지고 번호가 다시 매겨집니다.
 
 | 순서 | 구성 | 내용 |
 | --- | --- | --- |
 | 01 | Project Overview | 프로젝트 소개 · 요약 정보 |
-| 02 | My Role | 담당 범위 |
+| 02 | My Role | 담당 범위 — 직접 판단 · 확인한 일 / Claude Code가 보조한 일 |
 | 03 | Before & After | 원본 · 리디자인 화면 비교 슬라이더 + 개선 전 문제 / 개선 내용 |
 | 04 | Design Process | 디자인 개선 과정 · 주요 색상 토큰 |
 | 05 | Publishing | HTML · CSS · JS 구현 내용 |

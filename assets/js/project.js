@@ -117,12 +117,18 @@
     role: (d) => {
       const r = d.role || {};
       const items = list(r.items);
-      if (!has(r.text) && !items.length) return '';
+      const ai = list(r.ai);
+      if (!has(r.text) && !items.length && !ai.length) return '';
+      const listHtml = (arr) => `<ol class="case-role" data-stagger>${arr.map((it, i) => `
+          <li><span class="case-role__num" aria-hidden="true">${pad(i + 1)}</span><span>${escape(it)}</span></li>`).join('')}
+        </ol>`;
       return `
         ${has(r.text) ? `<p class="case-lead">${escape(r.text)}</p>` : ''}
-        ${items.length ? `<ol class="case-role" data-stagger>${items.map((it, i) => `
-          <li><span class="case-role__num" aria-hidden="true">${pad(i + 1)}</span><span>${escape(it)}</span></li>`).join('')}
-        </ol>` : ''}`;
+        ${items.length || ai.length ? `
+        <div class="case-role-cols">
+          ${items.length ? `<div><h3 class="case-sub">직접 판단 · 확인한 일</h3>${listHtml(items)}</div>` : ''}
+          ${ai.length ? `<div><h3 class="case-sub">Claude Code가 보조한 일</h3>${listHtml(ai)}</div>` : ''}
+        </div>` : ''}`;
     },
 
     beforeAfter: (d) => {
@@ -145,7 +151,7 @@
               <h3 class="ba__title"><span aria-hidden="true">${pad(i + 1)}</span>${name}</h3>
               ${regions.length ? `
               <div class="ba__modes" role="group" aria-label="${name} 비교 방식">
-                <button type="button" class="ba__mode" data-mode="structure" aria-pressed="true">구조 비교</button>
+                <button type="button" class="ba__mode" data-mode="structure" aria-pressed="true">영역 비교</button>
                 <button type="button" class="ba__mode" data-mode="slider" aria-pressed="false">슬라이더 비교</button>
               </div>` : ''}
             </div>
@@ -170,8 +176,8 @@
               </div>
             </div>
             <div class="ba__notes">
-              ${has(p.kept) ? `<div class="ba__note ba__note--before"><p class="ba__label">${icon('i-check')}유지한 구조</p><p>${escape(p.kept)}</p></div>` : ''}
-              ${has(p.redesign) ? `<div class="ba__note ba__note--after"><p class="ba__label">${icon('i-spark')}다시 디자인한 점</p><p>${escape(p.redesign)}</p></div>` : ''}
+              ${has(p.kept) ? `<div class="ba__note ba__note--before"><p class="ba__label">${icon('i-check')}유지한 정보 · 흐름</p><p>${escape(p.kept)}</p></div>` : ''}
+              ${has(p.redesign) ? `<div class="ba__note ba__note--after"><p class="ba__label">${icon('i-spark')}개선한 레이아웃 · 기능</p><p>${escape(p.redesign)}</p></div>` : ''}
               ${!has(p.kept) && has(p.problem) ? `<div class="ba__note ba__note--before"><p class="ba__label">${icon('i-alert')}개선 전 문제</p><p>${escape(p.problem)}</p></div>` : ''}
               ${!has(p.redesign) && has(p.improvement) ? `<div class="ba__note ba__note--after"><p class="ba__label">${icon('i-spark')}개선 내용</p><p>${escape(p.improvement)}</p></div>` : ''}
             </div>
@@ -302,7 +308,6 @@
 
   const heroHtml = (d) => {
     const demo = safeUrl(d.demo);
-    const code = safeUrl(d.code);
     const tools = list(d.tools);
     return `
       <header class="case-hero">
@@ -316,8 +321,7 @@
             ${tools.length ? `<div><dt>Tools</dt><dd>${tools.map(escape).join(' · ')}</dd></div>` : ''}
           </dl>
           <div class="case-hero__actions">
-            ${demo ? `<a class="btn btn--primary" href="${escape(demo)}"${linkAttrs(demo)}>결과물 보기${newWin(demo)}${icon('i-arrow-up-right')}</a>` : ''}
-            ${code ? `<a class="btn btn--line" href="${escape(code)}"${linkAttrs(code)}>${icon('i-code')}코드 보기${newWin(code)}</a>` : ''}
+            ${demo ? `<a class="btn btn--primary" href="${escape(demo)}"${linkAttrs(demo)}>Live Demo 보기${newWin(demo)}${icon('i-arrow-up-right')}</a>` : ''}
           </div>
         </div>
         ${coverMedia(d)}
