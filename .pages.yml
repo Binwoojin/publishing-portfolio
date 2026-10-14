@@ -80,8 +80,9 @@ content:
       - name: focus
         label: 주요 분야
         type: string
-      - name: stack
-        label: 사용 기술 요약
+      - name: highlight
+        label: 주요 성과 (첫 화면 Work)
+        description: 예 - 서비스 2개 리디자인 · 화면 19개 퍼블리싱
         type: string
       - name: aboutLead
         label: About 강조 문장
