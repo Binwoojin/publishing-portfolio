@@ -133,6 +133,11 @@
     return `<a class="card__link ${modifier}" href="${escape(url)}"${ext}>${label}<span class="blind"> - ${escape(title)}${sr}</span>${icon(iconId)}</a>`;
   };
 
+  // 상세페이지(data/cases/{caseStudy}.json)가 있는 작업물은 '자세히 보기'를 먼저 보여줌
+  const caseLink = (p) => (/^[a-z0-9-]+$/.test(p.caseStudy || '')
+    ? `<a class="card__link" href="project.html?id=${p.caseStudy}">자세히 보기<span class="blind"> - ${escape(p.title)} 개선 과정</span>${icon('i-arrow-right')}</a>`
+    : '');
+
   const cardHtml = (p, i) => {
     const thumbSrc = safeUrl(p.thumbnail);
     const thumb = thumbSrc
@@ -156,7 +161,8 @@
           ${p.desc ? `<p class="card__desc">${escape(p.desc)}</p>` : ''}
           ${tags ? `<ul class="card__tags" aria-label="사용 기술">${tags}</ul>` : ''}
           <div class="card__links">
-            ${linkHtml(p.demo, '결과물 보기', p.title, 'i-arrow-up-right')}
+            ${caseLink(p)}
+            ${linkHtml(p.demo, '결과물 보기', p.title, 'i-arrow-up-right', p.caseStudy ? 'card__link--sub' : '')}
             ${linkHtml(p.code, '코드 보기', p.title, 'i-code', 'card__link--sub')}
           </div>
         </div>

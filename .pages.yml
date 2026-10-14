@@ -44,6 +44,10 @@ content:
         label: 기여도
         description: 예 - 퍼블리싱 100%
         type: string
+      - name: caseStudy
+        label: 상세페이지 ID
+        description: 작업물 상세(data/cases/아이디.json)의 아이디. 예 - growlog (비우면 '자세히 보기' 버튼이 없습니다)
+        type: string
       - name: demo
         label: 결과물 링크
         description: 예 - projects/my-project/ 또는 https://...
@@ -102,3 +106,158 @@ content:
           - name: desc
             label: 설명
             type: string
+
+  - name: cases
+    label: 작업물 상세
+    description: 작업물마다 하나씩 있는 상세페이지 내용입니다. 새로 만들 때 파일 이름을 영문 소문자로 정하고(예 - cafe.json), 작업물 목록의 '상세페이지 ID'에 같은 이름(cafe)을 적어 주세요. 비워 둔 구성은 상세페이지에 나오지 않습니다.
+    type: collection
+    path: data/cases
+    format: json
+    filename:
+      template: "{primary}.json"
+      field: create
+    view:
+      fields: [title, period]
+    fields:
+      - name: title
+        label: 제목
+        type: string
+        required: true
+      - name: subtitle
+        label: 한 줄 방향
+        description: 예 - UI 리디자인 및 퍼블리싱
+        type: string
+      - name: summary
+        label: 요약
+        type: text
+      - name: cover
+        label: 대표 이미지
+        type: image
+      - name: period
+        label: 작업 기간
+        type: string
+      - name: contribution
+        label: 기여도
+        type: string
+      - name: tools
+        label: 사용 기술
+        type: string
+        list: true
+      - name: demo
+        label: 결과물 링크
+        type: string
+      - name: code
+        label: 코드 링크
+        type: string
+      - name: overview
+        label: 01 Project Overview
+        type: object
+        fields:
+          - name: text
+            label: 소개
+            type: text
+          - name: facts
+            label: 요약 정보
+            type: object
+            list: true
+            fields:
+              - { name: label, label: 항목, type: string }
+              - { name: value, label: 내용, type: string }
+      - name: role
+        label: 02 My Role
+        type: object
+        fields:
+          - name: text
+            label: 설명
+            type: text
+          - name: items
+            label: 담당한 일
+            type: string
+            list: true
+      - name: beforeAfter
+        label: 03 Before & After
+        description: 개선 전 · 후 이미지는 같은 크기로 캡처해야 비교 슬라이더가 정확하게 겹칩니다.
+        type: object
+        list: true
+        fields:
+          - { name: title, label: 화면 이름, type: string }
+          - { name: before, label: 개선 전 이미지, type: image }
+          - { name: beforeAlt, label: 개선 전 이미지 설명 (대체 텍스트), type: string }
+          - { name: after, label: 개선 후 이미지, type: image }
+          - { name: afterAlt, label: 개선 후 이미지 설명 (대체 텍스트), type: string }
+          - { name: problem, label: 개선 전 문제, type: text }
+          - { name: improvement, label: 개선 내용, type: text }
+      - name: process
+        label: 04 Design Process
+        type: object
+        fields:
+          - name: text
+            label: 설명
+            type: text
+          - name: steps
+            label: 과정
+            type: object
+            list: true
+            fields:
+              - { name: title, label: 단계 이름, type: string }
+              - { name: text, label: 내용, type: text }
+          - name: tokens
+            label: 주요 색상 토큰
+            type: object
+            list: true
+            fields:
+              - { name: name, label: 이름, type: string }
+              - { name: value, label: "색상값 (예 - #3F7D63)", type: string }
+              - { name: note, label: 설명, type: string }
+      - name: publishing
+        label: 05 Publishing
+        type: object
+        list: true
+        fields:
+          - { name: title, label: 구분 (HTML · CSS · JavaScript), type: string }
+          - { name: items, label: 구현 내용, type: string, list: true }
+      - name: responsive
+        label: 06 Responsive
+        type: object
+        fields:
+          - name: text
+            label: 설명
+            type: text
+          - name: shots
+            label: 화면 캡처
+            type: object
+            list: true
+            fields:
+              - { name: label, label: 이름 (예 - 모바일 375px), type: string }
+              - { name: image, label: 이미지, type: image }
+              - { name: alt, label: 이미지 설명 (대체 텍스트), type: string }
+      - name: accessibility
+        label: 07 Accessibility
+        type: string
+        list: true
+      - name: troubleshooting
+        label: 08 Troubleshooting
+        type: object
+        list: true
+        fields:
+          - { name: title, label: 제목, type: string }
+          - { name: problem, label: 문제, type: text }
+          - { name: solution, label: 해결, type: text }
+      - name: result
+        label: 09 Result
+        type: object
+        fields:
+          - name: metrics
+            label: 결과 수치
+            type: object
+            list: true
+            fields:
+              - { name: label, label: 항목, type: string }
+              - { name: value, label: 값, type: string }
+          - name: text
+            label: 결과 설명
+            type: text
+          - name: retrospective
+            label: 회고
+            description: 직접 느낀 점 · 다음에 다르게 해 볼 점을 적어 주세요. 비워 두면 회고 칸은 나오지 않습니다.
+            type: text

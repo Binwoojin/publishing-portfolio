@@ -1,0 +1,224 @@
+{
+  "title": "GrowLog 리디자인",
+  "subtitle": "UI 리디자인 및 퍼블리싱",
+  "summary": "목표와 하루의 기록을 쌓아 성장 과정을 돌아보는 개인 성장 아카이브 GrowLog를 새 디자인 시스템으로 리디자인하고, 9개 화면을 HTML · CSS · JavaScript로 퍼블리싱했습니다.",
+  "cover": "assets/images/cases/growlog/landing-after.webp",
+  "period": "2026.08",
+  "contribution": "디자인 · 퍼블리싱 100%",
+  "tools": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "웹 접근성",
+    "반응형",
+    "다크 모드"
+  ],
+  "demo": "projects/growlog/publishing/",
+  "code": "https://github.com/Binwoojin/publishing-portfolio/tree/main/projects/growlog/publishing",
+  "overview": {
+    "text": "GrowLog는 Spring Boot + JSP로 만든 서비스를 Vue 3 SPA로 리뉴얼한 프로젝트입니다. 이번 작업에서는 원본의 화면 구성 · 데이터 구조 · 검증 규칙을 바탕으로 디자인을 새로 잡고, 서버 없이도 동작하는 정적 퍼블리싱본으로 다시 만들었습니다.",
+    "facts": [
+      {
+        "label": "서비스",
+        "value": "개인 성장 아카이브 (목표 · 기록 · 타임라인)"
+      },
+      {
+        "label": "원본",
+        "value": "Vue 3 + TypeScript SPA (Spring Boot API)"
+      },
+      {
+        "label": "결과물",
+        "value": "정적 퍼블리싱 9개 화면"
+      },
+      {
+        "label": "디자인 시스템",
+        "value": "Growth Archive"
+      }
+    ]
+  },
+  "role": {
+    "text": "디자인부터 퍼블리싱, 검증까지 혼자 맡았습니다.",
+    "items": [
+      "원본 화면 · 데이터 구조 · 검증 규칙 분석",
+      "디자인 시스템(색 · 간격 · 모서리 · 그림자 · 모션 토큰) 설계",
+      "랜딩 · 로그인 · 회원가입 · 대시보드 · 타임라인 · 목표 · 기록 9개 화면 퍼블리싱",
+      "로딩 · 빈 상태 · 오류 화면과 폼 검증 · 다이얼로그 인터랙션 구현",
+      "접근성 · 성능 검증 (axe-core, Lighthouse, 키보드)"
+    ]
+  },
+  "beforeAfter": [
+    {
+      "title": "랜딩",
+      "before": "assets/images/cases/growlog/landing-before.webp",
+      "after": "assets/images/cases/growlog/landing-after.webp",
+      "beforeAlt": "원본 GrowLog 랜딩 화면. 제목과 미리보기 카드 한 장, 시작 버튼 하나로 구성",
+      "afterAlt": "리디자인한 GrowLog 랜딩 화면. 큰 제목, 두 개의 시작 버튼, 히트맵과 통계 카드가 겹쳐진 미리보기",
+      "problem": "서비스가 무엇을 보여주는지 미리보기 카드 한 장으로만 설명하고, 시작 방법도 로그인 버튼 하나뿐이었습니다.",
+      "improvement": "성장 곡선 · 12주 히트맵 · 통계 카드가 움직이는 모션 히어로로 '기록이 쌓여 성장이 된다'는 흐름을 보여주고, '무료로 시작하기 / 데모 둘러보기' 두 갈래로 시작할 수 있게 했습니다."
+    },
+    {
+      "title": "대시보드",
+      "before": "assets/images/cases/growlog/dashboard-before.webp",
+      "after": "assets/images/cases/growlog/dashboard-after.webp",
+      "beforeAlt": "원본 대시보드. 상단 메뉴, 요약 숫자 카드 3개, 최근 타임라인 2건",
+      "afterAlt": "리디자인한 대시보드. 왼쪽 사이드바, 아이콘이 있는 요약 카드 3개, 12주 활동 히트맵, 진행 중 목표 목록",
+      "problem": "요약 숫자 3개와 최근 기록만 있어, 목표가 얼마나 진행됐는지와 기록 흐름을 한눈에 보기 어려웠습니다.",
+      "improvement": "왼쪽 사이드바 셸로 메뉴를 고정하고, 12주 활동 히트맵과 진행 중 목표(진행률 · D-day)를 한 화면에 모아 현재 상태를 바로 파악할 수 있게 했습니다."
+    },
+    {
+      "title": "목표 목록",
+      "before": "assets/images/cases/growlog/goals-before.webp",
+      "after": "assets/images/cases/growlog/goals-after.webp",
+      "beforeAlt": "원본 목표 목록. 목표 카드가 한 줄씩 세로로 나열됨",
+      "afterAlt": "리디자인한 목표 목록. 상태 필터 탭과 정렬, 분류 배지와 D-day가 있는 2열 카드",
+      "problem": "목표가 한 줄씩 나열돼 개수가 늘수록 스크롤이 길어지고, 상태별로 골라 볼 수 없었습니다.",
+      "improvement": "상태 필터(전체 · 진행 중 · 완료 · 중단)와 정렬을 추가하고, 분류 배지 · D-day · 진행률을 담은 2열 카드로 바꿨습니다. 진행률은 다이얼로그의 슬라이더로 바로 수정합니다."
+    },
+    {
+      "title": "회원가입",
+      "before": "assets/images/cases/growlog/signup-before.webp",
+      "after": "assets/images/cases/growlog/signup-after.webp",
+      "beforeAlt": "원본 회원가입 화면. 입력 칸과 버튼만 있음",
+      "afterAlt": "리디자인한 회원가입 화면. 필수 표시, 칸별 도움말, 비밀번호 규칙 체크 표시, 약관 동의",
+      "problem": "입력 칸만 있어 어떤 형식으로 입력해야 하는지 제출해 보기 전에는 알 수 없었습니다.",
+      "improvement": "필수 항목 표시와 칸별 도움말을 넣고, 비밀번호 규칙을 입력하는 동안 실시간으로 보여줍니다. 제출에 실패하면 오류 요약으로 포커스를 옮기고, 항목을 누르면 해당 칸으로 이동합니다."
+    }
+  ],
+  "process": {
+    "text": "새로 만드는 것보다, 원본이 가진 색과 규칙을 유지하면서 문제가 된 부분만 고치는 데 집중했습니다.",
+    "steps": [
+      {
+        "title": "원본 분석",
+        "text": "원본 Vue 화면의 구성, API 응답 타입(frontend/src/types), 회원가입 검증 규칙(join.js)을 정리해 퍼블리싱본의 데이터 · 검증 기준으로 삼았습니다."
+      },
+      {
+        "title": "디자인 토큰 정리",
+        "text": "원본 디자인 토큰(tokens.css)의 Muted Green + Warm Neutral 조합을 그대로 가져오고, 명도 대비가 부족한 값만 보정했습니다."
+      },
+      {
+        "title": "컨셉",
+        "text": "'Growth Archive' — 노트 위에 기록이 쌓여 성장이 보이는 느낌. 히트맵 색 4단계로 성장 단계를 표현했습니다."
+      },
+      {
+        "title": "컴포넌트 · 상태 설계",
+        "text": "버튼 · 폼 · 배지 · 카드 · 다이얼로그 · 토스트를 공통 컴포넌트로 만들고, 화면마다 기본 · 로딩 · 빈 상태 · 오류 4가지 상태를 설계했습니다."
+      }
+    ],
+    "tokens": [
+      {
+        "name": "Primary",
+        "value": "#3F7D63",
+        "note": "원본 Primary Green · 흰 글자 대비 4.9:1"
+      },
+      {
+        "name": "Primary Text",
+        "value": "#35694F",
+        "note": "밝은 면 위 초록 글자 · 대비 6.0:1"
+      },
+      {
+        "name": "Accent",
+        "value": "#C9D7A8",
+        "note": "원본 Accent · 히트맵 · 어두운 면 강조"
+      },
+      {
+        "name": "Ink 3",
+        "value": "#667068",
+        "note": "원본 #727872(4.2:1)를 4.5:1 로 보정"
+      }
+    ]
+  },
+  "publishing": [
+    {
+      "title": "HTML",
+      "items": [
+        "랜드마크(header · nav · main · aside)와 제목 단계를 문서 구조에 맞게 구성",
+        "진행률은 네이티브 <progress>, 다이얼로그는 네이티브 <dialog> + showModal()",
+        "히트맵은 role=\"img\" + 요약 문장으로 대체 텍스트 제공"
+      ]
+    },
+    {
+      "title": "CSS",
+      "items": [
+        "색 · 간격 · 모서리 · 그림자 · 모션을 CSS 변수(base.css)로 정의하고 화면 CSS는 변수만 사용",
+        "다크 모드는 같은 토큰 이름에 값만 바꿔 지원",
+        "base · components · layout · 화면별 CSS로 나눠 관리, 인라인 style 속성 없음"
+      ]
+    },
+    {
+      "title": "JavaScript",
+      "items": [
+        "라이브러리 없이 Vanilla JS로 필터 · 정렬 · 다이얼로그 · 폼 검증 · 이미지 끌어다 놓기 구현",
+        "더미 데이터는 원본 API 응답 타입과 같은 필드 구성",
+        "화면 상태 미리보기 도구로 기본 · 로딩 · 빈 상태 · 오류 화면 전환 (?state=empty)",
+        "사용자 입력은 모두 이스케이프 후 출력 (XSS 방지)"
+      ]
+    }
+  ],
+  "responsive": {
+    "text": "모바일 우선으로 작성하고 640 · 768 · 1024 · 1280px에서 레이아웃을 나눴습니다. 서비스 화면은 같은 마크업을 CSS만으로 전환해, 모바일은 하단 탭바 · 1024px 이상은 왼쪽 사이드바로 보입니다. 320 · 375 · 390 · 768 · 1440px에서 가로 스크롤이 없는 것을 확인했습니다.",
+    "shots": [
+      {
+        "label": "PC 1440px",
+        "image": "assets/images/cases/growlog/resp-1440.webp",
+        "alt": "1440px 너비의 GrowLog 대시보드. 왼쪽 사이드바와 3열 요약 카드"
+      },
+      {
+        "label": "태블릿 768px",
+        "image": "assets/images/cases/growlog/resp-768.webp",
+        "alt": "768px 너비의 GrowLog 대시보드"
+      },
+      {
+        "label": "모바일 375px",
+        "image": "assets/images/cases/growlog/resp-375.webp",
+        "alt": "375px 너비의 GrowLog 대시보드"
+      }
+    ]
+  },
+  "accessibility": [
+    "모든 입력에 label 연결, 오류 문구는 aria-describedby로 연결하고 aria-invalid로 상태 표시",
+    "제출 실패 시 오류 요약(role=\"alert\")으로 포커스 이동, 항목을 누르면 해당 입력으로 이동",
+    "다이얼로그: 바깥 영역 비활성화, ESC 닫기, 닫힌 뒤 원래 버튼으로 포커스 복귀",
+    "필터 버튼 aria-pressed, 현재 메뉴 aria-current=\"page\", 로딩 영역 aria-busy, 상태 변화 aria-live",
+    "모든 텍스트 색 조합 라이트 · 다크 모두 명도 대비 4.5:1 이상",
+    "클릭 영역 최소 44×44px, 키보드 포커스 링, prefers-reduced-motion 대응, 움직임 멈추기 버튼(WCAG 2.2.2)"
+  ],
+  "troubleshooting": [
+    {
+      "title": "여러 애니메이션이 서로를 덮어쓰는 문제",
+      "problem": "랜딩의 미리보기 카드에는 등장 · 떠 있기 · 마우스 깊이 세 가지 효과가 겹칩니다. 세 효과가 모두 transform 하나를 쓰면, 나중에 적용된 값이 앞의 효과를 덮어써 함께 움직일 수 없습니다.",
+      "solution": "등장은 opacity · scale · rotate, 떠 있기는 transform, 깊이는 translate처럼 효과마다 다른 속성을 쓰도록 나눴습니다. 모두 합성 단계에서 처리되는 속성이라 성능 부담도 줄었습니다."
+    },
+    {
+      "title": "원본 보조 글자색의 명도 대비 부족",
+      "problem": "원본의 보조 글자색 #727872는 배경 대비 4.2:1로 WCAG AA 기준(4.5:1)에 못 미쳤습니다.",
+      "solution": "원본 색감을 유지한 채 #667068로 조금 진하게 바꿔 4.5:1을 맞추고, 라이트 · 다크 모드의 모든 텍스트 조합을 다시 확인했습니다."
+    },
+    {
+      "title": "JavaScript 없이도 올바른 숫자 표시",
+      "problem": "통계 숫자가 0부터 올라가는 카운트업 효과는 숫자를 JS로만 채우면, JS가 꺼지거나 실패했을 때 0으로 보이게 됩니다.",
+      "solution": "실제 숫자 값은 HTML에 그대로 두고, JS가 동작할 때만 0부터 세어 올라가게 했습니다. 장식 영역은 aria-hidden으로 스크린리더에서 제외했습니다."
+    }
+  ],
+  "result": {
+    "metrics": [
+      {
+        "label": "Lighthouse 접근성",
+        "value": "100"
+      },
+      {
+        "label": "Lighthouse 성능 (모바일)",
+        "value": "94~97"
+      },
+      {
+        "label": "axe-core 위반",
+        "value": "0"
+      },
+      {
+        "label": "HTML 검사 오류",
+        "value": "0"
+      }
+    ],
+    "text": "html-validate 오류 0, axe-core(WCAG 2.1 · 2.2 AA) 위반 0 — 전 화면 × 데스크톱 · 모바일 × 라이트 · 다크, 다이얼로그 · 오류 · 빈 상태 포함. Lighthouse 성능 모바일 94~97 / 데스크톱 100, 접근성 · SEO 100, CLS 0. 결과는 Chromium 기준이며, Safari · Firefox와 실제 스크린리더 확인은 남아 있습니다.",
+    "retrospective": ""
+  }
+}

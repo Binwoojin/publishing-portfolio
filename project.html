@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>작업물 상세 | Binwoojin</title>
+  <meta name="description" content="웹 퍼블리셔 김지현(빈우진)의 리디자인 · 퍼블리싱 작업물 상세입니다.">
+  <meta name="theme-color" content="#FAFAFA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#09090B" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/Paperlogy-4Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="common/css/reset.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/project.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <!-- 아이콘 (장식용, 텍스트와 함께 쓰므로 aria-hidden) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5M16 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7.5v5.5M12 16.5h.01" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-drag" viewBox="0 0 24 24"><path d="M9 6 3 12l6 6M15 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+
+  <header class="header" id="header">
+    <div class="inner header__inner">
+      <a class="header__logo" href="./"><span data-site="name">Binwoojin</span><span class="header__logo-dot" aria-hidden="true">.</span><span class="blind"> 포트폴리오 처음으로</span></a>
+      <a class="case-back" href="./#projects">
+        <svg class="icon" aria-hidden="true"><use href="#i-arrow-left"/></svg>
+        전체 작업물
+      </a>
+    </div>
+    <span class="header__progress" aria-hidden="true"></span>
+  </header>
+
+  <main id="main">
+    <article class="case" id="case" aria-busy="true">
+      <p class="inner case__status">작업물을 불러오는 중입니다.</p>
+      <noscript><p class="inner case__status">작업물 상세를 보려면 JavaScript를 켜 주세요. <a href="./#projects">전체 작업물로 돌아가기</a></p></noscript>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="inner footer__inner">
+      <p>&copy; <span id="year">2026</span> <span data-site="name">Binwoojin</span>. All rights reserved.</p>
+      <a class="footer__top" href="#main">맨 위로</a>
+    </div>
+  </footer>
+
+  <script src="assets/js/project.js"></script>
+</body>
+</html>
