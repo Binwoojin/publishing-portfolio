@@ -107,7 +107,8 @@
   border-left: 2px solid transparent;
   transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
 }
-.case-toc a span { font-size: .75rem; font-weight: 700; color: var(--color-muted-foreground); opacity: .7; }
+/* 번호는 투명도로 흐리게 하면 명도 대비가 3.5:1 로 떨어지므로 글자색 그대로(7:1 이상) 둔다 */
+.case-toc a span { font-size: .75rem; font-weight: 700; color: var(--color-muted-foreground); }
 .case-toc a:hover { color: var(--color-foreground); }
 .case-toc a.is-current { color: var(--color-foreground); border-left-color: var(--color-accent); }
 .case-toc a.is-current span { color: var(--color-accent); opacity: 1; }
@@ -377,7 +378,8 @@
   background: var(--color-muted);
   color: var(--color-muted-foreground);
 }
-.trouble__body div:last-child dt { background: color-mix(in srgb, var(--color-accent) 16%, transparent); color: var(--color-accent); }
+/* 옅은 파랑 바탕 위 파랑 글자는 4.1:1 이라 본문색을 20% 섞어 대비를 올린다 (라이트 5.6:1 · 다크 7.0:1) */
+.trouble__body div:last-child dt { background: color-mix(in srgb, var(--color-accent) 16%, transparent); color: color-mix(in srgb, var(--color-accent) 80%, var(--color-foreground)); }
 .trouble__body dd { font-size: .9375rem; color: var(--color-muted-foreground); }
 
 /* 09 Result */
