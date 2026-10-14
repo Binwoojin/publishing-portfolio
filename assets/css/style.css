@@ -117,6 +117,8 @@ body {
   word-break: keep-all;
   -webkit-font-smoothing: antialiased;
 }
+/* 긴 영문 단어 · 주소가 좁은 화면(320px 이하)에서 가로 스크롤을 만들지 않도록, 넘칠 때만 줄을 나눈다 */
+h1, h2, h3, p, li, dt, dd, a, figcaption { overflow-wrap: break-word; }
 ::selection { background: var(--color-accent); color: var(--color-on-accent); }
 
 a:focus-visible,

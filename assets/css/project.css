@@ -58,6 +58,7 @@
 .case-hero__meta dt,
 .case-facts dt,
 .case-metrics dt {
+  overflow-wrap: anywhere;
   font-size: .8125rem;
   font-weight: 700;
   letter-spacing: .06em;
@@ -115,7 +116,7 @@
 
 .case-section + .case-section { margin-top: var(--space-7); }
 .case-section__head { grid-template-columns: auto minmax(0, 1fr) auto; }
-.case-section__title { font-size: clamp(2rem, 4vw, 3rem); }
+.case-section__title { font-size: clamp(1.625rem, 7.5vw, 3rem); }
 
 .case-lead { max-width: 46em; font-size: 1.0625rem; color: var(--color-muted-foreground); }
 .case-lead--small { font-size: .9375rem; margin-top: var(--space-3); }
