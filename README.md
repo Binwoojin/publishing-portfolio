@@ -69,7 +69,7 @@ publishing-portfolio/
 | --- | --- | --- |
 | 01 | Project Overview | 프로젝트 소개 · 요약 정보 |
 | 02 | My Role | 담당 범위 — 직접 판단 · 확인한 일 / Claude Code가 보조한 일 |
-| 03 | Before & After | 원본 · 리디자인 화면 비교 슬라이더 + 개선 전 문제 / 개선 내용 |
+| 03 | Before & After | 1차 버전 · 리디자인 화면 비교(영역 비교 · 슬라이더) + 유지한 점 / 개선한 점 |
 | 04 | Design Process | 디자인 개선 과정 · 주요 색상 토큰 |
 | 05 | Publishing | HTML · CSS · JS 구현 내용 |
 | 06 | Responsive | PC · 태블릿 · 모바일 화면 |
