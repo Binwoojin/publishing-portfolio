@@ -45,7 +45,7 @@
   const zoomBtn = (src, alt, label, extra = '') =>
     `<button type="button" class="zoom-btn${extra}" data-zoom="${escape(src)}" data-zoom-alt="${escape(alt)}">${icon('i-zoom')}<span class="zoom-btn__text">${escape(label)}</span></button>`;
 
-  /* ===== 구조 비교: 원본 · 리디자인 화면을 나란히 두고 같은 역할의 영역에 같은 번호 표시 =====
+  /* ===== 구조 비교: 1차 버전 · 리디자인 화면을 나란히 두고 같은 역할의 영역에 같은 번호 표시 =====
      regions[].before / after = [x, y, 너비, 높이] (이미지 크기에 대한 %). before 가 없으면 새로 추가한 영역(+) */
   const validBox = (b) => Array.isArray(b) && b.length === 4 && b.every((n) => typeof n === 'number' && Number.isFinite(n));
   const boxStyle = (b) => `left:${b[0]}%;top:${b[1]}%;width:${b[2]}%;height:${b[3]}%`;
@@ -63,7 +63,7 @@
             <div class="ba__structure">
               <div class="ba__panes">
                 <figure class="ba__pane">
-                  <figcaption class="ba__pane-label"><span>Before</span>원본</figcaption>
+                  <figcaption class="ba__pane-label"><span>Before</span>1차 버전</figcaption>
                   <div class="ba__shot">
                     <img src="${escape(before)}" alt="개선 전: ${escape(p.beforeAlt || '')}" loading="lazy" decoding="async">
                     <div class="ba__boxes" aria-hidden="true">${boxes('before')}</div>
@@ -143,7 +143,7 @@
       const anyRegions = pairs.some((p) => list(p.regions).length);
       const intro = has(d.beforeAfterIntro)
         ? escape(d.beforeAfterIntro)
-        : '가운데 손잡이를 좌우로 끌거나, 손잡이에 포커스를 두고 ← → 키로 원본(왼쪽)과 리디자인(오른쪽)을 비교할 수 있습니다.';
+        : '가운데 손잡이를 좌우로 끌거나, 손잡이에 포커스를 두고 ← → 키로 1차 버전(왼쪽)과 리디자인(오른쪽)을 비교할 수 있습니다.';
       return `
         <p class="case-lead">${intro}</p>
         <div class="ba-list">${pairs.map((p, i) => {
