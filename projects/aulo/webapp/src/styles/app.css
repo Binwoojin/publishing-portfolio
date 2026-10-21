@@ -548,7 +548,7 @@ a.ticket__link:active { background: var(--color-bg); }
 }
 .best-list::-webkit-scrollbar { display: none; }
 .best-list > li { flex: 0 0 132px; scroll-snap-align: start; }
-/* 데스크톱(마우스)에서 끌어서 넘기기 (lib/useDragScroll.js) — 끄는 동안은 스냅을 꺼서 손을 따라 움직이게 */
+/* [포트폴리오 데모 전용] 데스크톱(마우스)에서 끌어서 넘기기 (lib/useDragScroll.js) — 끄는 동안은 스냅을 꺼서 손을 따라 움직이게 */
 @media (hover: hover) and (pointer: fine) {
   .best-list.is-draggable { cursor: grab; }
   .best-list.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
