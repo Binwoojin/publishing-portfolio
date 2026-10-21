@@ -2,24 +2,24 @@
   "project": "Aulo 공간 예약 · 주문",
   "dir": "projects/aulo",
   "pages": [
-    "projects/aulo/brand-landing/index.html",
-    "publishing/#/",
-    "publishing/#/recommend",
-    "publishing/#/order",
-    "publishing/#/menu/americano",
-    "publishing/#/info",
-    "publishing/#/notice",
-    "publishing/#/login",
-    "publishing/#/signup",
-    "publishing/#/ (로그인)",
-    "publishing/#/reserve (로그인)",
-    "publishing/#/reserve/focus (로그인)",
-    "publishing/#/my (로그인)",
-    "publishing/#/my/reservations (로그인)",
-    "publishing/#/my/orders (로그인)",
-    "publishing/#/my/coupons (로그인)"
+    "projects/aulo/publishing/index.html",
+    "publishing/app/#/",
+    "publishing/app/#/recommend",
+    "publishing/app/#/order",
+    "publishing/app/#/menu/americano",
+    "publishing/app/#/info",
+    "publishing/app/#/notice",
+    "publishing/app/#/login",
+    "publishing/app/#/signup",
+    "publishing/app/#/ (로그인)",
+    "publishing/app/#/reserve (로그인)",
+    "publishing/app/#/reserve/focus (로그인)",
+    "publishing/app/#/my (로그인)",
+    "publishing/app/#/my/reservations (로그인)",
+    "publishing/app/#/my/orders (로그인)",
+    "publishing/app/#/my/coupons (로그인)"
   ],
-  "measuredAt": "2026-10-21T11:55:24.980Z",
+  "measuredAt": "2026-10-21T12:43:20.298Z",
   "tools": {
     "html-validate": "11.16.2",
     "axe-core": "4.14.0",
@@ -32,7 +32,7 @@
     "화면: 데스크톱 1280×800 / 모바일 375×812 × 라이트 · 다크",
     "페이지를 끝까지 스크롤해 등장 효과를 모두 재생한 뒤 검사",
     "각 화면의 기본 상태만 검사 (로딩 · 빈 상태 · 오류 · 다이얼로그 상태는 포함하지 않음)",
-    "웹앱은 해시 주소별로 검사, '(로그인)' 화면은 데모 계정(기본 시작 상태 '예약 없음')으로 로그인한 뒤 검사. html-validate는 빌드된 publishing/index.html 파일만 검사"
+    "웹앱은 해시 주소별로 검사, '(로그인)' 화면은 데모 계정(기본 시작 상태 '예약 없음')으로 로그인한 뒤 검사. html-validate는 빌드된 publishing/app/index.html 파일만 검사"
   ],
   "summary": {
     "htmlErrors": 17,
@@ -43,7 +43,7 @@
   },
   "htmlValidate": [
     {
-      "file": "projects/aulo/brand-landing/index.html",
+      "file": "projects/aulo/publishing/index.html",
       "errors": 1,
       "warnings": 0,
       "messages": [
@@ -56,7 +56,7 @@
       ]
     },
     {
-      "file": "projects/aulo/publishing/index.html",
+      "file": "projects/aulo/publishing/app/index.html",
       "errors": 16,
       "warnings": 0,
       "messages": [
@@ -161,7 +161,7 @@
   ],
   "axe": [
     {
-      "file": "projects/aulo/brand-landing/index.html",
+      "file": "projects/aulo/publishing/index.html",
       "viewport": "desktop",
       "scheme": "light",
       "violations": [
@@ -179,7 +179,7 @@
       "pageErrors": []
     },
     {
-      "file": "projects/aulo/brand-landing/index.html",
+      "file": "projects/aulo/publishing/index.html",
       "viewport": "desktop",
       "scheme": "dark",
       "violations": [
@@ -197,7 +197,7 @@
       "pageErrors": []
     },
     {
-      "file": "projects/aulo/brand-landing/index.html",
+      "file": "projects/aulo/publishing/index.html",
       "viewport": "mobile",
       "scheme": "light",
       "violations": [
@@ -215,7 +215,7 @@
       "pageErrors": []
     },
     {
-      "file": "projects/aulo/brand-landing/index.html",
+      "file": "projects/aulo/publishing/index.html",
       "viewport": "mobile",
       "scheme": "dark",
       "violations": [
@@ -233,7 +233,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/",
+      "file": "publishing/app/#/",
       "viewport": "desktop",
       "scheme": "light",
       "violations": [
@@ -253,7 +253,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/",
+      "file": "publishing/app/#/",
       "viewport": "desktop",
       "scheme": "dark",
       "violations": [
@@ -273,7 +273,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/",
+      "file": "publishing/app/#/",
       "viewport": "mobile",
       "scheme": "light",
       "violations": [
@@ -293,7 +293,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/",
+      "file": "publishing/app/#/",
       "viewport": "mobile",
       "scheme": "dark",
       "violations": [
@@ -313,7 +313,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/recommend",
+      "file": "publishing/app/#/recommend",
       "viewport": "desktop",
       "scheme": "light",
       "violations": [],
@@ -321,7 +321,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/recommend",
+      "file": "publishing/app/#/recommend",
       "viewport": "desktop",
       "scheme": "dark",
       "violations": [],
@@ -329,7 +329,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/recommend",
+      "file": "publishing/app/#/recommend",
       "viewport": "mobile",
       "scheme": "light",
       "violations": [],
@@ -337,7 +337,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/recommend",
+      "file": "publishing/app/#/recommend",
       "viewport": "mobile",
       "scheme": "dark",
       "violations": [],
@@ -345,7 +345,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/order",
+      "file": "publishing/app/#/order",
       "viewport": "desktop",
       "scheme": "light",
       "violations": [],
@@ -353,7 +353,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/order",
+      "file": "publishing/app/#/order",
       "viewport": "desktop",
       "scheme": "dark",
       "violations": [],
@@ -361,7 +361,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/order",
+      "file": "publishing/app/#/order",
       "viewport": "mobile",
       "scheme": "light",
       "violations": [],
@@ -369,7 +369,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/order",
+      "file": "publishing/app/#/order",
       "viewport": "mobile",
       "scheme": "dark",
       "violations": [],
@@ -377,7 +377,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/menu/americano",
+      "file": "publishing/app/#/menu/americano",
       "viewport": "desktop",
       "scheme": "light",
       "violations": [],
@@ -385,7 +385,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/menu/americano",
+      "file": "publishing/app/#/menu/americano",
       "viewport": "desktop",
       "scheme": "dark",
       "violations": [],
@@ -393,7 +393,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/menu/americano",
+      "file": "publishing/app/#/menu/americano",
       "viewport": "mobile",
       "scheme": "light",
       "violations": [],
@@ -401,7 +401,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/menu/americano",
+      "file": "publishing/app/#/menu/americano",
       "viewport": "mobile",
       "scheme": "dark",
       "violations": [],
@@ -409,7 +409,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/info",
+      "file": "publishing/app/#/info",
       "viewport": "desktop",
       "scheme": "light",
       "violations": [],
@@ -417,7 +417,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/info",
+      "file": "publishing/app/#/info",
       "viewport": "desktop",
       "scheme": "dark",
       "violations": [],
@@ -425,7 +425,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/info",
+      "file": "publishing/app/#/info",
       "viewport": "mobile",
       "scheme": "light",
       "violations": [],
@@ -433,7 +433,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/info",
+      "file": "publishing/app/#/info",
       "viewport": "mobile",
       "scheme": "dark",
       "violations": [],
@@ -441,7 +441,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/notice",
+      "file": "publishing/app/#/notice",
       "viewport": "desktop",
       "scheme": "light",
       "violations": [],
@@ -449,7 +449,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/notice",
+      "file": "publishing/app/#/notice",
       "viewport": "desktop",
       "scheme": "dark",
       "violations": [],
@@ -457,7 +457,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/notice",
+      "file": "publishing/app/#/notice",
       "viewport": "mobile",
       "scheme": "light",
       "violations": [],
@@ -465,7 +465,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/notice",
+      "file": "publishing/app/#/notice",
       "viewport": "mobile",
       "scheme": "dark",
       "violations": [],
@@ -473,7 +473,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/login",
+      "file": "publishing/app/#/login",
       "viewport": "desktop",
       "scheme": "light",
       "violations": [],
@@ -481,7 +481,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/login",
+      "file": "publishing/app/#/login",
       "viewport": "desktop",
       "scheme": "dark",
       "violations": [],
@@ -489,7 +489,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/login",
+      "file": "publishing/app/#/login",
       "viewport": "mobile",
       "scheme": "light",
       "violations": [],
@@ -497,7 +497,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/login",
+      "file": "publishing/app/#/login",
       "viewport": "mobile",
       "scheme": "dark",
       "violations": [],
@@ -505,7 +505,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/signup",
+      "file": "publishing/app/#/signup",
       "viewport": "desktop",
       "scheme": "light",
       "violations": [],
@@ -513,7 +513,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/signup",
+      "file": "publishing/app/#/signup",
       "viewport": "desktop",
       "scheme": "dark",
       "violations": [],
@@ -521,7 +521,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/signup",
+      "file": "publishing/app/#/signup",
       "viewport": "mobile",
       "scheme": "light",
       "violations": [],
@@ -529,7 +529,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/signup",
+      "file": "publishing/app/#/signup",
       "viewport": "mobile",
       "scheme": "dark",
       "violations": [],
@@ -537,7 +537,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/ (로그인)",
+      "file": "publishing/app/#/ (로그인)",
       "viewport": "desktop",
       "scheme": "light",
       "violations": [
@@ -558,7 +558,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/ (로그인)",
+      "file": "publishing/app/#/ (로그인)",
       "viewport": "desktop",
       "scheme": "dark",
       "violations": [
@@ -579,7 +579,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/ (로그인)",
+      "file": "publishing/app/#/ (로그인)",
       "viewport": "mobile",
       "scheme": "light",
       "violations": [
@@ -600,7 +600,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/ (로그인)",
+      "file": "publishing/app/#/ (로그인)",
       "viewport": "mobile",
       "scheme": "dark",
       "violations": [
@@ -621,7 +621,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/reserve (로그인)",
+      "file": "publishing/app/#/reserve (로그인)",
       "viewport": "desktop",
       "scheme": "light",
       "violations": [],
@@ -629,39 +629,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/reserve (로그인)",
-      "viewport": "desktop",
-      "scheme": "dark",
-      "violations": [],
-      "horizontalScroll": false,
-      "pageErrors": []
-    },
-    {
-      "file": "publishing/#/reserve (로그인)",
-      "viewport": "mobile",
-      "scheme": "light",
-      "violations": [],
-      "horizontalScroll": false,
-      "pageErrors": []
-    },
-    {
-      "file": "publishing/#/reserve (로그인)",
-      "viewport": "mobile",
-      "scheme": "dark",
-      "violations": [],
-      "horizontalScroll": false,
-      "pageErrors": []
-    },
-    {
-      "file": "publishing/#/reserve/focus (로그인)",
-      "viewport": "desktop",
-      "scheme": "light",
-      "violations": [],
-      "horizontalScroll": false,
-      "pageErrors": []
-    },
-    {
-      "file": "publishing/#/reserve/focus (로그인)",
+      "file": "publishing/app/#/reserve (로그인)",
       "viewport": "desktop",
       "scheme": "dark",
       "violations": [],
@@ -669,7 +637,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/reserve/focus (로그인)",
+      "file": "publishing/app/#/reserve (로그인)",
       "viewport": "mobile",
       "scheme": "light",
       "violations": [],
@@ -677,39 +645,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/reserve/focus (로그인)",
-      "viewport": "mobile",
-      "scheme": "dark",
-      "violations": [],
-      "horizontalScroll": false,
-      "pageErrors": []
-    },
-    {
-      "file": "publishing/#/my (로그인)",
-      "viewport": "desktop",
-      "scheme": "light",
-      "violations": [],
-      "horizontalScroll": false,
-      "pageErrors": []
-    },
-    {
-      "file": "publishing/#/my (로그인)",
-      "viewport": "desktop",
-      "scheme": "dark",
-      "violations": [],
-      "horizontalScroll": false,
-      "pageErrors": []
-    },
-    {
-      "file": "publishing/#/my (로그인)",
-      "viewport": "mobile",
-      "scheme": "light",
-      "violations": [],
-      "horizontalScroll": false,
-      "pageErrors": []
-    },
-    {
-      "file": "publishing/#/my (로그인)",
+      "file": "publishing/app/#/reserve (로그인)",
       "viewport": "mobile",
       "scheme": "dark",
       "violations": [],
@@ -717,7 +653,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/my/reservations (로그인)",
+      "file": "publishing/app/#/reserve/focus (로그인)",
       "viewport": "desktop",
       "scheme": "light",
       "violations": [],
@@ -725,39 +661,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/my/reservations (로그인)",
-      "viewport": "desktop",
-      "scheme": "dark",
-      "violations": [],
-      "horizontalScroll": false,
-      "pageErrors": []
-    },
-    {
-      "file": "publishing/#/my/reservations (로그인)",
-      "viewport": "mobile",
-      "scheme": "light",
-      "violations": [],
-      "horizontalScroll": false,
-      "pageErrors": []
-    },
-    {
-      "file": "publishing/#/my/reservations (로그인)",
-      "viewport": "mobile",
-      "scheme": "dark",
-      "violations": [],
-      "horizontalScroll": false,
-      "pageErrors": []
-    },
-    {
-      "file": "publishing/#/my/orders (로그인)",
-      "viewport": "desktop",
-      "scheme": "light",
-      "violations": [],
-      "horizontalScroll": false,
-      "pageErrors": []
-    },
-    {
-      "file": "publishing/#/my/orders (로그인)",
+      "file": "publishing/app/#/reserve/focus (로그인)",
       "viewport": "desktop",
       "scheme": "dark",
       "violations": [],
@@ -765,7 +669,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/my/orders (로그인)",
+      "file": "publishing/app/#/reserve/focus (로그인)",
       "viewport": "mobile",
       "scheme": "light",
       "violations": [],
@@ -773,7 +677,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/my/orders (로그인)",
+      "file": "publishing/app/#/reserve/focus (로그인)",
       "viewport": "mobile",
       "scheme": "dark",
       "violations": [],
@@ -781,7 +685,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/my/coupons (로그인)",
+      "file": "publishing/app/#/my (로그인)",
       "viewport": "desktop",
       "scheme": "light",
       "violations": [],
@@ -789,7 +693,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/my/coupons (로그인)",
+      "file": "publishing/app/#/my (로그인)",
       "viewport": "desktop",
       "scheme": "dark",
       "violations": [],
@@ -797,7 +701,7 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/my/coupons (로그인)",
+      "file": "publishing/app/#/my (로그인)",
       "viewport": "mobile",
       "scheme": "light",
       "violations": [],
@@ -805,7 +709,103 @@
       "pageErrors": []
     },
     {
-      "file": "publishing/#/my/coupons (로그인)",
+      "file": "publishing/app/#/my (로그인)",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/app/#/my/reservations (로그인)",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/app/#/my/reservations (로그인)",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/app/#/my/reservations (로그인)",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/app/#/my/reservations (로그인)",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/app/#/my/orders (로그인)",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/app/#/my/orders (로그인)",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/app/#/my/orders (로그인)",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/app/#/my/orders (로그인)",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/app/#/my/coupons (로그인)",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/app/#/my/coupons (로그인)",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/app/#/my/coupons (로그인)",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/app/#/my/coupons (로그인)",
       "viewport": "mobile",
       "scheme": "dark",
       "violations": [],

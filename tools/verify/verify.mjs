@@ -32,9 +32,10 @@ const PROJECTS = {
   // Aulo: 정적 브랜드 랜딩 + 해시 라우터 웹앱(빌드본). 웹앱은 화면 주소(#/...)마다 검사하고, 로그인이 필요한 화면은 데모 계정으로 로그인한 뒤 검사한다.
   aulo: {
     name: 'Aulo 공간 예약 · 주문', dir: 'projects/aulo',
-    files: ['brand-landing/index.html', 'publishing/index.html'],
+    // 원본 배포 구조와 같게: publishing/ = 브랜드 랜딩, publishing/app/ = 웹앱 빌드
+    files: ['publishing/index.html', 'publishing/app/index.html'],
     app: {
-      entry: 'publishing/index.html',
+      entry: 'publishing/app/index.html',
       routes: [
         ['/'], ['/recommend'], ['/order'], ['/menu/americano'], ['/info'], ['/notice'], ['/login'], ['/signup'],
         ['/', true], ['/reserve', true], ['/reserve/focus', true], ['/my', true], ['/my/reservations', true], ['/my/orders', true], ['/my/coupons', true],
@@ -46,7 +47,7 @@ const PROJECTS = {
         await page.waitForTimeout(800);
       },
     },
-    lighthouse: ['brand-landing/index.html'],
+    lighthouse: ['publishing/index.html'],
   },
 };
 const VIEWPORTS = [
@@ -212,7 +213,7 @@ const main = async () => {
     if (ONLY && ONLY !== key) continue;
     const pages = (p.files || (await readdir(join(ROOT, p.dir))).filter((f) => f.endsWith('.html')).sort()).map((f) => `${p.dir}/${f}`);
     const targets = pages.filter((f) => !p.app || f !== `${p.dir}/${p.app.entry}`).map((f) => ({ id: f, path: f }));
-    if (p.app) for (const [route, login] of p.app.routes) targets.push({ id: `${p.app.entry.split('/')[0]}/#${route}${login ? ' (로그인)' : ''}`, path: `${p.dir}/${p.app.entry.replace(/index\.html$/, '')}#${route}`, login });
+    if (p.app) for (const [route, login] of p.app.routes) targets.push({ id: `${p.app.entry.replace(/index\.html$/, '')}#${route}${login ? ' (로그인)' : ''}`, path: `${p.dir}/${p.app.entry.replace(/index\.html$/, '')}#${route}`, login });
     console.log(`[${key}] ${targets.length}개 화면 검사`);
     const htmlValidate = await runHtmlValidate(pages);
     const axe = await runAxe(base, targets, p.app?.login);

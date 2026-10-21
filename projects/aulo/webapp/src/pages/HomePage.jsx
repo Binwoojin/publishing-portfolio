@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BEST_MENU, BEST_MENU_TEMP, HOURS, MENU, SPACES } from '../config/policy.js';
 import { needsTemp } from '../lib/drink.js';
@@ -9,6 +9,7 @@ import ReservationCard from '../components/ReservationCard.jsx';
 import StorePicker from '../components/StorePicker.jsx';
 import { DrinkThumb, SpaceImage } from '../components/ui.jsx';
 import { useAppData, useNow } from '../lib/AppData.jsx';
+import { useDragScroll } from '../lib/useDragScroll.js';
 import { lastPastReservation, lastReorderable, rebookPath, recentPastReservations, reorderItems } from '../lib/again.js';
 import { orderKindFor, parseKey, recentOrders, remainingBenefits, sortedKeys } from '../lib/order.js';
 import { canCancel, getDrink, getStore, isHoliday, reservationEnd } from '../lib/reservation.js';
@@ -230,6 +231,8 @@ function DrinkShelf({ orders, now, showPicks }) {
   const [tab, setTab] = useState(hasPicks ? 'picks' : 'best');
   const current = hasPicks && tab === 'picks' ? 'picks' : 'best';
   const hasRecent = picks.some((p) => p.basis === 'recent');
+  const listRef = useRef(null);
+  useDragScroll(listRef, current); // [포트폴리오 데모 전용] 데스크톱(마우스)에서 끌어서 넘기기 — 탭을 바꾸면 목록을 새로 그리므로 다시 연결
   const items = current === 'picks'
     ? picks.map((p) => ({ drink: p.drink, temp: p.temp, tag: p.basis === 'recent' ? '지난 주문' : null }))
     : BEST_MENU.map((id) => ({ drink: MENU.value.find((d) => d.id === id), temp: null, tag: null }));
@@ -258,7 +261,7 @@ function DrinkShelf({ orders, now, showPicks }) {
         // 베스트: 주문 데이터가 없어 운영자가 고른 대표 메뉴. 순위·판매량처럼 읽히는 말은 쓰지 않는다 (필수 규칙 5)
         <p className="shelf-reason swap" key="reason-best">어떤 시간에도 잘 어울리는, Aulo의 대표 메뉴예요</p>
       )}
-      <ul className="best-list swap" key={`list-${current}`} aria-label={current === 'picks' ? '지금 추천 음료' : '대표 메뉴'}>
+      <ul ref={listRef} className="best-list swap" key={`list-${current}`} aria-label={current === 'picks' ? '지금 추천 음료' : '대표 메뉴'}>
         {items.map(({ drink: d, temp, tag }) => {
           const showTemp = needsTemp(d) ? (temp ?? BEST_MENU_TEMP) : null;
           return (
