@@ -77,6 +77,23 @@ publishing-portfolio/
 | 08 | Troubleshooting | 구현 중 해결한 문제 (문제 / 해결) |
 | 09 | Result | 결과 수치 · 회고 |
 
+### UX 프로세스 구성 (`"layout": "ux"`)
+
+케이스 데이터에 `"layout": "ux"` 를 넣으면 UX 프로세스 순서로 보여줍니다 (지금은 Aulo만 사용).
+
+| 순서 | 구성 | 데이터 | 내용 |
+| --- | --- | --- | --- |
+| 01 | Overview | `overview` | 프로젝트 소개 · 요약 정보 |
+| 02 | My Role | `role` | 담당 범위 |
+| 03 | Problem | `problem` | 문제와 근거, 해결 기준 |
+| 04 | Users & Scenarios | `users` | 사용자 유형 · 이용 상황, 사용자 상태 |
+| 05 | IA & User Flow | `flow` | 정보 구조, 주요 사용자 흐름 |
+| 06 | Design Decisions | `process` | 대표 결정 (문제 → 선택 이유 → 구현 → 확인 결과) · 디자인 과정 |
+| 07 | Before & After | `beforeAfter` | 기본 구성과 같음 |
+| 08 | Design System | `designSystem` | 색 · 글꼴 · 공통 컴포넌트 · 간격 · 모션 기준 |
+| 09 | Outcome | `result` | 결과 수치 · 한계 · 회고 (측정 근거는 10에서) |
+| 10 | Build & QA | `publishing` · `responsive` · `accessibility` · `troubleshooting` · `result.verification` | 구현 · 검증 요약 |
+
 - 관리 화면(Pages CMS)의 **작업물 상세** 메뉴에서 수정할 수 있습니다. 작업물 목록의 **상세페이지 ID** 와 파일 이름이 같아야 카드에 버튼이 생깁니다.
 - 상세 이미지는 `assets/images/cases/<아이디>/` 에 있습니다. Before & After 이미지는 **개선 전 · 후를 같은 크기로 캡처**해야 슬라이더에서 정확히 겹칩니다.
 
