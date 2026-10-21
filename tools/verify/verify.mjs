@@ -29,6 +29,25 @@ const ONLY = arg('--project');
 const PROJECTS = {
   growlog: { name: 'GrowLog 리디자인', dir: 'projects/growlog/publishing', lighthouse: ['index.html', 'dashboard.html'] },
   waylog: { name: 'WayLog 리디자인', dir: 'projects/waylog/publishing', lighthouse: ['index.html', 'destinations.html'] },
+  // Aulo: 정적 브랜드 랜딩 + 해시 라우터 웹앱(빌드본). 웹앱은 화면 주소(#/...)마다 검사하고, 로그인이 필요한 화면은 데모 계정으로 로그인한 뒤 검사한다.
+  aulo: {
+    name: 'Aulo 공간 예약 · 주문', dir: 'projects/aulo',
+    files: ['brand-landing/index.html', 'publishing/index.html'],
+    app: {
+      entry: 'publishing/index.html',
+      routes: [
+        ['/'], ['/recommend'], ['/order'], ['/menu/americano'], ['/info'], ['/notice'], ['/login'], ['/signup'],
+        ['/', true], ['/reserve', true], ['/reserve/focus', true], ['/my', true], ['/my/reservations', true], ['/my/orders', true], ['/my/coupons', true],
+      ],
+      login: async (page, appUrl) => {
+        await page.goto(`${appUrl}#/login`, { waitUntil: 'load' });
+        await page.getByRole('button', { name: '채우기' }).click();
+        await page.locator('form').getByRole('button', { name: '로그인', exact: true }).click();
+        await page.waitForTimeout(800);
+      },
+    },
+    lighthouse: ['brand-landing/index.html'],
+  },
 };
 const VIEWPORTS = [
   { id: 'desktop', label: '데스크톱 1280×800', width: 1280, height: 800 },
@@ -74,19 +93,21 @@ const runHtmlValidate = async (files) => {
 };
 
 /* ---------- axe-core ---------- */
-const runAxe = async (base, files) => {
+// targets: [{ id, path, login? }] — path는 저장소 루트 기준 주소(해시 포함 가능)
+const runAxe = async (base, targets, login) => {
   const { chromium } = require('playwright');
   const axeSource = await readFile(require.resolve('axe-core/axe.min.js'), 'utf8');
   const browser = await chromium.launch(CHROME ? { executablePath: CHROME } : {});
   const out = [];
-  for (const f of files) {
+  for (const t of targets) {
     for (const vp of VIEWPORTS) {
       for (const scheme of SCHEMES) {
         const ctx = await browser.newContext({ viewport: { width: vp.width, height: vp.height }, isMobile: !!vp.isMobile, hasTouch: !!vp.hasTouch, colorScheme: scheme });
         const page = await ctx.newPage();
         const consoleErrors = [];
         page.on('pageerror', (e) => consoleErrors.push(e.message));
-        await page.goto(`${base}/${f}`, { waitUntil: 'load' });
+        if (t.login) await login(page, `${base}/${t.path.split('#')[0]}`);
+        await page.goto(`${base}/${t.path}`, { waitUntil: 'load' });
         await page.waitForTimeout(1500);
         // 스크롤 등장 효과가 끝난 상태로 검사 (페이지 끝까지 내렸다가 위로)
         await page.evaluate(async () => {
@@ -100,7 +121,7 @@ const runAxe = async (base, files) => {
           return r.violations.map((v) => ({ id: v.id, impact: v.impact, help: v.help, nodes: v.nodes.length, targets: v.nodes.slice(0, 5).map((n) => n.target.join(' ')) }));
         }, AXE_TAGS);
         const hscroll = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
-        out.push({ file: f, viewport: vp.id, scheme, violations: result, horizontalScroll: hscroll, pageErrors: consoleErrors });
+        out.push({ file: t.id, viewport: vp.id, scheme, violations: result, horizontalScroll: hscroll, pageErrors: consoleErrors });
         await ctx.close();
       }
     }
@@ -168,7 +189,7 @@ ${r.htmlValidate.map((h) => `<tr><td>${esc(h.file.split('/').pop())}</td><td>${h
 </table>
 <h2>axe-core</h2>
 <table><tr><th>파일</th><th>화면</th><th>테마</th><th>위반</th><th>가로 스크롤</th></tr>
-${r.axe.map((a) => `<tr><td>${esc(a.file.split('/').pop())}</td><td>${esc(a.viewport)}</td><td>${esc(a.scheme)}</td><td class="${a.violations.length ? 'bad' : 'ok'}">${a.violations.length ? a.violations.map((v) => `${esc(v.id)} (${esc(v.impact)}, ${v.nodes}곳) ${esc(v.targets.join(', '))}`).join('<br>') : '0'}</td><td>${a.horizontalScroll ? '<span class="bad">있음</span>' : '없음'}</td></tr>`).join('')}
+${r.axe.map((a) => `<tr><td>${esc(a.file.includes('#') ? a.file : a.file.split('/').pop())}</td><td>${esc(a.viewport)}</td><td>${esc(a.scheme)}</td><td class="${a.violations.length ? 'bad' : 'ok'}">${a.violations.length ? a.violations.map((v) => `${esc(v.id)} (${esc(v.impact)}, ${v.nodes}곳) ${esc(v.targets.join(', '))}`).join('<br>') : '0'}</td><td>${a.horizontalScroll ? '<span class="bad">있음</span>' : '없음'}</td></tr>`).join('')}
 </table>
 </body></html>`;
 
@@ -189,13 +210,15 @@ const main = async () => {
   const browserVersion = await (async () => { const { chromium } = require('playwright'); const b = await chromium.launch(CHROME ? { executablePath: CHROME } : {}); const v = b.version(); await b.close(); return v; })();
   for (const [key, p] of Object.entries(PROJECTS)) {
     if (ONLY && ONLY !== key) continue;
-    const pages = (await readdir(join(ROOT, p.dir))).filter((f) => f.endsWith('.html')).sort().map((f) => `${p.dir}/${f}`);
-    console.log(`[${key}] ${pages.length}개 화면 검사`);
+    const pages = (p.files || (await readdir(join(ROOT, p.dir))).filter((f) => f.endsWith('.html')).sort()).map((f) => `${p.dir}/${f}`);
+    const targets = pages.filter((f) => !p.app || f !== `${p.dir}/${p.app.entry}`).map((f) => ({ id: f, path: f }));
+    if (p.app) for (const [route, login] of p.app.routes) targets.push({ id: `${p.app.entry.split('/')[0]}/#${route}${login ? ' (로그인)' : ''}`, path: `${p.dir}/${p.app.entry.replace(/index\.html$/, '')}#${route}`, login });
+    console.log(`[${key}] ${targets.length}개 화면 검사`);
     const htmlValidate = await runHtmlValidate(pages);
-    const axe = await runAxe(base, pages);
+    const axe = await runAxe(base, targets, p.app?.login);
     const lighthouse = WITH_LIGHTHOUSE ? await runLighthouse(base, p.lighthouse.map((f) => `${p.dir}/${f}`)) : null;
     const report = {
-      project: p.name, dir: p.dir, pages,
+      project: p.name, dir: p.dir, pages: targets.map((t) => t.id),
       measuredAt: new Date().toISOString(),
       tools: { 'html-validate': version('html-validate'), 'axe-core': version('axe-core'), playwright: version('playwright'), Chromium: browserVersion, ...(lighthouse ? { lighthouse: version('lighthouse') } : {}) },
       environment: `${os.type()} ${os.release()} · Node ${process.version} · 로컬 정적 서버`,
@@ -204,6 +227,7 @@ const main = async () => {
         `화면: ${VIEWPORTS.map((v) => v.label).join(' / ')} × 라이트 · 다크`,
         '페이지를 끝까지 스크롤해 등장 효과를 모두 재생한 뒤 검사',
         '각 화면의 기본 상태만 검사 (로딩 · 빈 상태 · 오류 · 다이얼로그 상태는 포함하지 않음)',
+        ...(p.app ? [`웹앱은 해시 주소별로 검사, '(로그인)' 화면은 데모 계정(기본 시작 상태 '예약 없음')으로 로그인한 뒤 검사. html-validate는 빌드된 ${p.app.entry} 파일만 검사`] : []),
       ],
       summary: {
         htmlErrors: htmlValidate.reduce((s, h) => s + h.errors, 0),

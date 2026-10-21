@@ -16,7 +16,7 @@ publishing-portfolio/
 ├── data/
 │   ├── projects.json       # ★ 작업물 목록
 │   ├── site.json           # ★ 이름 · 연락처 · 소개 문구 · 기술 목록
-│   └── cases/              # ★ 작업물 상세 내용 (growlog.json, waylog.json)
+│   └── cases/              # ★ 작업물 상세 내용 (growlog.json, waylog.json, aulo.json)
 ├── .pages.yml              # 관리 화면(Pages CMS) 설정
 ├── common/css/reset.css    # 공통 리셋 CSS
 ├── projects/
@@ -94,6 +94,7 @@ npm run verify:lighthouse   # 위 검사 + Lighthouse (대표 화면, 모바일 
 
 - 결과: `reports/<프로젝트>/report.json`(원본 데이터), `reports/<프로젝트>/index.html`(화면별 보고서)
 - 보고서에는 측정일 · 도구 버전 · 브라우저 버전 · 검사 조건이 함께 기록됩니다.
+- Aulo처럼 해시 라우터 웹앱은 `verify.mjs` 의 `PROJECTS.aulo.app.routes` 에 화면 주소를 적어 두면 주소마다 검사하고, 로그인이 필요한 화면은 데모 계정으로 로그인한 뒤 검사합니다.
 - 상세페이지 09 Result 의 **측정 근거**는 이 보고서를 옮겨 적은 것입니다. 다시 측정하면 `data/cases/<프로젝트>.json` 의 `result.verification` 도 함께 고쳐 주세요.
 
 ## 배포 (GitHub Pages)

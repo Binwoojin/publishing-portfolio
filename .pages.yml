@@ -150,6 +150,10 @@ content:
       - name: demo
         label: 결과물 링크
         type: string
+      - name: layout
+        label: 상세 구성 방식 (선택)
+        description: 비우면 기본 9개 구성입니다. ux 라고 쓰면 UX 프로세스 순서(문제 → 사용자 → 정보 구조 · 흐름 → 디자인 결정 → Before & After → 디자인 시스템 → 결과 → 구현 · 검증)로 보여 주고, 아래 'UX' 항목들을 씁니다.
+        type: string
       - name: overview
         label: 01 Project Overview
         type: object
@@ -316,3 +320,95 @@ content:
             label: 회고
             description: 직접 느낀 점 · 다음에 다르게 해 볼 점을 적어 주세요. 비워 두면 회고 칸은 나오지 않습니다.
             type: text
+      - name: problem
+        label: UX · 문제 정의 · 목표
+        type: object
+        fields:
+          - { name: text, label: 설명, type: text }
+          - name: items
+            label: 문제
+            type: object
+            list: true
+            fields:
+              - { name: title, label: 문제, type: string }
+              - { name: text, label: 설명, type: text }
+              - { name: evidence, label: 근거 (1차 버전에서 확인한 것), type: text }
+          - { name: goalsTitle, label: 해결 기준 제목, type: string }
+          - { name: goals, label: 해결 기준, type: string, list: true }
+      - name: users
+        label: UX · 사용자 · 이용 상황
+        type: object
+        fields:
+          - { name: text, label: 설명, type: text }
+          - name: items
+            label: 사용자 유형
+            type: object
+            list: true
+            fields:
+              - { name: space, label: 공간, type: string }
+              - { name: title, label: 이용 목적, type: string }
+              - { name: situation, label: 상황, type: string }
+              - { name: need, label: 필요한 것, type: string }
+              - { name: answer, label: 서비스의 답, type: string }
+          - { name: statesTitle, label: 사용자 상태 제목, type: string }
+          - { name: statesText, label: 사용자 상태 설명, type: text }
+          - name: states
+            label: 사용자 상태
+            type: object
+            list: true
+            fields:
+              - { name: label, label: 상태, type: string }
+              - { name: text, label: 이때 보여 줄 것, type: string }
+      - name: flow
+        label: UX · 정보 구조 · 사용자 흐름
+        type: object
+        fields:
+          - { name: text, label: 설명, type: text }
+          - { name: iaTitle, label: 정보 구조 제목, type: string }
+          - name: ia
+            label: 정보 구조 (메뉴별)
+            type: object
+            list: true
+            fields:
+              - { name: title, label: 메뉴, type: string }
+              - { name: primary, label: 강조, type: boolean }
+              - { name: items, label: 하위 화면 · 요소, type: string, list: true }
+          - { name: iaNote, label: 정보 구조 메모, type: text }
+          - { name: flowsTitle, label: 흐름 제목, type: string }
+          - name: flows
+            label: 사용자 흐름
+            type: object
+            list: true
+            fields:
+              - { name: title, label: 흐름 이름, type: string }
+              - { name: steps, label: 단계, type: string, list: true }
+              - { name: note, label: 메모, type: text }
+      - name: designSystem
+        label: UX · 디자인 시스템
+        type: object
+        fields:
+          - { name: text, label: 설명, type: text }
+          - name: tokens
+            label: 색
+            type: object
+            list: true
+            fields:
+              - { name: name, label: 이름, type: string }
+              - { name: value, label: "색상값 (예 - #596246)", type: string }
+              - { name: note, label: 설명, type: string }
+          - name: type
+            label: 글꼴
+            type: object
+            list: true
+            fields:
+              - { name: name, label: 글꼴 이름, type: string }
+              - { name: use, label: 쓰는 곳, type: text }
+          - name: components
+            label: 공통 컴포넌트
+            type: object
+            list: true
+            fields:
+              - { name: name, label: 이름, type: string }
+              - { name: text, label: 설명, type: string }
+          - { name: rulesTitle, label: 기준 제목, type: string }
+          - { name: rules, label: 간격 · 모션 기준, type: string, list: true }
