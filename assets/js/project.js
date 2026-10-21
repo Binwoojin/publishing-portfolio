@@ -1,6 +1,7 @@
 (() => {
   /* 작업물 상세 페이지
      project.html?id=growlog → data/cases/growlog.json 을 읽어 9개 구성으로 그립니다.
+     데이터에 "layout": "ux" 가 있으면 UX 프로세스 순서(문제 → 사용자 → 구조 · 흐름 → 결정 → 비교 → 디자인 시스템 → 결과 → 구현 · 검증)로 그립니다.
      데이터가 비어 있는 구성은 건너뛰고, 번호는 보이는 순서대로 다시 매깁니다. */
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -94,7 +95,8 @@
   };
 
   /* ===== 구성별 마크업 ===== */
-  const SECTIONS = [
+  const SECTION_SETS = {};
+  SECTION_SETS.default = [
     { key: 'overview', title: 'Project Overview', ko: '프로젝트 소개' },
     { key: 'role', title: 'My Role', ko: '담당 범위' },
     { key: 'beforeAfter', title: 'Before & After', ko: '개선 전 · 후 비교' },
@@ -105,6 +107,54 @@
     { key: 'troubleshooting', title: 'Troubleshooting', ko: '구현 중 해결한 문제' },
     { key: 'result', title: 'Result', ko: '결과 · 회고' },
   ];
+  /* UX 프로세스 중심: 퍼블리싱 · 반응형 · 접근성 · 문제 해결 · 측정 근거는 맨 뒤 'Build & QA' 하나로 묶는다 */
+  SECTION_SETS.ux = [
+    { key: 'overview', title: 'Overview', ko: '프로젝트 소개' },
+    { key: 'role', title: 'My Role', ko: '담당 범위' },
+    { key: 'problem', title: 'Problem', ko: '문제 정의 · 목표' },
+    { key: 'users', title: 'Users & Scenarios', ko: '사용자 · 이용 상황' },
+    { key: 'flow', title: 'IA & User Flow', ko: '정보 구조 · 사용자 흐름' },
+    { key: 'process', title: 'Design Decisions', ko: '디자인 결정' },
+    { key: 'beforeAfter', title: 'Before & After', ko: '1차 버전 · 리디자인 비교' },
+    { key: 'designSystem', title: 'Design System', ko: '색 · 글꼴 · 컴포넌트' },
+    { key: 'result', title: 'Outcome', ko: '결과 · 회고' },
+    { key: 'build', title: 'Build & QA', ko: '구현 · 검증 요약' },
+  ];
+  let SECTIONS = SECTION_SETS.default;
+
+  const verifyHtml = (v) => {
+    const report = safeUrl(v.report);
+    return `
+        <div class="case-verify" data-reveal>
+          <div class="case-verify__head">
+            <h3 class="case-sub">측정 근거</h3>
+            ${v.measuredAt ? `<p class="case-verify__date">측정일 <time datetime="${escape(v.measuredAt)}">${escape(String(v.measuredAt).replace(/-/g, '.'))}</time></p>` : ''}
+          </div>
+          ${list(v.items).length ? `<table class="case-verify__table">
+            <caption class="blind">자동 검사 결과</caption>
+            <thead><tr><th scope="col">검사</th><th scope="col">결과</th><th scope="col">범위</th></tr></thead>
+            <tbody>${list(v.items).map((it) => `<tr><th scope="row">${escape(it.label || '')}</th><td>${escape(it.value || '')}</td><td>${escape(it.scope || '')}</td></tr>`).join('')}</tbody>
+          </table>` : ''}
+          ${list(v.conditions).length ? `<p class="case-verify__label">검사 조건</p><ul class="case-bullets">${list(v.conditions).map((c) => `<li>${escape(c)}</li>`).join('')}</ul>` : ''}
+          ${has(v.note) ? `<p class="case-verify__note">${escape(v.note)}</p>` : ''}
+          ${report ? `<a class="btn btn--line case-verify__link" href="${escape(report)}"${linkAttrs(report)}>화면별 검증 보고서 보기${icon('i-arrow-up-right')}</a>` : ''}
+        </div>`;
+  };
+
+  const tokensHtml = (arr) => {
+    const tokens = list(arr).filter((t) => t.value);
+    return tokens.length ? `<ul class="case-tokens" data-stagger>${tokens.map((t) => {
+      const color = /^#[0-9a-f]{3,8}$/i.test(t.value) ? t.value : 'transparent';
+      return `
+          <li class="case-token">
+            <span class="case-token__swatch" style="background:${color}" aria-hidden="true"></span>
+            <span class="case-token__name">${escape(t.name || '')}</span>
+            <code class="case-token__value">${escape(t.value)}</code>
+            ${t.note ? `<span class="case-token__note">${escape(t.note)}</span>` : ''}
+          </li>`;
+    }).join('')}
+        </ul>` : '';
+  };
 
   const render = {
     overview: (d) => {
@@ -225,17 +275,7 @@
         </ol>` : ''}
         ${tokens.length ? `
         <h3 class="case-sub">주요 색상 토큰</h3>
-        <ul class="case-tokens" data-stagger>${tokens.map((t) => {
-          const color = /^#[0-9a-f]{3,8}$/i.test(t.value) ? t.value : 'transparent';
-          return `
-          <li class="case-token">
-            <span class="case-token__swatch" style="background:${color}" aria-hidden="true"></span>
-            <span class="case-token__name">${escape(t.name || '')}</span>
-            <code class="case-token__value">${escape(t.value)}</code>
-            ${t.note ? `<span class="case-token__note">${escape(t.note)}</span>` : ''}
-          </li>`;
-        }).join('')}
-        </ul>` : ''}`;
+        ${tokensHtml(tokens)}` : ''}`;
     },
 
     publishing: (d) => {
@@ -291,33 +331,18 @@
         </ol>`;
     },
 
-    result: (d) => {
+    result: (d, layout) => {
       const r = d.result || {};
       const metrics = list(r.metrics).filter((m) => m.value);
-      const v = r.verification || null;
+      const v = layout === 'ux' ? null : (r.verification || null); // ux: 측정 근거는 Build & QA 로
       const limits = list(r.limitations);
       if (!metrics.length && !has(r.text) && !has(r.retrospective) && !v && !limits.length) return '';
-      const report = v ? safeUrl(v.report) : '';
       return `
         ${metrics.length ? `<dl class="case-metrics" data-stagger>${metrics.map((m) => `
           <div><dt>${escape(m.label || '')}</dt><dd>${escape(m.value)}</dd>${m.note ? `<dd class="case-metrics__note">${escape(m.note)}</dd>` : ''}</div>`).join('')}
         </dl>` : ''}
         ${has(r.text) ? `<p class="case-lead case-lead--small">${escape(r.text)}</p>` : ''}
-        ${v ? `
-        <div class="case-verify" data-reveal>
-          <div class="case-verify__head">
-            <h3 class="case-sub">측정 근거</h3>
-            ${v.measuredAt ? `<p class="case-verify__date">측정일 <time datetime="${escape(v.measuredAt)}">${escape(String(v.measuredAt).replace(/-/g, '.'))}</time></p>` : ''}
-          </div>
-          ${list(v.items).length ? `<table class="case-verify__table">
-            <caption class="blind">자동 검사 결과</caption>
-            <thead><tr><th scope="col">검사</th><th scope="col">결과</th><th scope="col">범위</th></tr></thead>
-            <tbody>${list(v.items).map((it) => `<tr><th scope="row">${escape(it.label || '')}</th><td>${escape(it.value || '')}</td><td>${escape(it.scope || '')}</td></tr>`).join('')}</tbody>
-          </table>` : ''}
-          ${list(v.conditions).length ? `<p class="case-verify__label">검사 조건</p><ul class="case-bullets">${list(v.conditions).map((c) => `<li>${escape(c)}</li>`).join('')}</ul>` : ''}
-          ${has(v.note) ? `<p class="case-verify__note">${escape(v.note)}</p>` : ''}
-          ${report ? `<a class="btn btn--line case-verify__link" href="${escape(report)}"${linkAttrs(report)}>화면별 검증 보고서 보기${icon('i-arrow-up-right')}</a>` : ''}
-        </div>` : ''}
+        ${v ? verifyHtml(v) : ''}
         ${limits.length ? `
         <div class="case-limits" data-reveal>
           <h3 class="case-sub">한계와 다음 단계</h3>
@@ -328,6 +353,122 @@
           <h3 class="case-sub">회고</h3>
           ${String(r.retrospective).split(/\n{2,}/).map((para) => `<p>${escape(para.trim())}</p>`).join('')}
         </div>` : ''}`;
+    },
+
+    /* ----- UX 프로세스 구성 ----- */
+    problem: (d) => {
+      const p = d.problem || {};
+      const items = list(p.items).filter((x) => x.title || x.text);
+      const goals = list(p.goals);
+      if (!has(p.text) && !items.length && !goals.length) return '';
+      return `
+        ${has(p.text) ? `<p class="case-lead">${escape(p.text)}</p>` : ''}
+        ${items.length ? `<ol class="ux-problems" data-stagger>${items.map((x, i) => `
+          <li class="ux-problem">
+            <span class="ux-problem__num" aria-hidden="true">${pad(i + 1)}</span>
+            <h3 class="ux-problem__title">${escape(x.title || '')}</h3>
+            ${x.text ? `<p>${escape(x.text)}</p>` : ''}
+            ${x.evidence ? `<p class="ux-problem__evidence">${escape(x.evidence)}</p>` : ''}
+          </li>`).join('')}
+        </ol>` : ''}
+        ${goals.length ? `
+        <h3 class="case-sub">${escape(p.goalsTitle || '해결 기준')}</h3>
+        <ol class="ux-goals" data-stagger>${goals.map((g, i) => `
+          <li><span aria-hidden="true">${i + 1}</span><p>${escape(g)}</p></li>`).join('')}
+        </ol>` : ''}`;
+    },
+
+    users: (d) => {
+      const u = d.users || {};
+      const items = list(u.items).filter((x) => x.title);
+      const states = list(u.states).filter((x) => x.label);
+      if (!has(u.text) && !items.length && !states.length) return '';
+      const FIELDS = [['situation', '상황'], ['need', '필요한 것'], ['answer', 'Aulo의 답']];
+      return `
+        ${has(u.text) ? `<p class="case-lead">${escape(u.text)}</p>` : ''}
+        ${items.length ? `<ul class="ux-users" data-stagger>${items.map((x) => `
+          <li class="ux-user">
+            <p class="ux-user__space">${escape(x.space || '')}</p>
+            <h3 class="ux-user__title">${escape(x.title)}</h3>
+            <dl>${FIELDS.filter(([k]) => has(x[k])).map(([k, label]) => `<div><dt>${label}</dt><dd>${escape(x[k])}</dd></div>`).join('')}</dl>
+          </li>`).join('')}
+        </ul>` : ''}
+        ${states.length ? `
+        <h3 class="case-sub">${escape(u.statesTitle || '사용자 상태')}</h3>
+        ${has(u.statesText) ? `<p class="case-lead case-lead--small">${escape(u.statesText)}</p>` : ''}
+        <ol class="ux-states" data-stagger>${states.map((x) => `
+          <li><strong>${escape(x.label)}</strong>${x.text ? `<span>${escape(x.text)}</span>` : ''}</li>`).join('')}
+        </ol>` : ''}`;
+    },
+
+    flow: (d) => {
+      const f = d.flow || {};
+      const ia = list(f.ia).filter((x) => x.title);
+      const flows = list(f.flows).filter((x) => x.title && list(x.steps).length);
+      if (!has(f.text) && !ia.length && !flows.length) return '';
+      return `
+        ${has(f.text) ? `<p class="case-lead">${escape(f.text)}</p>` : ''}
+        ${ia.length ? `
+        <h3 class="case-sub">${escape(f.iaTitle || '정보 구조')}</h3>
+        <ul class="ux-ia" data-stagger>${ia.map((x) => `
+          <li class="ux-ia__col${x.primary ? ' ux-ia__col--primary' : ''}">
+            <p class="ux-ia__title">${escape(x.title)}</p>
+            ${list(x.items).length ? `<ul>${list(x.items).map((it) => `<li>${escape(it)}</li>`).join('')}</ul>` : ''}
+          </li>`).join('')}
+        </ul>
+        ${has(f.iaNote) ? `<p class="ux-note">${escape(f.iaNote)}</p>` : ''}` : ''}
+        ${flows.length ? `
+        <h3 class="case-sub">${escape(f.flowsTitle || '주요 사용자 흐름')}</h3>
+        <div class="ux-flows">${flows.map((x) => `
+          <div class="ux-flow" data-reveal>
+            <p class="ux-flow__title">${escape(x.title)}</p>
+            <ol class="ux-flow__steps">${list(x.steps).map((st) => `<li>${escape(st)}</li>`).join('')}</ol>
+            ${x.note ? `<p class="ux-note">${escape(x.note)}</p>` : ''}
+          </div>`).join('')}
+        </div>` : ''}`;
+    },
+
+    designSystem: (d) => {
+      const ds = d.designSystem || {};
+      const type = list(ds.type).filter((t) => t.name);
+      const comps = list(ds.components).filter((c) => c.name);
+      const rules = list(ds.rules);
+      if (!has(ds.text) && !list(ds.tokens).length && !type.length && !comps.length && !rules.length) return '';
+      return `
+        ${has(ds.text) ? `<p class="case-lead">${escape(ds.text)}</p>` : ''}
+        ${list(ds.tokens).length ? `<h3 class="case-sub">색</h3>${tokensHtml(ds.tokens)}` : ''}
+        ${type.length ? `
+        <h3 class="case-sub">글꼴</h3>
+        <ul class="ux-type" data-stagger>${type.map((t) => `
+          <li class="ux-type__item">
+            <p class="ux-type__name">${escape(t.name)}</p>
+            ${t.sample ? `<p class="ux-type__sample">${escape(t.sample)}</p>` : ''}
+            ${t.use ? `<p class="ux-type__use">${escape(t.use)}</p>` : ''}
+          </li>`).join('')}
+        </ul>` : ''}
+        ${comps.length ? `
+        <h3 class="case-sub">공통 컴포넌트</h3>
+        <ul class="ux-comps" data-stagger>${comps.map((c) => `
+          <li><p class="ux-comps__name">${escape(c.name)}</p>${c.text ? `<p>${escape(c.text)}</p>` : ''}</li>`).join('')}
+        </ul>` : ''}
+        ${rules.length ? `
+        <h3 class="case-sub">${escape(ds.rulesTitle || '간격 · 모션 기준')}</h3>
+        <ul class="case-bullets">${rules.map((r) => `<li>${escape(r)}</li>`).join('')}</ul>` : ''}`;
+    },
+
+    /* 구현 · 검증: 기존 Publishing · Responsive · Accessibility · Troubleshooting 데이터와 측정 근거를 한 구성에 짧게 */
+    build: (d) => {
+      const parts = [
+        ['구현', render.publishing(d)],
+        ['화면 크기 대응', render.responsive(d)],
+        ['접근성', render.accessibility(d)],
+        ['구현 중 해결한 문제', render.troubleshooting(d)],
+      ].filter(([, html]) => html && html.trim());
+      const v = (d.result || {}).verification;
+      if (!parts.length && !v) return '';
+      return `
+        ${parts.map(([title, html]) => `<div class="ux-build"><h3 class="case-sub">${title}</h3>${html}</div>`).join('')}
+        ${v ? verifyHtml(v) : ''}`;
     },
   };
 
@@ -560,8 +701,9 @@
     loadJson(`data/cases/${id}.json`),
     loadJson('data/projects.json').catch(() => []),
   ]).then(([data, projects]) => {
+    SECTIONS = SECTION_SETS[data.layout] || SECTION_SETS.default;
     const visible = SECTIONS
-      .map((s) => ({ ...s, html: render[s.key](data) }))
+      .map((s) => ({ ...s, html: render[s.key](data, data.layout) }))
       .filter((s) => s.html && s.html.trim());
 
     const withCase = (Array.isArray(projects) ? projects : []).filter((p) => p && p.caseStudy && p.title);
