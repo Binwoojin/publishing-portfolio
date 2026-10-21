@@ -1,0 +1,817 @@
+{
+  "project": "Aulo 공간 예약 · 주문",
+  "dir": "projects/aulo",
+  "pages": [
+    "projects/aulo/brand-landing/index.html",
+    "publishing/#/",
+    "publishing/#/recommend",
+    "publishing/#/order",
+    "publishing/#/menu/americano",
+    "publishing/#/info",
+    "publishing/#/notice",
+    "publishing/#/login",
+    "publishing/#/signup",
+    "publishing/#/ (로그인)",
+    "publishing/#/reserve (로그인)",
+    "publishing/#/reserve/focus (로그인)",
+    "publishing/#/my (로그인)",
+    "publishing/#/my/reservations (로그인)",
+    "publishing/#/my/orders (로그인)",
+    "publishing/#/my/coupons (로그인)"
+  ],
+  "measuredAt": "2026-10-21T11:55:24.980Z",
+  "tools": {
+    "html-validate": "11.16.2",
+    "axe-core": "4.14.0",
+    "playwright": "1.64.0",
+    "Chromium": "141.0.7390.37"
+  },
+  "environment": "Linux 6.18.44-fc-v139 · Node v22.22.0 · 로컬 정적 서버",
+  "conditions": [
+    "axe-core 규칙: wcag2a, wcag2aa, wcag21a, wcag21aa, wcag22aa, best-practice",
+    "화면: 데스크톱 1280×800 / 모바일 375×812 × 라이트 · 다크",
+    "페이지를 끝까지 스크롤해 등장 효과를 모두 재생한 뒤 검사",
+    "각 화면의 기본 상태만 검사 (로딩 · 빈 상태 · 오류 · 다이얼로그 상태는 포함하지 않음)",
+    "웹앱은 해시 주소별로 검사, '(로그인)' 화면은 데모 계정(기본 시작 상태 '예약 없음')으로 로그인한 뒤 검사. html-validate는 빌드된 publishing/index.html 파일만 검사"
+  ],
+  "summary": {
+    "htmlErrors": 17,
+    "htmlWarnings": 0,
+    "axeRuns": 64,
+    "axeViolations": 12,
+    "horizontalScroll": 0
+  },
+  "htmlValidate": [
+    {
+      "file": "projects/aulo/brand-landing/index.html",
+      "errors": 1,
+      "warnings": 0,
+      "messages": [
+        {
+          "rule": "doctype-style",
+          "severity": "error",
+          "line": 1,
+          "message": "DOCTYPE should be uppercase"
+        }
+      ]
+    },
+    {
+      "file": "projects/aulo/publishing/index.html",
+      "errors": 16,
+      "warnings": 0,
+      "messages": [
+        {
+          "rule": "doctype-style",
+          "severity": "error",
+          "line": 1,
+          "message": "DOCTYPE should be uppercase"
+        },
+        {
+          "rule": "void-style",
+          "severity": "error",
+          "line": 4,
+          "message": "Expected omitted end tag <meta> instead of self-closing element <meta/>"
+        },
+        {
+          "rule": "void-style",
+          "severity": "error",
+          "line": 5,
+          "message": "Expected omitted end tag <meta> instead of self-closing element <meta/>"
+        },
+        {
+          "rule": "void-style",
+          "severity": "error",
+          "line": 6,
+          "message": "Expected omitted end tag <meta> instead of self-closing element <meta/>"
+        },
+        {
+          "rule": "void-style",
+          "severity": "error",
+          "line": 8,
+          "message": "Expected omitted end tag <meta> instead of self-closing element <meta/>"
+        },
+        {
+          "rule": "void-style",
+          "severity": "error",
+          "line": 9,
+          "message": "Expected omitted end tag <meta> instead of self-closing element <meta/>"
+        },
+        {
+          "rule": "void-style",
+          "severity": "error",
+          "line": 10,
+          "message": "Expected omitted end tag <meta> instead of self-closing element <meta/>"
+        },
+        {
+          "rule": "void-style",
+          "severity": "error",
+          "line": 11,
+          "message": "Expected omitted end tag <meta> instead of self-closing element <meta/>"
+        },
+        {
+          "rule": "void-style",
+          "severity": "error",
+          "line": 12,
+          "message": "Expected omitted end tag <meta> instead of self-closing element <meta/>"
+        },
+        {
+          "rule": "void-style",
+          "severity": "error",
+          "line": 13,
+          "message": "Expected omitted end tag <link> instead of self-closing element <link/>"
+        },
+        {
+          "rule": "void-style",
+          "severity": "error",
+          "line": 14,
+          "message": "Expected omitted end tag <link> instead of self-closing element <link/>"
+        },
+        {
+          "rule": "void-style",
+          "severity": "error",
+          "line": 15,
+          "message": "Expected omitted end tag <link> instead of self-closing element <link/>"
+        },
+        {
+          "rule": "void-style",
+          "severity": "error",
+          "line": 16,
+          "message": "Expected omitted end tag <meta> instead of self-closing element <meta/>"
+        },
+        {
+          "rule": "void-style",
+          "severity": "error",
+          "line": 18,
+          "message": "Expected omitted end tag <link> instead of self-closing element <link/>"
+        },
+        {
+          "rule": "void-style",
+          "severity": "error",
+          "line": 19,
+          "message": "Expected omitted end tag <link> instead of self-closing element <link/>"
+        },
+        {
+          "rule": "void-style",
+          "severity": "error",
+          "line": 20,
+          "message": "Expected omitted end tag <link> instead of self-closing element <link/>"
+        }
+      ]
+    }
+  ],
+  "axe": [
+    {
+      "file": "projects/aulo/brand-landing/index.html",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious",
+          "help": "Elements must have their visible text as part of their accessible name",
+          "nodes": 1,
+          "targets": [
+            "a[aria-label=\"페이지 처음으로\"]"
+          ]
+        }
+      ],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/aulo/brand-landing/index.html",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious",
+          "help": "Elements must have their visible text as part of their accessible name",
+          "nodes": 1,
+          "targets": [
+            "a[aria-label=\"페이지 처음으로\"]"
+          ]
+        }
+      ],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/aulo/brand-landing/index.html",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious",
+          "help": "Elements must have their visible text as part of their accessible name",
+          "nodes": 1,
+          "targets": [
+            "a[aria-label=\"페이지 처음으로\"]"
+          ]
+        }
+      ],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "projects/aulo/brand-landing/index.html",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious",
+          "help": "Elements must have their visible text as part of their accessible name",
+          "nodes": 1,
+          "targets": [
+            "a[aria-label=\"페이지 처음으로\"]"
+          ]
+        }
+      ],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious",
+          "help": "Elements must have their visible text as part of their accessible name",
+          "nodes": 3,
+          "targets": [
+            "button[aria-label=\"08:00 Flow Cafe 펼치기\"]",
+            "button[aria-label=\"11:00 Flow Focus 펼치기\"]",
+            "button[aria-label=\"14:00 Flow Rest 펼치기\"]"
+          ]
+        }
+      ],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious",
+          "help": "Elements must have their visible text as part of their accessible name",
+          "nodes": 3,
+          "targets": [
+            "button[aria-label=\"08:00 Flow Cafe 펼치기\"]",
+            "button[aria-label=\"11:00 Flow Focus 펼치기\"]",
+            "button[aria-label=\"14:00 Flow Rest 펼치기\"]"
+          ]
+        }
+      ],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious",
+          "help": "Elements must have their visible text as part of their accessible name",
+          "nodes": 3,
+          "targets": [
+            "button[aria-label=\"08:00 Flow Cafe 펼치기\"]",
+            "button[aria-label=\"11:00 Flow Focus 펼치기\"]",
+            "button[aria-label=\"14:00 Flow Rest 펼치기\"]"
+          ]
+        }
+      ],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious",
+          "help": "Elements must have their visible text as part of their accessible name",
+          "nodes": 3,
+          "targets": [
+            "button[aria-label=\"08:00 Flow Cafe 펼치기\"]",
+            "button[aria-label=\"11:00 Flow Focus 펼치기\"]",
+            "button[aria-label=\"14:00 Flow Rest 펼치기\"]"
+          ]
+        }
+      ],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/recommend",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/recommend",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/recommend",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/recommend",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/order",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/order",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/order",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/order",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/menu/americano",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/menu/americano",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/menu/americano",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/menu/americano",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/info",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/info",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/info",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/info",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/notice",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/notice",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/notice",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/notice",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/login",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/login",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/login",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/login",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/signup",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/signup",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/signup",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/signup",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/ (로그인)",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious",
+          "help": "Elements must have their visible text as part of their accessible name",
+          "nodes": 4,
+          "targets": [
+            ".reward-strip",
+            "button[aria-label=\"08:00 Flow Cafe 펼치기\"]",
+            "button[aria-label=\"11:00 Flow Focus 펼치기\"]",
+            "button[aria-label=\"14:00 Flow Rest 펼치기\"]"
+          ]
+        }
+      ],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/ (로그인)",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious",
+          "help": "Elements must have their visible text as part of their accessible name",
+          "nodes": 4,
+          "targets": [
+            ".reward-strip",
+            "button[aria-label=\"08:00 Flow Cafe 펼치기\"]",
+            "button[aria-label=\"11:00 Flow Focus 펼치기\"]",
+            "button[aria-label=\"14:00 Flow Rest 펼치기\"]"
+          ]
+        }
+      ],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/ (로그인)",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious",
+          "help": "Elements must have their visible text as part of their accessible name",
+          "nodes": 4,
+          "targets": [
+            ".reward-strip",
+            "button[aria-label=\"08:00 Flow Cafe 펼치기\"]",
+            "button[aria-label=\"11:00 Flow Focus 펼치기\"]",
+            "button[aria-label=\"14:00 Flow Rest 펼치기\"]"
+          ]
+        }
+      ],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/ (로그인)",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [
+        {
+          "id": "label-content-name-mismatch",
+          "impact": "serious",
+          "help": "Elements must have their visible text as part of their accessible name",
+          "nodes": 4,
+          "targets": [
+            ".reward-strip",
+            "button[aria-label=\"08:00 Flow Cafe 펼치기\"]",
+            "button[aria-label=\"11:00 Flow Focus 펼치기\"]",
+            "button[aria-label=\"14:00 Flow Rest 펼치기\"]"
+          ]
+        }
+      ],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/reserve (로그인)",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/reserve (로그인)",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/reserve (로그인)",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/reserve (로그인)",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/reserve/focus (로그인)",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/reserve/focus (로그인)",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/reserve/focus (로그인)",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/reserve/focus (로그인)",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/my (로그인)",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/my (로그인)",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/my (로그인)",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/my (로그인)",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/my/reservations (로그인)",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/my/reservations (로그인)",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/my/reservations (로그인)",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/my/reservations (로그인)",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/my/orders (로그인)",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/my/orders (로그인)",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/my/orders (로그인)",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/my/orders (로그인)",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/my/coupons (로그인)",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/my/coupons (로그인)",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/my/coupons (로그인)",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "publishing/#/my/coupons (로그인)",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    }
+  ],
+  "lighthouse": null
+}
