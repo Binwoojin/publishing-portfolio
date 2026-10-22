@@ -19,7 +19,7 @@
     "publishing/app/#/my/orders (로그인)",
     "publishing/app/#/my/coupons (로그인)"
   ],
-  "measuredAt": "2026-10-22T00:22:17.395Z",
+  "measuredAt": "2026-10-22T00:55:00.169Z",
   "tools": {
     "html-validate": "11.16.2",
     "axe-core": "4.14.0",
@@ -35,140 +35,24 @@
     "웹앱은 해시 주소별로 검사, '(로그인)' 화면은 데모 계정(기본 시작 상태 '예약 없음')으로 로그인한 뒤 검사. html-validate는 빌드된 publishing/app/index.html 파일만 검사"
   ],
   "summary": {
-    "htmlErrors": 19,
+    "htmlErrors": 0,
     "htmlWarnings": 0,
     "axeRuns": 64,
-    "axeViolations": 12,
+    "axeViolations": 0,
     "horizontalScroll": 0
   },
   "htmlValidate": [
     {
       "file": "projects/aulo/publishing/index.html",
-      "errors": 3,
+      "errors": 0,
       "warnings": 0,
-      "messages": [
-        {
-          "rule": "doctype-style",
-          "severity": "error",
-          "line": 1,
-          "message": "DOCTYPE should be uppercase"
-        },
-        {
-          "rule": "aria-label-misuse",
-          "severity": "error",
-          "line": 47,
-          "message": "\"aria-label\" is strictly allowed but is not recommended to be used on this element"
-        },
-        {
-          "rule": "aria-label-misuse",
-          "severity": "error",
-          "line": 381,
-          "message": "\"aria-label\" is strictly allowed but is not recommended to be used on this element"
-        }
-      ]
+      "messages": []
     },
     {
       "file": "projects/aulo/publishing/app/index.html",
-      "errors": 16,
+      "errors": 0,
       "warnings": 0,
-      "messages": [
-        {
-          "rule": "doctype-style",
-          "severity": "error",
-          "line": 1,
-          "message": "DOCTYPE should be uppercase"
-        },
-        {
-          "rule": "void-style",
-          "severity": "error",
-          "line": 4,
-          "message": "Expected omitted end tag <meta> instead of self-closing element <meta/>"
-        },
-        {
-          "rule": "void-style",
-          "severity": "error",
-          "line": 5,
-          "message": "Expected omitted end tag <meta> instead of self-closing element <meta/>"
-        },
-        {
-          "rule": "void-style",
-          "severity": "error",
-          "line": 6,
-          "message": "Expected omitted end tag <meta> instead of self-closing element <meta/>"
-        },
-        {
-          "rule": "void-style",
-          "severity": "error",
-          "line": 8,
-          "message": "Expected omitted end tag <meta> instead of self-closing element <meta/>"
-        },
-        {
-          "rule": "void-style",
-          "severity": "error",
-          "line": 9,
-          "message": "Expected omitted end tag <meta> instead of self-closing element <meta/>"
-        },
-        {
-          "rule": "void-style",
-          "severity": "error",
-          "line": 10,
-          "message": "Expected omitted end tag <meta> instead of self-closing element <meta/>"
-        },
-        {
-          "rule": "void-style",
-          "severity": "error",
-          "line": 11,
-          "message": "Expected omitted end tag <meta> instead of self-closing element <meta/>"
-        },
-        {
-          "rule": "void-style",
-          "severity": "error",
-          "line": 12,
-          "message": "Expected omitted end tag <meta> instead of self-closing element <meta/>"
-        },
-        {
-          "rule": "void-style",
-          "severity": "error",
-          "line": 13,
-          "message": "Expected omitted end tag <link> instead of self-closing element <link/>"
-        },
-        {
-          "rule": "void-style",
-          "severity": "error",
-          "line": 14,
-          "message": "Expected omitted end tag <link> instead of self-closing element <link/>"
-        },
-        {
-          "rule": "void-style",
-          "severity": "error",
-          "line": 15,
-          "message": "Expected omitted end tag <link> instead of self-closing element <link/>"
-        },
-        {
-          "rule": "void-style",
-          "severity": "error",
-          "line": 16,
-          "message": "Expected omitted end tag <meta> instead of self-closing element <meta/>"
-        },
-        {
-          "rule": "void-style",
-          "severity": "error",
-          "line": 18,
-          "message": "Expected omitted end tag <link> instead of self-closing element <link/>"
-        },
-        {
-          "rule": "void-style",
-          "severity": "error",
-          "line": 19,
-          "message": "Expected omitted end tag <link> instead of self-closing element <link/>"
-        },
-        {
-          "rule": "void-style",
-          "severity": "error",
-          "line": 20,
-          "message": "Expected omitted end tag <link> instead of self-closing element <link/>"
-        }
-      ]
+      "messages": []
     }
   ],
   "axe": [
@@ -176,21 +60,7 @@
       "file": "projects/aulo/publishing/index.html",
       "viewport": "desktop",
       "scheme": "light",
-      "violations": [
-        {
-          "id": "color-contrast",
-          "impact": "serious",
-          "help": "Elements must meet minimum color contrast ratio thresholds",
-          "nodes": 21,
-          "targets": [
-            ".w:nth-child(1)",
-            ".w:nth-child(2)",
-            ".w:nth-child(3)",
-            ".w:nth-child(4)",
-            ".w:nth-child(5)"
-          ]
-        }
-      ],
+      "violations": [],
       "horizontalScroll": false,
       "pageErrors": []
     },
@@ -198,21 +68,7 @@
       "file": "projects/aulo/publishing/index.html",
       "viewport": "desktop",
       "scheme": "dark",
-      "violations": [
-        {
-          "id": "color-contrast",
-          "impact": "serious",
-          "help": "Elements must meet minimum color contrast ratio thresholds",
-          "nodes": 21,
-          "targets": [
-            ".w:nth-child(1)",
-            ".w:nth-child(2)",
-            ".w:nth-child(3)",
-            ".w:nth-child(4)",
-            ".w:nth-child(5)"
-          ]
-        }
-      ],
+      "violations": [],
       "horizontalScroll": false,
       "pageErrors": []
     },
@@ -220,21 +76,7 @@
       "file": "projects/aulo/publishing/index.html",
       "viewport": "mobile",
       "scheme": "light",
-      "violations": [
-        {
-          "id": "color-contrast",
-          "impact": "serious",
-          "help": "Elements must meet minimum color contrast ratio thresholds",
-          "nodes": 21,
-          "targets": [
-            ".w:nth-child(1)",
-            ".w:nth-child(2)",
-            ".w:nth-child(3)",
-            ".w:nth-child(4)",
-            ".w:nth-child(5)"
-          ]
-        }
-      ],
+      "violations": [],
       "horizontalScroll": false,
       "pageErrors": []
     },
@@ -242,21 +84,7 @@
       "file": "projects/aulo/publishing/index.html",
       "viewport": "mobile",
       "scheme": "dark",
-      "violations": [
-        {
-          "id": "color-contrast",
-          "impact": "serious",
-          "help": "Elements must meet minimum color contrast ratio thresholds",
-          "nodes": 21,
-          "targets": [
-            ".w:nth-child(1)",
-            ".w:nth-child(2)",
-            ".w:nth-child(3)",
-            ".w:nth-child(4)",
-            ".w:nth-child(5)"
-          ]
-        }
-      ],
+      "violations": [],
       "horizontalScroll": false,
       "pageErrors": []
     },
@@ -264,19 +92,7 @@
       "file": "publishing/app/#/",
       "viewport": "desktop",
       "scheme": "light",
-      "violations": [
-        {
-          "id": "label-content-name-mismatch",
-          "impact": "serious",
-          "help": "Elements must have their visible text as part of their accessible name",
-          "nodes": 3,
-          "targets": [
-            "button[aria-label=\"11:00 Flow Focus 펼치기\"]",
-            "button[aria-label=\"14:00 Flow Rest 펼치기\"]",
-            "button[aria-label=\"17:00 Flow Suite 펼치기\"]"
-          ]
-        }
-      ],
+      "violations": [],
       "horizontalScroll": false,
       "pageErrors": []
     },
@@ -284,19 +100,7 @@
       "file": "publishing/app/#/",
       "viewport": "desktop",
       "scheme": "dark",
-      "violations": [
-        {
-          "id": "label-content-name-mismatch",
-          "impact": "serious",
-          "help": "Elements must have their visible text as part of their accessible name",
-          "nodes": 3,
-          "targets": [
-            "button[aria-label=\"11:00 Flow Focus 펼치기\"]",
-            "button[aria-label=\"14:00 Flow Rest 펼치기\"]",
-            "button[aria-label=\"17:00 Flow Suite 펼치기\"]"
-          ]
-        }
-      ],
+      "violations": [],
       "horizontalScroll": false,
       "pageErrors": []
     },
@@ -304,19 +108,7 @@
       "file": "publishing/app/#/",
       "viewport": "mobile",
       "scheme": "light",
-      "violations": [
-        {
-          "id": "label-content-name-mismatch",
-          "impact": "serious",
-          "help": "Elements must have their visible text as part of their accessible name",
-          "nodes": 3,
-          "targets": [
-            "button[aria-label=\"11:00 Flow Focus 펼치기\"]",
-            "button[aria-label=\"14:00 Flow Rest 펼치기\"]",
-            "button[aria-label=\"17:00 Flow Suite 펼치기\"]"
-          ]
-        }
-      ],
+      "violations": [],
       "horizontalScroll": false,
       "pageErrors": []
     },
@@ -324,19 +116,7 @@
       "file": "publishing/app/#/",
       "viewport": "mobile",
       "scheme": "dark",
-      "violations": [
-        {
-          "id": "label-content-name-mismatch",
-          "impact": "serious",
-          "help": "Elements must have their visible text as part of their accessible name",
-          "nodes": 3,
-          "targets": [
-            "button[aria-label=\"11:00 Flow Focus 펼치기\"]",
-            "button[aria-label=\"14:00 Flow Rest 펼치기\"]",
-            "button[aria-label=\"17:00 Flow Suite 펼치기\"]"
-          ]
-        }
-      ],
+      "violations": [],
       "horizontalScroll": false,
       "pageErrors": []
     },
@@ -568,20 +348,7 @@
       "file": "publishing/app/#/ (로그인)",
       "viewport": "desktop",
       "scheme": "light",
-      "violations": [
-        {
-          "id": "label-content-name-mismatch",
-          "impact": "serious",
-          "help": "Elements must have their visible text as part of their accessible name",
-          "nodes": 4,
-          "targets": [
-            ".reward-strip",
-            "button[aria-label=\"11:00 Flow Focus 펼치기\"]",
-            "button[aria-label=\"14:00 Flow Rest 펼치기\"]",
-            "button[aria-label=\"17:00 Flow Suite 펼치기\"]"
-          ]
-        }
-      ],
+      "violations": [],
       "horizontalScroll": false,
       "pageErrors": []
     },
@@ -589,20 +356,7 @@
       "file": "publishing/app/#/ (로그인)",
       "viewport": "desktop",
       "scheme": "dark",
-      "violations": [
-        {
-          "id": "label-content-name-mismatch",
-          "impact": "serious",
-          "help": "Elements must have their visible text as part of their accessible name",
-          "nodes": 4,
-          "targets": [
-            ".reward-strip",
-            "button[aria-label=\"11:00 Flow Focus 펼치기\"]",
-            "button[aria-label=\"14:00 Flow Rest 펼치기\"]",
-            "button[aria-label=\"17:00 Flow Suite 펼치기\"]"
-          ]
-        }
-      ],
+      "violations": [],
       "horizontalScroll": false,
       "pageErrors": []
     },
@@ -610,20 +364,7 @@
       "file": "publishing/app/#/ (로그인)",
       "viewport": "mobile",
       "scheme": "light",
-      "violations": [
-        {
-          "id": "label-content-name-mismatch",
-          "impact": "serious",
-          "help": "Elements must have their visible text as part of their accessible name",
-          "nodes": 4,
-          "targets": [
-            ".reward-strip",
-            "button[aria-label=\"11:00 Flow Focus 펼치기\"]",
-            "button[aria-label=\"14:00 Flow Rest 펼치기\"]",
-            "button[aria-label=\"17:00 Flow Suite 펼치기\"]"
-          ]
-        }
-      ],
+      "violations": [],
       "horizontalScroll": false,
       "pageErrors": []
     },
@@ -631,20 +372,7 @@
       "file": "publishing/app/#/ (로그인)",
       "viewport": "mobile",
       "scheme": "dark",
-      "violations": [
-        {
-          "id": "label-content-name-mismatch",
-          "impact": "serious",
-          "help": "Elements must have their visible text as part of their accessible name",
-          "nodes": 4,
-          "targets": [
-            ".reward-strip",
-            "button[aria-label=\"11:00 Flow Focus 펼치기\"]",
-            "button[aria-label=\"14:00 Flow Rest 펼치기\"]",
-            "button[aria-label=\"17:00 Flow Suite 펼치기\"]"
-          ]
-        }
-      ],
+      "violations": [],
       "horizontalScroll": false,
       "pageErrors": []
     },
