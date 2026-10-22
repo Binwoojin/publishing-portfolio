@@ -17,6 +17,7 @@ Aulo는 사용자의 목적에 따라 좌석을 추천하고,
 
 - (포트폴리오 데모 전용) 홈 '머무름에 곁들이는 한 잔'의 음료 목록을 데스크톱(마우스)에서 끌어서 넘길 수 있습니다 (`webapp/src/lib/useDragScroll.js`, `HomePage.jsx`, `app.css`). 터치 기기는 원본과 같은 스와이프입니다. 원본 저장소에는 넣지 않았습니다.
 - 접근성 보정 (2026-10-22) — 원본 저장소에도 같은 내용을 반영함(커밋 `c58c144`): 보이는 글자와 다른 aria-label을 없애고 보이는 글자 + 숨김 안내로 이름을 만듦(웹앱 `HomePage.jsx` · `SeatOrderPage.jsx` · `ReservePage.jsx`, 랜딩 제목 · 바닥글 로고), 랜딩 브랜드 문장의 읽기 전 단어를 투명도 대신 대비 4.6:1 회색으로(`publishing/styles.css`), 대문자 DOCTYPE · `<meta />` 표기 정리(웹앱 `index.html`, 랜딩 `index.html`).
+- 홈 '다시 하기' 카드 글 영역 배경 (2026-10-22) — 원본 저장소에도 반영함: 카드가 한 장일 때 글 영역이 글자 폭만큼만 크림 배경을 칠해 오른쪽이 끊겨 보이던 것을, 글 영역이 카드 남은 칸을 모두 채우게 고침(`webapp/src/styles/app.css` `.again-tile__body`).
 
 ---
 
