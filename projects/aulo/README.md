@@ -3,7 +3,7 @@
 Aulo는 사용자의 목적에 따라 좌석을 추천하고,
 카페 좌석 예약과 음료 주문을 지원하는 AI 기반 카페 서비스입니다.
 
-원본 저장소: [Binwoojin/aulo-reservation-app](https://github.com/Binwoojin/aulo-reservation-app) (브랜치 `claude/kind-galileo-f34efw`, 커밋 `672aeab` 기준으로 옮김)
+원본 저장소: [Binwoojin/aulo-reservation-app](https://github.com/Binwoojin/aulo-reservation-app) (브랜치 `claude/kind-galileo-f34efw`, 커밋 `9066e7e` 기준으로 옮김)
 
 ## 구성
 
