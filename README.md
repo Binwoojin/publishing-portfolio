@@ -126,6 +126,12 @@ npm run verify:lighthouse   # 위 검사 + Lighthouse (대표 화면, 모바일 
 2. `main` 브랜치에 push 하면 `https://binwoojin.github.io/publishing-portfolio/` 에 배포됩니다.
 3. 배포할 때 `tools/seo/build.mjs` 로 작업물 상세 페이지(`work/`)와 `sitemap.xml` 을 다시 만들고, 사이트가 쓰지 않는 템플릿 · 원본 소스 폴더(`projects/<작업물>/publishing` 외)와 `tools/` 는 올리지 않습니다.
 
+## 글꼴 경량화
+
+- Paperlogy 원본(굵기별 약 157KB)에서 사이트에 실제로 쓰인 글자만 담은 작은 글꼴(`assets/fonts/subset/*-site.woff2`, 굵기별 약 41KB)을 `tools/fonts/subset.py` 로 만듭니다 (`pip install fonttools brotli`).
+- `assets/css/style.css` 의 글꼴 블록은 이 스크립트가 다시 씁니다. 원본을 먼저, 작은 글꼴(unicode-range)을 나중에 선언해 평소에는 작은 글꼴만 내려받고, 없는 글자가 나올 때만 원본을 내려받아 같은 글꼴로 보여 줍니다.
+- 배포 때마다 다시 만들므로 관리 화면에서 새로 쓴 글자도 반영됩니다. 로컬에서 문구를 많이 바꿨다면 직접 실행해 주세요.
+
 ## 검색 엔진 · 공유 미리보기 (SEO)
 
 - **작업물 상세**: 작업물마다 `work/<아이디>/` 페이지가 있어 제목 · 설명 · 대표 주소(canonical) · 공유 미리보기(Open Graph · Twitter, 대표 이미지는 작업물 썸네일) · 구조화 데이터(CreativeWork · BreadcrumbList)를 따로 가집니다. JS 없이 열어도 제목과 요약이 보입니다.
