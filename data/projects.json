@@ -12,7 +12,7 @@
     ],
     "thumbnail": "assets/images/aulo.jpg",
     "period": "2026.05-2026.10",
-    "contribution": "1인 프로젝트 · Claude Code 보조 구현",
+    "contribution": "1인 프로젝트",
     "caseStudy": "aulo",
     "demo": "projects/aulo/publishing/"
   },
@@ -30,7 +30,7 @@
     ],
     "thumbnail": "assets/images/waylog.jpg",
     "period": "2026.08-2026.10",
-    "contribution": "1인 프로젝트 · Claude Code 보조 구현",
+    "contribution": "1인 프로젝트",
     "caseStudy": "waylog",
     "demo": "projects/waylog/publishing/"
   },
@@ -48,7 +48,7 @@
     ],
     "thumbnail": "assets/images/growlog.jpg",
     "period": "2026.07-2026.10",
-    "contribution": "1인 프로젝트 · Claude Code 보조 구현",
+    "contribution": "1인 프로젝트",
     "caseStudy": "growlog",
     "demo": "projects/growlog/publishing/"
   },
@@ -68,7 +68,7 @@
     ],
     "thumbnail": "assets/images/portfolio.jpg",
     "period": "2026.09-2026.10",
-    "contribution": "1인 프로젝트 · Claude Code 보조 구현",
+    "contribution": "1인 프로젝트",
     "caseStudy": "portfolio"
   }
 ]
