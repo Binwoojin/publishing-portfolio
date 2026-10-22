@@ -4,7 +4,6 @@
   "subtitle": "목적별 공간 예약 앱의 UX 리디자인",
   "summary": "예전부터 구상해 온 가상의 카페 브랜드 Aulo를 실제 웹사이트와 앱 화면으로 구현해 보고 싶어, 이번 포트폴리오를 만들며 처음 구현했습니다. 1차 웹앱에서 예약 전 · 이용 중 · 주문할 때 필요한 정보가 제자리에 없던 문제를 찾고, UX 규칙 7가지를 기준으로 정보 구조와 화면을 다시 설계했습니다.",
   "cover": "assets/images/cases/aulo/cover.webp",
-  "period": "2026.05-2026.10",
   "contribution": "1인 프로젝트 · Claude Code 보조 구현",
   "tools": [
     "React",
