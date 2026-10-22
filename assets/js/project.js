@@ -720,8 +720,8 @@
     const withCase = (Array.isArray(projects) ? projects : []).filter((p) => p && p.caseStudy && p.title);
     const idx = withCase.findIndex((p) => p.caseStudy === id);
     const next = withCase.length > 1 && idx !== -1 ? withCase[(idx + 1) % withCase.length] : null;
-    // 작업 기간을 비워 두면 작업물 목록(카드)의 기간을 쓴다 — 한 곳만 고치면 되도록
-    if (!data.period && idx !== -1) data.period = withCase[idx].period;
+    // 작업 기간 · 기여도를 비워 두면 작업물 목록(카드)의 값을 쓴다 — 한 곳만 고치면 되도록
+    if (idx !== -1) ['period', 'contribution'].forEach((k) => { if (!data[k]) data[k] = withCase[idx][k]; });
 
     document.title = `${data.title || '작업물 상세'} | Binwoojin`;
     const desc = document.querySelector('meta[name="description"]');

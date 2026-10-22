@@ -155,7 +155,8 @@ content:
         description: 비워 두면 작업물 목록의 작업 기간이 그대로 보입니다. 상세페이지에만 다른 기간을 쓰고 싶을 때만 적어 주세요.
         type: string
       - name: contribution
-        label: 기여도
+        label: 기여도 (선택)
+        description: 비워 두면 작업물 목록의 기여도가 그대로 보입니다. 상세페이지에만 다르게 쓰고 싶을 때만 적어 주세요.
         type: string
       - name: tools
         label: 사용 기술
