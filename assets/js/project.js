@@ -1,6 +1,7 @@
 (() => {
   /* 작업물 상세 페이지
-     project.html?id=growlog → data/cases/growlog.json 을 읽어 9개 구성으로 그립니다.
+     work/growlog/ (tools/seo/build.mjs 가 project.html 로 만든 페이지) → data/cases/growlog.json 을 읽어 9개 구성으로 그립니다.
+     예전 주소 project.html?id=growlog 는 work/growlog/ 로 옮겨 갑니다.
      데이터에 "layout": "ux" 가 있으면 UX 프로세스 순서(문제 → 사용자 → 구조 · 흐름 → 결정 → 비교 → 디자인 시스템 → 결과 → 구현 · 검증)로 그립니다.
      데이터가 비어 있는 구성은 건너뛰고, 번호는 보이는 순서대로 다시 매깁니다. */
 
@@ -9,7 +10,12 @@
 
   const escape = (str = '') =>
     String(str).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-  const safeUrl = (url = '') => (/^\s*(javascript|data|vbscript):/i.test(url) ? '' : String(url).trim());
+  /* work/<아이디>/ 처럼 하위 폴더에서 열리면 <html data-root="../../">로 사이트 루트를 알려 준다 (tools/seo/build.mjs가 만든 페이지).
+     데이터의 상대 경로(assets/… · projects/… · reports/…)는 이 루트를 붙여 쓴다 */
+  const ROOT = document.documentElement.dataset.root || '';
+  const fromRoot = (url) => (ROOT && url && !/^([a-z][a-z0-9+.-]*:|\/|#)/i.test(url) ? ROOT + url : url);
+  const safeUrl = (url = '') => (/^\s*(javascript|data|vbscript):/i.test(url) ? '' : fromRoot(String(url).trim()));
+  const casePage = (id) => `${ROOT}work/${encodeURIComponent(id)}/`;
   const isExternal = (url) => /^https?:\/\//.test(url);
   const icon = (id) => `<svg class="icon" aria-hidden="true"><use href="#${id}"/></svg>`;
   const pad = (n) => String(n).padStart(2, '0');
@@ -519,7 +525,7 @@
   const nextHtml = (next) => (next ? `
     <nav class="case-next" aria-label="다른 작업물">
       <div class="inner">
-        <a class="case-next__link" href="project.html?id=${encodeURIComponent(next.caseStudy)}">
+        <a class="case-next__link" href="${casePage(next.caseStudy)}">
           <span class="case-next__label">다음 작업물</span>
           <span class="case-next__title">${escape(next.title)}${icon('i-arrow-right')}</span>
         </a>
@@ -682,24 +688,29 @@
     root.innerHTML = `
       <div class="inner case__status">
         <p>${escape(message)}</p>
-        <a class="btn btn--line" href="./#projects">${icon('i-arrow-left')}전체 작업물로 돌아가기</a>
+        <a class="btn btn--line" href="${ROOT}./#projects">${icon('i-arrow-left')}전체 작업물로 돌아가기</a>
       </div>`;
   };
 
   /* ===== 시작 ===== */
-  const id = new URLSearchParams(location.search).get('id') || '';
+  const id = document.documentElement.dataset.case || new URLSearchParams(location.search).get('id') || '';
   if (!/^[a-z0-9-]+$/.test(id)) {
     showError('작업물을 찾을 수 없습니다.');
     return;
   }
+  // 예전 주소(project.html?id=…)는 작업물마다 만든 페이지(work/<아이디>/)로 옮긴다 — 검색 · 공유 정보가 그 페이지에 있다
+  if (!document.documentElement.dataset.case) {
+    location.replace(`${casePage(id)}${location.hash}`);
+    return;
+  }
 
-  loadJson('data/site.json').then((site) => {
+  loadJson(`${ROOT}data/site.json`).then((site) => {
     if (site.name) document.querySelectorAll('[data-site="name"]').forEach((el) => { el.textContent = site.name; });
   }).catch(() => {});
 
   Promise.all([
-    loadJson(`data/cases/${id}.json`),
-    loadJson('data/projects.json').catch(() => []),
+    loadJson(`${ROOT}data/cases/${id}.json`),
+    loadJson(`${ROOT}data/projects.json`).catch(() => []),
   ]).then(([data, projects]) => {
     SECTIONS = SECTION_SETS[data.layout] || SECTION_SETS.default;
     const visible = SECTIONS

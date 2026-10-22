@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://binwoojin.github.io/publishing-portfolio/sitemap.xml
