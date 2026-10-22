@@ -131,6 +131,9 @@ button:focus-visible {
 .inner { max-width: var(--inner); margin: 0 auto; padding: 0 var(--gutter); }
 .icon { flex: none; width: 1.125em; height: 1.125em; }
 
+/* 아이콘 모음(<symbol>)용 SVG: 자리를 차지하지 않게 */
+.svg-sprite { position: absolute; }
+
 .skip-link {
   position: absolute;
   top: -100px;

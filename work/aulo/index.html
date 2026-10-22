@@ -2,6 +2,7 @@
 <html lang="ko" data-root="../../" data-case="aulo">
 <head>
   <meta charset="UTF-8">
+  <script>document.documentElement.classList.add('js')</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aulo (목적별 카페 공간 예약 · 음료 주문 웹앱) | Binwoojin</title>
   <meta name="description" content="예전부터 구상해 온 가상의 카페 브랜드 Aulo를 실제 웹사이트와 앱 화면으로 구현해 보고 싶어, 이번 포트폴리오를 만들며 처음 구현했습니다. 1차 웹앱에서 예약 전 · 이용 중 · 주문할 때 필요한 정보가 제자리에 없던 문제를 찾고, UX 규칙 7가지를 기준으로 정보 구조와 화면을 다시 설계했습니다.">
@@ -73,7 +74,7 @@
   <a class="skip-link" href="#main">본문 바로가기</a>
 
   <!-- 아이콘 (장식용, 텍스트와 함께 쓰므로 aria-hidden) -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <svg class="svg-sprite" width="0" height="0" aria-hidden="true" focusable="false">
     <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -100,7 +101,7 @@
 
   <main id="main">
     <article class="case" id="case" aria-busy="true">
-      <div class="inner case__status">
+      <div class="inner case__status case__static">
         <h1>Aulo (목적별 카페 공간 예약 · 음료 주문 웹앱)</h1>
         <p>예전부터 구상해 온 가상의 카페 브랜드 Aulo를 실제 웹사이트와 앱 화면으로 구현해 보고 싶어, 이번 포트폴리오를 만들며 처음 구현했습니다. 1차 웹앱에서 예약 전 · 이용 중 · 주문할 때 필요한 정보가 제자리에 없던 문제를 찾고, UX 규칙 7가지를 기준으로 정보 구조와 화면을 다시 설계했습니다.</p>
         <p><a href="../../projects/aulo/publishing/">Live Demo 보기</a> · <a href="../../#projects">전체 작업물</a></p>

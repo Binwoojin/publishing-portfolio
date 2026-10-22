@@ -656,3 +656,8 @@
 /* 404 (404.html) */
 .nf-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .case__status .section__title { color: var(--color-foreground); }
+
+/* work/<아이디>/ 의 JS 없이 보이는 요약: JS가 켜져 있으면 처음부터 숨겨 레이아웃 밀림을 막는다 (tools/seo/build.mjs) */
+.js .case__static { display: none; }
+/* 상세 내용은 데이터를 불러온 뒤 그려지므로, 그동안 화면 높이만큼 자리를 잡아 바닥글이 먼저 보였다가 밀리지 않게 한다 (CLS) */
+.case[aria-busy="true"] { min-height: 100vh; }

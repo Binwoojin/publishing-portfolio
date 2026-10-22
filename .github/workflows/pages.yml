@@ -29,7 +29,12 @@ jobs:
       - name: Leave out templates and source copies
         run: |
           for d in projects/*/; do find "$d" -mindepth 1 -maxdepth 1 ! -name publishing -exec rm -rf {} +; done
-          rm -rf projects/_template tools
+          rm -rf projects/_template
+      # data/site.json 의 searchIndexing 이 true 가 아니면 모든 페이지에 noindex (검색 엔진 등록 보류)
+      - name: Search engine indexing switch
+        run: node tools/seo/indexing.mjs
+      - name: Leave out tools
+        run: rm -rf tools
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
