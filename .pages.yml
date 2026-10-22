@@ -126,7 +126,7 @@ content:
       template: "{primary}.json"
       field: create
     view:
-      fields: [title, period]
+      fields: [title, subtitle]
     fields:
       - name: title
         label: 제목
@@ -151,7 +151,8 @@ content:
         description: 영상을 불러오기 전과 모션 줄이기 설정에서 보이는 정지 화면입니다. 비우면 대표 이미지를 씁니다.
         type: image
       - name: period
-        label: 작업 기간
+        label: 작업 기간 (선택)
+        description: 비워 두면 작업물 목록의 작업 기간이 그대로 보입니다. 상세페이지에만 다른 기간을 쓰고 싶을 때만 적어 주세요.
         type: string
       - name: contribution
         label: 기여도
