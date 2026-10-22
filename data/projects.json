@@ -54,7 +54,7 @@
   },
   {
     "title": "Binwoojin 포트폴리오 사이트",
-    "desc": "작업물을 보여 주는 이 포트폴리오 사이트도 하나의 작업물로 만들었습니다. 빌드 도구 없이 HTML · CSS · JavaScript로 만들고, 내용은 JSON 데이터와 관리 화면(Pages CMS)으로 분리했습니다. Before & After 영역 비교, 자동 검증 보고서, 작업물별 검색 · 공유 페이지까지 구현했습니다.",
+    "desc": "작업물을 보여 주는 이 포트폴리오 사이트도 하나의 작업물로 만들었습니다. 빌드 도구 없이 HTML · CSS · JavaScript로 만들고, 내용은 JSON 데이터와 관리 화면(Pages CMS)으로 분리했습니다. Before & After 영역 비교, 자동 검증 보고서, 작업물별 검색 · 공유 페이지를 구현하고, 글꼴 경량화로 모바일 성능을 64점에서 92~95점으로 올렸습니다.",
     "category": "반응형",
     "tags": [
       "HTML",
@@ -63,7 +63,8 @@
       "반응형",
       "웹 접근성",
       "다크 모드",
-      "SEO"
+      "SEO",
+      "성능 최적화"
     ],
     "thumbnail": "assets/images/portfolio.jpg",
     "period": "2026.10",
