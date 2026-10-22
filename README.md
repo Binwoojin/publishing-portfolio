@@ -99,7 +99,7 @@ publishing-portfolio/
 | 10 | Build & QA | `publishing` · `responsive` · `accessibility` · `troubleshooting` · `result.verification` | 구현 · 검증 요약 |
 
 - 관리 화면(Pages CMS)의 **작업물 상세** 메뉴에서 수정할 수 있습니다. 작업물 목록의 **상세페이지 ID** 와 파일 이름이 같아야 카드에 버튼이 생깁니다.
-- 상세페이지의 **작업 기간**을 비워 두면 작업물 목록(카드)의 작업 기간이 그대로 보입니다. 기간은 작업물 목록 한 곳에서만 고치면 됩니다.
+- 상세페이지의 **작업 기간 · 기여도**를 비워 두면 작업물 목록(카드)의 값이 그대로 보입니다. 두 값은 작업물 목록 한 곳에서만 고치면 됩니다.
 - 상세 이미지는 `assets/images/cases/<아이디>/` 에 있습니다. Before & After 이미지는 **개선 전 · 후를 같은 크기로 캡처**해야 슬라이더에서 정확히 겹칩니다.
 
 ## 검증 (html-validate · axe-core · Lighthouse)

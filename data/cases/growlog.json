@@ -5,7 +5,6 @@
   "cover": "assets/images/cases/growlog/landing-after.webp",
   "coverVideo": "assets/videos/cases/growlog-landing.mp4",
   "coverPoster": "assets/images/cases/growlog/cover-poster.webp",
-  "contribution": "1인 프로젝트 · Claude Code 보조 구현",
   "tools": [
     "HTML",
     "CSS",
