@@ -50,6 +50,8 @@ for (const id of ids) {
     .replace(/\n\s*<!-- 예전 주소[\s\S]*?-->/, '')
     .replace(/\n\s*<meta name="robots"[^>]*>/, '')
     .replace('<html lang="ko">', `<html lang="ko" data-root="../../" data-case="${esc(id)}">`)
+    // JS가 켜져 있으면 첫 화면부터 정적 요약을 숨겨, 상세 내용으로 바뀔 때 레이아웃이 밀리지 않게 한다(CLS)
+    .replace('<meta charset="UTF-8">', '<meta charset="UTF-8">\n  <script>document.documentElement.classList.add(\'js\')</script>')
     // 상대 경로를 사이트 루트 기준으로 (# · 절대 주소 · 프로토콜은 그대로)
     .replace(/\b(href|src)="(?![a-z][a-z0-9+.-]*:|\/|#)([^"]*)"/gi, '$1="../../$2"')
     .replace(/<title>[^<]*<\/title>/, `<title>${esc(title)}</title>`)
@@ -87,7 +89,7 @@ ${ld({
 })}
   </script>`)
     // JS 없이도 보이는 요약 (JS가 돌면 상세 내용으로 바뀐다)
-    .replace(/<p class="inner case__status">작업물을 불러오는 중입니다\.<\/p>/, `<div class="inner case__status">
+    .replace(/<p class="inner case__status">작업물을 불러오는 중입니다\.<\/p>/, `<div class="inner case__status case__static">
         <h1>${esc(d.title || id)}</h1>
         ${desc ? `<p>${esc(desc)}</p>` : ''}
         <p>${demo ? `<a href="${esc(/^https?:/.test(demo) ? demo : `../../${demo}`)}">Live Demo 보기</a> · ` : ''}<a href="../../#projects">전체 작업물</a></p>
@@ -108,9 +110,9 @@ await writeFile(join(ROOT, 'sitemap.xml'), sitemap);
 
 // robots.txt 는 도메인 맨 위(https://binwoojin.github.io/robots.txt)에 있어야 검색 엔진이 읽는다.
 // 이 저장소는 /publishing-portfolio/ 아래라 참고용으로 두고, sitemap.xml 은 Search Console 에 직접 제출한다.
-await writeFile(join(ROOT, 'robots.txt'), `User-agent: *
-Allow: /
-Sitemap: ${SITE}sitemap.xml
-`);
+// site.json 의 searchIndexing 이 true 일 때만 검색을 허용한다 (페이지별 noindex 는 tools/seo/indexing.mjs)
+await writeFile(join(ROOT, 'robots.txt'), site.searchIndexing === true
+  ? `User-agent: *\nAllow: /\nSitemap: ${SITE}sitemap.xml\n`
+  : `# 검색 엔진 등록 보류 중 (data/site.json searchIndexing: false)\nUser-agent: *\nDisallow: /\n`);
 
 console.log(`work/ ${ids.length}개 (${ids.join(', ')}), sitemap.xml ${pages.length + 1}개 주소, robots.txt — ${SITE}`);

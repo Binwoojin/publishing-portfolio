@@ -79,6 +79,10 @@ content:
         label: GitHub 주소
         description: 예 - https://github.com/아이디
         type: string
+      - name: searchIndexing
+        label: 검색 엔진 등록
+        description: 끄면(기본) 배포할 때 모든 페이지에 noindex 를 넣어 구글 · 네이버 검색에 나오지 않습니다. 링크로 제출 · 공유하는 것은 그대로 됩니다. 켜면 검색에 등록될 수 있으니, 그다음 Search Console 에 sitemap.xml 을 제출하세요.
+        type: boolean
       - name: heroDescription
         label: 첫 화면 소개 문구
         type: text

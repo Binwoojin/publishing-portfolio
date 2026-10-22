@@ -1,0 +1,227 @@
+{
+  "project": "포트폴리오 사이트",
+  "dir": ".",
+  "pages": [
+    "./index.html",
+    "./work/aulo/index.html",
+    "./work/growlog/index.html",
+    "./work/waylog/index.html",
+    "./work/portfolio/index.html"
+  ],
+  "measuredAt": "2026-10-22T02:13:25.744Z",
+  "tools": {
+    "html-validate": "11.16.2",
+    "axe-core": "4.14.0",
+    "playwright": "1.64.0",
+    "Chromium": "141.0.7390.37"
+  },
+  "environment": "Linux 6.18.44-fc-v139 · Node v22.22.0 · 로컬 정적 서버",
+  "conditions": [
+    "axe-core 규칙: wcag2a, wcag2aa, wcag21a, wcag21aa, wcag22aa, best-practice",
+    "화면: 데스크톱 1280×800 / 모바일 375×812 × 라이트 · 다크",
+    "페이지를 끝까지 스크롤해 등장 효과를 모두 재생한 뒤 검사",
+    "각 화면의 기본 상태만 검사 (로딩 · 빈 상태 · 오류 · 다이얼로그 상태는 포함하지 않음)"
+  ],
+  "summary": {
+    "htmlErrors": 0,
+    "htmlWarnings": 0,
+    "axeRuns": 20,
+    "axeViolations": 0,
+    "horizontalScroll": 0
+  },
+  "htmlValidate": [
+    {
+      "file": "./index.html",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    {
+      "file": "./work/aulo/index.html",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    {
+      "file": "./work/growlog/index.html",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    {
+      "file": "./work/waylog/index.html",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    },
+    {
+      "file": "./work/portfolio/index.html",
+      "errors": 0,
+      "warnings": 0,
+      "messages": []
+    }
+  ],
+  "axe": [
+    {
+      "file": "./index.html",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "./index.html",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "./index.html",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "./index.html",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "./work/aulo/index.html",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "./work/aulo/index.html",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "./work/aulo/index.html",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "./work/aulo/index.html",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "./work/growlog/index.html",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "./work/growlog/index.html",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "./work/growlog/index.html",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "./work/growlog/index.html",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "./work/waylog/index.html",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "./work/waylog/index.html",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "./work/waylog/index.html",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "./work/waylog/index.html",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "./work/portfolio/index.html",
+      "viewport": "desktop",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "./work/portfolio/index.html",
+      "viewport": "desktop",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "./work/portfolio/index.html",
+      "viewport": "mobile",
+      "scheme": "light",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    },
+    {
+      "file": "./work/portfolio/index.html",
+      "viewport": "mobile",
+      "scheme": "dark",
+      "violations": [],
+      "horizontalScroll": false,
+      "pageErrors": []
+    }
+  ],
+  "lighthouse": null
+}

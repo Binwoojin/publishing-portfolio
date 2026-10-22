@@ -2,6 +2,7 @@
 <html lang="ko" data-root="../../" data-case="waylog">
 <head>
   <meta charset="UTF-8">
+  <script>document.documentElement.classList.add('js')</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WayLog (국내 여행 기반 여행 SNS 웹사이트) | Binwoojin</title>
   <meta name="description" content="국내 여행지를 찾고, 코스를 따라 떠나고, 다녀온 이야기를 피드로 나누는 여행 기록 서비스 WayLog를 직접 기획해 1차 웹사이트로 만든 뒤, 그 디자인을 새 디자인 시스템으로 리디자인하고, 10개 화면을 HTML · CSS · JavaScript로 퍼블리싱했습니다.">
@@ -64,7 +65,7 @@
   <meta name="theme-color" content="#FAFAFA" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#09090B" media="(prefers-color-scheme: dark)">
   <link rel="icon" href="../../assets/images/favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="../../assets/fonts/Paperlogy-4Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../assets/fonts/subset/Paperlogy-4Regular-site.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../common/css/reset.css">
   <link rel="stylesheet" href="../../assets/css/style.css">
   <link rel="stylesheet" href="../../assets/css/project.css">
@@ -73,7 +74,7 @@
   <a class="skip-link" href="#main">본문 바로가기</a>
 
   <!-- 아이콘 (장식용, 텍스트와 함께 쓰므로 aria-hidden) -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <svg class="svg-sprite" width="0" height="0" aria-hidden="true" focusable="false">
     <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -100,7 +101,7 @@
 
   <main id="main">
     <article class="case" id="case" aria-busy="true">
-      <div class="inner case__status">
+      <div class="inner case__status case__static">
         <h1>WayLog (국내 여행 기반 여행 SNS 웹사이트)</h1>
         <p>국내 여행지를 찾고, 코스를 따라 떠나고, 다녀온 이야기를 피드로 나누는 여행 기록 서비스 WayLog를 직접 기획해 1차 웹사이트로 만든 뒤, 그 디자인을 새 디자인 시스템으로 리디자인하고, 10개 화면을 HTML · CSS · JavaScript로 퍼블리싱했습니다.</p>
         <p><a href="../../projects/waylog/publishing/">Live Demo 보기</a> · <a href="../../#projects">전체 작업물</a></p>

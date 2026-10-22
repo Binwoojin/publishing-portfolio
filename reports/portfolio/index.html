@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex">
+<title>포트폴리오 사이트 검증 보고서</title>
+<style>
+body{font-family:system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;max-width:960px;margin:0 auto;padding:32px 16px;color:#17181c;line-height:1.6}
+h1{font-size:1.75rem}h2{margin-top:2rem;font-size:1.25rem;border-top:2px solid #17181c;padding-top:.75rem}
+table{width:100%;border-collapse:collapse;font-size:.875rem;margin-top:.5rem}th,td{border-bottom:1px solid #ddd;padding:6px 8px;text-align:left;vertical-align:top}
+th{background:#f4f4f5}.ok{color:#15803d;font-weight:700}.bad{color:#b91c1c;font-weight:700}code{font-size:.85em}
+dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px}dt{font-weight:700}
+@media (prefers-color-scheme:dark){body{background:#111;color:#eee}th{background:#222}th,td{border-color:#333}.ok{color:#4ade80}.bad{color:#f87171}h2{border-color:#eee}}
+</style></head><body>
+<h1>포트폴리오 사이트 검증 보고서</h1>
+<dl>
+<dt>측정일</dt><dd><time datetime="2026-10-22T02:13:25.744Z">2026. 10. 22. 11:13 (KST)</time></dd>
+<dt>도구</dt><dd>html-validate 11.16.2 · axe-core 4.14.0 · playwright 1.64.0 · Chromium 141.0.7390.37</dd>
+<dt>환경</dt><dd>Linux 6.18.44-fc-v139 · Node v22.22.0 · 로컬 정적 서버</dd>
+<dt>대상</dt><dd>5개 화면 (<code>.</code>)</dd>
+<dt>조건</dt><dd>axe-core 규칙: wcag2a, wcag2aa, wcag21a, wcag21aa, wcag22aa, best-practice<br>화면: 데스크톱 1280×800 / 모바일 375×812 × 라이트 · 다크<br>페이지를 끝까지 스크롤해 등장 효과를 모두 재생한 뒤 검사<br>각 화면의 기본 상태만 검사 (로딩 · 빈 상태 · 오류 · 다이얼로그 상태는 포함하지 않음)</dd>
+</dl>
+<h2>요약</h2>
+<table><tr><th>검사</th><th>결과</th></tr>
+<tr><td>html-validate (권장 규칙)</td><td class="ok">오류 0 · 경고 0</td></tr>
+<tr><td>axe-core (wcag2a, wcag2aa, wcag21a, wcag21aa, wcag22aa, best-practice)</td><td class="ok">위반 0건 / 20회 검사</td></tr>
+<tr><td>가로 스크롤</td><td class="ok">0회 발생</td></tr>
+<tr><td>Lighthouse</td><td>이번 실행에서는 측정하지 않음 (<code>npm run verify:lighthouse</code>)</td></tr>
+</table>
+<h2>html-validate</h2>
+<table><tr><th>파일</th><th>오류</th><th>경고</th><th>내용</th></tr>
+<tr><td>index.html</td><td>0</td><td>0</td><td></td></tr><tr><td>index.html</td><td>0</td><td>0</td><td></td></tr><tr><td>index.html</td><td>0</td><td>0</td><td></td></tr><tr><td>index.html</td><td>0</td><td>0</td><td></td></tr><tr><td>index.html</td><td>0</td><td>0</td><td></td></tr>
+</table>
+<h2>axe-core</h2>
+<table><tr><th>파일</th><th>화면</th><th>테마</th><th>위반</th><th>가로 스크롤</th></tr>
+<tr><td>index.html</td><td>desktop</td><td>light</td><td class="ok">0</td><td>없음</td></tr><tr><td>index.html</td><td>desktop</td><td>dark</td><td class="ok">0</td><td>없음</td></tr><tr><td>index.html</td><td>mobile</td><td>light</td><td class="ok">0</td><td>없음</td></tr><tr><td>index.html</td><td>mobile</td><td>dark</td><td class="ok">0</td><td>없음</td></tr><tr><td>index.html</td><td>desktop</td><td>light</td><td class="ok">0</td><td>없음</td></tr><tr><td>index.html</td><td>desktop</td><td>dark</td><td class="ok">0</td><td>없음</td></tr><tr><td>index.html</td><td>mobile</td><td>light</td><td class="ok">0</td><td>없음</td></tr><tr><td>index.html</td><td>mobile</td><td>dark</td><td class="ok">0</td><td>없음</td></tr><tr><td>index.html</td><td>desktop</td><td>light</td><td class="ok">0</td><td>없음</td></tr><tr><td>index.html</td><td>desktop</td><td>dark</td><td class="ok">0</td><td>없음</td></tr><tr><td>index.html</td><td>mobile</td><td>light</td><td class="ok">0</td><td>없음</td></tr><tr><td>index.html</td><td>mobile</td><td>dark</td><td class="ok">0</td><td>없음</td></tr><tr><td>index.html</td><td>desktop</td><td>light</td><td class="ok">0</td><td>없음</td></tr><tr><td>index.html</td><td>desktop</td><td>dark</td><td class="ok">0</td><td>없음</td></tr><tr><td>index.html</td><td>mobile</td><td>light</td><td class="ok">0</td><td>없음</td></tr><tr><td>index.html</td><td>mobile</td><td>dark</td><td class="ok">0</td><td>없음</td></tr><tr><td>index.html</td><td>desktop</td><td>light</td><td class="ok">0</td><td>없음</td></tr><tr><td>index.html</td><td>desktop</td><td>dark</td><td class="ok">0</td><td>없음</td></tr><tr><td>index.html</td><td>mobile</td><td>light</td><td class="ok">0</td><td>없음</td></tr><tr><td>index.html</td><td>mobile</td><td>dark</td><td class="ok">0</td><td>없음</td></tr>
+</table>
+</body></html>

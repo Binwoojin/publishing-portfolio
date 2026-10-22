@@ -41,6 +41,7 @@ publishing-portfolio/
 5. **Save** 를 누르면 저장소에 바로 반영되고, 1~2분 뒤 사이트에도 반영됩니다.
 
 > 관리 화면 메뉴 구성은 `.pages.yml` 에서 바꿀 수 있습니다. 업로드한 이미지는 `assets/images/` 에 저장됩니다.
+> **주의**: Pages CMS는 `.pages.yml` 에 정의되지 않은 항목을 저장할 때 지웁니다. `data/` JSON에 새 항목을 넣을 때는 같은 이름의 필드를 `.pages.yml` 에도 함께 추가하세요.
 
 ### 직접 수정할 때
 
@@ -125,6 +126,12 @@ npm run verify:lighthouse   # 위 검사 + Lighthouse (대표 화면, 모바일 
 2. `main` 브랜치에 push 하면 `https://binwoojin.github.io/publishing-portfolio/` 에 배포됩니다.
 3. 배포할 때 `tools/seo/build.mjs` 로 작업물 상세 페이지(`work/`)와 `sitemap.xml` 을 다시 만들고, 사이트가 쓰지 않는 템플릿 · 원본 소스 폴더(`projects/<작업물>/publishing` 외)와 `tools/` 는 올리지 않습니다.
 
+## 글꼴 경량화
+
+- Paperlogy 원본(굵기별 약 157KB)에서 사이트에 실제로 쓰인 글자만 담은 작은 글꼴(`assets/fonts/subset/*-site.woff2`, 굵기별 약 41KB)을 `tools/fonts/subset.py` 로 만듭니다 (`pip install fonttools brotli`).
+- `assets/css/style.css` 의 글꼴 블록은 이 스크립트가 다시 씁니다. 원본을 먼저, 작은 글꼴(unicode-range)을 나중에 선언해 평소에는 작은 글꼴만 내려받고, 없는 글자가 나올 때만 원본을 내려받아 같은 글꼴로 보여 줍니다.
+- 배포 때마다 다시 만들므로 관리 화면에서 새로 쓴 글자도 반영됩니다. 로컬에서 문구를 많이 바꿨다면 직접 실행해 주세요.
+
 ## 검색 엔진 · 공유 미리보기 (SEO)
 
 - **작업물 상세**: 작업물마다 `work/<아이디>/` 페이지가 있어 제목 · 설명 · 대표 주소(canonical) · 공유 미리보기(Open Graph · Twitter, 대표 이미지는 작업물 썸네일) · 구조화 데이터(CreativeWork · BreadcrumbList)를 따로 가집니다. JS 없이 열어도 제목과 요약이 보입니다.
@@ -132,7 +139,8 @@ npm run verify:lighthouse   # 위 검사 + Lighthouse (대표 화면, 모바일 
 - **이름**: 사이트 이름(로고 · 탭 제목 · 저작권)은 `site.json` 의 `name`, 소개 · Name 칸 · 구조화 데이터는 본명 `realName` 을 씁니다.
 - **다시 만들기**: 작업물 데이터를 직접 고쳤다면 `node tools/seo/build.mjs` 를 실행하세요. 배포 때도 자동으로 다시 만듭니다.
 - **검색에서 빼는 페이지**: 예전 주소용 `project.html`, `404.html`, 검증 보고서(`reports/`)는 `noindex` 입니다.
-- **Search Console**: `robots.txt` 는 도메인 맨 위(`https://binwoojin.github.io/robots.txt`)에 있어야 검색 엔진이 읽습니다. 이 사이트는 `/publishing-portfolio/` 아래라 그 파일은 참고용이고, [Google Search Console](https://search.google.com/search-console) · [네이버 서치어드바이저](https://searchadvisor.naver.com)에 사이트를 등록한 뒤 `https://binwoojin.github.io/publishing-portfolio/sitemap.xml` 을 직접 제출해야 합니다.
+- **검색 엔진 등록 스위치**: `data/site.json` 의 `searchIndexing`(관리 화면 사이트 정보 → '검색 엔진 등록')이 꺼져 있으면(지금 상태), 배포할 때 `tools/seo/indexing.mjs` 가 모든 페이지에 `noindex, nofollow` 를 넣고 `robots.txt` 를 막아 검색에 나오지 않습니다. 링크로 제출 · 공유하는 것과 공유 미리보기는 그대로 됩니다. 저장소 파일에는 noindex 를 넣지 않으므로, 켜기만 하면 다음 배포부터 등록될 수 있습니다.
+- **Search Console** (검색 등록을 켠 뒤): `robots.txt` 는 도메인 맨 위(`https://binwoojin.github.io/robots.txt`)에 있어야 검색 엔진이 읽습니다. 이 사이트는 `/publishing-portfolio/` 아래라 그 파일은 참고용이고, [Google Search Console](https://search.google.com/search-console) · [네이버 서치어드바이저](https://searchadvisor.naver.com)에 사이트를 등록한 뒤 `https://binwoojin.github.io/publishing-portfolio/sitemap.xml` 을 직접 제출해야 합니다.
 
 ## 작업 원칙
 

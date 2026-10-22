@@ -29,6 +29,8 @@ const ONLY = arg('--project');
 const PROJECTS = {
   growlog: { name: 'GrowLog 리디자인', dir: 'projects/growlog/publishing', lighthouse: ['index.html', 'dashboard.html'] },
   waylog: { name: 'WayLog 리디자인', dir: 'projects/waylog/publishing', lighthouse: ['index.html', 'destinations.html'] },
+  // 이 포트폴리오 사이트: 메인과 작업물 상세(tools/seo/build.mjs 가 만든 work/<아이디>/). 404.html 은 배포 주소 기준 절대 경로라 제외
+  portfolio: { name: '포트폴리오 사이트', dir: '.', files: ['index.html', 'work/aulo/index.html', 'work/growlog/index.html', 'work/waylog/index.html', 'work/portfolio/index.html'], lighthouse: ['index.html', 'work/aulo/index.html'] },
   // Aulo: 정적 브랜드 랜딩 + 해시 라우터 웹앱(빌드본). 웹앱은 화면 주소(#/...)마다 검사하고, 로그인이 필요한 화면은 데모 계정으로 로그인한 뒤 검사한다.
   aulo: {
     name: 'Aulo 공간 예약 · 주문', dir: 'projects/aulo',
