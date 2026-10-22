@@ -95,6 +95,10 @@ content:
         type: object
         list: true
         fields:
+          - name: area
+            label: 영역
+            description: 예 - Design, Publishing, Frontend, Workflow (이름 위에 작은 글자로 보입니다)
+            type: string
           - name: name
             label: 기술 이름
             type: string

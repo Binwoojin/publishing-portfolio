@@ -531,7 +531,11 @@ button:focus-visible {
   font-weight: 700;
   letter-spacing: -.01em;
 }
+/* 영역 표시(Design · Publishing · Frontend · Workflow): 이름 위 작은 라벨, 설명은 두 줄에 걸쳐 가운데 */
+.skill__area { grid-column: 1 / span 4; grid-row: 1; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--color-accent); }
+.skill__area + .skill__name { grid-row: 2; }
 .skill__desc { grid-column: 5 / -1; color: var(--color-muted-foreground); }
+.skill__area ~ .skill__desc { grid-row: 1 / span 2; align-self: center; }
 
 /* ==========================================================================
    Contact
@@ -710,8 +714,11 @@ button:focus-visible {
   .about__info { grid-column: 1; }
 
   .skill { grid-template-columns: 1fr; row-gap: 4px; padding: var(--space-2) 0; }
+  .skill__area,
   .skill__name,
   .skill__desc { grid-column: 1; }
+  .skill__area + .skill__name,
+  .skill__area ~ .skill__desc { grid-row: auto; }
 
   .contact { grid-template-columns: 1fr; }
   .contact__links .btn { width: 100%; }

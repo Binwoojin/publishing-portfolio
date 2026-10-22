@@ -260,6 +260,7 @@
       const skillList = document.getElementById('skill-list');
       skillList.innerHTML = skills.map((s) => `
           <li class="skill">
+            ${s.area ? `<p class="skill__area" lang="en">${escape(s.area)}</p>` : ''}
             <h3 class="skill__name">${escape(s.name)}</h3>
             ${s.desc ? `<p class="skill__desc">${escape(s.desc)}</p>` : ''}
           </li>`).join('');
