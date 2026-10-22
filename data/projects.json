@@ -11,7 +11,7 @@
       "웹 접근성"
     ],
     "thumbnail": "assets/images/aulo.jpg",
-    "period": "2026.10",
+    "period": "2026.05-2026.10",
     "contribution": "1인 프로젝트 · Claude Code 보조 구현",
     "caseStudy": "aulo",
     "demo": "projects/aulo/publishing/"
@@ -29,7 +29,7 @@
       "다크 모드"
     ],
     "thumbnail": "assets/images/waylog.jpg",
-    "period": "2026.09",
+    "period": "2026.08-2026.10",
     "contribution": "1인 프로젝트 · Claude Code 보조 구현",
     "caseStudy": "waylog",
     "demo": "projects/waylog/publishing/"
@@ -47,7 +47,7 @@
       "다크 모드"
     ],
     "thumbnail": "assets/images/growlog.jpg",
-    "period": "2026.08",
+    "period": "2026.07-2026.10",
     "contribution": "1인 프로젝트 · Claude Code 보조 구현",
     "caseStudy": "growlog",
     "demo": "projects/growlog/publishing/"
@@ -67,7 +67,7 @@
       "성능 최적화"
     ],
     "thumbnail": "assets/images/portfolio.jpg",
-    "period": "2026.10",
+    "period": "2026.09-2026.10",
     "contribution": "1인 프로젝트 · Claude Code 보조 구현",
     "caseStudy": "portfolio"
   }
