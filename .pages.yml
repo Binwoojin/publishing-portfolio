@@ -61,9 +61,14 @@ content:
     format: json
     fields:
       - name: name
-        label: 이름
+        label: 사이트 이름
+        description: 로고 · 브라우저 탭 제목 · 저작권 표시에 쓰입니다. (예 - Binwoojin)
         type: string
         required: true
+      - name: realName
+        label: 본명
+        description: 소개 · Name 칸 · 검색 엔진 정보에 보이는 이름입니다. 위 '이름'(Binwoojin)은 사이트 이름(로고 · 탭 제목 · 저작권)에만 쓰입니다.
+        type: string
       - name: role
         label: 직무
         type: string
@@ -95,6 +100,10 @@ content:
         type: object
         list: true
         fields:
+          - name: area
+            label: 영역
+            description: 예 - Design, Publishing, Frontend, Workflow (이름 위에 작은 글자로 보입니다)
+            type: string
           - name: name
             label: 기술 이름
             type: string

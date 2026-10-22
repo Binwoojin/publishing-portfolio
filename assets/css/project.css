@@ -652,3 +652,7 @@
   .ux-problems, .ux-goals, .ux-users, .ux-states, .ux-type, .ux-comps { grid-template-columns: 1fr; }
   .ux-ia { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* 404 (404.html) */
+.nf-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.case__status .section__title { color: var(--color-foreground); }

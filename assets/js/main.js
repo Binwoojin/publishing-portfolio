@@ -135,7 +135,7 @@
 
   // 상세페이지(data/cases/{caseStudy}.json)가 있는 작업물은 'Case Study 보기'를 먼저 보여줌
   const caseLink = (p) => (/^[a-z0-9-]+$/.test(p.caseStudy || '')
-    ? `<a class="card__link" href="project.html?id=${p.caseStudy}">Case Study 보기<span class="blind"> - ${escape(p.title)} 개선 과정</span>${icon('i-arrow-right')}</a>`
+    ? `<a class="card__link" href="work/${p.caseStudy}/">Case Study 보기<span class="blind"> - ${escape(p.title)} 개선 과정</span>${icon('i-arrow-right')}</a>`
     : '');
 
   const cardHtml = (p, i) => {
@@ -250,9 +250,7 @@
     const github = safeUrl(site.github);
     if (github) {
       document.querySelectorAll('[data-site-github]').forEach((el) => { el.href = github; });
-      document.querySelectorAll('[data-site-github-text]').forEach((el) => {
-        el.textContent = github.replace(/^https?:\/\//, '').replace(/\/$/, '');
-      });
+      // 보이는 글자에는 아이디(닉네임)를 쓰지 않고 'GitHub 프로필'로 둔다 (사이트 이름 외에는 본명만 노출)
     }
 
     const skills = Array.isArray(site.skills) ? site.skills.filter((s) => s && s.name) : [];
@@ -260,6 +258,7 @@
       const skillList = document.getElementById('skill-list');
       skillList.innerHTML = skills.map((s) => `
           <li class="skill">
+            ${s.area ? `<p class="skill__area" lang="en">${escape(s.area)}</p>` : ''}
             <h3 class="skill__name">${escape(s.name)}</h3>
             ${s.desc ? `<p class="skill__desc">${escape(s.desc)}</p>` : ''}
           </li>`).join('');

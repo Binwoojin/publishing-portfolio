@@ -8,7 +8,10 @@ HTML · CSS · JavaScript 기반의 마크업, 반응형 레이아웃, 웹 접�
 ```
 publishing-portfolio/
 ├── index.html              # 포트폴리오 메인 (Hero · Projects · About · Skills · Contact)
-├── project.html            # 작업물 상세 (project.html?id=growlog)
+├── project.html            # 작업물 상세 틀 (work/<아이디>/ 페이지를 만드는 바탕, 예전 주소 ?id= 는 work/ 로 이동)
+├── work/<아이디>/index.html # 작업물마다 만든 상세 페이지 (tools/seo/build.mjs 가 만듦)
+├── 404.html                # 없는 주소 안내
+├── sitemap.xml · robots.txt # 검색 엔진용 (tools/seo/build.mjs 가 만듦)
 ├── assets/
 │   ├── css/style.css       # 사이트 스타일 (라이트/다크 모드, 반응형)
 │   ├── js/main.js          # 모바일 메뉴, 작업물 목록 렌더링 · 필터
@@ -63,7 +66,7 @@ publishing-portfolio/
 
 ## 작업물 상세페이지
 
-메인의 작업물 카드에서 **Case Study 보기**를 누르면 `project.html?id=<아이디>` 로 이동하고, `data/cases/<아이디>.json` 의 내용을 아래 9개 구성으로 보여줍니다. 내용이 비어 있는 구성은 자동으로 빠지고 번호가 다시 매겨집니다.
+메인의 작업물 카드에서 **Case Study 보기**를 누르면 `work/<아이디>/` 로 이동하고, `data/cases/<아이디>.json` 의 내용을 아래 9개 구성으로 보여줍니다. 내용이 비어 있는 구성은 자동으로 빠지고 번호가 다시 매겨집니다.
 
 | 순서 | 구성 | 내용 |
 | --- | --- | --- |
@@ -120,6 +123,16 @@ npm run verify:lighthouse   # 위 검사 + Lighthouse (대표 화면, 모바일 
 
 1. 저장소 **Settings → Pages → Build and deployment → Source** 를 **GitHub Actions** 로 설정합니다. (최초 1회)
 2. `main` 브랜치에 push 하면 `https://binwoojin.github.io/publishing-portfolio/` 에 배포됩니다.
+3. 배포할 때 `tools/seo/build.mjs` 로 작업물 상세 페이지(`work/`)와 `sitemap.xml` 을 다시 만들고, 사이트가 쓰지 않는 템플릿 · 원본 소스 폴더(`projects/<작업물>/publishing` 외)와 `tools/` 는 올리지 않습니다.
+
+## 검색 엔진 · 공유 미리보기 (SEO)
+
+- **작업물 상세**: 작업물마다 `work/<아이디>/` 페이지가 있어 제목 · 설명 · 대표 주소(canonical) · 공유 미리보기(Open Graph · Twitter, 대표 이미지는 작업물 썸네일) · 구조화 데이터(CreativeWork · BreadcrumbList)를 따로 가집니다. JS 없이 열어도 제목과 요약이 보입니다.
+- **메인**: 대표 주소, 공유 미리보기(`assets/images/og-image.jpg`, 1200×630), 구조화 데이터(Person · WebSite)를 넣었습니다.
+- **이름**: 사이트 이름(로고 · 탭 제목 · 저작권)은 `site.json` 의 `name`, 소개 · Name 칸 · 구조화 데이터는 본명 `realName` 을 씁니다.
+- **다시 만들기**: 작업물 데이터를 직접 고쳤다면 `node tools/seo/build.mjs` 를 실행하세요. 배포 때도 자동으로 다시 만듭니다.
+- **검색에서 빼는 페이지**: 예전 주소용 `project.html`, `404.html`, 검증 보고서(`reports/`)는 `noindex` 입니다.
+- **Search Console**: `robots.txt` 는 도메인 맨 위(`https://binwoojin.github.io/robots.txt`)에 있어야 검색 엔진이 읽습니다. 이 사이트는 `/publishing-portfolio/` 아래라 그 파일은 참고용이고, [Google Search Console](https://search.google.com/search-console) · [네이버 서치어드바이저](https://searchadvisor.naver.com)에 사이트를 등록한 뒤 `https://binwoojin.github.io/publishing-portfolio/sitemap.xml` 을 직접 제출해야 합니다.
 
 ## 작업 원칙
 
