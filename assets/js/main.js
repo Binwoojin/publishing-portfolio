@@ -264,6 +264,22 @@
           </li>`).join('');
       [...skillList.children].forEach((li, i) => li.style.setProperty('--i', i));
     }
+
+    // 걸어온 과정: 경력을 단계별로 요약 (회사별 세부 업무는 이력서에)
+    const journey = Array.isArray(site.journey) ? site.journey.filter((j) => j && j.title) : [];
+    if (journey.length) {
+      const journeyList = document.getElementById('journey-list');
+      journeyList.innerHTML = journey.map((j) => `
+            <li class="journey__item">
+              ${j.period ? `<p class="journey__period">${escape(j.period)}</p>` : ''}
+              <div class="journey__head">
+                <h4 class="journey__title">${escape(j.title)}</h4>
+                ${j.places ? `<p class="journey__places">${escape(j.places)}</p>` : ''}
+              </div>
+              ${j.text ? `<p class="journey__text">${escape(j.text)}</p>` : ''}
+            </li>`).join('');
+      [...journeyList.children].forEach((li, i) => li.style.setProperty('--i', i));
+    }
   };
 
   const loadJson = (url) => fetch(url, { cache: 'no-cache' }).then((res) => {

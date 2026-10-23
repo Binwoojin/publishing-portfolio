@@ -99,6 +99,31 @@ content:
       - name: aboutBody
         label: About 본문
         type: text
+      - name: journey
+        label: 걸어온 과정 (About)
+        description: 경력을 단계별로 요약합니다. 회사별 세부 업무는 이력서에 두고, 여기에는 흐름만 적어 주세요.
+        type: object
+        list: true
+        fields:
+          - name: period
+            label: 기간
+            description: 예 - 2022.01 – 2024.12
+            type: string
+          - name: title
+            label: 단계 이름
+            type: string
+            required: true
+          - name: places
+            label: 회사 · 교육 기관
+            description: 가운뎃점(·)으로 구분
+            type: string
+          - name: text
+            label: 한 일 요약
+            type: text
+      - name: journeyNote
+        label: 걸어온 과정 아래 안내
+        description: 예 - 회사 결과물을 공개하지 않는 이유
+        type: string
       - name: skills
         label: 기술 목록
         type: object
