@@ -140,6 +140,11 @@ content:
           - name: desc
             label: 설명
             type: string
+          - name: tags
+            label: 연결할 작업물 태그
+            description: 작업물 목록의 태그와 같은 글자를 적으면 그 태그가 있는 작업물이 '쓴 작업물'로 보입니다 (예 - HTML, CSS, React, 웹 접근성). 비우면 보이지 않습니다.
+            type: string
+            list: true
 
   - name: cases
     label: 작업물 상세
