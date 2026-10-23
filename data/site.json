@@ -48,7 +48,7 @@
     },
     {
       "area": "Publishing",
-      "name": "CSS3 · SCSS",
+      "name": "CSS3",
       "desc": "Flex · Grid 레이아웃, 반응형 웹, CSS 변수 기반 디자인 토큰 · 다크 모드, 애니메이션, BEM 방법론",
       "tags": [
         "CSS"
