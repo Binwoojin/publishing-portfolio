@@ -137,6 +137,12 @@ content:
             label: 기술 이름
             type: string
             required: true
+          - name: icon
+            label: 아이콘
+            description: 비우면 아이콘 없이 이름만 보입니다.
+            type: select
+            options:
+              values: [html5, css3, javascript, react, accessibility, figma, jquery]
           - name: desc
             label: 설명
             type: string

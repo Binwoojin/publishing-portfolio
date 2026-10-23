@@ -243,6 +243,12 @@
     return tags.length ? projects.filter((p) => p.caseStudy && (p.tags || []).some((t) => tags.includes(t))) : [];
   };
   const panelQuery = window.matchMedia('(min-width: 901px)');
+  // 아이콘은 index.html 의 sk-* 심볼 (CMS 기술 목록의 '아이콘'에서 고름)
+  const SKILL_ICONS = ['html5', 'css3', 'javascript', 'react', 'accessibility', 'figma', 'jquery'];
+  const iconOf = (sk) => (SKILL_ICONS.includes(sk.icon) ? sk.icon : '');
+  const iconSvg = (key, cls) => (key
+    ? `<svg class="${cls}" aria-hidden="true" focusable="false"><use href="#sk-${key}"/></svg>`
+    : '');
 
   const showSkill = (index) => {
     const from = (skillActive + 1) / Math.max(skillData.length, 1);
@@ -254,12 +260,13 @@
     const works = worksOf(sk);
     // 화면 읽기 프로그램은 목록의 각 항목에서 같은 내용을 읽으므로 패널은 숨기고, 링크도 탭 순서에서 뺀다
     panel.innerHTML = `
-      <div class="skillset__card">
+      <div class="skillset__card"${iconOf(sk) ? ` data-icon="${iconOf(sk)}"` : ''}>
         <p class="skillset__card-top">
           <span lang="en">${escape(sk.area || '')}</span>
           <span class="skillset__count">${pad(index + 1)} / ${pad(skillData.length)}</span>
         </p>
         <span class="skillset__progress" style="--p:${(index + 1) / skillData.length};--p-from:${from}"></span>
+        ${iconSvg(iconOf(sk), 'skillset__card-icon')}
         <p class="skillset__card-name">${escape(sk.name)}</p>
         ${sk.desc ? `<p class="skillset__card-desc">${escape(sk.desc)}</p>` : ''}
         ${works.length ? `
@@ -275,8 +282,9 @@
     skillList.innerHTML = skillData.map((sk, i) => {
       const works = worksOf(sk);
       return `
-            <li class="skillset__row" style="--i:${i}">
+            <li class="skillset__row"${iconOf(sk) ? ` data-icon="${iconOf(sk)}"` : ''} style="--i:${i}">
               <span class="skillset__num" aria-hidden="true">${pad(i + 1)}</span>
+              ${iconSvg(iconOf(sk), 'skillset__icon')}
               <h3 class="skillset__name">${escape(sk.name)}</h3>
               <div class="skillset__detail">
                 ${sk.area ? `<p class="skillset__area" lang="en">${escape(sk.area)}</p>` : ''}

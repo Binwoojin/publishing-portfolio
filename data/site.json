@@ -41,6 +41,7 @@
     {
       "area": "Publishing",
       "name": "HTML5",
+      "icon": "html5",
       "desc": "시맨틱 마크업, 문서 구조 설계, SEO를 고려한 메타 정보 작성",
       "tags": [
         "HTML"
@@ -49,6 +50,7 @@
     {
       "area": "Publishing",
       "name": "CSS3",
+      "icon": "css3",
       "desc": "Flex · Grid 레이아웃, 반응형 웹, CSS 변수 기반 디자인 토큰 · 다크 모드, 애니메이션, BEM 방법론",
       "tags": [
         "CSS"
@@ -57,6 +59,7 @@
     {
       "area": "Publishing",
       "name": "Accessibility",
+      "icon": "accessibility",
       "desc": "KWCAG 2.2 · WCAG 2.1 준수, WAI-ARIA, 키보드 · 스크린리더 테스트, axe-core · html-validate 자동 검사",
       "tags": [
         "웹 접근성"
@@ -65,6 +68,7 @@
     {
       "area": "Frontend",
       "name": "JavaScript",
+      "icon": "javascript",
       "desc": "DOM 조작, 이벤트 처리, 탭 · 슬라이더 · 모달 등 UI 인터랙션 구현",
       "tags": [
         "JavaScript"
@@ -73,6 +77,7 @@
     {
       "area": "Frontend",
       "name": "React",
+      "icon": "react",
       "desc": "컴포넌트 설계, Hooks 상태 관리, React Router 기반 SPA 화면 구현, Vite 빌드",
       "tags": [
         "React"
@@ -81,7 +86,8 @@
     {
       "area": "Design",
       "name": "UI Design",
-      "desc": "디자인 토큰(색 · 간격 · 글꼴) 정리, 컴포넌트 단위 화면 설계, 로딩 · 빈 상태 · 오류 같은 화면 상태 설계",
+      "icon": "figma",
+      "desc": "Figma로 화면 · 컴포넌트 설계와 디자인 토큰(색 · 간격 · 글꼴) 정리, 로딩 · 빈 상태 · 오류 같은 화면 상태 설계, 쇼핑몰 실무에서 다진 Photoshop 이미지 보정 · 상품페이지 제작",
       "tags": []
     }
   ]
