@@ -524,7 +524,7 @@ button:focus-visible {
 .skillset__list { grid-column: 1 / -1; border-top: 1px solid var(--color-border-strong); }
 .skillset__row {
   display: grid;
-  grid-template-columns: 3rem minmax(0, 1fr);
+  grid-template-columns: 3rem auto minmax(0, 1fr);
   column-gap: var(--space-2);
   align-items: baseline;
   padding: var(--space-2) 0;
@@ -538,7 +538,30 @@ button:focus-visible {
   line-height: 1.12;
   letter-spacing: -.03em;
 }
-.skillset__detail { grid-column: 2; margin-top: var(--space-1); }
+.skillset__detail { grid-column: 2 / -1; margin-top: var(--space-1); }
+/* 기술 아이콘: 평소 회색, 지금 항목은 브랜드 색으로 살짝 튀어 오른다 (장식이라 화면 읽기에서는 숨김) */
+.skillset__icon {
+  grid-column: 2;
+  align-self: center;
+  width: clamp(1.75rem, 3.4vw, 3rem);
+  height: clamp(1.75rem, 3.4vw, 3rem);
+  color: var(--color-foreground);
+}
+.skillset__row:not([data-icon]) .skillset__name { grid-column: 2 / -1; }
+.skillset__row[data-icon] .skillset__name { grid-column: 3; }
+.skillset__row[data-icon="html5"], .skillset__card[data-icon="html5"] { --brand: #E34F26; }
+.skillset__row[data-icon="css3"], .skillset__card[data-icon="css3"] { --brand: #663399; }
+.skillset__row[data-icon="javascript"], .skillset__card[data-icon="javascript"] { --brand: #E0B800; }
+.skillset__row[data-icon="react"], .skillset__card[data-icon="react"] { --brand: #087EA4; }
+.skillset__row[data-icon="accessibility"], .skillset__card[data-icon="accessibility"] { --brand: var(--color-accent); }
+.skillset__row[data-icon="figma"], .skillset__card[data-icon="figma"] { --brand: #F24E1E; }
+.skillset__row[data-icon="jquery"], .skillset__card[data-icon="jquery"] { --brand: #0769AD; }
+@media (prefers-color-scheme: dark) {
+  .skillset__row[data-icon="css3"], .skillset__card[data-icon="css3"] { --brand: #A77BDB; }
+  .skillset__row[data-icon="javascript"], .skillset__card[data-icon="javascript"] { --brand: #F7DF1E; }
+  .skillset__row[data-icon="react"], .skillset__card[data-icon="react"] { --brand: #61DAFB; }
+  .skillset__row[data-icon="jquery"], .skillset__card[data-icon="jquery"] { --brand: #4FA3E0; }
+}
 .skillset__area { font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--color-accent); }
 .skillset__desc { margin-top: 2px; color: var(--color-muted-foreground); }
 .skillset__works { margin-top: 4px; font-size: .875rem; font-weight: 500; }
@@ -554,6 +577,8 @@ button:focus-visible {
   transition: background-position 700ms var(--ease-out-expo), transform 500ms var(--ease-out-expo);
 }
 .skillset--live .skillset__num { transition: color var(--dur) var(--ease); }
+.skillset--live .skillset__icon { color: var(--skill-idle); transition: color 400ms var(--ease), transform 600ms cubic-bezier(.34, 1.56, .64, 1); }
+.skillset--live .skillset__row.is-active .skillset__icon { color: var(--brand, var(--color-accent)); transform: translateX(12px) scale(1.12) rotate(-8deg); }
 .skillset--live .skillset__row.is-active .skillset__name { background-position: 0 0; transform: translateX(12px); }
 .skillset--live .skillset__row.is-active .skillset__num { color: var(--color-accent); }
 
@@ -582,6 +607,9 @@ button:focus-visible {
 /* 목록 중 몇 번째인지(진행 막대) */
 .skillset__progress { position: relative; display: block; height: 2px; margin-top: var(--space-1); background: var(--color-border); overflow: hidden; }
 .skillset__progress::after { content: ""; position: absolute; inset: 0; background: var(--color-accent); transform: scaleX(var(--p, 0)); transform-origin: left center; animation: skill-bar 700ms var(--ease-out-expo) both; }
+.skillset__card-icon { display: block; width: 56px; height: 56px; margin-top: var(--space-3); color: var(--brand, var(--color-accent)); animation: skill-icon 640ms cubic-bezier(.34, 1.56, .64, 1) both; }
+@keyframes skill-icon { from { opacity: 0; transform: scale(.6) rotate(-20deg); } }
+.skillset__card-icon + .skillset__card-name { margin-top: var(--space-2); }
 .skillset__card-name { margin-top: var(--space-3); font-family: var(--font-display); font-size: 2rem; font-weight: 800; line-height: 1.2; letter-spacing: -.02em; }
 .skillset__card-desc { margin-top: var(--space-2); color: var(--color-muted-foreground); }
 .skillset__card-label { margin-top: var(--space-3); font-size: .8125rem; font-weight: 700; color: var(--color-muted-foreground); }
@@ -608,6 +636,9 @@ button:focus-visible {
   .skillset--live .skillset__name,
   .skillset--live .skillset__num { transition: none; }
   .skillset--live .skillset__row.is-active .skillset__name { transform: none; }
+  .skillset--live .skillset__icon { transition: none; }
+  .skillset--live .skillset__row.is-active .skillset__icon { transform: none; }
+  .skillset__card-icon { animation: none; }
   .skillset__card,
   .skillset__progress::after { animation: none; }
 }
@@ -615,6 +646,7 @@ button:focus-visible {
 @media (forced-colors: active) {
   .skillset--live .skillset__name { color: CanvasText; background: none; }
   .skillset--live .skillset__row.is-active .skillset__name { color: Highlight; }
+  .skillset__icon, .skillset__card-icon { color: CanvasText; }
 }
 
 /* ==========================================================================
@@ -782,7 +814,7 @@ button:focus-visible {
   .journey__head,
   .journey__text { grid-column: 1; }
 
-  .skillset__row { grid-template-columns: 2rem minmax(0, 1fr); column-gap: 12px; }
+  .skillset__row { grid-template-columns: 2rem auto minmax(0, 1fr); column-gap: 12px; }
 
   .contact { grid-template-columns: 1fr; }
   .contact__links .btn { width: 100%; }
