@@ -229,6 +229,91 @@
     });
   };
 
+  /* ===== Skills: 큰 이름 목록 + 스크롤 · 마우스로 강조, 데스크톱은 옆 패널에 설명 =====
+     숙련도 숫자는 근거가 없어 쓰지 않고, 기술마다 tags 와 같은 태그를 가진 작업물을 '쓴 작업물'로 보여 준다. */
+  let skillData = [];
+  let skillActive = 0;
+  let skillObserver = null;
+  const skillset = document.getElementById('skillset');
+  const skillList = document.getElementById('skill-list');
+  const pad = (n) => String(n).padStart(2, '0');
+  const shortTitle = (p) => String(p.title || '').split(' (')[0];
+  const worksOf = (sk) => {
+    const tags = Array.isArray(sk.tags) ? sk.tags : [];
+    return tags.length ? projects.filter((p) => p.caseStudy && (p.tags || []).some((t) => tags.includes(t))) : [];
+  };
+  const panelQuery = window.matchMedia('(min-width: 901px)');
+
+  const showSkill = (index) => {
+    const from = (skillActive + 1) / Math.max(skillData.length, 1);
+    skillActive = index;
+    [...skillList.children].forEach((row, i) => row.classList.toggle('is-active', i === index));
+    const panel = skillset.querySelector('.skillset__panel');
+    const sk = skillData[index];
+    if (!panel || !sk) return;
+    const works = worksOf(sk);
+    // 화면 읽기 프로그램은 목록의 각 항목에서 같은 내용을 읽으므로 패널은 숨기고, 링크도 탭 순서에서 뺀다
+    panel.innerHTML = `
+      <div class="skillset__card">
+        <p class="skillset__card-top">
+          <span lang="en">${escape(sk.area || '')}</span>
+          <span class="skillset__count">${pad(index + 1)} / ${pad(skillData.length)}</span>
+        </p>
+        <span class="skillset__progress" style="--p:${(index + 1) / skillData.length};--p-from:${from}"></span>
+        <p class="skillset__card-name">${escape(sk.name)}</p>
+        ${sk.desc ? `<p class="skillset__card-desc">${escape(sk.desc)}</p>` : ''}
+        ${works.length ? `
+        <p class="skillset__card-label">쓴 작업물</p>
+        <ul class="skillset__chips">${works.map((p) => `
+          <li><a href="work/${encodeURIComponent(p.caseStudy)}/" tabindex="-1">${escape(shortTitle(p))}</a></li>`).join('')}
+        </ul>` : ''}
+      </div>`;
+  };
+
+  const renderSkills = () => {
+    if (!skillset || !skillData.length) return;
+    skillList.innerHTML = skillData.map((sk, i) => {
+      const works = worksOf(sk);
+      return `
+            <li class="skillset__row" style="--i:${i}">
+              <span class="skillset__num" aria-hidden="true">${pad(i + 1)}</span>
+              <h3 class="skillset__name">${escape(sk.name)}</h3>
+              <div class="skillset__detail">
+                ${sk.area ? `<p class="skillset__area" lang="en">${escape(sk.area)}</p>` : ''}
+                ${sk.desc ? `<p class="skillset__desc">${escape(sk.desc)}</p>` : ''}
+                ${works.length ? `<p class="skillset__works">쓴 작업물: ${works.map((p) => escape(shortTitle(p))).join(', ')}</p>` : ''}
+              </div>
+            </li>`;
+    }).join('');
+    skillset.classList.add('skillset--live');
+    if (!skillset.querySelector('.skillset__panel')) {
+      const panel = document.createElement('div');
+      panel.className = 'skillset__panel';
+      panel.setAttribute('aria-hidden', 'true');
+      skillset.appendChild(panel);
+    }
+    const rows = [...skillList.children];
+    rows.forEach((row, i) => row.addEventListener('mouseenter', () => showSkill(i)));
+
+    // 화면 가운데 줄을 지나는 항목을 강조 (스크롤을 따라 아래로 이동)
+    if (skillObserver) skillObserver.disconnect();
+    if ('IntersectionObserver' in window) {
+      skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) showSkill(rows.indexOf(entry.target));
+        });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      rows.forEach((row) => skillObserver.observe(row));
+    }
+    showSkill(Math.min(skillActive, skillData.length - 1));
+  };
+
+  if (skillset) {
+    const setPanelMode = () => skillset.classList.toggle('skillset--panel', panelQuery.matches);
+    setPanelMode();
+    panelQuery.addEventListener('change', setPanelMode);
+  }
+
   /* ===== 사이트 정보 (data/site.json) ===== */
   const applySite = (site) => {
     document.querySelectorAll('[data-site]').forEach((el) => {
@@ -253,16 +338,10 @@
       // 보이는 글자에는 아이디(닉네임)를 쓰지 않고 'GitHub 프로필'로 둔다 (사이트 이름 외에는 본명만 노출)
     }
 
-    const skills = Array.isArray(site.skills) ? site.skills.filter((s) => s && s.name) : [];
+    const skills = Array.isArray(site.skills) ? site.skills.filter((sk) => sk && sk.name) : [];
     if (skills.length) {
-      const skillList = document.getElementById('skill-list');
-      skillList.innerHTML = skills.map((s) => `
-          <li class="skill">
-            ${s.area ? `<p class="skill__area" lang="en">${escape(s.area)}</p>` : ''}
-            <h3 class="skill__name">${escape(s.name)}</h3>
-            ${s.desc ? `<p class="skill__desc">${escape(s.desc)}</p>` : ''}
-          </li>`).join('');
-      [...skillList.children].forEach((li, i) => li.style.setProperty('--i', i));
+      skillData = skills;
+      renderSkills();
     }
 
     // 걸어온 과정: 경력을 단계별로 요약 (회사별 세부 업무는 이력서에)
@@ -300,6 +379,7 @@
     .finally(() => {
       setupFilter();
       render('All');
+      renderSkills();
     });
 
   /* ===== 푸터 연도 ===== */

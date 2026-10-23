@@ -29,7 +29,7 @@
     "@graph": [
       { "@type": "WebSite", "@id": "https://binwoojin.github.io/publishing-portfolio/#website", "name": "Binwoojin", "url": "https://binwoojin.github.io/publishing-portfolio/", "inLanguage": "ko", "author": { "@id": "https://binwoojin.github.io/publishing-portfolio/#person" } },
       { "@type": "Person", "@id": "https://binwoojin.github.io/publishing-portfolio/#person", "name": "김지현", "jobTitle": "웹 퍼블리셔", "url": "https://binwoojin.github.io/publishing-portfolio/", "sameAs": ["https://github.com/Binwoojin"],
-         "knowsAbout": ["웹 퍼블리싱", "UI 디자인", "프론트엔드", "HTML", "CSS", "JavaScript", "React", "Vue", "웹 접근성"] }
+         "knowsAbout": ["웹 퍼블리싱", "UI 디자인", "프론트엔드", "HTML", "CSS", "JavaScript", "React", "웹 접근성"] }
     ]
   }
   </script>
@@ -206,53 +206,63 @@
           <p class="section__desc">디자인 · 웹 퍼블리싱 · 프론트엔드를 하나로 잇는 기술과 기준입니다.</p>
         </header>
 
-        <ul class="skills" id="skill-list" data-stagger>
-          <li class="skill">
-            <p class="skill__area" lang="en">Design</p>
-            <h3 class="skill__name">UI Design</h3>
-            <p class="skill__desc">디자인 토큰(색 · 간격 · 글꼴) 정리, 컴포넌트 단위 화면 설계, 로딩 · 빈 상태 · 오류 같은 화면 상태 설계</p>
-          </li>
-          <li class="skill">
-            <p class="skill__area" lang="en">Publishing</p>
-            <h3 class="skill__name">HTML5</h3>
-            <p class="skill__desc">시맨틱 마크업, 문서 구조 설계, SEO를 고려한 메타 정보 작성</p>
-          </li>
-          <li class="skill">
-            <p class="skill__area" lang="en">Publishing</p>
-            <h3 class="skill__name">CSS3 · SCSS</h3>
-            <p class="skill__desc">Flex · Grid 레이아웃, 반응형 웹, CSS 변수 기반 디자인 토큰 · 다크 모드, 애니메이션, BEM 방법론</p>
-          </li>
-          <li class="skill">
-            <p class="skill__area" lang="en">Publishing</p>
-            <h3 class="skill__name">Accessibility</h3>
-            <p class="skill__desc">KWCAG 2.2 · WCAG 2.1 준수, WAI-ARIA, 키보드 · 스크린리더 테스트, axe-core · html-validate 자동 검사</p>
-          </li>
-          <li class="skill">
-            <p class="skill__area" lang="en">Frontend</p>
-            <h3 class="skill__name">JavaScript</h3>
-            <p class="skill__desc">DOM 조작, 이벤트 처리, 탭 · 슬라이더 · 모달 등 UI 인터랙션 구현</p>
-          </li>
-          <li class="skill">
-            <p class="skill__area" lang="en">Frontend</p>
-            <h3 class="skill__name">React</h3>
-            <p class="skill__desc">컴포넌트 설계, Hooks 상태 관리, React Router 기반 SPA 화면 구현, Vite 빌드</p>
-          </li>
-          <li class="skill">
-            <p class="skill__area" lang="en">Frontend</p>
-            <h3 class="skill__name">Vue</h3>
-            <p class="skill__desc">Vue 3 컴포넌트, 데이터 바인딩, SPA 화면 구성</p>
-          </li>
-          <li class="skill">
-            <p class="skill__area" lang="en">Workflow</p>
-            <h3 class="skill__name">Cross Browsing</h3>
-            <p class="skill__desc">Chrome · Edge · Safari · Firefox 및 모바일 브라우저 대응</p>
-          </li>
-          <li class="skill">
-            <p class="skill__area" lang="en">Workflow</p>
-            <h3 class="skill__name">Tools</h3>
-            <p class="skill__desc">Figma, Photoshop, Git · GitHub, VS Code</p>
-          </li>
-        </ul>
+        <div class="skillset" id="skillset">
+          <ol class="skillset__list" id="skill-list" data-stagger>
+            <li class="skillset__row">
+              <span class="skillset__num" aria-hidden="true">01</span>
+              <h3 class="skillset__name">HTML5</h3>
+              <div class="skillset__detail">
+                <p class="skillset__area" lang="en">Publishing</p>
+                <p class="skillset__desc">시맨틱 마크업, 문서 구조 설계, SEO를 고려한 메타 정보 작성</p>
+                <p class="skillset__works">쓴 작업물: WayLog, GrowLog, Binwoojin 포트폴리오 사이트</p>
+              </div>
+            </li>
+            <li class="skillset__row">
+              <span class="skillset__num" aria-hidden="true">02</span>
+              <h3 class="skillset__name">CSS3</h3>
+              <div class="skillset__detail">
+                <p class="skillset__area" lang="en">Publishing</p>
+                <p class="skillset__desc">Flex · Grid 레이아웃, 반응형 웹, CSS 변수 기반 디자인 토큰 · 다크 모드, 애니메이션, BEM 방법론</p>
+                <p class="skillset__works">쓴 작업물: Aulo, WayLog, GrowLog, Binwoojin 포트폴리오 사이트</p>
+              </div>
+            </li>
+            <li class="skillset__row">
+              <span class="skillset__num" aria-hidden="true">03</span>
+              <h3 class="skillset__name">Accessibility</h3>
+              <div class="skillset__detail">
+                <p class="skillset__area" lang="en">Publishing</p>
+                <p class="skillset__desc">KWCAG 2.2 · WCAG 2.1 준수, WAI-ARIA, 키보드 · 스크린리더 테스트, axe-core · html-validate 자동 검사</p>
+                <p class="skillset__works">쓴 작업물: Aulo, WayLog, GrowLog, Binwoojin 포트폴리오 사이트</p>
+              </div>
+            </li>
+            <li class="skillset__row">
+              <span class="skillset__num" aria-hidden="true">04</span>
+              <h3 class="skillset__name">JavaScript</h3>
+              <div class="skillset__detail">
+                <p class="skillset__area" lang="en">Frontend</p>
+                <p class="skillset__desc">DOM 조작, 이벤트 처리, 탭 · 슬라이더 · 모달 등 UI 인터랙션 구현</p>
+                <p class="skillset__works">쓴 작업물: Aulo, WayLog, GrowLog, Binwoojin 포트폴리오 사이트</p>
+              </div>
+            </li>
+            <li class="skillset__row">
+              <span class="skillset__num" aria-hidden="true">05</span>
+              <h3 class="skillset__name">React</h3>
+              <div class="skillset__detail">
+                <p class="skillset__area" lang="en">Frontend</p>
+                <p class="skillset__desc">컴포넌트 설계, Hooks 상태 관리, React Router 기반 SPA 화면 구현, Vite 빌드</p>
+                <p class="skillset__works">쓴 작업물: Aulo</p>
+              </div>
+            </li>
+            <li class="skillset__row">
+              <span class="skillset__num" aria-hidden="true">06</span>
+              <h3 class="skillset__name">UI Design</h3>
+              <div class="skillset__detail">
+                <p class="skillset__area" lang="en">Design</p>
+                <p class="skillset__desc">디자인 토큰(색 · 간격 · 글꼴) 정리, 컴포넌트 단위 화면 설계, 로딩 · 빈 상태 · 오류 같은 화면 상태 설계</p>
+              </div>
+            </li>
+          </ol>
+        </div>
       </div>
     </section>
 
