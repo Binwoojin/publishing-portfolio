@@ -1,0 +1,34 @@
+@import "tailwindcss";
+@import "./paperlogy-font.css";
+
+/* 밀스루틴 · Blue foundation / Indigo movement / Orange meals */
+@theme {
+  --color-brand: #2563EB;
+  --color-brand-hover: #1D4ED8;
+  --color-brand-soft: #EFF6FF;
+  --color-exercise: #4F46E5;
+  --color-exercise-soft: #EEF2FF;
+  --color-meal: #B45309;
+  --color-meal-soft: #FFF7ED;
+  /* 영양소 분류색: 그래프·범례 전용, 상태 의미 없음 */
+  --color-nutrient-carb: #38BDF8;
+  --color-nutrient-protein: #0D9488;
+  --color-nutrient-fat: #BE185D;
+  --color-page: #F6F8FC;
+  --color-surface: #FFFFFF;
+  --color-content: #17233D;
+  --color-muted: #5E6B82;
+  --color-line: #E1E7F0;
+  --color-success: #23734D;
+  --color-success-soft: #EDF7F0;
+  --color-warning: #8A5A00;
+  --color-warning-soft: #FFF8E6;
+  --color-danger: #B42318;
+  --color-danger-soft: #FFF1F0;
+  --font-sans: "Paperlogy", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  --spacing: 0.25rem;
+  --container-app: 24.375rem;
+  --radius-card: 0.75rem;
+  --radius-control: 0.5rem;
+  --shadow-card: none;
+}

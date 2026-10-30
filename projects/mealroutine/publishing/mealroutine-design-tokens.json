@@ -1,0 +1,67 @@
+{
+  "version": "4.0",
+  "colors": {
+    "brand": "#2563EB",
+    "brand-hover": "#1D4ED8",
+    "brand-soft": "#EFF6FF",
+    "exercise": "#4F46E5",
+    "exercise-soft": "#EEF2FF",
+    "meal": "#B45309",
+    "meal-soft": "#FFF7ED",
+    "page": "#F6F8FC",
+    "surface": "#FFFFFF",
+    "content": "#17233D",
+    "muted": "#5E6B82",
+    "line": "#E1E7F0",
+    "success": "#23734D",
+    "success-soft": "#EDF7F0",
+    "warning": "#8A5A00",
+    "warning-soft": "#FFF8E6",
+    "danger": "#B42318",
+    "danger-soft": "#FFF1F0"
+  },
+  "appWidth": 390,
+  "radius": {
+    "card": 12,
+    "control": 8
+  },
+  "spacing": [
+    4,
+    8,
+    12,
+    16,
+    20,
+    24,
+    32,
+    48
+  ],
+  "type": {
+    "appTitle": 22,
+    "sectionTitle": 15,
+    "body": 14,
+    "support": 12,
+    "metric": 26
+  },
+  "font": {
+    "family": [
+      "Paperlogy",
+      "Malgun Gothic",
+      "Apple SD Gothic Neo",
+      "sans-serif"
+    ],
+    "weights": {
+      "body": 400,
+      "medium": 500,
+      "heading": 600,
+      "bold": 700
+    },
+    "stylesheet": "paperlogy-font.css",
+    "display": "swap"
+  },
+  "nutrientColors": {
+    "carb": "#38BDF8",
+    "protein": "#0D9488",
+    "fat": "#BE185D",
+    "usage": "식단 영양소 막대·누적 막대·원형 그래프와 범례 색 표식 전용. 영양소명·수치·단위는 본문색. 좋음·나쁨·성공·경고 의미 없음."
+  }
+}
