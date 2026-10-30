@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>밀스루틴 디자인 공유</title>
+<link rel="stylesheet" href="paperlogy-font.css">
+<style>
+:root{--ink:#17233D;--sub:#5E6B82;--line:#E1E7F0;--brand:#2563EB;--bg:#F6F8FC;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--ink:#E8EDF6;--sub:#A3AEC2;--line:#2A3346;--brand:#7AA2F7;--bg:#0F1522;--card:#161E2E}}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:Paperlogy,system-ui,sans-serif;line-height:1.6}
+main{max-width:720px;margin:0 auto;padding:56px 16px 40px}
+.badge{display:inline-block;padding:4px 12px;border-radius:999px;background:rgba(37,99,235,.12);color:var(--brand);font-size:13px;font-weight:600}
+h1{margin:14px 0 8px;font-size:30px;font-weight:600;line-height:1.35}
+.lead{margin:0 0 32px;color:var(--sub);font-size:15px}
+.cards{display:grid;gap:14px}
+@media (min-width:640px){.cards{grid-template-columns:1fr 1fr}}
+a.card{display:flex;flex-direction:column;gap:6px;padding:22px 20px;border:1px solid var(--line);border-radius:16px;background:var(--card);color:inherit;text-decoration:none;transition:border-color .15s,transform .15s}
+a.card:hover{border-color:var(--brand);transform:translateY(-2px)}
+a.card:focus-visible{outline:3px solid var(--brand);outline-offset:3px}
+.card small{color:var(--brand);font-size:13px;font-weight:600}
+.card strong{font-size:19px;font-weight:600}
+.card span{color:var(--sub);font-size:14px}
+.card em{margin-top:8px;font-style:normal;color:var(--brand);font-size:14px;font-weight:600}
+footer{margin-top:40px;color:var(--sub);font-size:13px}
+@media (prefers-reduced-motion:reduce){a.card{transition:none}}
+</style>
+</head>
+<body>
+<main>
+<span class="badge">팀 공유용</span>
+<h1>밀스루틴 디자인 공유</h1>
+<p class="lead">초보자 운동·식단 건강관리 웹앱 밀스루틴의 화면 설계와 디자인 기준이에요.</p>
+<div class="cards">
+<a class="card" href="storyboard.html"><small>01</small><strong>디자인 스토리보드</strong><span>전체 화면 시안을 화면 내비게이션으로 넘겨 보며 화면별 명세와 동작을 확인해요.</span><em>스토리보드 열기 →</em></a>
+<a class="card" href="design-guide.html"><small>02</small><strong>디자인 컨셉 가이드</strong><span>색상, 글꼴, 간격, 컴포넌트 등 화면 디자인의 공통 기준을 정리했어요.</span><em>가이드 열기 →</em></a>
+</div>
+<footer>화면 설계 검토용 시안이며 실제 서비스와 별개입니다.</footer>
+</main>
+</body>
+</html>
