@@ -1,0 +1,25 @@
+sequenceDiagram
+    autonumber
+    participant P0 as 사용자
+    participant P1 as 마이페이지
+    participant P2 as 보호 정보 서비스
+    participant P3 as 회원 DB
+    P1-->>P0: 키·몸무게·BMI를 ***로 표시
+    P0->>P1: 신체 정보 보기 선택
+    Note over P0,P3: ref SQ01 · 공통 접근 확인
+    P1->>P2: 2차 비밀번호 등록 여부 확인
+    P2-->>P1: 등록 여부
+    alt 미등록
+    P1-->>P0: P11에서 등록하도록 안내
+    else 등록됨
+    P0->>P1: 2차 비밀번호 입력
+    P1->>P2: 서버에서 2차 비밀번호 검증
+    alt 불일치 또는 잠금
+    P2-->>P1: 오류·재시도 제한 안내
+    else 검증 성공
+    P2->>P3: 본인 신체 정보 조회
+    P3-->>P2: 키·몸무게·BMI
+    P2-->>P1: 현재 확인 범위에만 정보 반환
+    P1-->>P0: 신체 정보 표시
+    end
+    end

@@ -1,0 +1,5 @@
+@font-face{font-family:Paperlogy;font-style:normal;font-weight:400;src:url("fonts/Paperlogy-4Regular.woff2") format("woff2");font-display:swap;}
+@font-face{font-family:Paperlogy;font-style:normal;font-weight:500;src:url("fonts/Paperlogy-5Medium.woff2") format("woff2");font-display:swap;}
+@font-face{font-family:Paperlogy;font-style:normal;font-weight:600;src:url("fonts/Paperlogy-6SemiBold.woff2") format("woff2");font-display:swap;}
+@font-face{font-family:Paperlogy;font-style:normal;font-weight:700;src:url("fonts/Paperlogy-7Bold.woff2") format("woff2");font-display:swap;}
+body,button,input,textarea,select{font-family:Paperlogy,sans-serif!important}.diagram-view img{display:block;width:100%;height:auto}.diagram-view.actual img{width:auto;max-width:none}.diagram-view{overflow:auto}

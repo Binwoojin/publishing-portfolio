@@ -1,0 +1,642 @@
+[
+  {
+    "id": "A01",
+    "image": "images/A01.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "A02",
+    "image": "images/A02.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "A03",
+    "image": "images/A03.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "A04",
+    "image": "images/A04.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "C01-1",
+    "image": "images/C01-1.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "C01-2",
+    "image": "images/C01-2.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "C01",
+    "image": "images/C01.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "C02-1",
+    "image": "images/C02-1.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "C02-2",
+    "image": "images/C02-2.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "C02",
+    "image": "images/C02.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "C03",
+    "image": "images/C03.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "C04",
+    "image": "images/C04.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "C05",
+    "image": "images/C05.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "D01-1",
+    "image": "images/D01-1.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "D01-2",
+    "image": "images/D01-2.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "D01-3",
+    "image": "images/D01-3.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "D01-4",
+    "image": "images/D01-4.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "D01",
+    "image": "images/D01.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "D02-1",
+    "image": "images/D02-1.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "D02",
+    "image": "images/D02.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "D03-1",
+    "image": "images/D03-1.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "D03",
+    "image": "images/D03.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "E01",
+    "image": "images/E01.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "E02",
+    "image": "images/E02.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "F01",
+    "image": "images/F01.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "F02",
+    "image": "images/F02.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "F03",
+    "image": "images/F03.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "H01",
+    "image": "images/H01.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "H02",
+    "image": "images/H02.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "I01",
+    "image": "images/I01.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "I02-1",
+    "image": "images/I02-1.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "I02",
+    "image": "images/I02.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "I03-1",
+    "image": "images/I03-1.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "I03-2",
+    "image": "images/I03-2.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "I03-3",
+    "image": "images/I03-3.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "I03",
+    "image": "images/I03.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "I04-1",
+    "image": "images/I04-1.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "I04",
+    "image": "images/I04.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "I05-1",
+    "image": "images/I05-1.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "I05-2",
+    "image": "images/I05-2.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "I05",
+    "image": "images/I05.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "I07",
+    "image": "images/I07.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "P01",
+    "image": "images/P01.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "P02",
+    "image": "images/P02.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "P03",
+    "image": "images/P03.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "P04-1",
+    "image": "images/P04-1.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "P04",
+    "image": "images/P04.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "P05",
+    "image": "images/P05.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "P06",
+    "image": "images/P06.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "P07",
+    "image": "images/P07.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "P08",
+    "image": "images/P08.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "P09",
+    "image": "images/P09.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "P10",
+    "image": "images/P10.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "P11",
+    "image": "images/P11.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "P12",
+    "image": "images/P12.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "P13",
+    "image": "images/P13.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "P14",
+    "image": "images/P14.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "P15",
+    "image": "images/P15.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "P16",
+    "image": "images/P16.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "S01-1",
+    "image": "images/S01-1.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "S01",
+    "image": "images/S01.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "S02",
+    "image": "images/S02.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "S03",
+    "image": "images/S03.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "S04",
+    "image": "images/S04.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "W01-1",
+    "image": "images/W01-1.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "W01",
+    "image": "images/W01.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "W02",
+    "image": "images/W02.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "W06",
+    "image": "images/W06.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "W07",
+    "image": "images/W07.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "W08",
+    "image": "images/W08.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "W10",
+    "image": "images/W10.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "W11",
+    "image": "images/W11.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "W12",
+    "image": "images/W12.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "W13",
+    "image": "images/W13.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "W14-1",
+    "image": "images/W14-1.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "W14-2",
+    "image": "images/W14-2.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "W14-3",
+    "image": "images/W14-3.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "W15-1",
+    "image": "images/W15-1.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "W15",
+    "image": "images/W15.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  },
+  {
+    "id": "W16",
+    "image": "images/W16.svg",
+    "width": 390,
+    "height": 844,
+    "spacing": "원본 공통·영역별 CSS 재사용",
+    "verification": "XML 구조·파일 연결 검증 / 브라우저 픽셀 측정 미수행"
+  }
+]

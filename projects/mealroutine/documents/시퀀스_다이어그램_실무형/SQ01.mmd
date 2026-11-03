@@ -1,0 +1,23 @@
+sequenceDiagram
+    autonumber
+    participant P0 as 사용자
+    participant P1 as 앱 화면
+    participant P2 as 인증·권한 서비스
+    participant P3 as 회원 DB
+    opt 세션 없음 또는 만료
+    P0->>P1: 이메일·비밀번호로 로그인
+    P1->>P2: 로그인 검증 요청
+    P2->>P3: 회원·비밀번호 해시 확인
+    P3-->>P2: 검증 결과
+    alt 인증 실패
+    P2-->>P1: 인증 오류 반환
+    P1-->>P0: 입력 유지·로그인 오류 안내
+    else 인증 성공
+    P2-->>P1: 세션·회원 권한 반환
+    P1-->>P0: 요청했던 화면 또는 홈 표시
+    end
+    end
+    opt 보호된 기능에 접근
+    P1->>P2: 세션·기능 권한 확인
+    P2-->>P1: 허용 또는 로그인·멤버십 안내
+    end
