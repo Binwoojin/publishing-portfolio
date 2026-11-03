@@ -151,6 +151,7 @@
         <div class="card__thumb">
           ${thumb}
           <span class="card__index" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
+          ${p.status ? `<span class="card__status">${escape(p.status)}</span>` : ''}
         </div>
         <div class="card__body">
           <div class="card__top">
@@ -163,6 +164,8 @@
           <div class="card__links">
             ${caseLink(p)}
             ${linkHtml(p.demo, 'Live Demo 보기', p.title, 'i-arrow-up-right', p.caseStudy ? 'card__link--sub' : '')}
+            ${(Array.isArray(p.links) ? p.links : []).filter((l) => l && l.label && l.url)
+              .map((l, n) => linkHtml(l.url, escape(l.label), p.title, 'i-arrow-up-right', p.caseStudy || p.demo || n ? 'card__link--sub' : '')).join('')}
           </div>
         </div>
       </li>`;

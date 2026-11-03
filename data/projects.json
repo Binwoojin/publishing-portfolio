@@ -70,5 +70,31 @@
     "period": "2026.09-2026.10",
     "contribution": "1인 프로젝트",
     "caseStudy": "portfolio"
+  },
+  {
+    "title": "밀스루틴 (초보자 운동 · 식단 건강관리 웹앱)",
+    "desc": "운동과 식단 기록을 하나로 잇는 초보자용 건강관리 웹앱 밀스루틴을 팀으로 진행하고 있습니다. 저는 디자인 관련 업무를 중심으로 맡아, 브랜드 블루와 운동 인디고 · 식단 오렌지로 나눈 디자인 컨셉 가이드와 390px 기준 28개 화면의 디자인 스토리보드를 작업했습니다. 화면흐름도 · 모바일 와이어프레임 · 시퀀스 다이어그램 · 사용자 시나리오 문서까지 정리한 상태이며, 퍼블리싱은 이어서 진행할 예정입니다.",
+    "status": "진행 중",
+    "category": "모바일",
+    "tags": [
+      "UI 디자인",
+      "디자인 시스템",
+      "스토리보드",
+      "와이어프레임",
+      "모바일 웹앱"
+    ],
+    "thumbnail": "assets/images/mealroutine.jpg",
+    "period": "2026.10-진행 중",
+    "contribution": "팀 프로젝트 · 디자인 담당",
+    "links": [
+      {
+        "label": "디자인 스토리보드 · 가이드 보기",
+        "url": "projects/mealroutine/publishing/"
+      },
+      {
+        "label": "프로젝트 문서 보기",
+        "url": "projects/mealroutine/documents/"
+      }
+    ]
   }
 ]

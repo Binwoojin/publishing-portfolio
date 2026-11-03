@@ -63,6 +63,8 @@ publishing-portfolio/
 ]
 ```
 
+진행 중인 작업물은 `"status": "진행 중"` 을 넣으면 썸네일에 배지가 붙고, Live Demo 외의 링크(디자인 스토리보드, 문서 등)는 `"links": [{ "label": "버튼 이름", "url": "projects/..." }]` 로 추가합니다.
+
 결과물 페이지는 `projects/_template` 폴더를 복사해 `projects/<project-name>` 으로 만들어 작업하고, `demo` 에 그 경로를 적으면 됩니다.
 
 ## 작업물 상세페이지
