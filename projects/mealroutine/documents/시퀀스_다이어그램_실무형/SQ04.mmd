@@ -1,0 +1,28 @@
+sequenceDiagram
+    autonumber
+    participant P0 as 사용자
+    participant P1 as AI 화면
+    participant P2 as AI 작업 서비스
+    participant P3 as 서비스 DB
+    participant P4 as AI 제공자
+    Note over P0,P4: ref SQ01 · 공통 접근 확인
+    P0->>P1: 조건 선택 후 생성 요청
+    P1->>P2: 조건 + 생성 요청 식별자
+    P2->>P3: 권한·남은 체험 확인 / 처리 슬롯 확보
+    alt 체험 소진 또는 조건 미충족
+    P2-->>P1: 생성 거절·조건 수정 또는 멤버십 안내
+    else 생성 가능
+    P2->>P3: 목표·검증된 후보·기준 데이터 조회
+    P2->>P4: 후보 ID와 조건을 전달해 구성 요청
+    P4-->>P2: 추천 ID·양·설명 반환
+    P2->>P2: 후보·제외 조건 검증 / 영양·운동 수치 재계산
+    P2->>P3: 성공 결과 저장 + 무료 체험 1회 확정
+    P2-->>P1: 검증된 결과와 남은 횟수
+    P1-->>P0: 결과 표시·양 조정·등록 선택
+    opt 운동·식단 계획에 적용
+    P0->>P1: 적용 날짜·끼니·구성 확인
+    P1->>P2: 결과 ID로 계획 등록 요청
+    P2->>P3: 중복 확인 후 계획 저장 / 추가 차감 없음
+    P2-->>P1: 등록 완료
+    end
+    end
