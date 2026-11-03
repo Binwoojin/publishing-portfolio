@@ -52,6 +52,25 @@ content:
         label: Live Demo 링크
         description: 예 - projects/my-project/ 또는 https://...
         type: string
+      - name: status
+        label: 진행 상태
+        description: 진행 중인 작업물만 적으세요. 예 - 진행 중 (비우면 표시하지 않습니다)
+        type: string
+      - name: links
+        label: 추가 링크
+        description: Live Demo 외에 보여 줄 링크 (예 - 디자인 스토리보드, 프로젝트 문서)
+        type: object
+        list: true
+        fields:
+          - name: label
+            label: 버튼 이름
+            type: string
+            required: true
+          - name: url
+            label: 링크
+            description: 예 - projects/my-project/ 또는 https://...
+            type: string
+            required: true
 
   - name: site
     label: 사이트 정보
