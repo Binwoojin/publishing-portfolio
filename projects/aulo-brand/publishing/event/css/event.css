@@ -1,0 +1,961 @@
+body {
+    margin: 0;
+    color: #1b1713;
+    background-color: #f8f0e7;
+}
+
+.hero {
+    box-sizing: border-box;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    max-width: 1440px;
+    min-height: clamp(600px, 120vw, 1728px);
+    margin-inline: auto;
+    padding: clamp(48px, 7.7vw, 111px) 20px 0;
+    text-align: center;
+
+    /* 사진은 아래에 붙이고, 사진 위쪽은 그라데이션으로 이어준다.
+       작은 화면에서는 사진 너비를 최소 440px로 유지해 가방이 너무 작아지지 않게 한다. */
+    
+    background: linear-gradient(90deg, #f8f0e7, #e1d7cb);
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    z-index: -1;
+
+    /* 기존 사진 크기와 배치를 정사각형 레이어로 옮긴다 */
+    width: max(100%, 440px);
+    aspect-ratio: 1;
+    transform: translateX(-50%);
+
+    background: url("../images/aulo-tote-hero-centered-v2.webp") center / cover no-repeat;
+
+    /* 사진 상단 120px를 배경섹에 부드럽게 연결 */
+    mask-image: linear-gradient(to bottom, transparent, #000 120px);
+    pointer-events: none;
+}
+
+.hero__label {
+    margin: 0;
+    font-family: "Pretendard", sans-serif;
+    font-size: clamp(0.75rem, 1.95vw, 1.75rem);
+}
+
+.hero__title {
+    margin: clamp(24px, 3.75vw, 54px) 0 0;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.hero__title span {
+    display: block;
+    font-size: clamp(2.25rem, 6.53vw, 5.875rem);
+}
+
+/* 둘째 줄을 더 크고 굵게 표시한다. */
+.hero__title span + span {
+    font-size: clamp(3.25rem, 11.1vw, 10rem);
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.hero__message {
+    margin: clamp(16px, 5.5vw, 80px) 0 0;
+    color: #665d55;
+    font-family: "Gowun Batang", serif;
+    font-size: clamp(1.125rem, 3.33vw, 3rem);
+    line-height: 1.75;
+}
+
+.letter {
+    box-sizing: border-box;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding: clamp(64px, 11vw, 160px) 24px clamp(72px, 14.6vw, 210px);
+    color: #fff;
+    text-align: center;
+    font-family: "Pretendard", sans-serif;
+    background: #89592f url("../images/letter-background.webp") center / cover no-repeat;
+}
+
+.letter__label {
+    margin: 0;
+    font-size: clamp(0.875rem, 2.22vw, 2rem);
+    line-height: 1.4;
+}
+
+.letter__divider {
+    display: block;
+    max-width: 80%;
+    height: auto;
+    margin: clamp(20px, 4.4vw, 64px) auto clamp(24px, 3.5vw, 50px);
+}
+
+.letter__title {
+    margin: 0;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(1.875rem, 4.44vw, 4rem);
+    line-height: 1.3;
+}
+
+.letter__copy {
+    max-width: 740px;
+    margin: clamp(32px, 7vw, 100px) auto 0;
+    font-size: clamp(1rem, 2.92vw, 2.625rem);
+    line-height: 1.6;
+    word-break: keep-all;
+}
+
+.letter__copy p {
+    margin: 0;
+}
+
+.letter__copy p + p {
+    margin-top: clamp(18px, 3.5vw, 50px);
+}
+
+/* (반응형) PC에서는 최대 760px, 모바일에서는 본문 폭 안에서 비율을 유지한다. */
+.letter__envelope {
+    display: block;
+    width: min(100%, 760px);
+    height: auto;
+    margin: clamp(36px, 8vw, 115px) auto 0;
+    filter: drop-shadow(10px 10px 25px rgb(0 0 0 / 25%));
+}
+
+/* (반응형) 모바일에서는 흰 본문을 읽기 쉽도록 배경을 살짝 어둡게 한다. */
+@media (max-width: 600px) {
+    .letter {
+        background-image: linear-gradient(rgb(48 25 8 / 28%), rgb(48 25 8 / 28%)),
+        url("../images/letter-background.webp");
+    }
+}
+
+.gift {
+    position: relative;
+    box-sizing: border-box;
+    max-width: 1440px;
+    min-height: clamp(560px, 71.11vw, 1024px);
+    margin-inline: auto;
+    padding: clamp(64px, 9.44vw, 136px) clamp(24px, 10.55vw, 152px);
+    color: #5d4126;
+    background-color: #f3e5d5;
+}
+
+.gift__content {
+    /* PC에서는 사진 위에 문구를 올리고, 가방 쪽으로 넘어가지 않게 폭을 제한한다. */
+    position: relative;
+    z-index: 1;
+    max-width: min(42%, 27rem);
+    font-family: "Pretendard", sans-serif;
+}
+
+.gift__label, .gift__title, .gift__description {
+    margin: 0;
+}
+
+.gift__label {
+    font-size: clamp(0.875rem, 1.94vw, 1.75rem);
+}
+
+.gift__title {
+    margin-top: 0.25rem;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(2.5rem, 5.83vw, 5.25rem);
+    line-height: 1.3;
+}
+
+.gift__description {
+    margin-top: clamp(20px, 3vw, 42px);
+    font-size: clamp(1rem, 2.64vw, 2.35rem);
+    line-height: 1.45;
+    word-break: keep-all;
+}
+
+.gift__media {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.gift__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left center;
+}
+
+@media (max-width: 720px) {
+    .gift {
+        min-height: 0;
+        padding: 0;
+    }
+
+    .gift__content {
+        max-width: none;
+        padding: clamp(32px, 8vw, 48px) 20px 20px;
+        text-align: center;
+    }
+
+    .gift__title {
+        margin-top: 8px;
+        font-size: clamp(2rem, 7.2vw, 2.75rem);
+        line-height: 1.15;
+    }
+
+    /* 모바일에서 제목을 한 줄로 표시합니다. */
+    .gift__title br {
+        display: none;
+    }
+
+    .gift__description {
+        max-width: 22rem;
+        margin: 12px auto 0;
+        line-height: 1.55;
+    }
+
+    /* 모바일에서는 사진이 문구 다음에 오도록 일반적인 문서 흐름에 둔다. */
+    .gift__media {
+        position: static;
+        aspect-ratio: 4 / 3;
+        mask-image: linear-gradient(to bottom, transparent, rgb(0 0 0 / 85%) 14px, #000 36px);
+    }
+
+    .gift__image {
+        object-position: right center;
+    }
+}
+
+.bag-details {
+    box-sizing: border-box;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding: clamp(56px, 8vw, 115px) 20px clamp(64px, 10vw, 144px);
+    color: #604429;
+    font-family: "Pretendard", sans-serif;
+    background: #e6d6c5 url("../images/eco-bag-details-background.webp") center / cover no-repeat;
+}
+
+.bag-details__header {
+    margin-bottom: clamp(28px, 5vw, 72px);
+    text-align: center;
+}
+
+.bag-details__label, .bag-detail__label {
+    margin: 0;
+    color: #6d5b4b;
+}
+
+.bag-details__label {
+    font-size: clamp(0.875rem, 2.22vw, 2rem);
+}
+
+.bag-details h2, .bag-detail h3 {
+    margin: 0.25em 0;
+    color: #31231b;
+    font-family: "Gowun Batang", Georgia, serif;
+    line-height: 1.25;
+}
+
+.bag-details h2 {
+    font-size: clamp(1.875rem, 4.44vw, 4rem);
+}
+
+.bag-details__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(36px, 5vw, 72px) 12px;
+    max-width: 1004px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+}
+
+.bag-detail__media {
+    margin-bottom: clamp(14px, 1.7vw, 24px);
+    overflow: hidden;
+}
+
+.bag-detail__media img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 497 / 359;
+    height: auto;
+    object-fit: cover;
+}
+
+.bag-detail__label {
+    font-size: clamp(0.8125rem, 1.67vw, 1.5rem);
+}
+
+.bag-detail h3 {
+    font-size: clamp(1.375rem, 2.64vw, 2.375rem);
+}
+
+.bag-detail h3 + p {
+    margin: 0;
+    font-size: clamp(1rem, 1.94vw, 1.75rem);
+    line-height: 1.55;
+    word-break: keep-all;
+}
+
+@media (max-width: 720px) {
+    .bag-details__grid {
+        grid-template-columns: minmax(0, 1fr);
+        max-width: 480px;
+    }
+}
+
+/* 확대 효과는 마우스가 있고 동작 줄이기를 선호하지 않는 환경에서만 적용 */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .bag-detail__media img {
+        transition: transform 450ms ease;
+    }
+
+    .bag-detail:hover .bag-detail__media img {
+        transform: scale(1.04);
+    }
+}
+
+.product-info {
+    max-width: 1440px;
+    margin-inline: auto;
+    color: #533413;
+    background-color: #f8ebe2;
+    font-family: "Pretendard", sans-serif;
+    text-align: center;
+}
+
+.product-info__media {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    mask-image: linear-gradient(to bottom, #000 88%, transparent);
+}
+
+.product-info__photo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.product-info__content {
+    padding: 12px 12px clamp(52px, 7vw, 100px);
+}
+
+.product-info__label {
+    margin: 0;
+    font-size: clamp(0.875rem, 2.22vw, 2rem);
+}
+
+.product-info h2 {
+    margin: 0.2em 0 0;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(2rem, 5.83vw, 5.25rem);
+    line-height: 1.15;
+}
+
+.product-info__rule {
+    display: block;
+    max-width: 40%;
+    height: auto;
+    margin: clamp(16px, 2.5vw, 36px) auto 0;
+}
+
+.product-info__specs {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(20px, 3vw, 42px) 12px;
+    max-width: 1000px;
+    margin: clamp(24px, 4.7vw, 68px) auto 0;
+    padding: clamp(20px, 3vw, 44px);
+    border-radius: 20px;
+    background-color: #eedbd0;
+}
+
+.product-spec dt {
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(1.125rem, 2.5vw, 2.25rem);
+}
+
+.product-spec img {
+    display: block;
+    width: clamp(36px, 6.25vw, 90px);
+    height: clamp(36px, 6vw, 86px);
+    margin: 0 auto 10px;
+    object-fit: contain;
+
+    /* PNG의 흰 바탕이 사양 패널 위에서 네모로 드러나지 않게함 */
+    mix-blend-mode: multiply;
+}
+
+.product-spec dd {
+    margin: 6px 0 0;
+    font-size: clamp(0.875rem, 1.94vw, 1.75rem);
+    line-height: 1.4;
+}
+
+@media (max-width: 720px) {
+    .product-info__specs {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.coupons {
+    position: relative;
+    isolation: isolate;
+    overflow: visible;
+    z-index: 1;
+    box-sizing: border-box;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding: clamp(48px, 6vw, 86px) 20px clamp(76px, 10vw, 144px);
+    color: #604429;
+    background-color: transparent;
+    font-family: "Pretendard", sans-serif;
+}
+
+/* 곡선 배경의 그림자까지 포함한 SVG를 섹션 뒤에 배치 */
+.coupons::before {
+    content: "";
+    position: absolute;
+    inset: -2% -5.6% -15%;
+    z-index: -1;
+    background: url("../images/coupon-section-background.svg") center / 100% 100% no-repeat;
+}
+
+.coupons__header {
+    max-width: 920px;
+    margin: 0 auto clamp(32px, 6vw, 86px);
+    text-align: center;
+}
+
+.coupons__label {
+    margin: 0;
+    font-size: clamp(0.75rem, 2.22vw, 2rem);
+}
+
+.coupons h2{
+    margin: clamp(12px, 2vw, 28px) 0 0;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(1.375rem, 3.33vw, 3rem);
+    font-weight: 400;
+    line-height: 1.45;
+    word-break: keep-all;
+}
+
+.coupons__list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(20px, 3.47vw, 50px);
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+}
+
+.coupon-card {
+    position: relative;
+    isolation: isolate;
+}
+
+/* SVG에 포함된 그림자 여백을 확보하고, 카드가 커지면 바탕도 따라 커짐 */
+.coupon-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 -8px -16px;
+    z-index: -1;
+    background: url("../images/coupon-ticket.svg") center / 100% 100% no-repeat;
+}
+
+.coupon-card__number {
+    margin: 0;
+    padding: clamp(10px, 1.1vw, 16px) clamp(22px, 3.25vw, 47px);
+    border-radius: 20px 20px 0 0;
+    color: #fff;
+    background-color: #604429;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(1.125rem, 1.94vw, 1.75rem);
+}
+
+.coupon-card__body {
+    display: grid;
+    grid-template-columns: clamp(44px, 6.25vw, 90px) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(12px, 2vw, 28px);
+    padding: clamp(20px, 2vw, 28px) clamp(25px, 4.2vw, 60px);
+}
+
+.coupon-card__icon {
+    display: block;
+    width: 100%;
+    height: auto;
+    mix-blend-mode: multiply;
+}
+
+.coupon-card__copy h3 {
+    margin: 0;
+    font-size: clamp(1rem, 1.67vw, 1.5rem);
+    word-break: keep-all;
+}
+
+.coupon-card__amount {
+    margin: 4px 0;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(2.625rem, 4.44vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.coupon-card__amount span {
+    font-size: 0.55em;
+}
+
+.coupon-card__description {
+    margin: 0;
+    font-size: clamp(0.8125rem, 1.25vw, 1.125rem);
+    line-height: 1.45;
+    word-break: keep-all;
+}
+
+@media (max-width: 720px) {
+    .coupons::before {
+        transform: scaleX(1.5);
+    }
+    
+    .coupons {
+        padding-bottom: 184px;
+    }
+
+    .coupons__desktop-break {
+        display: none;
+    }
+
+    .coupons__list {
+        grid-template-columns: minmax(0, 1fr);
+        max-width: 450px;
+        row-gap: 32px;
+    }
+}
+
+@media (min-width: 721px) {
+    .coupons__list {
+        max-width: 760px;
+        column-gap: 28px;
+    }
+
+    .coupon-card__body {
+        grid-template-columns: clamp(44px, 5.6vw, 68px) minmax(0, 1fr);
+        gap: 18px;
+        padding: clamp(16px, 1.8vw, 24px) 32px;
+    }
+
+    .coupon-card__amount {
+        font-size: clamp(2.375rem, 4.2vw, 3.25rem);
+    }
+}
+
+.event-guide {
+    box-sizing: border-box;
+    isolation: isolate;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding: clamp(56px, 8vw, 115px) 20px clamp(64px, 10vw, 144px);
+    color: #533413;
+    background: none;
+    font-family: "Pretendard", sans-serif;
+    word-break: keep-all;
+}
+
+.event-guide__header {
+    margin: 0 auto clamp(60px, 7vw, 100px);
+    text-align: center;
+}
+
+.event-guide__header p {
+    margin: 0;
+    font-size: clamp(0.875rem, 2.22vw, 2rem);
+}
+
+.event-guide__header h2 {
+    margin: 10px 0 0;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(2rem, 5.83vw, 5.25rem);
+}
+
+.event-guide__header img {
+    display: block;
+    margin: clamp(18px, 3vw, 40px) auto 0;
+}
+
+.event-guide__panel, .event-steps {
+    box-sizing: border-box;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: clamp(20px, 3vw, 44px);
+    border-radius: 20px;
+    background-color: #f6f1e5;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 18%);
+}
+
+.event-guide__panel {
+    position: relative;
+}
+
+/* 안내 카드 위로 드러나는 브라운 탭 */
+.event-guide__panel::before {
+    content: "이벤트 안내";
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding-inline: clamp(14px, 2.3vw, 32px);
+    color: #fff;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(0.875rem, 1.67vw, 1.5rem);
+    font-weight: 700;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    width: min(42%, 386px);
+    height: clamp(28px, 4vw, 52px);
+    border-radius: 20px 80px 0 0;
+    background: linear-gradient(90deg, #835b34, #533413);
+}
+
+.event-guide__panel::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: min(42%, 386px);
+    height: 20px;
+    background: linear-gradient(90deg, #835b34, #533413);
+}
+
+.event-guide__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr);
+    align-items: center;
+    gap: 8px 24px;
+}
+
+.event-guide__row + .event-guide__row {
+    margin-top: clamp(18px, 2vw, 28px);
+}
+
+.event-guide__row:last-child {
+    align-items: start;
+}
+
+.event-guide__row dt {
+    display: grid;
+    grid-template-columns: clamp(32px, 4vw, 58px) minmax(0, 1fr);
+    align-items: center;
+    gap: 10px;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(1.125rem, 2.2vw, 2rem);
+    font-weight: 700;
+}
+
+.event-guide__row dd {
+    margin: 0;
+    font-size: clamp(0.9375rem, 1.67vw, 1.5rem);
+    line-height: 1.6;
+}
+
+.event-guide__notices {
+    margin: 0;
+    padding-inline-start: 1.15em;
+}
+
+.event-guide__badge {
+    display: inline-block;
+    padding: 0.15em 0.7em;
+    border-radius: 999px;
+    color: #fff;
+    background-color: #8a5b32;
+    font-size: 0.8em;
+}
+
+.event-steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+    margin-top: clamp(24px, 5vw, 72px);
+    list-style: none;
+
+    --step-gap: clamp(48px, 4vw, 64px);
+    column-gap: var(--step-gap);
+}
+
+.event-steps__item {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+}
+
+.event-steps__item:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: auto;
+    left: calc(100% + var(--step-gap) / 2);
+    width: 14px;
+    height: 26px;
+    transform: translate(-50%, -50%);
+    background: url("../images/event-step-arrow.svg") center / contain no-repeat;
+}
+
+.event-steps__icon {
+    display: grid;
+    place-items: center;
+    width: clamp(48px, 6.1vw, 88px);
+    aspect-ratio: 1;
+    background: url("../images/event-step-circle.svg") center / contain no-repeat;
+}
+
+.event-steps h3 {
+    margin: 0 0 4px;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
+}
+
+.event-steps p {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 720px) {
+    .event-guide__row, .event-steps {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .event-guide__row + .event-guide__row {
+        padding-top: 16px;
+        border-top: 1px solid #e0d5c7;
+    }
+
+    .event-steps__item:not(:last-child)::after {
+        display: none;
+    }
+}
+
+.event-icon {
+    display: block;
+    width: 90%;
+    aspect-ratio: var(--ratio, 1);
+    background: url("../images/event-guide-icons.png") var(--position) / var(--size) no-repeat;
+}
+
+.event-icon--gift, .event-steps .event-icon {
+    background-image: url("../images/event-step-icons.png");
+}
+
+.event-faq::before {
+    content: "FAQ";
+}
+
+.event-faq {
+    --faq-badge-size: clamp(30px, 4.17vw, 60px);
+    --faq-gap: clamp(10px, 1.5vw, 20px);
+
+    margin-top: clamp(64px, 8vw, 112px);
+}
+
+.event-faq__item + .event-faq__item {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e0d5c7;
+}
+
+.event-faq__question, .event-faq__answer {
+    display: grid;
+    align-items: start;
+    gap: var(--faq-gap);
+}
+
+.event-faq__question {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    min-height: 44px;
+    cursor: pointer;
+    list-style: none;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(1rem, 1.67vw, 1.5rem);
+}
+
+.event-faq__question::-webkit-details-marker {
+    display: none;
+}
+
+.event-faq__question:focus-visible {
+    outline: 2px solid #835b34;
+    outline-offset: 4px;
+}
+
+.event-faq__question::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+}
+
+/* details가 펼쳐진 상태에서는 화살표가 뒤를 향함 */
+.event-faq__item[open] > .event-faq__question::after {
+    transform: rotate(225deg);
+}
+
+.event-faq__badge {
+    display: grid;
+    place-items: center;
+    width: var(--faq-badge-size);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    color: #fff;
+    background-color: #986638;
+    font-family: "Pretendard", sans-serif;
+    font-size: clamp(0.875rem, 2vw, 1.75rem);
+}
+
+.event-faq__answer {
+    grid-template-columns: auto minmax(0, 1fr);
+    margin: 8px 0 0;
+    margin-inline-start: calc(var(--faq-badge-size) + var(--faq-gap));
+
+    /* 답변이 질문 오른쪽의 화살표 영역에 들어가지 않도록 확보 */
+    margin-inline-end: calc(16px + var(--faq-gap));
+}
+
+.event-faq__answer .event-faq__badge {
+    color: #604429;
+    background-color: #eee1cd;
+}
+
+.event-faq__answer p {
+    margin: 0;
+    padding-block: 4px;
+    align-self: center; /* 답변이 한 줄인 경우에도 중앙 정렬될 수 있도록 한다. */
+    font-family: "Pretendard", sans-serif;
+    font-size: clamp(0.9375rem, 1.25vw, 1.125rem);
+    overflow-wrap: anywhere; /* 긴 단어가 영역 밖으로 넘어가지 않도록 한다. */
+    line-height: 1.6;
+}
+
+@media (max-width: 720px) {
+    .event-faq__answer {
+        margin-inline-start: 8px;
+    }
+}
+/* 쿠폰 곡선 아래부터 이벤트 안내까지 하나의 배경으로 연결 */
+.event-bottom {
+    max-width: 1440px;
+    margin-inline: auto;
+    isolation: isolate;
+    overflow: hidden;
+    background: #f8ebe2 url("../images/event-guide-background.webp") center / cover no-repeat;
+}
+
+
+.event-steps__icon .event-icon {
+    width: 54%;
+}
+
+.event-icon--date {
+    --position: 51.74% 48.73%;
+    --size: 654.22% 218.07%;
+}
+
+.event-icon--location {
+    --position: 72.07% 45.69%;
+    --size: 835.38% 212.32%;
+    --ratio: 50 / 65;
+}
+
+.event-icon--gift {
+    --position: 8.34% 49.56%;
+    --size: 564.16% 190.03%;
+    --ratio: 54 / 53;
+}
+
+.event-icon--notice {
+    --position: 93.63% 48.98%;
+    --size: 678.75% 219.39%;
+    --ratio: 50 / 52;
+}
+
+.event-icon--reserve {
+    --position: 35.29% 49.15%;
+    --size: 545.73% 196.74%;
+    --ratio: 43 / 40;
+}
+
+.event-icon--collect {
+    --position: 61.54% 48.04%;
+    --size: 587.03% 184.22%;
+    --ratio: 39 / 41;
+}
+
+.event-icon--coupon {
+    --position: 93.21% 50.42%;
+    --size: 427.56% 196.21%;
+    --ratio: 49 / 36;
+}
+
+
+/* javascript가 등장 효과를 연결한 요소의 시작 상태 */
+.reveal-ready {
+    opacity: 0;
+    transform: translateY(24px);
+}
+
+/* 화면에 들어오면 이동과 페이드를 재생 */
+.reveal-ready.is-visible {
+    opacity: 1;
+    transform: none;
+    transition:
+        opacity 700ms ease var(--reveal-delay, 0ms),
+        transform 700ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+}
+
+/* FAQ를 접고 펼칠 때 화살표가 부드럽게 회전 */
+@media (prefers-reduced-motion: no-preference) {
+    .event-faq__question::after {
+        transition: transform 200ms ease;
+    }
+}
+
+/* 기기에서 동작 줄이기를 선택하면 본문을 즉시 표시 */
+@media (prefers-reduced-motion: reduce) {
+    .reveal-ready, .reveal-ready.is-visible {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+/* 날짜와 요일을 한 묶음으로 줄바꿈 */
+.event-guide__row time {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+@media (max-width: 360px) {
+    .event-guide__header h2 {
+        font-size: 1.75rem; /* 28px */
+    }
+}
