@@ -13,6 +13,7 @@
 import { readFile, writeFile, readdir, mkdir, rm } from 'node:fs/promises';
 import { join, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 const SITE = (process.env.SITE_URL || 'https://binwoojin.github.io/publishing-portfolio/').replace(/\/?$/, '/');
@@ -28,7 +29,13 @@ const projects = await json('data/projects.json').catch(() => []);
 const siteName = site.name || 'Portfolio';
 const person = { '@type': 'Person', '@id': `${SITE}#person`, name: site.realName || siteName };
 
-const template = await readFile(join(ROOT, 'project.html'), 'utf8');
+let template = await readFile(join(ROOT, 'project.html'), 'utf8');
+// 배포 직후 이전 CSS와 JS가 캐시에 남아 있어도 상세 페이지와 같은 버전을 사용한다.
+for (const file of ['assets/css/project.css', 'assets/js/project.js']) {
+  const contents = await readFile(join(ROOT, file));
+  const version = createHash('sha256').update(contents).digest('hex').slice(0, 12);
+  template = template.replace(`="${file}"`, `="${file}?v=${version}"`);
+}
 const ids = (await readdir(join(ROOT, 'data/cases'))).filter((f) => /^[a-z0-9-]+\.json$/.test(f)).map((f) => f.slice(0, -5)).sort();
 
 // 예전에 만든 페이지 중 데이터가 없어진 것은 지운다
