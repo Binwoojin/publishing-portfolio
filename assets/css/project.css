@@ -69,6 +69,7 @@
 .case-hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: var(--space-4); }
 .case-hero__actions .btn .icon { order: 0; }
 .case-hero__cover { margin-top: var(--space-6); }
+[data-case="aulo-brand"] .case-hero__cover img { aspect-ratio: 8 / 5; }
 .case-hero__cover img,
 .case-hero__video {
   width: 100%;
@@ -150,6 +151,12 @@
 .ba__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: var(--space-2); }
 .ba__title { display: flex; align-items: baseline; gap: 10px; font-size: 1.375rem; font-weight: 700; }
 .ba__title span { font-size: .875rem; color: var(--color-accent); }
+
+/* Aulo의 390px 비교 화면은 데스크톱에서도 모바일 화면 너비로 표시한다 */
+[data-case="aulo-brand"] .ba__slider {
+  max-width: 390px;
+  margin-inline: auto;
+}
 
 .compare {
   --pos: 50%;

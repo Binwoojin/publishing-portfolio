@@ -17,8 +17,8 @@
     "demo": "projects/aulo/publishing/"
   },
   {
-    "title": "Aulo 브랜드 페이지 (시그니처 원두 · 회원 1,000명 이벤트)",
-    "desc": "가상의 카페 브랜드 Aulo의 시그니처 원두 소개 페이지와 회원 1,000명 달성 기념 이벤트 페이지를 HTML · CSS · JavaScript(jQuery)로 퍼블리싱했습니다. 브랜드 톤에 맞춘 이미지 중심 레이아웃과 이벤트 참여 안내 · 쿠폰 · FAQ 구성을 구현했습니다.",
+    "title": "Aulo 상품·프로모션 퍼블리싱",
+    "desc": "시그니처 원두 상세와 회원 1,000명 기념 에코백 이벤트를 기획·디자인하고 반응형으로 구현했습니다. 원두 상세 HERO 이미지 파일 용량을 98.1% 줄였습니다.",
     "category": "반응형",
     "tags": [
       "HTML",
@@ -28,14 +28,17 @@
       "반응형",
       "웹 접근성"
     ],
-    "thumbnail": "assets/images/aulo-brand.jpg",
+    "thumbnail": "assets/images/cases/aulo-brand/cover-combined-1440.jpg",
     "period": "2026.11",
     "contribution": "1인 프로젝트",
     "caseStudy": "aulo-brand",
-    "demo": "projects/aulo-brand/publishing/coffee/coffee.html",
     "links": [
       {
-        "label": "이벤트 페이지",
+        "label": "원두 상세페이지 보기",
+        "url": "projects/aulo-brand/publishing/coffee/coffee.html"
+      },
+      {
+        "label": "에코백 이벤트 보기",
         "url": "projects/aulo-brand/publishing/event/event.html"
       }
     ]

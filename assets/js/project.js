@@ -486,7 +486,7 @@
     /* 같은 이름의 .webm 이 있으면 먼저 쓰고(VP9), 지원하지 않는 브라우저는 .mp4(H.264)로 */
     const webm = video && /\.mp4$/i.test(video) ? video.replace(/\.mp4$/i, '.webm') : '';
     const poster = safeUrl(d.coverPoster) || cover;
-    const label = `${d.title || ''} 리디자인 화면`;
+    const label = d.coverAlt || `${d.title || ''} 리디자인 화면`;
     if (video) {
       return `<figure class="inner case-hero__cover case-hero__cover--video">
           <video class="case-hero__video"${poster ? ` poster="${escape(poster)}"` : ''} width="1280" height="800"
@@ -500,9 +500,16 @@
     return cover ? `<figure class="inner case-hero__cover"><img src="${escape(cover)}" alt="${escape(label)}" fetchpriority="high"></figure>` : '';
   };
 
-  const heroHtml = (d) => {
+  const heroHtml = (d, projectLinks) => {
     const demo = safeUrl(d.demo);
     const tools = list(d.tools);
+    const actions = list(projectLinks)
+      .filter((link) => has(link.label) && typeof link.url === 'string')
+      .map(({ label, url }) => ({ label, url: safeUrl(url) }))
+      .filter(({ url }) => url);
+    if (demo && !actions.some(({ url }) => url === demo)) {
+      actions.unshift({ label: 'Live Demo 보기', url: demo });
+    }
     return `
       <header class="case-hero">
         <div class="inner">
@@ -515,7 +522,7 @@
             ${tools.length ? `<div><dt>Tools</dt><dd>${tools.map(escape).join(' · ')}</dd></div>` : ''}
           </dl>
           <div class="case-hero__actions">
-            ${demo ? `<a class="btn btn--primary" href="${escape(demo)}"${linkAttrs(demo)}>Live Demo 보기${newWin(demo)}${icon('i-arrow-up-right')}</a>` : ''}
+            ${actions.map(({ label, url }, i) => `<a class="btn ${i === 0 ? 'btn--primary' : 'btn--line'}" href="${escape(url)}"${linkAttrs(url)}>${escape(label)}${newWin(url)}${icon('i-arrow-up-right')}</a>`).join('')}
           </div>
         </div>
         ${coverMedia(d)}
@@ -728,7 +735,7 @@
     if (desc && data.summary) desc.setAttribute('content', data.summary);
 
     root.innerHTML = `
-      ${heroHtml(data)}
+      ${heroHtml(data, withCase[idx]?.links)}
       <details class="case-toc-mobile">
         <summary class="inner"><span class="case-toc-mobile__label">${icon('i-list')}목차</span><span class="case-toc-mobile__current" aria-hidden="true">${visible[0] ? visible[0].title : ''}</span></summary>
         <nav class="inner" aria-label="상세 목차 (모바일)">

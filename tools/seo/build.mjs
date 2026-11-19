@@ -44,6 +44,12 @@ for (const id of ids) {
   const desc = d.summary || card.desc || '';
   const image = card.thumbnail || d.cover || '';
   const demo = d.demo || card.demo || '';
+  const demoLinks = Array.isArray(card.links)
+    ? card.links.filter((link) => link && typeof link.label === 'string' && typeof link.url === 'string' && link.label.trim() && link.url.trim())
+    : [];
+  if (demo && !demoLinks.some(({ url }) => url === demo)) {
+    demoLinks.unshift({ label: 'Live Demo 보기', url: demo });
+  }
 
   let html = template
     // 예전 주소용 noindex 는 이 페이지에는 쓰지 않는다
@@ -92,7 +98,7 @@ ${ld({
     .replace(/<p class="inner case__status">작업물을 불러오는 중입니다\.<\/p>/, `<div class="inner case__status case__static">
         <h1>${esc(d.title || id)}</h1>
         ${desc ? `<p>${esc(desc)}</p>` : ''}
-        <p>${demo ? `<a href="${esc(/^https?:/.test(demo) ? demo : `../../${demo}`)}">Live Demo 보기</a> · ` : ''}<a href="../../#projects">전체 작업물</a></p>
+        <p>${demoLinks.map(({ label, url }) => `<a href="${esc(/^https?:\/\//.test(url) ? url : `../../${url}`)}">${esc(label)}</a> · `).join('')}<a href="../../#projects">전체 작업물</a></p>
       </div>`);
 
   if (/name="robots"/.test(html)) throw new Error(`work/${id}: project.html 의 noindex 가 남았습니다`);
