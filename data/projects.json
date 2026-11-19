@@ -17,6 +17,29 @@
     "demo": "projects/aulo/publishing/"
   },
   {
+    "title": "Aulo 브랜드 페이지 (시그니처 원두 · 회원 1,000명 이벤트)",
+    "desc": "가상의 카페 브랜드 Aulo의 시그니처 원두 소개 페이지와 회원 1,000명 달성 기념 이벤트 페이지를 HTML · CSS · JavaScript(jQuery)로 퍼블리싱했습니다. 브랜드 톤에 맞춘 이미지 중심 레이아웃과 이벤트 참여 안내 · 쿠폰 · FAQ 구성을 구현했습니다.",
+    "category": "반응형",
+    "tags": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "jQuery",
+      "반응형",
+      "웹 접근성"
+    ],
+    "thumbnail": "assets/images/aulo-brand.jpg",
+    "period": "2026.11",
+    "contribution": "1인 프로젝트",
+    "demo": "projects/aulo-brand/publishing/coffee/coffee.html",
+    "links": [
+      {
+        "label": "이벤트 페이지",
+        "url": "projects/aulo-brand/publishing/event/event.html"
+      }
+    ]
+  },
+  {
     "title": "WayLog (국내 여행 기반 여행 SNS 웹사이트)",
     "desc": "국비 과정 팀 프로젝트에서 기획 · 디자인을 맡았던 국내 여행지 탐색 · 여행 기록 서비스 WayLog를, 미완성으로 남은 디자인까지 혼자 리디자인하고 10개 화면을 퍼블리싱했습니다. 주소와 연동되는 검색 필터, 좌표로 그린 코스 지도, 피드 글쓰기 · 댓글, 단계형 회원가입까지 구현했습니다.",
     "category": "반응형",

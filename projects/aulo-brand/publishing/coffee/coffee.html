@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="가상 브랜드 Aulo의 시그니처 블렌드 커피를 소개합니다. 일상에 스며드는 균형과 깊이를 만나보세요.">
+    <title>Aulo Signature Coffee | aulo 시그니처 원두</title>
+
+    <!-- 이벤트 페이지에서 검증한 웹폰트 로딩 방식 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+    <!-- 첫 화면 사진은 지연 로딩하지 않고 먼저 요청 -->
+    <link rel="preload" as="image" href="images/coffee-hero-background.webp" type="image/webp" fetchpriority="high">
+    <link rel="stylesheet" href="css/coffee.css">
+
+    <!-- 다운로드가 끝나면 폰트 css를 적용 -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style" crossorigin="anonymous" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" onload="this.onload=null;this.rel='stylesheet'">
+
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&amp;display=swap">
+        <link rel="stylesheet" crossorigin="anonymous" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css">
+    </noscript>
+
+    <!-- jQuery를 먼저 불러온 뒤 coffee.js 실행 -->
+    <script defer src="https://code.jquery.com/jquery-4.1.0.min.js"></script>
+    <script defer src="js/coffee.js"></script>
+</head>
+<body>
+    <main class="coffee-page">
+        <!-- 1. 첫 화면 : 사진, 문구, 특징을 각각 별도 요소로 구성 -->
+        <section class="coffee-hero" aria-labelledby="coffee-title">
+            <!-- 제품이 함께 촬영된 원본 사진, 사진 위 문구는 아래 HTML로 작성 -->
+            <div class="coffee-hero__visual" aria-hidden="true">
+                <img class="coffee-hero__image" src="images/coffee-hero-background.webp" width="1153" height="1364" alt="" fetchpriority="high">
+            </div>
+
+            <!-- 추후 문구별 등장 효과를 연결할 수 있는 묶음 -->
+            <header class="coffee-hero__copy">
+                <p class="coffee-hero__eyebrow">일상에 스며드는</p>
+                <h1 class="coffee-hero__title" id="coffee-title" lang="en">
+                    <span>aulo</span>
+                    <span>Signature Coffee</span>
+                </h1>
+
+                <p class="coffee-hero__description">
+                    Aulo만의 균형과 깊이로 완성한<br>
+                    시그니처 블렌드 커피
+                </p>
+            </header>
+
+            <!-- PC 4열, 모바일 2열, 효과는 각 li에 연결 가능 -->
+            <ul class="coffee-features" role="list" aria-label="시그니처 커피의 네 가지 특징">
+                <li class="coffee-feature">
+                    <div class="coffee-feature__media" aria-hidden="true">
+                        <span class="coffee-feature__icon coffee-feature__icon--blend"></span>
+                    </div>
+                    <p>Aulo만의 블렌드</p>
+                </li>
+                <li class="coffee-feature">
+                    <div class="coffee-feature__media" aria-hidden="true">
+                        <span class="coffee-feature__icon coffee-feature__icon--balance"></span>
+                    </div>
+                    <p>균형 잡힌 밸런스</p>
+                </li>
+                <li class="coffee-feature">
+                    <div class="coffee-feature__media" aria-hidden="true">
+                        <span class="coffee-feature__icon coffee-feature__icon--body"></span>
+                    </div>
+                    <p>부드러운 바디감</p>
+                </li>
+                <li class="coffee-feature">
+                    <div class="coffee-feature__media" aria-hidden="true">
+                        <span class="coffee-feature__icon coffee-feature__icon--finish"></span>
+                    </div>
+                    <p>편안한 여운</p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 2. Aulo's Coffee Story -->
+        <section class="coffee-story" aria-labelledby="coffee-story-title">
+            <!-- 사진과 문구를 분리해 추후 효과를 각각 연결 -->
+            <div class="coffee-story__visual" aria-hidden="true">
+                <img class="coffee-story__image" src="images/coffee-story-background.png" width="1774" height="887" alt="" loading="lazy" decoding="async">
+            </div>
+
+            <div class="coffee-story__content">
+                <!-- 장식용 선은 원본 SVG 사용 -->
+                <img class="coffee-story__rule" src="images/coffee-story-rule.svg" width="100" height="3" alt="">
+                <h2 id="coffee-story-title" lang="en">Aulo's Coffee Story</h2>
+                <p class="coffee-story__description">일상의 한 순간도 더 특별해질 수 있도록,<br class="coffee-story__break">Aulo는 오랜 고민 끝에 우리만의<br class="coffee-story__break">시그니처 블렌드로 완성했어요.</p>
+            </div>
+        </section>
+
+        <!-- 3. Blend & Roast -->
+        <section class="coffee-blend" aria-labelledby="coffee-blend-title">
+            <!-- 사진 프레임과 이미지를 분리 -->
+            <div class="coffee-blend__visual" aria-hidden="true">
+                <img class="coffee-blend__image" src="images/coffee-blend-background.png" width="1774" height="887" alt="" loading="lazy" decoding="async">
+            </div>
+
+            <header class="coffee-blend__content">
+                <!-- 이전 섹션의 장식선을 재사용 -->
+                <img class="coffee-blend__rule" src="images/coffee-story-rule.svg" width="100" height="3" alt="">
+                <h2 id="coffee-blend-title" lang="en">Blend &amp; Roast</h2>
+                <p class="coffee-blend__description">
+                    균형 있는 맛을 위해 엄선한 원두를<br class="coffee-blend__break">
+                    Aulo만의 비율로 블렌딩하고,<br class="coffee-blend__break">
+                    가장 이상적인 로스팅으로 완성했어요.
+                </p>
+            </header>
+
+            <!-- 각 li에 개별 등장 효과를 연결할 수 있음 -->
+            <ol class="coffee-blend__steps" role="list" aria-label="원두 선정과 블렌딩, 로스팅 과정">
+                <li class="coffee-blend-step coffee-blend-step--select">
+                    <div class="coffee-blend-step__media" aria-hidden="true">
+                        <span class="coffee-blend-step__icon"></span>
+                    </div>
+                    <h3 lang="en">Select</h3>
+                    <p>엄선한 원두</p>
+                </li>
+                <li class="coffee-blend-step coffee-blend-step--blend">
+                    <div class="coffee-blend-step__media" aria-hidden="true">
+                        <span class="coffee-blend-step__icon"></span>
+                    </div>
+                    <h3 lang="en">Blend</h3>
+                    <p>최적의 비율로 블렌딩</p>
+                </li>
+                <li class="coffee-blend-step coffee-blend-step--roast">
+                    <div class="coffee-blend-step__media" aria-hidden="true">
+                        <span class="coffee-blend-step__icon"></span>
+                    </div>
+                    <h3 lang="en">Roast</h3>
+                    <p>풍미를 살리는 로스팅</p>
+                </li>
+            </ol>
+        </section>
+
+        <!-- 4. Tasting Note -->
+        <section class="coffee-tasting" aria-labelledby="coffee-tasting-title">
+            <div class="coffee-tasting__visual" aria-hidden="true">
+                <img class="coffee-tasting__image" src="images/coffee-tasting-background.png" width="2079" height="756" alt="" loading="lazy" decoding="async">
+            </div>
+
+            <header class="coffee-tasting__content">
+                <p class="coffee-tasting__label" lang="en">TASTING NOTE</p>
+                <h2 id="coffee-tasting-title">
+                    한 잔에 담긴<br>
+                    섬세한 맛의 밸런스
+                </h2>
+                <p class="coffee-tasting__description">
+                    Aulo 시그니처 커피가 전하는<br class="coffee-tasting__break">
+                    세 가지의 풍미를 경험해보세요.
+                </p>
+            </header>
+
+            <!-- 추후 각 카드에 개별 등장 효과를 연결 -->
+            <ul class="coffee-tasting__cards" role="list" aria-label="시그니처 커피의 풍미">
+                <li class="coffee-tasting-card coffee-tasting-card--flavor">
+                    <div class="coffee-tasting-card__media" aria-hidden="true">
+                        <span class="coffee-tasting-card__icon"></span>
+                    </div>
+                    <h3 lang="en">Flavor</h3>
+                    <p>다크 초콜릿,<br>고소한 견과</p>
+                </li>
+                <li class="coffee-tasting-card coffee-tasting-card--acidity">
+                    <div class="coffee-tasting-card__media" aria-hidden="true">
+                        <span class="coffee-tasting-card__icon"></span>
+                    </div>
+                    <h3 lang="en">Acidity</h3>
+                    <p>은은한 베리의<br>산미</p>
+                </li>
+                <li class="coffee-tasting-card coffee-tasting-card--finish">
+                    <div class="coffee-tasting-card__media" aria-hidden="true">
+                        <span class="coffee-tasting-card__icon"></span>
+                    </div>
+                    <h3 lang="en">Finish</h3>
+                    <p>깔끔하고<br>부드러운 여운</p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 5. How to Enjoy -->
+        <section class="coffee-enjoy" aria-labelledby="coffee-enjoy-title">
+            <header class="coffee-enjoy__header">
+                <img class="coffee-enjoy__rule" src="images/coffee-enjoy-rule.svg" width="100" height="3" alt="">
+                <h2 id="coffee-enjoy-title" lang="en">How to Enjoy</h2>
+                <p>Aulo 시그니처 커피를 가장 맛있게 즐기는 방법</p>
+            </header>
+
+            <!-- 나중에 카드별 등장 효과를 각 li에 연결 -->
+            <ul class="coffee-enjoy__cards" role="list">
+                <li class="coffee-enjoy-card coffee-enjoy-card--iced">
+                    <div class="coffee-enjoy-card__media">
+                        <img class="coffee-enjoy-card__image" src="images/coffee-enjoy-iced.png" width="1024" height="1024" alt="얼음을 넣은 시그니처 커피" loading="lazy" decoding="async">
+                    </div>
+                    <div class="coffee-enjoy-card__content">
+                        <h3 lang="en">Iced</h3>
+                        <p>시원하고 깔끔하게 즐기는 깊은 풍미</p>
+                    </div>
+                </li>
+                <li class="coffee-enjoy-card coffee-enjoy-card--hot">
+                    <div class="coffee-enjoy-card__media">
+                        <img class="coffee-enjoy-card__image" src="images/coffee-enjoy-hot.png" width="900" height="400" alt="흰 잔에 담긴 따뜻한 시그니처 커피" loading="lazy" decoding="async">
+                    </div>
+                    <div class="coffee-enjoy-card__content">
+                        <h3 lang="en">Hot</h3>
+                        <p>따뜻하고 부드럽게 퍼지는 커피의 향</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 6. Product Detail -->
+        <section class="coffee-detail" aria-labelledby="coffee-detail-title">
+            <header class="coffee-detail__header">
+                <img src="images/coffee-detail-rule.svg" width="160" height="2" alt="">
+                <h2 id="coffee-detail-title" lang="en">Product Detail</h2>
+            </header>
+
+            <div class="coffee-detail__stage">
+                <!-- 패키지와 원두에 각각 움직임을 연결할 수 있도록 분리 -->
+                <div class="coffee-detail__visual">
+                    <img class="coffee-detail__disc" src="images/coffee-detail-disc.svg" width="640" height="640" alt="">
+                    <img class="coffee-detail__beans" src="images/coffeeBean.png" width="1536" height="1024" alt="" loading="lazy" decoding="async">
+                    <img class="coffee-detail__pack" src="images/aulo_signature_원두(패키징).png" width="1268" height="1240" alt="Aulo 시그니처 커피 원두 패키지" loading="lazy" decoding="async">
+                </div>
+
+                <!-- 사양의 항목명은 dt, 내용은 dd -->
+                <dl class="coffee-detail__specs">
+                    <div class="coffee-spec coffee-spec--blend">
+                        <dt lang="en">Blend</dt>
+                        <dd>Aulo 시그니처 블렌드<br>(아라비카 100%)</dd>
+                    </div>
+
+                    <div class="coffee-spec coffee-spec--weight">
+                        <dt lang="en">Weight</dt>
+                        <dd>250 g</dd>
+                    </div>
+
+                    <div class="coffee-spec coffee-spec--roast">
+                        <dt lang="en">Roast Level</dt>
+                        <dd>
+                            미디엄 다크 (Medium Dark)
+                            <!-- 등급은 위의 글로 전달하므로 점은 장식으로 처리 -->
+                            <span class="coffee-spec__scale" aria-hidden="true">
+                                <img src="images/coffee-detail-dot-filled.svg" width="15" height="15" alt="">
+                                <img src="images/coffee-detail-dot-filled.svg" width="15" height="15" alt="">
+                                <img src="images/coffee-detail-dot-filled.svg" width="15" height="15" alt="">
+                                <img src="images/coffee-detail-dot-empty.svg" width="15" height="15" alt="">
+                            </span>
+                        </dd>
+                    </div>
+
+                    <div class="coffee-spec coffee-spec--type">
+                        <dt lang="en">Type</dt>
+                        <dd>원두 / 분쇄 원두 (에스프레소, 핸드드립, 모카포트)</dd>
+                    </div>
+                </dl>
+            </div>
+        </section>
+
+        <!-- 7. Aulo Drip Bag -->
+        <section class="coffee-drip" aria-labelledby="coffee-drip-title">
+            <div class="coffee-drip__intro">
+                <header class="coffee-drip__header">
+                    <p class="coffee-drip__label" lang="en">
+                        <img src="images/coffee-drip-rule.svg" width="30" height="2" alt="">
+                        <span>AULO SIGNATURE</span>
+                        <img src="images/coffee-drip-rule.svg" width="30" height="2" alt="">
+                    </p>
+                    <h2 id="coffee-drip-title" lang="en">Aulo Drip Bag</h2>
+                </header>
+
+                <!-- 원두와 두 패키지가 함께 들어 있는 배경 이미지 -->
+                <div class="coffee-drip__scene">
+                    <img class="coffee-drip__background" src="images/coffee-drip-background.png" width="1086" height="1448" alt="커피 원두와 함께 놓인 Aulo 시그니처 드립백 박스와 단품 패키지" loading="lazy" decoding="async">
+                </div>
+            </div>
+
+            <p class="coffee-drip__description">
+                어디서든 <span lang="en">aulo Signature Coffee</span>를 간편하게<br class="coffee-drip__break">
+                즐길 수 있도록 드립백도 준비했습니다.
+            </p>
+
+            <div class="coffee-drip__details">
+                <div class="coffee-drip__media">
+                    <img class="coffee-drip__photo" src="images/coffee-drip-photo.webp" width="2731" height="4096" alt="컵에 걸어 커피를 추출하는 드립백" loading="lazy" decoding="async">
+                </div>
+
+                <!-- 추후 각 li에 개별 등장 효과를 적용할 수 있도록 구성 -->
+                <ul class="coffee-drip__features" role="list" aria-label="드립백 특징">
+                    <li class="coffee-drip-feature coffee-drip-feature--brew">
+                        <span class="coffee-drip-feature__badge" aria-hidden="true"></span>
+                        <div>
+                            <h3>간편한 추출</h3>
+                            <p>별도 도구 없이 간단하게</p>
+                        </div>
+                    </li>
+                    <li class="coffee-drip-feature coffee-drip-feature--carry">
+                        <span class="coffee-drip-feature__badge" aria-hidden="true"></span>
+                        <div>
+                            <h3>휴대가 간편</h3>
+                            <p>사무실, 여행, 캠핑까지</p>
+                        </div>
+                    </li>
+                    <li class="coffee-drip-feature coffee-drip-feature--blend">
+                        <span class="coffee-drip-feature__badge" aria-hidden="true"></span>
+                        <div>
+                            <h3>시그니처 블렌드</h3>
+                            <p>Aulo만의 균형 잡힌 맛과 향</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 8. How to Brew -->
+        <section class="coffee-brew" aria-labelledby="coffee-brew-title">
+            <h2 class="coffee-brew__title" id="coffee-brew-title" lang="en">How to Brew</h2>
+
+            <!-- 추출 순서를 나타내는 목록, 추후 각 li에 등장 효과를 적용할 수 있음 -->
+            <ol class="coffee-brew__steps" role="list">
+                <li class="coffee-brew__step coffee-brew__step--hang">
+                    <div class="coffee-brew__visual" aria-hidden="true">
+                        <span class="coffee-brew__art"></span>
+                        <span class="coffee-brew__number">01</span>
+                    </div>
+                    <p>드립백을 컵에 <br class="coffee-brew__break">걸어주세요.</p>
+                </li>
+
+                <li class="coffee-brew__step coffee-brew__step--pour">
+                    <div class="coffee-brew__visual" aria-hidden="true">
+                        <span class="coffee-brew__art"></span>
+                        <span class="coffee-brew__number">02</span>
+                    </div>
+                    <p>뜨거운 물(약 90~95℃)을 <br class="coffee-brew__break">천천히 부어주세요.</p>
+                </li>
+
+                <li class="coffee-brew__step coffee-brew__step--finish">
+                    <div class="coffee-brew__visual" aria-hidden="true">
+                        <span class="coffee-brew__art"></span>
+                        <span class="coffee-brew__number">03</span>
+                    </div>
+                    <p>약 2~3분간 추출 후, <br class="coffee-brew__break">향과 맛을 즐겨보세요.</p>
+                </li>
+            </ol>
+        </section>
+
+        <!-- 9. 출시 기념 이벤트 -->
+        <section class="coffee-launch" aria-labelledby="coffee-launch-title">
+            <div class="coffee-launch__hero">
+                <header class="coffee-launch__copy">
+                    <p class="coffee-launch__label" lang="en">Aulo Signature Coffee</p>
+                    <h2 id="coffee-launch-title">출시 기념 이벤트</h2>
+                    <p class="coffee-launch__intro">
+                        Aulo 시그니처 커피 출시를 기념해<br>
+                        특별한 할인 혜택을 준비했어요.
+                    </p>
+                    <p class="coffee-launch__dates">
+                        <span class="coffee-launch__calendar" aria-hidden="true"></span>
+                        <time datetime="2026-11-01">2026.11.01</time>
+                        <span>-</span>
+                        <time datetime="2026-12-31">2026.12.31</time>
+                    </p>
+                </header>
+
+                <!-- 문구와 사진을 별도 요소로 두어 등장 효과를 개별 적용할 수 있음 -->
+                <div class="coffee-launch__media">
+                    <img src="images/coffee-launch-background.png" width="1672" height="941" alt="" loading="lazy" decoding="async">
+                </div>
+            </div>
+
+            <ul class="coffee-launch__offers" role="list" aria-label="출시 기념 할인 상품">
+                <li class="coffee-launch__offer">
+                    <div class="coffee-launch__product-art">
+                        <img class="coffee-launch__pack" src="images/aulo_signature_원두(패키징).png" width="1268" height="1240" alt="" loading="lazy" decoding="async">
+                    </div>
+                    <div class="coffee-launch__info">
+                        <h3>
+                            <span lang="en">aulo Signature Coffee</span><br>
+                            (원두) 250g
+                        </h3>
+                        <p class="coffee-launch__prices">
+                            <del>28,000원</del>
+                            <strong>20,000원</strong>
+                        </p>
+                        <span class="coffee-launch__discount" lang="en">29% OFF</span>
+                    </div>
+                </li>
+
+                <li class="coffee-launch__offer">
+                    <div class="coffee-launch__product-art coffee-launch__product-art--drip">
+                        <img class="coffee-launch__pack" src="images/aulo_signature_원두(드립백박스패키징).png" width="1225" height="1284" alt="" loading="lazy" decoding="async">
+                        <img class="coffee-launch__single" src="images/aulo_signature_원두(단품드립백).png" width="1268" height="1240" alt="" loading="lazy" decoding="async">
+                    </div>
+                    <div class="coffee-launch__info">
+                        <h3>
+                            <span lang="en">aulo Signature Coffee</span><br>
+                            (드립백) 10개입
+                        </h3>
+                        <p class="coffee-launch__prices">
+                            <del>28,000원</del>
+                            <strong>20,000원</strong>
+                        </p>
+                        <span class="coffee-launch__discount" lang="en">29% OFF</span>
+                    </div>
+                </li>
+            </ul>
+            
+            <!-- 10. 이벤트 유의사항 -->
+            <section class="coffee-launch__notice" aria-labelledby="coffee-launch-notice-title">
+                <span class="coffee-launch__notice-icon" aria-hidden="true"></span>
+                <h3 class="coffee-launch__notice-title" id="coffee-launch-notice-title">이벤트 유의사항</h3>
+
+                <ul class="coffee-launch__notice-list">
+                    <li>본 프로모션은 2026년 11월 1일부터 2026년 12월 31일까지 aulo 오프라인 매장에서 기간 한정으로 진행됩니다.</li>
+                    <li>매장을 방문한 고객 누구나 구매할 수 있으며, 온라인에서는 판매하지 않습니다.</li>
+                    <li>행사 상품은 1인당 최대 5개까지 구매 가능합니다.</li>
+                    <li>매장별 상품 재고와 판매 여부가 다를 수 있으며, 준비된 수량 소진 시 행사 기간 내에도 매장별로 조기 종료될 수 있습니다.</li>
+                    <li>방문 전 이용하실 매장에 상품 재고 및 행사 진행 여부를 확인해 주시기 바랍니다.</li>
+                    <li>출시 기념 가격은 행사 기간 중 지정된 대상 상품에 한해 적용됩니다.</li>
+                </ul>
+            </section>
+        </section>
+    </main>
+</body>
+</html>

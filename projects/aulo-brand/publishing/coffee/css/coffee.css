@@ -1,0 +1,2100 @@
+/* 공통 : padding과 border를 요소 너비에 포함해 가로 넘침 예방 */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    color: #3a2711;
+    background-color: #f8f0e7;
+    font-family: "Pretendard", sans-serif;
+}
+
+/* 첫 화면 : PC에는 원본 1440px 시안의 비율을 기준으로 배치 */
+.coffee-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    max-width: 1440px;
+    min-height: clamp(760px, 79.444vw, 1144px);
+    margin-inline: auto;
+    padding: clamp(88px, 15.556vw, 224px)
+             clamp(24px, 8.333vw, 120px)
+             clamp(56px, 8.375vw, 135px);
+    background-color: #f4dfc9;
+}
+
+/* 사진 레이어 : 문구와 분리해 추후 움직임을 연결할 수 있게 구성 */
+.coffee-hero__visual {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.coffee-hero__image {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.coffee-hero__copy {
+    max-width: 680px;
+    margin-left: 11px;
+    font-family: "Gowun Batang", Georgia, serif;
+}
+
+.coffee-hero__eyebrow {
+    margin: 0;
+    color: #1b1713;
+    font-size: clamp(18px, 1.944vw, 28px);
+    line-height: 1.4;
+}
+
+.coffee-hero__title {
+    margin: clamp(12px, 1.042vw, 15px) 0 0;
+    font-size: clamp(28px, 4.444vw, 64px);
+    font-weight: 700;
+    line-height: 1.125;
+}
+
+.coffee-hero__title span {
+    display: block;
+}
+
+.coffee-hero__description {
+    margin: clamp(24px, 2.986vw, 43px) 0 0;
+    color: #1b1713;
+    font-size: clamp(16px, 2.5vw, 36px);
+    line-height: 1.4;
+    word-break: keep-all;
+}
+
+/* 특징 패널 : 기본은 PC의 4열 구조 */
+.coffee-features {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: center;
+    gap: 32px;
+    min-height: 240px;
+    margin: clamp(120px, 14.097vw, 203px) 0 0;
+    padding: 38px 40px 42px;
+    border-radius: 20px;
+    background-color: #f9ebe2;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 25%);
+    list-style: none;
+}
+
+.coffee-feature {
+    min-width: 0;
+    text-align: center;
+}
+
+.coffee-feature__media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: clamp(64px, 6.667vw, 96px);
+}
+
+.coffee-feature p {
+    margin: 20px 0 0;
+    color: #533413;
+    font-size: clamp(16px, 1.944vw, 28px);
+    line-height: 1.4;
+    word-break: keep-all;
+}
+
+/* 원본은 아이콘 4개가 한 장에 모인 이미지.
+    각 아이콘의 위치와 크기만 달리해 필요한 부분을 보여줌 */
+.coffee-feature__icon {
+    display: block;
+    flex: none;
+    width: clamp(44px, var(--icon-fluid), var(--icon-width));
+    aspect-ratio: var(--icon-ratio);
+    background: url("../images/coffee-feature-icons.png") var(--icon-position) / var(--icon-size) no-repeat;
+}
+
+.coffee-feature__icon--blend {
+    --icon-fluid: 6.875vw;
+    --icon-width: 99px;
+    --icon-ratio: 99 / 93;
+    --icon-position: 8.46% 57.14%;
+    --icon-size: 561.24% 197.28%;
+}
+
+.coffee-feature__icon--balance {
+    --icon-fluid: 5.208vw;
+    --icon-width: 75px;
+    --icon-ratio: 75 / 96;
+    --icon-position: 36.63% 51%;
+    --icon-size: 746.39% 194.1%;
+}
+
+.coffee-feature__icon--body {
+    --icon-fluid: 6.25vw;
+    --icon-width: 90px;
+    --icon-ratio: 90 / 91;
+    --icon-position: 62.5% 48.7%;
+    --icon-size: 583.87% 192.04%;
+}
+
+.coffee-feature__icon--finish {
+    --icon-fluid: 5.972vw;
+    --icon-width: 86px;
+    --icon-ratio: 86 / 74;
+    --icon-position: 90.8% 51.35%;
+    --icon-size: 591.83% 228.39%;
+}
+
+@media (max-width: 600px) {
+    /* 모바일에서는 문구 -> 제품사진 -> 특징 순서로 읽도록 조정 */
+    .coffee-hero {
+        min-height: 0;
+        padding: 48px 20px 40px;
+    }
+
+    .coffee-hero__copy {
+        max-width: none;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .coffee-hero__title {
+        font-size: clamp(30px, 8.2vw, 40px);
+        line-height: 1.2;
+    }
+
+    .coffee-hero__description {
+        font-size: clamp(16px, 4.6vw, 20px);
+        line-height: 1.6;
+    }
+
+    /* 사진의 오른쪽에 있는 제품 묶음이 모바일 중앙에 오도록 배치
+        위쪽은 배경색으로 부드럽게 연결 */
+    .coffee-hero__image {
+        position: absolute;
+        top: clamp(168px, 40vw, 190px);
+        right: 0;
+        width: clamp(540px, 170vw, 880px);
+        max-width: none;
+        mask-image: linear-gradient(to bottom, transparent, #000 90px);
+    }
+
+    .coffee-features {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 28px 16px;
+        min-height: 0;
+        margin-top: clamp(250px, 66vw, 336px);
+        padding: 24px 16px;
+        border-radius: 16px;
+    }
+
+    .coffee-feature__media {
+        height: 58px;
+    }
+
+    .coffee-feature p {
+        margin-top: 12px;
+        font-size: 14px;
+    }
+}
+
+@media (600px < width <= 814px) {
+    .coffee-hero {
+        min-height: 0;
+        padding-bottom: 48px;
+    }
+
+    .coffee-hero__image {
+        height: 130%;
+        object-fit: cover;
+        object-position: 60% top;
+    }
+
+    .coffee-features {
+        min-height: 0;
+        margin-top: clamp(88px, 12vw, 100px);
+        padding: clamp(20px, 3vw, 24px) clamp(16px, 3.5vw, 28px) 32px;
+        column-gap: clamp(14px, 2.6vw, 22px);
+    }
+}
+
+/* Coffee Story : 왼쪽 문구와 오른쪽 사진 연결 */
+.coffee-story {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    max-width: 1440px;
+    min-height: clamp(520px, 57.5vw, 828px);
+    margin-inline: auto;
+
+    padding: clamp(80px, 15.139vw, 218px) clamp(24px, 10.694vw, 154px) clamp(80px, 12vw, 170px);
+    color: #fff;
+    background-color: #cdac90;
+}
+
+/* 원본 곡선 마스크를 사진 레이어에 적용 */
+.coffee-story__visual {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+    pointer-events: none;
+
+    mask-image: url("../images/coffee-story-mask.svg");
+    mask-size: 136.319% 100%;
+    mask-position: 58.126% center;
+    mask-repeat: no-repeat;
+}
+
+.coffee-story__image {
+    position: absolute;
+    top: -30.918%;
+    left: -61.806%;
+    display: block;
+    width: 186.111%;
+    height: 161.836%;
+    max-width: none;
+    object-fit: cover;
+}
+
+/* 흰 문구를 읽기 쉽도록 왼쪽에 어두운 레이어 추가 */
+.coffee-story::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    background: linear-gradient(90deg, rgb(67 42 24 / 50%) 0%, rgb(67 42 24 / 50%) 55%, transparent 82%);
+    pointer-events: none;
+}
+
+.coffee-story__content {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+    max-width: 660px;
+}
+
+.coffee-story__rule {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.coffee-story h2 {
+    margin: 0;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(28px, 3.75vw, 54px);
+    font-weight: 700;
+    line-height: 1.45;
+    word-break: keep-all;
+}
+
+.coffee-story__description {
+    margin: clamp(32px, 5.556vw, 80px) 0 0;
+    font-family: "Pretendard", sans-serif;
+    font-size: clamp(18px, 2.222vw, 32px);
+    line-height: 1.5;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+/* 모바일 CSS */
+@media (max-width: 600px) {
+    .coffee-story {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        padding: 48px 24px 0;
+        color: #533413;
+    }
+
+    .coffee-story::after {
+        display: none;
+    }
+
+    .coffee-story__content {
+        order: 1;
+        max-width: none;
+    }
+
+    .coffee-story h2 {
+        font-size: clamp(28px, 6.5vw, 34px);
+        line-height: 1.4;
+    }
+
+    .coffee-story__description {
+        margin-top: 24px;
+        font-size: 16px;
+        line-height: 1.8;
+    }
+
+    /* PC용 강제 줄바꿈을 해제 */
+    .coffee-story__break {
+        display: none;
+    }
+
+    .coffee-story__visual {
+        position: relative;
+        inset: auto;
+        z-index: auto;
+        order: 2;
+        flex: none;
+
+        /* 좌우 여백을 넘어 사진을 섹션 전체 너비로 표시 */
+        width: calc(100% + 48px);
+        height: clamp(240px, 65vw, 360px);
+        margin: 32px -24px 0;
+
+        mask-image: none;
+    }
+
+    .coffee-story__image {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        /* 오른쪽의 커피잔과 꽃이 보이도록 조정 */
+        object-position: 72% center;
+    }
+
+}
+
+/* Blend & Roast */
+.coffee-blend {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    z-index: 1;
+    max-width: 1440px;
+    min-height: clamp(560px, 57.847vw, 833px);
+
+    /* PC 시안처럼 이전 섹션 위에 조금 겹치도록 배치 */
+    margin: clamp(-98px, -6.806vw, -40px) auto 0;
+    padding: clamp(72px, 10.972vw, 158px) clamp(24px, 10.694vw, 154px) clamp(40px, 3.75vw, 54px);
+    border-radius: clamp(24px, 3.472vw, 50px);
+    color: #fff;
+    background-color: #2d190e;
+}
+
+/* 배경 사진 레이어 */
+.coffee-blend__visual {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.coffee-blend__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* 흰 문ㄴ구와 아이콘이 잘 보이도록 사진 위에 음영 추가 */
+.coffee-blend::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(90deg, rgb(26 13 6 / 36%), transparent 75%), linear-gradient(to bottom transparent 35%, rgb(26 13 6 / 60%));
+    pointer-events: none;
+}
+
+.coffee-blend__content {
+    max-width: 680px;
+}
+
+.coffee-blend__rule {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.coffee-blend h2 {
+    margin: 0;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(28px, 3.75vw, 54px);
+    font-weight: 700;
+    line-height: 1.45;
+}
+
+.coffee-blend__description {
+    margin: clamp(24px, 3.75vw, 54px) 0 0;
+    font-size: clamp(18px, 2.222vw, 32px);
+    line-height: 1.5;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+/* 세 가지 특징을 같은 너비로 배치 */
+.coffee-blend__steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(16px, 4vw, 58px);
+    margin: clamp(40px, 5.347vw, 77px) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.coffee-blend-step {
+    display: grid;
+
+    /* 아이콘 영역 높이를 맞춰 제목 위치를 통일 */
+    grid-template-rows: clamp(72px, 10.417vw, 150px) auto auto;
+    align-content: start;
+    justify-items: center;
+    min-width: 0;
+    text-align: center;
+}
+
+/* 원형 장식은 SVG, 안쪽 아이콘은 PNG */
+.coffee-blend-step__media {
+    display: grid;
+    place-items: center;
+    align-self: end;
+    width: clamp(72px, 10.417vw, 150px);
+    aspect-ratio: 1;
+
+    background: url("../images/coffee-blend-circle.svg") center / contain no-repeat;
+}
+
+/* 첫 번째 원형은 원본 시안처럼 조금 작게 표시 */
+.coffee-blend-step--select .coffee-blend-step__media {
+    width: clamp(72px, 9.583vw, 138px);
+    background-image: url("../images/coffee-blend-circle-small.svg");
+}
+
+.coffee-blend-step__icon {
+    display: block;
+    width: clamp(34px, var(--icon-fluid), var(--icon-width));
+    aspect-ratio: var(--icon-ratio);
+
+    background:
+        url("../images/coffee-blend-icons.png")
+        var(--icon-position) / var(--icon-size) no-repeat;
+}
+
+/* 한 장의 이미지에서 각 아이콘 영역만 표시 */
+.coffee-blend-step--select {
+    --icon-fluid: 5.486vw;
+    --icon-width: 79px;
+    --icon-ratio: 380 / 386;
+    --icon-position: 15.513% 51.479%;
+    --icon-size: 571.579% 187.565%;
+}
+
+.coffee-blend-step--blend {
+    --icon-fluid: 5.903vw;
+    --icon-width: 85px;
+    --icon-ratio: 398 / 382;
+    --icon-position: 50.282% 51.462%;
+    --icon-size: 545.729% 189.529%;
+}
+
+.coffee-blend-step--roast {
+    --icon-fluid: 4.583vw;
+    --icon-width: 66px;
+    --icon-ratio: 340 / 412;
+    --icon-position: 83.734% 51.282%;
+    --icon-size: 638.824% 175.728%;
+}
+
+.coffee-blend-step h3 {
+    margin: 16px 0 0;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(18px, 2.222vw, 32px);
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.coffee-blend-step p {
+    margin: 0;
+    font-size: clamp(13px, 1.528vw, 22px);
+    line-height: 1.8;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+/* 모바일 CSS */
+@media (max-width: 600px) {
+    .coffee-blend {
+        min-height: 0;
+        margin-top: 0;
+        padding: 56px 24px;
+        border-radius: 24px;
+    }
+
+    .coffee-blend__image {
+        object-position: 65% center;
+    }
+
+    .coffee-blend h2 {
+        font-size: 30px;
+    }
+
+    .coffee-blend__description {
+        margin-top: 24px;
+        font-size: 16px;
+        line-height: 1.8;
+    }
+
+    .coffee-blend__break {
+        display: none;
+    }
+
+    .coffee-blend__steps {
+        gap: 12px;
+        margin-top: 40px;
+    }
+
+    .coffee-blend-step h3 {
+        margin-top: 12px;
+    }
+
+    .coffee-blend-step p {
+        margin-top: 6px;
+        line-height: 1.6;
+    }
+}
+
+/* Tasting Note */
+.coffee-tasting {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    max-width: 1440px;
+    margin: -28px auto 0;
+    padding: clamp(88px, 20.208vw, 291px) clamp(24px, 10.417vw, 150px) clamp(64px, 6.944vw, 100px);
+    color: #533413;
+    background-color: #f7e4dd;
+}
+
+/* PC 시안의 넓은 사진과 크롭 위치 */
+.coffee-tasting__visual {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.coffee-tasting__image {
+    position: absolute;
+    top: clamp(48px, 8.125vw, 117px);
+    left: -43.403%;
+    display: block;
+    width: 144.375%;
+    height: auto;
+    max-width: none;
+}
+
+.coffee-tasting__content {
+    position: relative;
+    max-width: 620px;
+}
+
+.coffee-tasting__label {
+    margin: 0;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(18px, 1.667vw, 24px);
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0.06em;
+}
+
+.coffee-tasting h2 {
+    margin: clamp(8px, 0.764vw, 11px) 0 0;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(30px, 3.333vw, 48px);
+    font-weight: 700;
+    line-height: 1.5;
+    word-break: keep-all;
+}
+
+.coffee-tasting__description {
+    margin: clamp(12px, 1.181vw, 17px) 0 0;
+    font-family: "Pretendard", sans-serif;
+    font-size: clamp(16px, 1.667vw, 24px);
+    line-height: 1.75;
+    word-break: keep-all;
+}
+
+/* PC에서는 220px 카드 3개와 30px 간격 */
+.coffee-tasting__cards {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(12px, 2.083vw, 30px);
+    width: min(100%, 720px);
+    margin: clamp(32px, 4.444vw, 64px) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.coffee-tasting-card {
+    min-width: 0;
+    min-height: 260px;
+    padding: 26px 16px 27px;
+    border-radius: 20px;
+    background-color: #f9ebe2;
+    box-shadow: 0 4px 12px rgb(83 52 19 / 12%);
+    text-align: center;
+}
+
+.coffee-tasting-card__media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+}
+
+/* 세 이미지가 가로로 들어 있는 원본 PNG를 재사용 */
+.coffee-tasting-card__icon {
+    display: block;
+    width: min(100%, 150px);
+    aspect-ratio: 3 / 2;
+    background-image: url(../images/coffee-tasting-icons.png);
+    background-repeat: no-repeat;
+    background-size: 300% auto;
+    background-position: var(--tasting-position) center;
+}
+
+/* 이미지의 왼쪽·가운데·오른쪽 영역 */
+.coffee-tasting-card--flavor {
+    --tasting-position: 0%;
+}
+
+.coffee-tasting-card--acidity {
+    --tasting-position: 50%;
+}
+
+.coffee-tasting-card--finish {
+    --tasting-position: 100%;
+}
+
+.coffee-tasting-card h3 {
+    margin: 4px 0 0;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(22px, 1.944vw, 28px);
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.coffee-tasting-card p {
+    margin: 13px 0 0;
+    font-size: 16px;
+    line-height: 1.5;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+/* 모바일 CSS */
+@media (max-width: 767px) {
+    /* 소개 문구 -> 커피 사진 -> 풍미 카드 순서 */
+    .coffee-tasting {
+        display: flex;
+        flex-direction: column;
+        margin-top: -24px;
+        padding: 54px 20px 52px;
+    }
+
+    .coffee-tasting__content {
+        order: 1;
+        width: min(100%, 440px);
+        max-width: none;
+        margin-inline: auto;
+        text-align: center;
+    }
+
+    .coffee-tasting__label {
+        font-size: 14px;
+    }
+
+    .coffee-tasting h2 {
+        font-size: clamp(28px, 6.6vw, 36px);
+        line-height: 1.4;
+    }
+
+    .coffee-tasting__description {
+        margin-top: 14px;
+        font-size: 15px;
+        line-height: 1.65;
+    }
+
+    .coffee-tasting__break {
+        display: none;
+    }
+
+    /* 사진의 위아래를 페이드해 섹션 배경과 연결 */
+    .coffee-tasting__visual {
+        position: relative;
+        inset: auto;
+        z-index: auto;
+        order: 2;
+        flex: none;
+        width: min(100%, 560px);
+        height: clamp(224px, 46vw, 292px);
+        margin: 8px auto 0;
+        mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 88%, transparent);
+    }
+
+    /* 오른쪽 커피잔을 중심으로 확대해 왼쪽 빈 공간을 줄임 */
+    .coffee-tasting__image {
+        top: -24%;
+        left: 0;
+        width: 100%;
+        height: 135%;
+        object-fit: cover;
+        object-position: right center;
+    }
+
+    /* 사진의 좌우 경계도 섹션 배경색에 맞춤 */
+    .coffee-tasting__visual::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, #f7e4dd, transparent 14%, transparent 86%, #f7e4dd);
+    }
+
+    /* 세 가지 풍미를 공통 배경과 구분선으로 묶음 */
+    .coffee-tasting__cards {
+        order: 3;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
+        width: min(100%, 560px);
+        margin: -6px auto 0;
+        padding: 4px 16px;
+        border-radius: 20px;
+        background-color: #f9ebe2;
+        box-shadow: 0 4px 12px rgb(83 52 19 / 8%);
+    }
+
+    /* 카드 내부는 이미지와 문구를 좌우로 배치 */
+    .coffee-tasting-card {
+        display: grid;
+        grid-template-columns: 68px minmax(0, 1fr);
+        column-gap: 14px;
+        min-height: 0;
+        padding: 12px 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        text-align: left;
+    }
+
+    .coffee-tasting-card + .coffee-tasting-card {
+        border-top: 1px solid rgb(83 52 19 / 12%);
+    }
+
+    /* 아이콘은 제목과 설명을 합친 높이의 가운데 정렬 */
+    .coffee-tasting-card__media {
+        grid-row: 1 / span 2;
+        height: 56px;
+        align-self: center;
+    }
+
+    .coffee-tasting-card h3 {
+        align-self: end;
+        margin: 0;
+        font-size: 22px;
+        line-height: 1.25;
+    }
+
+    .coffee-tasting-card p {
+        align-self: start;
+        margin: 4px 0 0;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+}
+
+/* How to Enjoy : Tasting Note와 배경색, 좌우 여백 맞춤 */
+.coffee-enjoy {
+    overflow: hidden;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding: clamp(24px, 3.125vw, 45px) clamp(24px, 10.417vw, 150px) clamp(76px, 8.333vw, 120px);
+    color: #604429;
+    background-color: #f7e4dd;
+}
+
+.coffee-enjoy__rule {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.coffee-enjoy__header h2 {
+    margin: 0;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(30px, 3.75vw, 54px);
+    line-height: 1.45;
+}
+
+.coffee-enjoy__header p {
+    margin: 8px 0 0;
+    font-family: "Pretendard", sans-serif;
+    font-size: clamp(16px, 2.222vw, 32px);
+    line-height: 1.5;
+    word-break: keep-all;
+}
+
+/* PC에서 최대 450px 카드 두 장과 99px 간격 */
+.coffee-enjoy__cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(24px, 6.875vw, 99px);
+    width: min(100%, 999px);
+    margin: clamp(36px, 4.653vw, 67px) auto 0;
+    padding: 0;
+    list-style: none;
+}
+
+.coffee-enjoy-card {
+    --enjoy-radius: clamp(22px, 3.472vw, 50px);
+
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+/* 사진 영역의 높이를 미리 확보하고 확대 시 넘친 부분을 잘라냄 */
+.coffee-enjoy-card__media {
+    overflow: hidden;
+    aspect-ratio: 9 / 4;
+}
+
+.coffee-enjoy-card--iced .coffee-enjoy-card__media {
+    border-radius: var(--enjoy-radius) var(--enjoy-radius) 0 0;
+}
+
+.coffee-enjoy-card__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.coffee-enjoy-card__content {
+    position: relative;
+    flex: 1;
+    display: grid;
+    place-items: center;
+    min-height: 100px;
+    padding: 28px 16px 14px;
+    border-radius: 0 0 var(--enjoy-radius) var(--enjoy-radius);
+    color: #3a2711;
+    background-color: #e6d6c5;
+    box-shadow: 0 8px 12px -5px rgb(0 0 0 / 22%);
+    text-align: center;
+}
+
+/* 라벨 중심을 사진과 본문의 경계에 맞춤 */
+.coffee-enjoy-card h3 {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    place-items: center;
+    min-width: clamp(80px, 7.639vw, 110px);
+    min-height: clamp(32px, 2.778vw, 40px);
+    margin: 0;
+    padding: 4px 12px;
+    border-radius: 999px;
+    color: #fff;
+    background-color: #42200b;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(15px, 1.389vw, 20px);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.coffee-enjoy-card p {
+    margin: 0;
+    font-family: "Pretendard", sans-serif;
+    font-size: clamp(16px, 1.667vw, 24px);
+    font-weight: 400;
+    color: #604429;
+    line-height: 1.5;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+/* 한 장의 원본 이미지에서 얼음과 김 영역을 각각 표시 */
+.coffee-enjoy-card::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.3;
+    background-image: url("../images/coffee-enjoy-decor.png");
+    background-repeat: no-repeat;
+}
+
+.coffee-enjoy-card--iced::before {
+    left: -30.4%;
+    top: 42%;
+    width: 45.1%;
+    aspect-ratio: 203 / 180;
+    transform: rotate(-12.5deg);
+    background-size: 402.97% 152.1%;
+    background-position: 19.41% 75.41%;
+}
+
+.coffee-enjoy-card--hot::before {
+    right: -8%;
+    bottom: 100%;
+    width: 40.4%;
+    aspect-ratio: 182 / 274;
+
+    /* 김의 아래쪽이 사진의 사선 영역과 겹치도록 이동 */
+    transform: translateY(50%);
+
+    background-size: 503.94% 112.07%;
+    background-position: 83.11% 42.34%;
+}
+
+/* 모바일 CSS */
+@media (max-width: 767px) {
+    .coffee-enjoy__cards {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 56px;
+        width: min(100%, 450px);
+    }
+
+    /* 좁은 화면에 맞게 장식 크기와 위치를 조정 */
+    .coffee-enjoy-card--iced::before {
+        left: clamp(-88px, calc(280px - 50vw), -20px);
+        top: auto;
+        bottom: -28px;
+        width: 144px;
+    }
+
+    .coffee-enjoy-card--hot::before {
+        right: 0;
+        width: clamp(64px, 22vw, 102px);
+        transform: translateY(66%);
+    }
+}
+
+/* 좁은 화면에서 얼음이 카드 아래 왼쪽으로 드러나게 배치 */
+@media (max-width: 660px) {
+    .coffee-enjoy__cards {
+        /* 얼음 장식이 다음 카드와 겹치지 않도록 공간 확보 */
+        row-gap: 120px;
+    }
+
+    .coffee-enjoy-card--iced::before {
+        left: -16px;
+        top: calc(100% - 24px);
+        bottom: auto;
+    }
+}
+
+/* Product Detail : How to Enjoy와 같은 배경색으로 연결 */
+.coffee-detail {
+    max-width: 1440px;
+    margin-inline: auto;
+    padding: clamp(48px, 8.9vw, 128px) clamp(20px, 5vw, 72px) clamp(56px, 8vw, 116px);
+    color: #533413;
+    background-color: #f7e4dd;
+}
+
+.coffee-detail__header {
+    text-align: center;
+}
+
+.coffee-detail__header img {
+    display: block;
+    margin-inline: auto;
+}
+
+.coffee-detail__header h2 {
+    margin: clamp(12px, 1.875vw, 27px) 0 0;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(36px, 5.833vw, 84px);
+    line-height: 1.28;
+}
+
+.coffee-detail__stage {
+    margin-top: clamp(36px, 5.278vw, 76px);
+}
+
+/* 사진 영역의 높이를 미리 확보하고 원형 배경, 원두, 패키지를 겹침 */
+.coffee-detail__visual {
+    position: relative;
+    width: min(100%, 520px);
+    aspect-ratio: 732 / 744;
+    margin-inline: auto;
+}
+
+.coffee-detail__visual img {
+    position: absolute;
+    display: block;
+    height: auto;
+}
+
+.coffee-detail__disc {
+    top: 7.3%;
+    left: 6.2%;
+    width: 87.6%;
+}
+
+.coffee-detail__beans {
+    top: 73%;
+    left: 1%;
+    width: 44.2%;
+    transform: rotate(-14.89deg);
+}
+
+.coffee-detail__pack {
+    top: 2.7%;
+    left: 0;
+    width: 100%;
+}
+
+/* 태블릿에서는 제품 사진 아래 2열 카드 */
+.coffee-detail__specs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin: 24px 0 0;
+}
+
+.coffee-spec {
+    position: relative;
+    display: grid;
+    grid-template-columns: clamp(32px, 3.264vw, 47px) minmax(0, 1fr);
+    align-content: center;
+    gap: 6px clamp(10px, 1.2vw, 17px);
+    min-width: 0;
+    min-height: clamp(132px, 10.417vw, 150px);
+    padding: 18px clamp(14px, 2.003vw, 30px);
+    border-radius: clamp(22px, 3.472vw, 50px);
+    background-color: #eee1d0;
+    box-shadow: 0 8px 16px rgb(0 0 0 / 15%);
+}
+
+.coffee-spec dt, .coffee-spec dd {
+    grid-column: 2;
+}
+
+.coffee-spec dt {
+    color: #432615;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(22px, 2.222vw, 32px);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.coffee-spec dd {
+    margin: 0;
+    color: #604429;
+    font-size: clamp(15px, 1.389vw, 20px);
+    line-height: 1.6;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+}
+
+/* 한 장의 아이콘 이미지에서 카드마다 필요한 영역을 표시 */
+.coffee-spec::before {
+    content: "";
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    justify-self: center;
+    width: min(100%, var(--spec-icon-width, 47px));
+    aspect-ratio: var(--spec-icon-ratio);
+    background: var(--spec-icon, url("../images/coffee-feature-icons.png")) var(--spec-icon-position) / var(--spec-icon-size) no-repeat;
+}
+
+.coffee-spec--blend {
+    --spec-icon-ratio: 99 / 93;
+    --spec-icon-position: 8.46% 57.14%;
+    --spec-icon-size: 561.24% 197.28%;
+}
+
+.coffee-spec--weight {
+    --spec-icon: url("../images/coffee-detail-icons.png");
+    --spec-icon-ratio: 47 / 44;
+    --spec-icon-position: 16.54% 62.25%;
+    --spec-icon-size: 307.45% 164.26%;
+}
+
+.coffee-spec--roast {
+    --spec-icon-width: 41px;
+    --spec-icon-ratio: 75 / 96;
+    --spec-icon-position: 36.63% 51%;
+    --spec-icon-size: 746.39% 194.1%;
+}
+
+.coffee-spec--type {
+    --spec-icon: url("../images/coffee-detail-icons.png");
+    --spec-icon-width: 40px;
+    --spec-icon-ratio: 40 / 46;
+    --spec-icon-position: 77.55% 54.85%;
+    --spec-icon-size: 348.53% 150.85%;
+}
+
+.coffee-spec__scale {
+    display: flex;
+    gap: 9px;
+    margin-top: 8px;
+}
+
+/* 모바일 CSS */
+@media (min-width: 1024px) {
+    .coffee-detail__stage {
+        display: grid;
+    }
+
+    /* 제품 사진과 카드 그리드를 같은 위치에 놓음 */
+    .coffee-detail__visual, .coffee-detail__specs {
+        grid-area: 1 / 1;
+    }
+
+    .coffee-detail__visual {
+        width: 56.48%;
+        align-self: start;
+    }
+
+    .coffee-detail__specs {
+        position: relative;
+        grid-template-columns: minmax(0, 350fr) minmax(0, 596fr) minmax(0, 350fr);
+        align-content: start;
+        gap: clamp(60px, 7.15vw, 103px) 0;
+        margin: 0;
+    }
+
+    .coffee-spec--blend,
+    .coffee-spec--roast {
+        grid-column: 1;
+    }
+
+    .coffee-spec--weight,
+    .coffee-spec--type {
+        grid-column: 3;
+    }
+
+    /* 각 카드에서 제품 방향으로 연결선을 표시 */
+    .coffee-spec::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: clamp(74px, 8.2vw, 118px);
+        aspect-ratio: var(--spec-link-ratio, 116 / 57);
+        background: var(--spec-link) center / contain no-repeat;
+        pointer-events: none;
+    }
+
+    .coffee-spec--blend::after,
+    .coffee-spec--roast::after {
+        left: calc(100% - 24px);
+    }
+
+    .coffee-spec--weight::after,
+    .coffee-spec--type::after {
+        right: calc(100% - 24px);
+        transform: scaleX(-1);
+    }
+
+    .coffee-spec--blend {
+        --spec-link: url("../images/coffee-detail-link-blend.svg");
+    }
+
+    .coffee-spec--weight {
+        --spec-link: url("../images/coffee-detail-link-weight.svg");
+    }
+
+    .coffee-spec--roast::after {
+        top: 10%;
+        aspect-ratio: 120 / 60;
+        background:
+            url("../images/coffee-detail-link-dot.svg") left bottom / 10% auto no-repeat,
+            url("../images/coffee-detail-link-roast.svg") right top / 94.6% auto no-repeat;
+    }
+
+    .coffee-spec--type {
+        --spec-link: url("../images/coffee-detail-link-type.svg");
+        --spec-link-ratio: 118 / 62;
+    }
+
+    .coffee-spec--type::after {
+        top: 16%;
+    }
+}
+
+@media (600px < width < 1024px) {
+    /* 두 줄로 배치된 카드의 높이를 통일 */
+    .coffee-detail__specs {
+        grid-auto-rows: 1fr;
+    }
+
+    .coffee-spec {
+        grid-template-columns: 22px minmax(0, 1fr);
+        align-content: start;
+        column-gap: 12px;
+        padding: 24px 16px;
+    }
+
+    /* 아이콘을 제목이 있는 첫 행에 맞춤 */
+    .coffee-spec::before {
+        grid-row: 1;
+        align-self: center;
+        width: 22px;
+    }
+
+    /* 세로로 긴 아이콘도 높이가 약 22px가 되도록 너비 조정 */
+    .coffee-spec--roast::before {
+        width: 17px;
+    }
+
+    .coffee-spec--type::before {
+        width: 19px;
+    }
+
+}
+
+@media (max-width: 600px) {
+    .coffee-detail__specs {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .coffee-spec {
+        min-height: 0;
+    }
+}
+
+/* 7. Aulo Drip Bag */
+.coffee-drip {
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-bottom: clamp(52px, 7vw, 100px);
+    color: #533413;
+    background-color: #fcf0e9;
+}
+
+/* 같은 그리드 칸에 사진과 제목을 배치하고 제몰을 위에 표시 */
+.coffee-drip__intro {
+    display: grid;
+    isolation: isolate;
+    background: linear-gradient(#f7e4dd, #fcf0e9 32%);
+}
+
+.coffee-drip__scene, .coffee-drip__header {
+    grid-area: 1 / 1;
+}
+
+/* 원본 비율을 유지하면서 제품이 있는 상단 680px 영역을 보여 줌 */
+.coffee-drip__scene {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1086 / 680;
+    mask-image: linear-gradient(transparent, #000 10%, #000 94%, transparent);
+}
+
+.coffee-drip__background {
+    position: absolute;
+    inset: 0 auto auto 0;
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.coffee-drip__header {
+    position: relative;
+    z-index: 1;
+    align-self: start;
+    padding: clamp(10px, 1.1vw, 16px) 16px 0;
+    text-align: center;
+}
+
+.coffee-drip__label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(8px, 1.25vw, 18px);
+    margin: 0;
+    font-size: clamp(11px, 1.944vw, 28px);
+    letter-spacing: 0.2em;
+    line-height: 1.35;
+}
+
+.coffee-drip__header h2 {
+    margin: clamp(4px, 1.667vw, 24px) 0 0;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(28px, 5.833vw, 84px);
+    line-height: 1.28;
+}
+
+.coffee-drip__description {
+    margin: clamp(8px, 2vw, 28px);
+    padding-inline: 20px;
+    color: #1b1713;
+    font-family: "Gowun Batang", Georgia, serif;
+    font-size: clamp(17px, 2.5vw, 36px);
+    line-height: 1.55;
+    text-align: center;
+    word-break: keep-all;
+}
+
+/* 데스크톱에서는 특징이 왼쪽, 추출 사진이 오른쪽 */
+.coffee-drip__details {
+    display: grid;
+    grid-template-columns: minmax(0, 0.84fr) minmax(0, 1fr);
+    grid-template-areas: "features photo";
+    align-items: center;
+    gap: clamp(24px, 4.167vw, 60px);
+    width: min(calc(100% - 48px), 1000px);
+    margin: clamp(40px, 8vw, 115px) auto 0;
+}
+
+.coffee-drip__media {
+    grid-area: photo;
+    aspect-ratio: 540 / 411;
+    mask: url("../images/coffee-drip-photo-mask.svg") center / 100% 100% no-repeat;
+}
+
+.coffee-drip__photo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 14%;
+}
+
+.coffee-drip__features {
+    grid-area: features;
+    display: grid;
+    gap: clamp(16px, 3.5vw, 50px);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.coffee-drip-feature {
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, 1.389vw, 20px);
+    min-width: 0;
+}
+
+/* 원형 배경 위에 스프라이트에서 해당 아이콘판 표시 */
+.coffee-drip-feature__badge {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: clamp(58px, 6.944vw, 100px);
+    aspect-ratio: 1;
+    background: url("../images/coffee-drip-icon-disc.svg") center / contain no-repeat;
+}
+
+.coffee-drip-feature__badge::before {
+    content: "";
+    width: 52%;
+    aspect-ratio: var(--drip-icon-ratio);
+    background: var(--drip-icon, url("../images/coffee-feature-icons.png")) var(--drip-icon-position) / var(--drip-icon-size) no-repeat;
+}
+
+.coffee-drip-feature--brew {
+    --drip-icon-ratio: 54 / 53;
+    --drip-icon-position: 62.46% 49.65%;
+    --drip-icon-size: 637.93% 217.41%;
+}
+
+.coffee-drip-feature--carry {
+    --drip-icon: url("../images/coffee-drip-icons.png");
+    --drip-icon-ratio: 48 / 49;
+    --drip-icon-position: 61.51% 49.21%;
+    --drip-icon-size: 648.18% 210.54%;
+}
+
+.coffee-drip-feature--blend {
+    --drip-icon-ratio: 49 / 44;
+    --drip-icon-position: 9.42% 54.46%;
+    --drip-icon-size: 629.96% 233.14%;
+}
+
+.coffee-drip-feature h3, .coffee-drip-feature p {
+    margin: 0;
+    font-family: "Gowun Batang", Georgia, serif;
+    line-height: 1.5;
+    word-break: keep-all;
+}
+
+.coffee-drip-feature h3 {
+    color: #422516;
+    font-size: clamp(18px, 1.944vw, 28px);
+}
+
+.coffee-drip-feature p {
+    margin-top: 2px;
+    color: #333;
+    font-size: clamp(15px, 1.389vw, 20px);
+}
+
+/* 모바일 CSS */
+@media (max-width: 767px) {
+    /* 좁은 화면에서는 추출 사진 아래에 특징을 배치 */
+    .coffee-drip__details {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas: "photo" "features";
+        gap: 28px;
+        width: min(calc(100% - 40px), 500px);
+    }
+
+    /* 소개 문구는 화면 너비에 맞춰 줄바꿈 */
+    .coffee-drip__break {
+        display: none;
+    }
+}
+
+/* 8. How to Brew */
+.coffee-brew {
+    --brew-disc-size: clamp(120px, 15.28vw, 220px);
+    --brew-gap: clamp(36px, 5vw, 80px);
+
+    position: relative;
+    isolation: isolate;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding: clamp(28px, 4.5vw, 65px) clamp(20px, 4vw, 56px) clamp(76px, 11vw, 160px);
+    background: linear-gradient(to bottom, #fcf0e9 calc(100% - 36px), #f3ded2);
+    color: #533413;
+    font-family: "Gowun Batang", Georgia, serif;
+}
+
+/* 드립백 배경의 맨 아래 곡선을 사용하고 위쪽 경계를 부드럽게 연결 */
+.coffee-brew::before {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    z-index: -1;
+    height: clamp(90px, 13vw, 180px);
+    background: url("../images/coffee-drip-background.png") center bottom / 100% auto no-repeat;
+    mask-image: linear-gradient(to bottom, transparent, #000 55%, #000 calc(100% - 24px), transparent);
+}
+
+.coffee-brew__title {
+    margin: 0;
+    font-size: clamp(30px, 3.333vw, 48px);
+    line-height: 1.25;
+    text-align: center;
+}
+
+.coffee-brew__steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--brew-gap);
+    max-width: 1100px;
+    margin: clamp(32px, 5vw, 72px) auto 0;
+    padding: 0;
+    list-style: none;
+}
+
+.coffee-brew__step {
+    position: relative;
+    min-width: 0;
+    text-align: center;
+}
+
+/* 화살표는 두 열 사이 간격의 가운데에 배치 */
+.coffee-brew__step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: calc(var(--brew-disc-size) / 2);
+    left: calc(100% + var(--brew-gap) / 2);
+    width: clamp(13px, 1.47vw, 21px);
+    aspect-ratio: 21 / 35.5;
+    background: url("../images/coffee-brew-arrow.svg") center / contain no-repeat;
+    transform: translate(-50%, -50%);
+}
+
+.coffee-brew__visual {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: var(--brew-disc-size);
+    aspect-ratio: 1;
+    margin-inline: auto;
+    border-radius: 50%;
+    background-color: #e6d6c5;
+}
+
+/* 한 장의 PNG에서 각 단계의 일러스트 영역을 표시 */
+.coffee-brew__art {
+    width: var(--brew-art-width);
+    aspect-ratio: var(--brew-art-ratio);
+    background: url("../images/coffee-brew-illustrations.png") var(--brew-art-position) / var(--brew-art-size) no-repeat;
+}
+
+.coffee-brew__step--hang {
+    --brew-art-width: 76.36%;
+    --brew-art-ratio: 168 / 178;
+    --brew-art-position: 11.94% 69.32%;
+    --brew-art-size: 485.91% 153.07%;
+}
+
+.coffee-brew__step--pour {
+    --brew-art-width: 73.18%;
+    --brew-art-ratio: 161 / 184;
+    --brew-art-position: 52.40% 56.14%;
+    --brew-art-size: 447.84% 130.92%;
+}
+
+.coffee-brew__step--finish {
+    --brew-art-width: 69.09%;
+    --brew-art-ratio: 152 / 194;
+    --brew-art-position: 91.07% 59.56%;
+    --brew-art-size: 509.86% 133.83%;
+}
+
+.coffee-brew__number {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    display: grid;
+    place-items: center;
+    width: clamp(44px, 5.56vw, 80px);
+    height: clamp(28px, 3.47vw, 50px);
+    border-radius: 999px;
+    background-color: #3f1f0c;
+    color: #fff;
+    font-size: clamp(18px, 2.5vw, 36px);
+    font-weight: 700;
+    line-height: 1;
+    transform: translate(-50%, 32%);
+}
+
+.coffee-brew__step p {
+    margin: clamp(26px, 3.05vw, 44px) 0 0;
+    font-size: clamp(17px, 1.667vw, 24px);
+    font-weight: 700;
+    line-height: 1.5;
+    word-break: keep-all;
+}
+
+/* 모바일 CSS */
+@media (max-width: 767px) {
+    .coffee-brew {
+        --brew-disc-size: clamp(84px, 15vw, 112px);
+        --brew-gap: 56px;
+    }
+
+    .coffee-brew__steps {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--brew-gap);
+        max-width: 420px;
+    }
+
+    /* 그림 위, 설명 아래 순으로 중앙 정렬 */
+    .coffee-brew__step {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: center;
+        gap: clamp(16px, 4vw, 24px);
+    }
+
+    /* 현재 단계 아래 간격의 중앙에서 화살표를 아래로 회전 */
+    .coffee-brew__step:not(:last-child)::after {
+        top: calc(100% + var(--brew-gap) / 2);
+        left: 50%;
+        width: 12px;
+        transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+    .coffee-brew__break {
+        display: none;
+    }
+
+    .coffee-brew__step p {
+        margin: 0;
+    }
+}
+
+/* 9. 출시 기념 이벤트 */
+.coffee-launch {
+    --launch-top: #f3ded2;
+    --launch-base: #f8deca;
+
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-bottom: clamp(56px, 7vw, 108px);
+    background-color: var(--launch-base);
+    color: #42200b;
+    font-family: "Gowun Batang", Georgia, serif;
+}
+
+.coffee-launch__hero {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    align-items: center;
+    min-height: clamp(420px, 56.32vw, 811px);
+}
+
+.coffee-launch__media {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+}
+
+.coffee-launch__media img, .coffee-launch__media::after {
+    position: absolute;
+    inset: 0;
+}
+
+.coffee-launch__media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 사진 위쪽은 How to Brew, 아래쪽은 할안 카드 배경으로 연결 */
+.coffee-launch__media::after {
+    content: "";
+    background: linear-gradient(var(--launch-top), transparent clamp(50px, 9vw, 130px)), linear-gradient(to top, var(--launch-base), transparent clamp(42px, 8vw, 112px));
+}
+
+.coffee-launch__copy {
+    width: 55%;
+    padding: 36px clamp(16px, 3vw, 44px);
+    text-align: center;
+    word-break: keep-all;
+}
+
+.coffee-launch__label {
+    margin: 0;
+    font-family: "Pretendard", sans-serif;
+    font-size: clamp(13px, 1.667vw, 24px);
+    font-weight: 700;
+    letter-spacing: 0.2em;
+}
+
+.coffee-launch__copy h2 {
+    margin: clamp(12px, 1.5vw, 22px) 0 0;
+    font-size: clamp(30px, 5.833vw, 84px);
+    line-height: 1.2;
+}
+
+.coffee-launch__intro {
+    margin: clamp(14px, 1.65vw, 24px) 0 0;
+    color: #251c16;
+    font-size: clamp(16px, 2.5vw, 36px);
+    line-height: 1.5;
+}
+
+.coffee-launch__dates {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    max-width: 100%;
+    margin: clamp(18px, 2vw, 28px) 0 0;
+    padding: 0.55em 1em;
+    border-radius: 16px;
+    background-color: #3f1f0c;
+    color: #fff;
+    font-size: clamp(14px, 1.667vw, 24px);
+    font-variant-numeric: tabular-nums;
+}
+
+/* 날짜 옆 달력 아이콘을 CSS로 그림 */
+.coffee-launch__calendar {
+    position: relative;
+    flex: none;
+    width: 1em;
+    height: 0.85em;
+    border: 1px solid currentColor;
+    border-radius: 3px;
+    background: linear-gradient(currentColor, currentColor) center 28% / 100% 1px no-repeat;
+}
+
+.coffee-launch__calendar::before {
+    content: "";
+    position: absolute;
+    top: -0.18em;
+    left: 21%;
+    width: 1px;
+    height: 0.28em;
+    background-color: currentColor;
+    box-shadow: 0.42em 0 currentColor;
+}
+
+/* 할인 카드와 카드 내부의 제품 사진 · 텍스트 배치 */
+.coffee-launch__offers {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(18px, 4vw, 58px);
+    width: min(calc(100% - 40px), 1158px);
+    margin: 0 auto;
+    padding: clamp(24px, 5vw, 72px) 0 clamp(40px, 5vw, 72px);
+    list-style: none;
+}
+
+.coffee-launch__offer {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    align-items: center;
+    gap: clamp(10px, 1.1vw, 16px);
+    min-height: clamp(186px, 27.78vw, 400px);
+    padding: clamp(14px, 2.3vw, 34px);
+    border-radius: clamp(18px, 2.08vw, 30px);
+    background-color: #f7ebdd;
+    box-shadow: 0 8px 16px rgb(85, 56, 39, 0.14);
+}
+
+/* PNG의 투명 여백을 감ㅇ나해 패키지 크기와 겹치는 위치를 조정 */
+.coffee-launch__product-art {
+    position: relative;
+    aspect-ratio: 1;
+}
+
+.coffee-launch__product-art img {
+    position: absolute;
+    display: block;
+    height: auto;
+}
+
+.coffee-launch__pack {
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    transform: translate(-50%, -50%);
+}
+
+.coffee-launch__product-art--drip .coffee-launch__pack {
+    left: 44%;
+    width: 110%;
+}
+
+.coffee-launch__single {
+    right: -4%;
+    bottom: -3%;
+    width: 64%;
+}
+
+.coffee-launch__info h3 {
+    margin: 0;
+    font-size: clamp(16px, 1.667vw, 24px);
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+
+.coffee-launch__prices {
+    display: grid;
+    gap: 2px;
+    margin: clamp(10px, 1.4vw, 20px) 0;
+    font-size: clamp(14px, 1.667vw, 24px);
+    line-height: 1.15;
+}
+
+.coffee-launch__prices del {
+    color: #75604f;
+}
+
+.coffee-launch__prices strong {
+    font-size: clamp(23px, 3.33vw, 48px);
+}
+
+.coffee-launch__discount {
+    display: inline-block;
+    padding: 0.35em 0.9em;
+    border-radius: 999px;
+    background-color: #a56023;
+    color: #fff;
+    font-size: clamp(14px, 1.945vw, 28px);
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+/* 모바일 CSS */
+@media (max-width: 899px) {
+    .coffee-launch__offers {
+        grid-template-columns: minmax(0, 1fr);
+        max-width: 540px;
+    }
+
+    .coffee-launch__offer {
+        column-gap: clamp(18px, 5vw, 34px);
+    }
+    
+    .coffee-launch__notice {
+        max-width: 540px;
+    }
+}
+
+@media (max-width: 767px) {
+    .coffee-launch__hero {
+        min-height: 0;
+    }
+
+    .coffee-launch__copy {
+        width: 100%;
+        padding: 32px 20px 20px;
+        background: linear-gradient(var(--launch-top), var(--launch-base));
+    }
+
+    /* 모바일은 문구 아래로 사진을 놓고 제품이 있는 오른쪽을 보여 줌 */
+    .coffee-launch__media {
+        position: relative;
+        inset: auto;
+        z-index: auto;
+        width: 100%;
+        aspect-ratio: 25 / 18;
+        max-height: 520px;
+    }
+
+    .coffee-launch__media img {
+        object-position: right center;
+    }
+
+    .coffee-launch__media::after {
+        background: linear-gradient(var(--launch-base), transparent 20%), linear-gradient(to top, var(--launch-base), transparent 25%);
+    }
+}
+
+/* 10. 이벤트 유의사항 */
+.coffee-launch__notice {
+    width: min(calc(100% - 40px), 1158px);
+    margin-inline: auto;
+    padding: clamp(24px, 3vw, 44px) clamp(18px, 6vw, 86px) clamp(28px, 5vw, 72px);
+    border-radius: clamp(18px, 2.08vw, 30px);
+    background-color: #f7ebdd;
+    box-shadow: 0 8px 16px rgba(85, 56, 39, 0.14);
+}
+
+/* 기존 아이콘 이미지에서 오른쪽 끝의 느낌표만 표시 */
+.coffee-launch__notice-icon {
+    display: block;
+    width: clamp(52px, 6vw, 84px);
+    aspect-ratio: 123 / 126;
+    margin-inline: auto;
+    background: url("../images/coffee-guide-icons.png") 93.63% 48.98% / 678.75% 219.39% no-repeat;
+}
+
+.coffee-launch__notice-title {
+    margin: clamp(24px, 3.333vw, 48px) 0 0;
+    color: #533413;
+    font-size: clamp(24px, 4.444vw, 64px);
+    line-height: 1.3;
+    text-align: center;
+}
+
+/* 화면 너비에 따라 문장이 자연스럽게 줄바꿈되도록 설정 */
+.coffee-launch__notice-list {
+    max-width: 980px;
+    margin: clamp(18px, 4vw, 56px) auto 0;
+    padding-inline-start: 1.2em;
+    color: #251c16;
+    font-size: clamp(16px, 1.55vw, 22px);
+    line-height: 1.7;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+}
+
+.coffee-launch__notice-list li + li {
+    margin-block-start: 0.35em;
+}
+
+/* 스크롤로 들어온 요소에만 등장 효과를 적용 */
+@media screen and (prefers-reduced-motion: no-preference) {
+    .coffee-reveal-in {
+        animation: coffee-reveal 560ms ease-out var(--coffee-reveal-delay, 0ms) backwards;
+    }
+}
+
+@keyframes coffee-reveal {
+    from {
+        opacity: 0.4;
+        translate: 0 14px;
+    }
+
+    to {
+        opacity: 1;
+        translate: 0 0;
+    }
+}
+
+/* How to Enjoy: 마우스를 올리면 사진과 장식만 움직임 */
+@media screen and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .coffee-enjoy-card__image {
+        transition: scale 420ms ease-out;
+    }
+
+    .coffee-enjoy-card::before {
+        transition: translate 420ms ease-out, opacity 300ms ease-out;
+    }
+
+    .coffee-enjoy-card:hover .coffee-enjoy-card__image {
+        scale: 1.05;
+    }
+
+    .coffee-enjoy-card--iced:hover::before {
+        translate: -6px 0;
+        opacity: 0.48;
+    }
+
+    .coffee-enjoy-card--hot:hover::before {
+        translate: 0 -10px;
+        opacity: 0.52;
+    }
+}
+
+/* 터치 화면: 카드 등장 시 사진 원래 크기로 돌아옴 */
+@media screen and (hover: none) and (prefers-reduced-motion: no-preference) {
+    .coffee-enjoy-card.coffee-reveal-in .coffee-enjoy-card__image {
+        animation: coffee-enjoy-image-in 760ms ease-out var(--coffee-reveal-delay, 0ms) backwards;
+    }
+}
+
+@keyframes coffee-enjoy-image-in {
+    from {
+        scale: 1.06;
+    }
+    to {
+        scale: 1;
+    }
+}
+
+/* How to Brew : 단계가 나타나기 시작한 뒤 130ms 후에 번호 강조 */
+@media screen and (prefers-reduced-motion: no-preference) {
+    /* 제품 상세가 보이면 패키지와 원두가 시차를 두고 등장 */
+    .coffee-detail__stage.coffee-reveal-in .coffee-detail__pack {
+        animation: coffee-pack-settle 840ms ease-out backwards;
+    }
+
+    .coffee-detail__stage.coffee-reveal-in .coffee-detail__beans {
+        animation: coffee-beans-slide 600ms ease-out 160ms backwards;
+    }
+
+    /* 단계 문구는 바로 읽히도록 두고 원형 일러스트만 움직임 */
+    .coffee-brew__step.coffee-reveal-in {
+        animation: none;
+    }
+
+    .coffee-brew__step.coffee-reveal-in .coffee-brew__visual {
+        animation: coffee-brew-step-in 660ms ease-out
+                   var(--coffee-reveal-delay, 0ms) backwards;
+    }
+
+    /* 각 단계의 등장에 맞춰 다음 단계 방향으로 화살표를 움직임 */
+    .coffee-brew__step.coffee-reveal-in:not(:last-child)::after {
+        animation: coffee-brew-arrow-nudge 460ms ease-in-out
+                   calc(var(--coffee-reveal-delay, 0ms) + 240ms);
+    }
+}
+
+@keyframes coffee-pack-settle {
+    from {
+        translate: 0 30px;
+        scale: 0.88;
+        rotate: -3deg;
+    }
+
+    72% {
+        translate: 0 -4px;
+        scale: 1.02;
+        rotate: 0.4deg;
+    }
+
+    to {
+        translate: 0 0;
+        scale: 1;
+        rotate: 0deg;
+    }
+}
+
+@keyframes coffee-beans-slide {
+    from {
+        translate: -16px 8px;
+        opacity: 0.5;
+    }
+
+    to {
+        translate: 0 0;
+        opacity: 1;
+    }
+}
+
+@keyframes coffee-brew-step-in {
+    from {
+        translate: 0 14px;
+        scale: 0.88;
+        opacity: 0.55;
+    }
+
+    62% {
+        translate: 0 -3px;
+        scale: 1.05;
+        opacity: 1;
+    }
+
+    to {
+        translate: 0 0;
+        scale: 1;
+        opacity: 1;
+    }
+}
+
+@keyframes coffee-brew-arrow-nudge {
+    50% {
+        translate: var(--brew-arrow-drift, 8px 0);
+    }
+}
+
+/* 모바일에서는 화살표가 아래로 움직임 */
+@media (max-width: 767px) {
+    .coffee-brew {
+        --brew-arrow-drift: 0 8px;
+    }
+}
+
+/* HERO 첫 로딩 인트로 */
+@media screen and (prefers-reduced-motion: no-preference) {
+    .coffee-hero__image.is-hero-intro {
+        transform-origin: top right;
+        animation: coffee-hero-photo-in 1050ms ease-out;
+    }
+
+    .coffee-hero__eyebrow, .coffee-hero__title > span, .coffee-hero__description {
+        animation: coffee-hero-copy-in 560ms ease-out var(--hero-copy-delay, 0ms) backwards;
+    }
+
+    .coffee-hero__title > span:first-child {
+        --hero-copy-delay: 80ms;
+    }
+
+    .coffee-hero__title > span:nth-child(2) {
+        --hero-copy-delay: 160ms;
+    }
+
+    .coffee-hero__description {
+        --hero-copy-delay: 240ms;
+    }
+}
+
+@keyframes coffee-hero-photo-in {
+    from { scale: 1.025; }
+    to { scale: 1; }
+}
+
+@keyframes coffee-hero-copy-in {
+    from {
+        translate: 0 16px;
+        opacity: 0.8;
+    }
+
+    to {
+        translate: 0 0;
+        opacity: 1;
+    }
+}
